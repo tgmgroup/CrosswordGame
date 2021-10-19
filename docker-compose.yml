@@ -7,7 +7,10 @@ services:
     container_name: scrabble
     restart: always
     volumes:
-      - "/data/config.json:/app/config.json"
+      - type: bind
+        source: /data/config.json
+        target: /app/config.json
+        read_only: true
     networks:
       - web
     ports:

@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+
+  scrabble:
+    image: tgmgroup/docker-scrabble
+    container_name: scrabble
+    restart: always
+    networks:
+      - web
+    ports:
+      - "9093:9093"
+
+networks:
+  web:
+    external: true

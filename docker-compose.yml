@@ -6,6 +6,8 @@ services:
     image: tgmgroup/docker-scrabble
     container_name: scrabble
     restart: always
+    volumes:
+      - "/data/config.json:/app/config.json"
     networks:
       - web
     ports:

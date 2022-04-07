@@ -3,20 +3,24 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <base href="/" />
+    <!-- base href="/" This breaks $.tabs(), hard, so don't do it /-->
 	<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <title>Crossword Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
-    <style type="text/css" media="all">
-      @import "/css/common.css";
-    </style>
-    <style type="text/css" media="all">
-      @import "/css/game.css";
-    </style>
-    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <title>Xanado</title>
 
-	<script data-main="rjs_config.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"></script>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/playerTable.css" rel="stylesheet" type="text/css">
+    <link href="/css/game.css" rel="stylesheet" type="text/css">
+
+	<script>
+	  var rjs_main = "browser/game";
+	</script>
+	<script data-main="/js/browser/rjs_config.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"></script>
+
   </head>
   <body>
     <audio id="yourturn" src="/audio/yourturn.mp3" preload="auto" type="audio/mp3"></audio>
@@ -27,65 +31,90 @@
 	<audio id="oops" src="/audio/oops.mp3" preload="auto" type="audio/mp3"></audio>
 	<audio id="teehee" src="/audio/teehee.mp3" preload="auto" type="audio/mp3"></audio>
 	<audio id="lost" src="/audio/lost.mp3" preload="auto" type="audio/mp3"></audio>
-	<script type="text/javascript">requirejs(["js/browser/game"]);</script>
-	<div id="settings">&#9881;</div>
-    <div class="container">
-      <div class="boardWrap">
-        <div id="board" class="tableDivWrap surroundShade"></div>
-        <div id="rack" class="tableDivWrap bottomShade">
+    <div class="user-interface">
+      <div class="board-wrap">
+        <div id="board" class="Surface surround-shade"></div>
+        <div id="rack" class="Surface bottom-shade">
 		  <div id="timeout"></div>
 		  <div id='rackControls'>
-			<div id="tileRack">
-			</div>
-			<div>
-			  <button id='shuffleButton' data-i18n="button-shuffle"></button>
-			  <button id='takeBackButton' data-i18n="button-get-tiles"></button>
+			<div class="fat-buttons">
+			  <button id='shuffleButton' class="fat-button"></button>
+			  <button id='takeBackButton' class="fat-button" data-i18n="Take back last turn"></button>
 			</div>
 		  </div>
 		</div>
-        <div id="letters" class="tableDivWrap" style="display:none;"></div>
       </div>
 	  <div id="controls">
-        <div id="scoresBlock">
-		  <div class="blockTitle" data-i18n="block-scores"></div>
-		  <div id="playerTable"></div>
-		  <div id='letterbagStatus'></div>
+		<div id="loginBlock">
+		  <div class="logged-in block-title">
+			<span id="whoami"></span>
+			<span id="settings">&#9881;</span>
+		  </div>
+		  <div class="bad-user">
+			<span></span>
+			<button data-i18n="Sign out"></button>
+		  </div>
+		  <div class="not-logged-in">
+			<button data-i18n="Sign in"></button>
+		  </div>
 		</div>
-        <div id="yourPlayBlock">			
-		  <div class="blockTitle" data-i18n="block-your-play"></div>
-		  <div id="move"></div>
-		  <div id="swapRack" class="tableDivWrap bottomShade">
-		  </div>
-		  <div id="turnButtons">
-			<button id='turnButton' data-action='pass' data-i18n="button-pass"></button>
-		  </div>
+        <div id="scoresBlock">
+		  <div class="block-title" data-i18n="Scores"></div>
+		  <div id="playerList"></div>
+		  <div id='letterbag'></div>
+		</div>
+        <div id="yourPlayBlock">
+		  <div class="block-title" data-i18n="Play"></div>
+		  <div id="yourMove"></div>
+		  <div id="swapRack" class="Surface bottom-shade"></div>
+		  <button id='turnButton' data-action='pass' data-i18n="ui-pass">
+		  </button>
         </div>          
         <div id="chatBlock">
-          <div class="blockTitle" data-i18n="block-chat"></div>
+          <div class="block-title" data-i18n="Chat"></div>
 		  <div id="chatMessages"></div>
 		  <div id="chatInput"><input/></div>
         </div>
         <div id="logBlock">
-          <div class="blockTitle" data-i18n="block-log"></div>
+          <div class="block-title" data-i18n="Log"></div>
 		  <div id="logMessages"></div>
 		</div>
 		<div id="typingCursor">&#8658;</div>
-	  <!-- blank letter request dialog -->
-      <div id="blankDialog" class="hidden">
-		<span data-i18n="prompt-select-blank"></span>
+      </div>
+
+	  <div id="blankDialog" class="dialog">
+		<span data-i18n="Select blank letter"></span>
 		<table id="blankLetterTable"></table>
-      </div>
-	  <!-- Settings dialog -->
-      <div id="settingsDialog" class="hidden">
-		<span data-i18n="set-options"></span>
-		<div><input type="checkbox" class="setting" data-set="turn_alert" /><span data-i18n="set-turn-alert"><span></div>
-		<div><input type="checkbox" class="setting" data-set="cheers"><span data-i18n="set-cheers"></span></div>
-		<div><input type="checkbox" class="setting" data-set="tile_click"><span data-i18n="set-tile-click"></span></div>
-		<div><input type="checkbox" class="setting" data-set="warnings"><span data-i18n="set-warnings"></span></div>
-		<div><input type="checkbox" class="setting" data-set="notification"><span data-i18n="set-notification"></span></div>
-      </div>
-	  <div id="problemDialog" class="hidden">
 	  </div>
-    </div>
+
+	  <div id="settingsDialog" class="dialog">
+		<div class="dialog-row">
+		  <input id="setTurnAlert" type="checkbox" class="setting" data-set="turn_alert" />
+		  <label for="setTurnAlert" data-i18n="Turn alert"></label>
+		</div>
+		<div class="dialog-row">
+		  <input id="setCheers" type="checkbox" class="setting" data-set="cheers">
+		  <label for="setCheers" data-i18n="Play cheers"></label></div>
+		<div class="dialog-row">
+		  <input id="setTileClick" type="checkbox" class="setting" data-set="tile_click">
+		  <label for="setTileClick" data-i18n="Tile click"></label></div>
+		<div class="dialog-row">
+		  <input id="setWarnings" type="checkbox" class="setting" data-set="warnings">
+		  <label for="set-warnings" data-i18n="Play a sound for Warnings"></label></div>
+		<div class="dialog-row">
+		  <input id="setNotification" type="checkbox" class="setting" data-set="notification">
+		  <label for="setNotification" data-i18n="Enable notifications"></label>
+		</div>
+		<div class="dialog-row">
+		  <button id="pauseButton" data-i18n="Pause game"></button>
+		</div>
+	  </div>
+
+	  <div id="alertDialog" class="dialog">
+	  </div>
+
+	  <div id="pauseDialog" class="dialog">
+		<span id="pauseBanner"></span>
+	  </div>
   </body>
 </html>

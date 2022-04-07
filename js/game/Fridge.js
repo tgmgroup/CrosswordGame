@@ -2,30 +2,44 @@
    license information */
 /* eslint-env browser, node */
 
-/**
- * Simple selecting serialisation/deserialisation of a JS object graph
- * to stand-alone JSON. Does not handle function references. Full restoration
- * of objects requires class prototypes to be passed in to thaw().
- * Note that the object property prefix '_IB_' is reserved for use by this
- * module. Note also that fields who's names start with _ will not be
- * serialised.
- */
 define('game/Fridge', () => {
 
+	const IB_ID = "_\u00CD";
+	const IB_CN = "_\u0106";
+	const IB_DATA = "_\u00D0";
+	const IB_REF = "_\u0154";
+
 	/**
+	 * Simple selecting serialisation/deserialisation of a JS object
+	 * graph to stand-alone JSON. Does not handle function
+	 * references. Full restoration of objects requires classes
+	 * to be passed in to thaw().
+	 *
+	 * Classes passed in can optionally define methods "Freeze()" and
+	 * "static Thaw()". Freeze must return frozen data for the object,
+	 * that will then be thawed by calling Thaw, which is passed the
+	 * frozen data. It is entirely up to the class how Freeze and Thaw
+	 * are implemented.
+	 *
+	 * The object properties above are reserved for use by this
+	 * module, and note also that fields who's names start with _ will
+	 * not be serialised.
+	 *
 	 * Note that the objects being frozen are 'interfered with' by the
-	 * addition of an _IB_ID field that indicates their 'frozen ID'.
+	 * addition of an IB_ID field that indicates their 'frozen ID'.
 	 * This is a (clumsy) solution to the lack of ES7 value objects in ES6.
 	 * The frozen version (JSONified) version of objects are decorated
 	 * with fields as follows:
-	 * _IB_CN: constructor name
-	 * _IB_REF: the _IB_ID of another object being referenced
+	 * IB_CN: constructor name
+	 * IB_REF: the IB_ID of another object being referenced
 	 * Date objects are serialised to string.
 	 */
 	class Fridge {
 
 		/**
 		 * Convert an object graph to stand-alone JSON.
+		 * @param {object} object - object to freeze
+		 * @return {object} the frozen version of the object
 		 */
 		static freeze(object) {
 			const objectsFrozen = [];
@@ -38,12 +52,18 @@ define('game/Fridge', () => {
 				if (!unfrozen || typeof unfrozen !== 'object')
 					return unfrozen;
 
+				// better way to handle arrays
+				if (Array.isArray(unfrozen)) {
+					return unfrozen.map(e => _freeze(e));
+				}
+
 				try {
-					if (unfrozen.hasOwnProperty('_IB_ID')) {
+					if (Object.prototype.hasOwnProperty.call(unfrozen, IB_ID)) {
 						// ref to a previously frozen object
 						if (unfrozen.constructor) {
-							//console.log(`Ref to ${unfrozen._IB_ID} ${unfrozen.constructor.name}`);
-							return { _IB_REF: unfrozen._IB_ID };
+							//console.debug(`Ref to ${unfrozen[IB_ID]} ${unfrozen.constructor.name}`);
+							const ret = {}; ret[IB_REF] = unfrozen[IB_ID];
+							return ret;
 						}
 					}
 				} catch (e) {
@@ -51,37 +71,35 @@ define('game/Fridge', () => {
 				}
 				const id = objectsFrozen.length;
 				// Working property will be removed later
-				Object.defineProperty(unfrozen, '_IB_ID', {
+				Object.defineProperty(unfrozen, IB_ID, {
 					configurable: true,
 					value: id
 				});
 				objectsFrozen.push(unfrozen);
 
 				const frozen = {};
-
-				frozen._IB_ID = id;
+				frozen[IB_ID] = id;
 
 				if (unfrozen.constructor
 					&& unfrozen.constructor.name
 					&& unfrozen.constructor.name !== 'Object')
-					frozen._IB_CN = unfrozen.constructor.name;
+					frozen[IB_CN] = unfrozen.constructor.name;
 
-				if (frozen._IB_CN === 'Date') {
-					frozen._IB_DATA = unfrozen.getTime();
+				const proto = Object.getPrototypeOf(unfrozen);
+				if (proto && typeof proto.Freeze === 'function') {
+					frozen[IB_DATA] = unfrozen.Freeze();
+					
+				} else if (frozen[IB_CN] === 'Date') {
+					// Special handling because the fields are just noise
+					frozen[IB_DATA] = unfrozen.getTime();
 					return frozen;
 
-				} else if (frozen._IB_CN === 'Array') {
-
-					frozen._IB_DATA = [];
-					for (let i = 0; i < unfrozen.length; i++)
-						frozen._IB_DATA.push(_freeze(unfrozen[i]));
-
 				} else {
-					frozen._IB_DATA = {};
+					frozen[IB_DATA] = {};
 					for (let prop in unfrozen)
 						// Exclude _* to avoid _events etc
 						if (!/^_/.test(prop))
-							frozen._IB_DATA[prop] = _freeze(unfrozen[prop]);
+							frozen[IB_DATA][prop] = _freeze(unfrozen[prop]);
 				}
 				return frozen;
 			}
@@ -89,7 +107,7 @@ define('game/Fridge', () => {
 			// Clean out temporary fields used in freezing
 			const frozen = _freeze(object);
 			for (let uf of objectsFrozen)
-				delete uf._IB_ID;
+				delete uf[IB_ID];
 
 			return frozen;
 		}
@@ -100,59 +118,59 @@ define('game/Fridge', () => {
 		 * thawing, that constructor name has to be mapped to a
 		 * prototype. If a useable constructor is not found, a
 		 * warning will be printed to the console.
-		 * @param classes optional array of classes for objects expected
-		 * within frozen data.
+		 * @param {object} frozen object to thaw
+		 * @param {object[]} classes optional array of classes for
+		 * objects expected within frozen data.
 		 */
 		static thaw(object, classes) {
 			const objectsThawed = [];
-			const typeMap = {};
+			const typeMap = { };
 
 			if (classes)
 				for (let clzz of classes)
-					typeMap[clzz.name] = clzz.prototype;
+					typeMap[clzz.name] = clzz;
 
 			function _thaw(object) {
 				if (!object || typeof object !== 'object')
 					return object;
 
-				if (object.hasOwnProperty('_IB_REF')) {
+				if (Array.isArray(object)) {
+					return object.map(e => _thaw(e));
+				}
+
+				if (Object.prototype.hasOwnProperty.call(object, IB_REF)) {
 					// Reference to another object, that must already have
 					// been thawed
-					if (objectsThawed[object._IB_REF])
-						return objectsThawed[object._IB_REF];
-					throw Error(`Fridge: reference to unthawed ${object._IB_REF}`);
+					if (objectsThawed[object[IB_REF]])
+						return objectsThawed[object[IB_REF]];
+					throw Error(`Fridge: reference to unthawed ${object[IB_REF]}`);
 				}
 
 				let thawed, thawProps = false;
+				const clzz = typeMap[object[IB_CN]];
+				if (object[IB_CN] === 'Date')
+					// Special handling because we just serialise an integer
+					return new Date(object[IB_DATA]);
 
-				if (object._IB_CN === 'Date')
-					return new Date(object._IB_DATA);
-
-				else if (object._IB_CN === 'Array')
-					thawed = object._IB_DATA.map(e => _thaw(e));
-
-				else if (object._IB_CN) {
-					const constructor = typeMap ? typeMap[object._IB_CN] : null;
-					if (constructor)
-						thawed = Object.create(constructor);
+				else if (clzz) {
+					if (typeof clzz.Thaw === 'function')
+						thawed = clzz.Thaw(object[IB_DATA]);
 					else {
-						console.log(`Warning: don't know how to recreate a ${object._IB_CN}`);
-						debugger;
-						thawed = {};
+						thawed = Object.create(clzz.prototype);
+						thawProps = true;
 					}
-					thawProps = true;
 				} else {
 					thawed = {};
 					thawProps = true;
 				}
 
-				if (object.hasOwnProperty('_IB_ID'))
-					objectsThawed[object._IB_ID] = thawed;
+				if (Object.prototype.hasOwnProperty.call(object, IB_ID))
+					objectsThawed[object[IB_ID]] = thawed;
 
 				if (thawProps)
-					for (let prop in object._IB_DATA)
+					for (let prop in object[IB_DATA])
 						thawed[prop] = _thaw(
-							object._IB_DATA[prop], objectsThawed);
+							object[IB_DATA][prop], objectsThawed);
 
 				return thawed;
 			}

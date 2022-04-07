@@ -1,21 +1,14 @@
 /**
-* Game board only
-*/
-.hidden {
-	display: none;
+ * Styling for the "game" interface
+ */
+
+/* Button in the log area; challenge, take back */
+.turn-control button {
+	font-size: 120%;
 }
 
-.error {
-	color: red;
-	font-size: 1em;
-}
-
-button {
-    font-size: 1.2em;
-	padding: 0;
-}
-
-.crossword-icon {
+/* Shuffle and take back fat buttons */
+.fat-icon {
     margin: 2px;
     background-size: 100% 100%;
     background-position: center;
@@ -25,20 +18,14 @@ button {
 	height: 32px !important;
 }
 
-.blockTitle {
+.block-title {
 	font-size: 1em;
 	font-weight: bold;
 	color: brown;
 }
 
-/* Wrap around a rack or board table */
-div.tableDivWrap {
-    margin: 0;
-    padding: 0;
-}
-
-div.surroundShade table,
-div.bottomShade table {
+div.surround-shade table,
+div.bottom-shade table {
     -webkit-box-shadow: 0 0 0.5em #000000;
     -moz-box-shadow: 0 0 0.5em #000000;
     -ms-box-shadow: 0 0 0.5em #000000;
@@ -47,202 +34,51 @@ div.bottomShade table {
 }
 
 /* Wraps everything */
-div.container {
+div.user-interface {
     /*width: 59em;*/
+	display: none;
 }
 
-/* Div that wraps all the individual control panels */
-#controls {
-    float: left;
-    margin-top: 1em;
-    width: 20em;
-}
+/* Description of points gained and lost from final racks */
+.game-outcome .rack-gains {}
 
-#settings {
-	float: right;
-	background-color: #0000F0;
-	margin: 0.5em;
-	color: white;
-	font-size: 2em;
-	position: relative;
-	z-index: 2;
-}
-
-#controls > div {
-    background-color: #F7F7E3;
-    border-color: #DCDCC6;
-
-    border-style: solid;
-	
-    -webkit-border-radius: 0.4em;
-    -moz-border-radius: 0.4em;
-    -ms-border-radius: 0.4em;
-    -o-border-radius: 0.4em;
-    border-radius: 0.4em;
-
-    margin-bottom: 0.4em;
-    padding: 0.4em;
-}
-
-/* The #controls > div with the scores and letter bag state */
-#scoresBlock {
-    min-height: 4em;
-}
-
-#scoresBlock td.online {
-    color: green;
-}
-
-#scoresBlock td.offline {
-    color: #FF0000;
-}
-
-#scoresBlock .myTurn {
-	visibility: hidden;
-	color: green;
-}
-
-#scoresBlock tr.whosTurn td.myTurn {
-	visibility: inherit;
-}
-
-/* The #scoresBlock > div that has the letter bag status */
-#letterbagStatus {
-}
-
-#letterbagStatus > div {
-    margin: 0.5em;
-}
-
-/* The #controls > div with the swap rack and turn control buttons */
-#yourPlayBlock {
-    display: none;
-}
-
-/* #yourPlayBlock > div showing the proposed move */
-#move {
-    margin-bottom: 0.5em;
-}
-
-/* The #controls > div with the chat */
-#chatBlock {
-    max-height: 11em;
-}
-
-/* #chatBlock > div chat message display */
-#chatMessages {
-    overflow: auto;
-    margin-left: 5%;
-	max-height: 7em;
-}
-
-/* #chatBlock > div chat message capture */
-#chatInput {
-    margin-top: 0.25em;
-    width: 100%;
-}
-
-#chatInput input {
-    width: 95%;
-}
-
-/* The #log > div with the game events log */
-#logMessages {
-	font-size: 0.8em;
-    height: 14em;
-    overflow: auto;
-}
-
-#logMessages .score {
+/* The player who just had a turn */
+.turn-player {
+    margin-top: 0.4em;
     padding-left: 0.5em;
 }
 
-#logMessages .moveDetail {
+/* Details about the turn */
+.turn-detail {
     margin-left: 2em;
 }
 
-#logMessages > div {
-    margin-top: 0.4em;
+/* Narrative desription of the outcome of the turn */
+.turn-narrative {
+	font-size: 110%;
+	margin-top: 0.3em;
+	color: #950000
 }
 
-#log Messages> div > div {
-    margin-top: 0.2em;
+/* A control placed in the log */
+.turn-control {
+	margin: 0.3em 0 0.3em 0;
 }
 
-/* #rack > div, the rack with buttons used to control it */
-#rackControls {
-	margin-top: 0.5em;
-	width: 100%;
-	height: 5em;
-	text-align: center;
-	display: table;
-}
-
-#rackControls > table {
-	float: left;
-}
-
-#rackControls > div {
-	/* div that contains the rack control buttons - Shuffle, Take back */
-	display: table-cell;
-	vertical-align: middle;
-    font-size: 1.2em;
-	height: 100%;
-}
-
-#takeBackButton {
-    visibility: hidden;
-}
-
-.ui-button-icon-only {
-	width: 45px;
-	height: 45px;
-}
-
-.shuffle-icon {
-	background-image: url(../images/shuffle.png) !important;
-}
-
-.take-back-icon {
-	background-image: url(../images/take-back.png) !important;
-}
-
-/* Blank letter requester dialog */
-#blankLetterTable td {
-	font-size: 1.5em;
-	text-align: center;
-	border-color: #DCDCC6;
-    border-style: solid;
-	
-    -webkit-border-radius: 0.4em;
-    -moz-border-radius: 0.4em;
-    -ms-border-radius: 0.4em;
-    -o-border-radius: 0.4em;
-
-    border-radius: 0.4em;
-    border-collapse: separate;
-    border-spacing: 0 0;
-
-    border-width: 0.1em;
-}
-
-div#blankLetterRequester {
-    display: none;
-    font-size: 2em;
-}
-
-#blankLetterRequester button {
-    font-size: 1em;
-}
-
-.boardWrap {
+div.board-wrap {
     margin-top: 1em;
 	margin-left: 1em;
     float: left;
     /*width: 37em;*/
 }
 
-div.tableDivWrap table {
+/* Surface is the base class for Board and Rack */
+div.Surface {
+    margin: 0;
+    padding: 0;
+}
+
+div.Surface table {
     border-collapse: separate;
     border-spacing: 0 0;
 
@@ -255,21 +91,15 @@ div.tableDivWrap table {
     background-color: #AAA38E;
 }
 
-/* the rack or swaprack */
-.rackTable {
-    border-width: 0.2em;
-    padding: 0.2em;
-}
-
-div.tableDivWrap tr {
+div.Surface tr {
     margin: 0;
     padding: 0;
 
     border: none;
 }
 
-div.tableDivWrap td,
-div.tableDivWrap th {
+div.Surface td,
+div.Surface th {
     margin: 0;
     padding: 0;
 
@@ -284,37 +114,37 @@ div.tableDivWrap th {
     background-color: #BEB9A6;
 }
 
-div.tableDivWrap td.Normal {
+div.Surface td.square-_ {
     border-style: solid;
     border-color: #AAA38E;
 }
 
-div.tableDivWrap td.DoubleWord,
-div.tableDivWrap td.Middle {
+div.Surface td.square-D,
+div.Surface td.square-M {
     border-color: #FBBBB9;
 }
 
-div.tableDivWrap td.TripleWord {
+div.Surface td.square-T {
     border-color: #F75D59;
 }
 
-div.tableDivWrap td.QuadWord {
+div.Surface td.square-Q {
 	border-color: #a21505;
 }
 
-div.tableDivWrap td.DoubleLetter {
+div.Surface td.square-d {
     border-color: #A0CFEC;
 }
 
-div.tableDivWrap td.TripleLetter {
+div.Surface td.square-t {
     border-color: #157DEC;
 }
 
-div.tableDivWrap td.QuadLetter {
+div.Surface td.square-q {
     border-color: #0e6993;
 }
 
-div.tableDivWrap td div {
+div.Surface td div {
     display: block;
 
     margin: 0;
@@ -334,7 +164,7 @@ div.tableDivWrap td div {
     cursor: crosshair;
 }
 
-div.tableDivWrap td div a {
+div.Surface td div a {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -351,6 +181,12 @@ div.tableDivWrap td div a {
     border: none;
 
     text-align: center;
+}
+
+.Rack {
+    border-width: 0.2em;
+    padding: 0.2em;
+	margin-bottom: 0.5em;
 }
 
 @-webkit-keyframes glow {
@@ -380,57 +216,57 @@ div.tableDivWrap td div a {
     }
 }
 
-div.tableDivWrap td.DoubleWord div,
-div.tableDivWrap td.Middle div {
+div.Surface td.square-D div,
+div.Surface td.square-M div {
     background-color: #FBBBB9;
     border-color: #FBBBB9;
     color: #F75D59;
 }
 
-div.tableDivWrap td.TripleWord div {
+div.Surface td.square-T div {
     background-color: #F75D59;
     border-color: #F75D59;
     color: #8B0000;
 }
 
-div.tableDivWrap td.QuadWord div {
+div.Surface td.square-Q div {
 	background-color: #a21505;
 	border-color: #a21505;
     color: #eeeeee;
 }
 
-div.tableDivWrap td.Normal div {
+div.Surface td.square-_ div {
     background-color: #BEB9A6;
     border-color: #BEB9A6;
 }
 
-div.tableDivWrap td.DoubleLetter div {
+div.Surface td.square-d div {
     background-color: #A0CFEC;
     border-color: #A0CFEC;
     color: #157DEC;
 }
 
-div.tableDivWrap td.TripleLetter div {
+div.Surface td.square-t div {
     background-color: #157DEC;
     border-color: #157DEC;
     color: #000080;
 }
 
-div.tableDivWrap td.QuadLetter div {
+div.Surface td.square-q div {
     background-color: #0e6993;
     border-color: #0e6993;
 	color: #eeeeee;
 }
 
-div.tableDivWrap td.SpecialField div.Empty a {
+div.Surface td.score-multiplier div.empty-square a {
     font-size: 0.50em;
     padding-top: 0.0em;
     line-height: 1.4em;
     letter-spacing: 0.0em;
 }
 
-div.tableDivWrap td.Middle div.Empty a {
-    font-size: 1.3em;
+div.Surface td.square-M div.empty-square a {
+    font-size: 2em;
 }
 
 #typingCursor {
@@ -445,7 +281,7 @@ div.tableDivWrap td.Middle div.Empty a {
 	z-index: 2;
 }
 
-div.tableDivWrap td div.Tile {
+div.Surface td div.tiled-square {
     cursor: move;
     background-color: #F7F7E3;
     border-color: #DCDCC6;
@@ -460,30 +296,26 @@ div.tableDivWrap td div.Tile {
     border-radius: 0.2em;
 }
 
-div.tableDivWrap td div.Tile a {
+div.Surface td div.tiled-square a {
 }
 
-div.tableDivWrap td div.Locked {
+div.Surface td div.Locked {
     cursor: default;
     color: #474633;
 }
 
-div.tableDivWrap td div.Temp {
+div.Surface td div.temporary {
     border-color: #626258;
 }
 
-div.tableDivWrap td div.CenterStart {
-    border-color: #AAA38E;
-}
-
-div.tableDivWrap td div.Temp:hover {
+div.Surface td div.temporary:hover {
     color: #000000 !important;
 
     border-color: #FF9900;
 }
 
-div.tableDivWrap td div.Selected,
-.dragBorder {
+div.Surface td div.selected,
+.drag-border {
     color: #000000 !important;
 
     -webkit-animation-name: glow;
@@ -519,7 +351,7 @@ div.tableDivWrap td div.Selected,
     border-color: #DC143C !important;
 }
 
-.dragBorder {
+.drag-border {
     -webkit-box-shadow: 0px 0px 0.5em #333333;
     -moz-box-shadow: 0px 0px 0.5em #333333;
     -ms-box-shadow: 0px 0px 0.5em #333333;
@@ -529,20 +361,19 @@ div.tableDivWrap td div.Selected,
     z-index: 1000;
 }
 
-div.tableDivWrap td div.dropActive,
-div.tableDivWrap td div.Targeted {
+div.Surface td div.drop-active {
     cursor: pointer;
 
     border-color: #333333 !important;
 }
 
-div.tableDivWrap td div a span {
+div.Surface td div a span {
     margin: 0;
     padding: 0;
 }
 
-div.tableDivWrap td div.Tile a span.Letter,
-div.tableDivWrap td div.Tile a span.BlankLetter {
+div.Surface td div.tiled-square a span.letter,
+div.Surface td div.tiled-square a span.blank-letter {
     font-size: 1.2em;
     font-weight: normal;
 
@@ -552,78 +383,36 @@ div.tableDivWrap td div.Tile a span.BlankLetter {
 }
 
 @-moz-document url-prefix(//) {
-	div.tableDivWrap td div.Tile a span.Letter,
-	div.tableDivWrap td div.Tile a span.BlankLetter {
+	div.Surface td div.tiled-square a span.letter,
+	div.Surface td div.tiled-square a span.blank-letter {
 	    line-height: 1.8em;
     }
 }
 
-div.tableDivWrap td div.Tile a span.Score {
+div.Surface td div.tiled-square a span.score {
     font-size: 0.8em;
     vertical-align: sub;
     padding-left: 0.2em;
 }
 
-div.tableDivWrap td div.Cursor a {
+div.Surface td div.Cursor a {
     line-height: 1.0em;
     font-size: 2.0em;
     font-weight: normal;
     color: #54534A;
 }
 
-div.tableDivWrap td div.CenterStart a {
-    font-size: 2.8em;
-    color: #54534A;
-}
-
-/*\*/
-@media screen and (-webkit-min-device-pixel-ratio:0)
-{
-    body:nth-of-type(1) div.tableDivWrap td div.CenterStart a
-    {
-        margin-top: -0.22em;
-        font-size: 1.8em;
-    }
-}
-/**/
-
-@-moz-document url-prefix(//) {
-    div.tableDivWrap td div.CenterStart a
-    {
-        margin-top: -0.35em;
-        font-size: 3.22em;
-    }
-}
-
-div.tableDivWrap td div.BlankLetter a {
+div.Surface td div.blank-letter a {
     border-left: 0.2em solid #ADFF2F;
     border-right: 0.2em solid #ADFF2F;
 }
 
-div.tableDivWrap td.Invalid {
-    border-style: solid;
-    border-color: red;
-    background-color: red;
-}
-
-div.tableDivWrap td.Valid {
-    border-style: solid;
-    border-color: green;
-    background-color: green;
-}
-
-div.tableDivWrap td.ValidButWrongPlacement {
-    border-style: solid;
-    border-color: orange;
-    background-color: orange;
-}
-
 /* Background letters behind the swap rack */
-.bgLetterContainer {
+.underlay-container {
 	position: relative;
 }
 
-.bgLetter {
+.underlay {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -635,44 +424,201 @@ div.tableDivWrap td.ValidButWrongPlacement {
 	color: rgba(60, 60, 80, 0.3)!important;
 }
 
-.bgLetterContainer > .Tile {
+.underlay-container > .tiled-square {
 	z-index: 1;
 	position: relative;
 }
 
-.lastPlacement {
+.last-placement {
 	background-color: #E2E298!important;
 }
 
-.hintPlacement {
+.hint-placement {
 	background-color: #E2FF98!important;
-}
-
-.playerName {
-	font-weight: bold;
 }
 
 .word {
 	font-style: italic
 }
 
-.wordScore {
+.word-score {
 	font-size: 0.75em;
 }
 
-#timeout {
+.tick-alert-low {
+	color: white;
+}
+
+.tick-alert-medium {
+	color:orange;
+}
+
+.tick-alert-high {
+	color: red;
+}
+
+/* Override jquery-ui for shuffle and take-back buttons */
+button.fat-button {
+	width: 2em;
+	height: 2em;
+}
+
+.shuffle-icon {
+	background-image: url(../images/shuffle.png) !important;
+}
+
+.take-back-icon {
+	background-image: url(../images/take-back.png) !important;
+}
+
+/* Div that wraps all the individual control panels */
+#controls {
+    float: left;
+    margin-top: 1em;
+    width: 20em;
+}
+
+#settings {
+	float: right;
+	font-size: 1.3em;
+}
+
+/* Button for making a play */
+#turnButton {
+	font-size: 130%;
+}
+
+#controls > div {
+    background-color: #F7F7E3;
+    border-color: #DCDCC6;
+
+    border-style: solid;
+	
+    -webkit-border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    -ms-border-radius: 0.4em;
+    -o-border-radius: 0.4em;
+    border-radius: 0.4em;
+
+    margin-bottom: 0.4em;
+    padding: 0.4em;
+}
+
+/* The #controls div that contains login information and buttons */
+#loginBlock {
+}
+
+/* The #controls > div with the scores and letter bag state */
+#scoresBlock {
+    min-height: 4em;
+}
+
+/* The #scoresBlock > div that has the letter bag status */
+#letterbag {
+    margin: 0.5em;
+}
+
+/* The #controls > div with the swap rack and turn control buttons */
+#yourPlayBlock {
+}
+
+/* #yourPlayBlock > div showing the proposed move */
+#yourMove {
+    margin-bottom: 0.5em;
+}
+
+/* The #controls > div with the chat */
+#chatBlock {
+    max-height: 11em;
+}
+
+/* #chatBlock > div chat message display */
+#chatMessages {
+    overflow: auto;
+    margin-left: 5%;
+	max-height: 7em;
+}
+
+/* Who sent a chat message */
+#chatBlock .chatSender {
+	font-weight: bold;
+}
+
+/* #chatBlock > div chat message capture */
+#chatInput {
+    margin-top: 0.25em;
+    width: 100%;
+}
+
+#chatInput input {
+    width: 95%;
+}
+
+.chatMessage.warning {
+	color: #B00;
+}
+
+/* The div with the game events log */
+#logMessages {
+	font-size: 80%;
+    height: 14em;
+    overflow: auto;
+}
+
+#logMessages .game-state {
+	margin-top: 0.5em;
+	font-weight: bold;
+}
+
+#logMessages .game-outcome {
+}
+
+/* #rack > div, the rack with buttons used to control it */
+#rackControls {
+	margin-top: 0.5em;
+	width: 100%;
+	text-align: center;
+	display: table;
+}
+
+#rackControls .Rack {
+	float: left;
+	margin: 0;
+}
+
+/* div that contains the rack control buttons - Shuffle, Take back */
+#rackControls .fat-buttons {
+	display: table-cell;
+	vertical-align: middle;
+    font-size: 1.2em;
+	height: 100%;
+}
+
+#takeBackButton {
+    visibility: hidden;
+}
+
+#timeout[name=message] {
 	font-size: 1.5em;
 	color: grey;
 }
 
-#timeout.tick-alert-low {
-	color: white;
+/* Blank letter requester dialog */
+#blankLetterTable td {
+	font-size: 1.5em;
+	text-align: center;
+	border-color: #DCDCC6;
+    border-style: solid;
+	
+    -webkit-border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    -ms-border-radius: 0.4em;
+    -o-border-radius: 0.4em;
+
+    border-radius: 0.4em;
+    border-collapse: separate;
+    border-spacing: 0 0;
+
+    border-width: 0.1em;
 }
 
-#timeout.tick-alert-medium {
-	color:orange;
-}
-
-#timeout.tick-alert-high {
-	color: red;
-}

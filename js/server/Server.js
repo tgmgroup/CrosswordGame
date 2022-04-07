@@ -1,42 +1,51 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
 /* eslint-env amd, node */
-/* global process, requirejs */
 
-/**
- * Main program for Crossword Game server.
- */
-define(
-	'server/Server',
-	[
-		'fs-extra', 'node-getopt', 'events',
-		'socket.io', 'http', 'https', 'nodemailer',
-		'express', 'express-negotiate', 'cookie-parser', 'errorhandler', 'express-basic-auth',   
-		'platform/Platform',
-		'game/Fridge', 'game/Game', 'game/Player', 'game/Edition',
+define('server/Server', [
+	'fs', 'node-getopt', 'events',
+	'socket.io', 'http', 'https', 'nodemailer', "cors",
+	'express', 'express-negotiate', 'errorhandler',
+	'platform', 'server/UserManager',
+	'game/Fridge', 'game/Game', 'game/Player', 'game/Edition'
+], (
+	fs, Getopt, Events,
+	SocketIO, Http, Https, NodeMailer, cors,
+	Express, ExpressNegotiate, ErrorHandler,
+	Platform, UserManager,
+	Fridge, Game, Player, Edition
+) => {
 
-		//'game/findBestPlay']; // when debugging, use this (unthreaded)
-		'game/findBestPlayController'
-	],
-	(
-		Fs, Getopt, Events,
-		SocketIO, Http, Https, NodeMailer,
-		Express, negotiate, CookieParser, ErrorHandler, BasicAuth,
-		Platform,
-		Fridge, Game, Player, Edition, findBestPlay
-	) => {
+	const Fs = fs.promises;
 
 	/**
-	 * Get the server base URL. This is assumed to be just
-	 * the host and port.
-	 * @param req the request that gives the context for the url
+	 * Generic catch for response handlers
+	 * @param {Error} e the error
+	 * @param {Request} req the request object
+	 * @param {Response} res the response object
+	 * @param {string?} context context of the failure
+	 * @private
 	 */
-	function getBaseURL(req) {
-		return req.protocol + '://' + req.get('Host');
+	function trap(e, req, res) {
+		if (typeof e === 'object' && e.code === 'ENOENT') {
+			// Special case of a database file load failure
+			console.debug(`<-- 404 ${req.url}`);
+			res.status(404).send([
+				/*i18n*/"Load failed", req.url]);
+		} else {
+			console.debug("<-- 500 ", e);
+			res.status(500).send(e);
+		}
 	}
 
+	/**
+	 * Web server for crossword game.
+	 */
 	class Server {
 
+		/**
+		 * @param {Object} config See example-config.json for content
+		 */
 		constructor(config) {
 			this.config = config;
 			this.db = new Platform.Database('games', 'game');
@@ -45,25 +54,14 @@ define(
 			// Status-monitoring sockets (game pages)
 			this.monitors = [];
 
+			process.on('unhandledRejection', reason => {
+				console.error('Command rejected', reason, reason ? reason.stack : "");
+			});
+
 			const express = new Express();
 
-			// Use a Router for clear separation of concerns
-			const router = Express.Router();
-
-			// Create a router that supports basic authentication
-			// if the route requires it.
-			const auth_router = Express.Router();
-			if (config.auth) {
-				auth_router.use(BasicAuth({
-					// Map from username to password
-					users: config.auth,
-					// Required to prompt
-					challenge: true,
-					// Realm for 401 response
-					realm: Platform.i18n('games-login')
-				}));
-			} else
-				auth_router = router;
+			// Headers not added by passport?
+			express.use(cors());
 
 			// Parse incoming requests with url-encoded payloads
 			express.use(Express.urlencoded({ extended: true }));
@@ -71,110 +69,153 @@ define(
 			// Parse incoming requests with a JSON body
 			express.use(Express.json());
 
-			// Grab unsigned cookies from the Cookie header
-			express.use(CookieParser());
-
 			// Grab all static files relative to the project root
 			// html, images, css etc. The Content-type should be set
 			// based on the file mime type (extension) but Express doesn't
 			// always get it right.....
 			console.log(`static files from ${requirejs.toUrl('')}`);
 			express.use(Express.static(requirejs.toUrl('')));
-			express.use(Express.static(requirejs.toUrl('js')));
 
-			express.use(router);
+			express.use((req, res, next) => {
+				console.debug(`--> ${req.method} ${req.url}`);
+				next();
+			});
+
+			// Add user manager routes (/login, /register etc.
+			this.userManager = new UserManager(config, express);
+
+			//DEBUG
+			//express.use((req, res, next) => {
+			//	if (req.isAuthenticated())
+			//		console.debug(`\tuser ${req.user.name}`);
+			//next();
+			//});
+
+			// Create a router for game commands
+			const cmdRouter = Express.Router();
+
+			// Get the HTML for the main interface (the "games" page)
+			cmdRouter.get('/',
+					   (req, res) => res.sendFile(
+						   requirejs.toUrl('html/games.html')));
+
+			// Get a simplified version of games list or a single game
+			// (no board, bag etc) for the "games" page. You can request
+			// "active" games (those still in play), "all" games (for
+			// finished games too), or a single game key
+			cmdRouter.get('/simple/:send',
+					   (req, res) => this.request_simple(req, res));
+
+			// Get a games history. Sends a summary of cumulative player
+			// scores to date, for each unique player.
+			cmdRouter.get('/history',
+					   (req, res) => this.request_history(req, res));
+
+			// Get a list of available locales
+			cmdRouter.get('/locales',
+					(req, res) => this.request_locales(req, res));
+
+			// Get a list of of available editions
+			cmdRouter.get('/editions',
+					 (req, res) => this.request_editions(req, res));
+
+			// Get a description of the available dictionaries
+			cmdRouter.get('/dictionaries',
+					 (req, res) => this.request_dictionaries(req, res));
+
+			// Get a description of defaults for new games
+			cmdRouter.get('/defaults', (req, res) =>
+					 res.send({
+						 edition: config.defaultEdition,
+						 dictionary: config.defaultDictionary,
+						 canEmail: typeof config.mail !== 'undefined'
+					 }));
+
+			// Get Game. This is a full description of the game, including
+			// the Board. c.f. /simple which provides a cut-down version
+			// of the same thing.
+			cmdRouter.get('/game/:gameKey',
+					 (req, res) => this.request_game(req, res));
+
+			// Request handler for best play hint. Allows us to pass in
+			// any player key, which is useful for debug (though could
+			// be used to silently cheat!)
+			cmdRouter.get('/bestPlay/:gameKey/:playerKey',
+						(req, res, next) =>
+						this.userManager.checkLoggedIn(req, res, next),
+					   (req, res) => this.request_bestPlay(req, res));
+
+			// Construct a new game. games.js
+			cmdRouter.post('/createGame',
+						   (req, res, next) =>
+						   this.userManager.checkLoggedIn(req, res, next),
+						   (req, res) => this.request_createGame(req, res));
+
+			// Invite players by email
+			cmdRouter.post('/invitePlayers',
+						   (req, res, next) =>
+						   this.userManager.checkLoggedIn(req, res, next),
+						   (req, res) => this.request_invitePlayers(req, res));
+
+			// Delete an active or old game. Invoked from games.js
+			cmdRouter.post('/deleteGame/:gameKey',
+						(req, res, next) =>
+						this.userManager.checkLoggedIn(req, res, next),
+						(req, res) => this.request_deleteGame(req, res));
+
+			// Request another game in a series
+			// Note this is NOT auth-protected, it is invoked
+			// from the game interface to create a follow-on game
+			cmdRouter.post('/anotherGame/:gameKey',
+						(req, res, next) =>
+						this.userManager.checkLoggedIn(req, res, next),
+						(req, res) => this.request_anotherGame(req, res));
+
+			// send email reminders about active games
+			cmdRouter.post('/sendReminder/:gameKey',
+						(req, res, next) =>
+						this.userManager.checkLoggedIn(req, res, next),
+						(req, res) => this.request_sendReminder(req, res));
+
+			// Handler for player joining a game
+			cmdRouter.post('/join/:gameKey/:playerKey',
+					   (req, res, next) =>
+					   this.userManager.checkLoggedIn(req, res, next),
+					   (req, res) => this.request_join(req, res));
+
+			// Handler for player leaving a game
+			cmdRouter.post('/leave/:gameKey/:playerKey',
+					   (req, res, next) =>
+					   this.userManager.checkLoggedIn(req, res, next),
+					   (req, res) => this.request_leave(req, res));
+
+			// Handler for adding a robot to a game
+			cmdRouter.post('/addRobot',
+					   (req, res, next) =>
+					   this.userManager.checkLoggedIn(req, res, next),
+					   (req, res) => this.request_addRobot(req, res));
+
+			// Request handler for a turn (or other game command)
+			cmdRouter.post('/command/:command/:gameKey/:playerKey',
+						(req, res, next) =>
+						this.userManager.checkLoggedIn(req, res, next),
+						(req, res) => this.request_command(req, res));
+
+			express.use(cmdRouter);
 
 			express.use((err, req, res, next) => {
 				if (res.headersSent) {
 					return next(err);
 				}
-
+				console.debug("<-- 500 (unhandled)", err);
+				res.status(500).send(err);
 				return res.status(err.status || 500);
-				res.send(`500 ${err}`);
 			});
 
 			express.use(ErrorHandler({
 				dumpExceptions: true,
 				showStack: true
 			}));
-
-			process.on('unhandledRejection', reason => {
-				console.log('Command rejected', reason, reason.stack);
-			});
-
-			// get the HTML page for main interface (the "games" page)
-			router.get('/',
-					   (req, res) => res.sendFile(
-						   requirejs.toUrl('html/games.html')));
-
-			// get a JSON list of available games (optionally including
-			// completed games)
-			router.get('/games',
-					   (req, res) => this.handle_games(req, res));
-
-			// get a JSON of the game history
-			router.get('/history',
-					   (req, res) => this.handle_history(req, res));
-
-			// Get a JSON list of available locales
-			router.get('/locales',
-					(req, res) => this.handle_locales(req, res));
-
-			// Get a JSON description of available editions
-			router.get('/editions',
-					 (req, res) => this.handle_editions(req, res));
-
-			// Get a JSON description of available dictionaries
-			router.get('/dictionaries',
-					 (req, res) => this.handle_dictionaries(req, res));
-
-			// Get a JSON description of defaults
-			router.get('/defaults', (req, res) =>
-					 res.send({
-						 edition: config.defaultEdition,
-						 dictionary: config.defaultDictionary
-					 }));
-
-			// Construct a new game. Invoked from createGame.js
-			router.post('/newGame',
-						auth_router,
-						(req, res) => this.handle_newGame(req, res));
-
-			// Delete an active or old game. Invoked from games.js
-			router.post('/deleteGame/:gameKey',
-						auth_router,
-						(req, res) => this.handle_deleteGame(req, res));
-
-			// Request another game in a series
-			// Note this is NOT auth-protected, it is invoked
-			// from the game interface to create a follow-on game
-			router.post('/anotherGame/:gameKey',
-					  (req, res) => this.handle_anotherGame(req, res));
-
-			// send email reminders about active games
-			router.post('/sendReminders',
-						auth_router,
-						(req, res) => this.handle_sendTurnReminders(req, res));
-
-			// Handler for player joining a game
-			router.get('/game/:gameKey/:playerKey',
-					 (req, res) => this.handle_enterGame(req, res));
-
-			// Get the game interface or JSON game summary
-			router.get('/game/:gameKey',
-					 (req, res) => this.handle_gameGET(req, res));
-
-			// Request handler for best play hint. Allows us to pass in
-			// any player key, which is useful for debug (though could
-			// be used to cheat)
-			router.get('/bestPlay/:gameKey/:playerKey',
-					 (req, res) => this.handle_bestPlay(req, res));
-
-			// Request handler for a turn (or other game command)
-			// NOT auth protected, security hole that could allow
-			// someone to screw up games
-			router.post('/game/:gameKey',
-						(req, res) => this.handle_gamePOST(req, res));
 
 			const http = config.https
 				  ? Https.Server(config.https, express)
@@ -183,250 +224,258 @@ define(
 			http.listen(config.port);
 
 			const io = new SocketIO.Server(http);
-
-			io.sockets.on('connection', socket => {
-				// The server socket only listens to these messages.
-				// However it emits a lot more, in 'Game.js'
-
-				socket
-
-				.on('monitor', () => {
-					// Games monitor has joined
-					this.monitors.push(socket);
-					console.log('Monitor joined');
-				})
-
-				.on('disconnect', () => {
-					// Don't need to find the game using this socket, because
-					// each game has a 'disconnect' listener on each of the
-					// sockets being used.
-
-					// Remove any monitor using this socket
-					const i = this.monitors.indexOf(socket);
-					if (i >= 0) {
-						// Game monitor has disconnected
-						console.log('Monitor disconnected');
-						this.monitors.slice(i, 1);
-					} else {
-						console.log('Anonymous disconnect');
-						this.updateMonitors();
-					}
-				})
-
-				.on('join', async params => {
-					// Player joining
-					console.log(`Player ${params.playerKey} joining ${params.gameKey}`);
-					this.loadGame(params.gameKey)
-					.then(game => {
-						game.connect(socket, params.playerKey);
-						this.updateMonitors();
-					});
-				})
-
-				.on('message', message => {
-
-					// Chat message
-					console.log(message);
-					if (message.text === 'hint')
-						socket.game.hint(socket.player);
-					else if (message.text === 'advise') {
-						socket.player.wantsAdvice = !socket.player.wantsAdvice;
-						socket.game.notifyPlayer(
-							socket.player, 'message',
-							{
-								sender: 'chat-advisor',
-								text: 'chat-'
-								+ (socket.player.wantsAdvice
-								   ? 'enabled' : 'disabled')
-							});
-					} else
-						socket.game.notifyPlayers('message', message);
-				});
-			});
+			io.sockets.on(
+				'connection', socket => this.attachSocketHandlers(socket));
 		}
 
 		/**
 		 * Load the game from the DB, if not already in server memory
-		 * @param key game key
-		 * @return a Promise that resolves to a loaded Game
+		 * @param {string} key game key
+		 * @return {Promise} Promise that resolves to a {@link Game}
 		 */
-		async loadGame(key) {
+		loadGame(key) {
 			if (this.games[key])
 				return Promise.resolve(this.games[key]);
 
 			return this.db.get(key, Game.classes)
+			.then(game => game.onLoad(this.db))
+			.then(game => game.checkTimeout())
 			.then(game => {
-
-				game.setDB(this.db);
-
 				Events.EventEmitter.call(game);
 
 				Object.defineProperty(
 					// makes connections non-persistent
 					game, 'connections', { enumerable: false });
 				this.games[key] = game;
-				console.log(`Loaded game ${game}`);
 
-				// May need to trigger several computer players until we
-				// get to a human
-				if (!game.ended) {
-					console.log(game);
-					const nextPlayer = game.getNextPlayer();
-					console.log(`Next to play is ${nextPlayer}`);
-					if (nextPlayer.isRobot) {
-						return game.autoplay(nextPlayer)
-						// May autoplay next robot recursively
-						.then(turn => game.finishTurn(turn));
-					}
-				}
+				if (game.hasEnded())
+					return game;
 
+				const player = game.getPlayer();
+				if (player)
+					game.playIfReady();
 				return game;
-			})
-			.catch(e => {
-				console.log(`Failed to load game ${key}`, e);
-				return Promise.reject('error-game-does-not-exist');
 			});
 		}
 
 		/**
-		 * Notify monitors (/games pages) that something has changed
+		 * Attach the handlers for incoming socket messages from the UI
+		 * @param {socket.io} socket the socket to listen to
+		 */
+		attachSocketHandlers(socket) {
+			socket
+
+			.on('monitor', () => {
+				// Games monitor has joined
+				console.debug('-S-> monitor');
+				this.monitors.push(socket);
+			})
+
+			.on('connect', sk => {
+				console.debug('-S-> connect');
+				this.updateMonitors();
+			})
+
+			.on('disconnect', sk => {
+				console.debug('-S-> disconnect');
+
+				// Don't need to find the Game using this socket, because
+				// each Game has a 'disconnect' listener on each of the
+				// sockets being used. However monitors don't.
+
+				// Remove any monitor using this socket
+				const i = this.monitors.indexOf(socket);
+				if (i >= 0) {
+					// Game monitor has disconnected
+					console.debug('Monitor disconnected');
+					this.monitors.slice(i, 1);
+				} else {
+					console.debug('Anonymous disconnect');
+					this.updateMonitors();
+				}
+			})
+
+			.on('join', params => {
+				// Player joining
+				console.debug(`-S-> join ${params.playerKey} joining ${params.gameKey}`);
+				this.loadGame(params.gameKey)
+				.then(game => {
+					game.connect(socket, params.playerKey);
+					this.updateMonitors();
+				});
+			})
+
+			.on('message', message => {
+
+				// Chat message
+				console.debug(`-S-> ${message}`);
+				if (message.text === 'hint')
+					socket.game.hint(socket.player);
+				else if (message.text === 'advise')
+					socket.game.toggleAdvice(socket.player);
+				else
+					socket.game.notifyPlayers('message', message);
+			});
+		}
+
+		/**
+		 * Notify monitors that something has changed.
+		 * The monitors will issue requests to determine what changed.
 		 */
 		updateMonitors() {
-			this.monitors.forEach(socket => {
-				socket.emit('update');
-			});
+			this.monitors.forEach(socket => socket.emit('update'));
 		}
 
 		/**
-		 * Generic catch for response handlers
+		 * Before processing a Move instruction (pass or play) check that
+		 * the game is ready to accept a Turn from the given player.
+		 * @param {Player} player - Player to check
+		 * @param {Game} game - Game to check
 		 */
-		trap(e, res) {
-			console.log('Trapped', e);
-			res.status(500).send(e.toString());
+		checkTurn(player, game) {
+			if (game.hasEnded()) {
+				console.error(`Game ${game.key} has ended ${game.state}`);
+				throw new Error(/*i18n*/'Game has ended');
+			}
+
+			// determine if it is this player's turn
+			if (player.key !== game.whosTurnKey) {
+				console.error(`not ${player.name}'s turn`);
+				throw new Error(/*i18n*/'Not your turn');
+			}
 		}
 
 		/**
-		 * Handler for GET /games
-		 * Sends a list of active games (optionally with completed games)
-		 * pass ?active to get only active games
-		 * @return a Promise
+		 * Sends a simple description of active games (optionally with
+		 * completed games). Only parameter is 'send' which can be set
+		 * to a single game key to get a single game, 'active' to get
+		 * active games, or 'all' to get all games, including finished
+		 * games. Note: this sends Game.simple objects, not Game objects.
+		 * @return {Promise} Promise to send a list of games as requested
 		 */
-		handle_games(req, res) {
+		request_simple(req, res) {
 			const server = this;
-			const all = (typeof req.query.active === "undefined");
-			return this.db.keys()
-			.then(keys => keys.map(
-				key => server.games[key] || this.db.get(key, Game.classes)))
-			.then(promises => Promise.all(promises))
-			.then(games => games
-				  .filter(game => (all || !game.ended))
-				  .map(game => game.catalogue())
-				  .sort((a, b) => a.timestamp > b.timestamp ? 1
-						: a.timestamp < b.timestamp ? -1 : 0))
-			.then(data => res.send(data))
-			.catch(e => this.trap(e, res));
+			const send = req.params.send;
+			// Make list of keys we are interested in
+			return ((send === 'all' || send === 'active')
+				? this.db.keys()
+				: Promise.resolve([send]))
+			// Load those games
+			.then(keys => Promise.all(keys.map(key => this.loadGame(key))))
+			// Filter the list and generate simple data
+			.then(games => Promise.all(
+				games
+				.filter(game => (send !== 'active' || !game.hasEnded()))
+				.map(game => game.simple(this.userManager))))
+			// Sort the resulting list by last activity, so the most
+			// recently active game bubbles to the top
+			.then(gs => gs.sort((a, b) => a.lastActivity < b.lastActivity ? 1
+								: a.lastActivity > b.lastActivity ? -1 : 0))
+			// Finally send the result
+			.then(data => {
+				console.debug(`<-- 200 simple ${send}`);
+				res.status(200).send(data);
+			})
+			.catch(e => {
+				console.debug("<-- 500", e);
+				res.status(500).send([
+					/*i18n*/"Game load failed", e.toString()]);
+			});
 		}
 
 		/**
 		 * Handler for GET /history
 		 * Sends a summary of cumulative player scores to date, for all
 		 * unique players.
-		 * @return a Promise
+		 * @return {Promise}
 		 */
-		handle_history(req, res) {
+		request_history(req, res) {
 			const server = this;
-			const scores = {};
-			const wins = {};
 
 			return this.db.keys()
-			.then(keys => keys.map(
-				key => server.games[key] || this.db.get(key, Game.classes)))
+			.then(keys => keys.map(key => this.loadGame(key)))
 			.then(promises => Promise.all(promises))
-			.then(games => games
-				  .filter(game => game.ended)
-				  .map(game => {
-					  const winner = game.getWinner();
-					  //console.log(`${winner.name} won ${game.key}`);
-					  if (wins[winner.name])
-						  wins[winner.name]++;
-					  else
-						  wins[winner.name] = 1;
-					  game.players.map(
-						  player => {
-							  if (scores[player.name])
-								  scores[player.name] += player.score;
-							  else
-								  scores[player.name] = player.score;
-						  });
-				  }))
-			.then(() => res.send({ scores: scores, wins: wins }))
-			.catch(e => this.trap(e, res));
+			.then(games => {
+				const results = {};
+				games
+				.filter(game => game.hasEnded())
+				.map(game => {
+					const winScore = game.winningScore();
+					game.players.map(
+						player => {
+							let result = results[player.key];
+							if (!result) {
+								results[player.key] =
+								result = {
+									key: player.key,
+									name: player.name,
+									score: 0,
+									wins: 0
+								};
+							}
+							if (player.score === winScore)
+								result.wins++;
+							result.score += player.score;
+						});
+				});
+				const list = [];
+				for (let name in results)
+					list.push(results[name]);
+				return list;
+			})
+			.then(list => list.sort((a, b) => a.score < b.score ? 1
+									: (a.score > b.score ? -1 : 0)))
+			.then(list => res.status(200).send(list))
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Handler for GET /locales; sends a list of available locales.
-		 * Used when selecting a presentation language for the UI.
-		 * @return a Promise
+		 * Handler for GET /locales
+		 * Sends a list of available locales.  Used when selecting a
+		 * presentation language for the UI.
+		 * @return {Promise} Promise to list locales
 		 */
-		handle_locales(req, res) {
+		request_locales(req, res) {
 			const db = new Platform.Database('i18n', 'json');
 			return db.keys()
 			.then(keys => {
-				res.send(keys);
+				res.status(200).send(keys);
 			})
-			.catch(e => this.trap(e, res));
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Promise to get an index of available editions. Note that
-		 * editions are loaded using requirejs, so there's an implicit
-		 * assumption about Platform.Database here
+		 * Handler for GET /editions
+		 * Promise to get an index of available editions.
+		 * return {Promise} Promise to index available editions
 		 */
-		handle_editions(req, res) {
+		request_editions(req, res) {
 			const db = new Platform.Database('editions', 'js');
-			db.keys()
-			.then(editions => res.send(
+			return db.keys()
+			.then(editions => res.status(200).send(
 				editions
 				.filter(e => !/^_/.test(e))))
-			.catch(e => this.trap(e, res));
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Promise to Index available dictionaries
+		 * Handler for GET /dictionaries
+		 * return {Promise} Promise to index available dictionaries
 		 */
-		handle_dictionaries(req, res) {
+		request_dictionaries(req, res) {
 			const db = new Platform.Database('dictionaries', 'dict');
-			db.keys()
-			.then(keys => res.send(keys))
-			.catch(e => this.trap(e, res));
+			return db.keys()
+			.then(keys => res.status(200).send(keys))
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Handler for /sendTurnReminders
-		 * Email reminders to next human player in each game
+		 * Handler for POST /createGame
+		 * @return {Promise}
 		 */
-		handle_sendTurnReminders(req, res) {
-			console.log("Sending turn reminders");
-			const surly = req.protocol + '://' + req.get('Host');
-			this.db.keys()
-			.then(keys => keys.map(
-				key => this.games[key] || this.db.get(key, Game.classes)))
-			.then(promises => Promise.all(promises))
-			.then(games => Promise.all(games.map(
-				game => game.emailReminder(surly,this.config))))
-			.then(data => res.send(data.filter(o => o.name)))
-			.catch(e => this.trap(e, res));
-		}
-
-		/**
-		 * Handler for POST /newGame. 
-		 * @return a Promise
-		 */
-		handle_newGame(req, res) {
+		request_createGame(req, res) {
 			console.log(`Constructing new game ${req.body.edition}`);
-
-			if (req.body.players.length < 2)
-				return Promise.reject('error-need-2-players');
+			let maxPlayers = req.body.maxPlayers;
 
 			return Edition.load(req.body.edition)
 			.then(edition => {
@@ -441,169 +490,355 @@ define(
 				return new Game(edition.name, dictionary)
 				.create();
 			})
+			.then(game => game.onLoad(this.db))
 			.then(game => {
+				game.secondsPerPlay = (req.body.minutesPerPlay || 0) * 60;
+				game.predictScore = req.body.predictScore;
+				if (game.secondsPerPlay > 0)
+					console.log(`\t${game.secondsPerPlay} second time limit`);
 
-				game.setDB(this.db);
-
-				let haveHuman = false;
-				for (let p of req.body.players) {
-					const player = new Player(p.name, p.isRobot == 'true');
-					if (!player.isRobot) {
-						haveHuman = true;
-						if (p.email)
-							// optional, may be empty
-							player.email = p.email;
-					}
-
-					game.addPlayer(player);
-					console.log(player.toString());
-				}
-
-				if (!haveHuman)
-					throw Error('error-need-human');
-
-				// Pick a tile from the bag
-				game.whosTurn = Math.floor(Math.random() * game.players.length);
-
-				game.time_limit = req.body.time_limit || 0;
-				if (game.time_limit > 0)
-					console.log(`\t${game.time_limit} minute time limit`);
-				else
-					console.log('\twith no time limit');
+				if (req.body.maxPlayers > 1) {
+					game.maxPlayers = req.body.maxPlayers;
+					console.log(`\tat most ${game.maxPlayers} players`);
+				} else
+					game.maxPlayers = 0;
 
 				console.log(game.toString());
 
 				// Save the game when everything has been initialised
-				// (asynchronous)
-				game.save();
-
-				game.emailInvitations(
-					req.protocol + '://' + req.get('Host'),
-					this.config);
-
-				// Redirect back to control panel
-				res.redirect('/html/games.html');
+				return game.save();
 			})
-			.catch(e => this.trap(e, res));
+			.then(game => res.status(200).send(game.key));
 		}
 
 		/**
-		 * Handler for /game/:gameKey/:playerKey, player joining a game.
-		 * Sets a cookie in the response with the player key so future
-		 * requests can be handled correctly.
-		 * @return Promise
+		 * @param {object} to a lookup suitable for use with UserManager.getUser
+		 * @param {object} req request
+		 * @param {object} res response
+		 * @param {string} gameKey game to which this applies
+		 * @param {string} subject subject
+		 * @param {string} text email text
+		 * @param {string} html email html
+		 * @return {Promise} Promise that resolves to the user that was mailed,
+		 * either their game name or their email if there is no game name.
+		 * @private
 		 */
-		handle_enterGame(req, res) {
+		sendMail(to, req, res, gameKey, subject, text, html) {
+			return this.userManager.getUser(
+				{key: req.session.passport.user.key})
+			.then(sender => `${sender.name}<${sender.email}>`)
+			.catch(e => this.config.email.sender)
+			.then(sender =>
+				new Promise(
+					resolve => this.userManager.getUser(to, true)
+					.catch(e => {
+						// Not a known user, rely on email in the
+						// getUser query
+						resolve({
+							name: to.email, email: to.email
+						});
+					})
+					.then(uo => resolve(uo)))
+				.then(uo => {
+					if (!uo.email) // no email
+						return Promise.resolve(
+							Platform.i18n('($1 has no email address)',
+										  uo.name || uo.key));
+					console.debug(
+						subject,
+						`${uo.name}<${uo.email}> from `,
+						sender);
+					return this.config.mail.transport.sendMail({
+						from: sender,
+						to: uo.email,
+						subject: subject,
+						text: text,
+						html: html
+					})
+					.then(() => uo.name || uo.email);
+				}));
+		}
+
+		/**
+		 * Handle /invitePlayers
+		 * @return {Promise}
+		 */
+		request_invitePlayers(req, res) {
+			if (!this.config.mail || !this.config.mail.transport) {
+				res.status(500).send('Mail is not configured');
+				return Promise.reject();
+			}
+			if (!req.body.player) {
+				res.status(500).send('Nobody to notify');
+				return Promise.reject();
+			}
+
+			const gameURL =
+				  `${req.protocol}://${req.get('Host')}/html/games.html?untwist=${req.body.gameKey}`;
+
+			let textBody = req.body.message || "";
+			if (textBody)
+				textBody += "\n";
+			textBody += Platform.i18n(
+				"Join the game by following this link: $1", gameURL);
+
+			// Handle XSS risk posed by HTML in the textarea
+			let htmlBody = req.body.message.replace(/</g, '&lt;') || "";
+			if (htmlBody)
+				htmlBody += "<br/>";
+			htmlBody += Platform.i18n(
+				"Click <a href='$1'>here</a> to join the game.", gameURL);
+			
+			return Promise.all(req.body.player.map(
+				to => this.sendMail(
+					to, req, res, req.body.gameKey,
+					Platform.i18n("You have been invited to play XANADO"),
+					textBody,
+					htmlBody)))
+			.then(list => {
+				console.log("Invited", list);
+				const names = list.filter(uo => uo);
+				console.debug("<-- 200 ", names);
+				res.status(200).send([
+					/*i18n*/"Invited $1", names.join(", ")]);
+			})
+			.catch(e => trap(e, req, res));
+		}
+
+		/**
+		 * Handler for POST /sendReminder
+		 * Email reminders to next human player in (each) game
+		 */
+		request_sendReminder(req, res) {
+			const gameKey = req.params.gameKey;
+			console.log('Sending turn reminders');
+			const gameURL =
+				  `${req.protocol}://${req.get('Host')}/game/${gameKey}`;
+
+			const prom = (gameKey === '*')
+				  ? this.db.keys() : Promise.resolve([gameKey]);
+			return prom
+			.then(keys => Promise.all(keys.map(
+				key => (Promise.resolve(this.games[key])
+						|| this.db.get(key, Game.classes))
+				.then(game => {
+					const pr = game.checkTimeout();
+					if (game.state !== 'playing')
+						return undefined;
+
+					const player = game.getPlayer();
+					console.log(`Sending reminder mail to ${player.key}/${player.name}`);
+
+					return this.sendMail(
+						player, req, res, game.key,
+						Platform.i18n(
+							'It is your turn in your XANADO game'),
+						Platform.i18n(
+							"Join the game by following this link: $1",
+							gameURL),
+						Platform.i18n(
+							"Click <a href='$1'>here</a> to join the game.",
+							gameURL));
+				}))))
+			.then(reminders => reminders.filter(e => typeof e !== 'undefined'))
+			.then(reminders=> {
+				console.debug("Reminded ", reminders);
+				return res.status(200).send(
+					[/*i18n*/'Reminded $1', reminders.join(', ')]);
+			})
+			.catch(e => trap(e, req, res));
+		}
+
+		/**
+		 * Handle /join/:gameKey player joining a game.
+		 * @return {Promise}
+		 */
+		request_join(req, res) {
+			const gameKey = req.params.gameKey;
+			return this.loadGame(gameKey)
+			.then(game => {
+				// Player is either joining or connecting
+				const playerKey = req.user.key;
+				let player = game.getPlayerWithKey(playerKey), prom;
+				if (player) {
+					console.log(`Player ${playerKey} opening ${gameKey}`);
+					prom = Promise.resolve(game);
+				} else {
+					console.log(`Player ${playerKey} joining ${gameKey}`);
+					player = new Player(
+						req.user.name, playerKey, false,
+						() => req.user.email
+					);
+					game.addPlayer(player);
+					prom = game.save();
+				}
+				// The game may now be ready to start
+				return prom.then(game => game.playIfReady());
+			})
+			.then(() => res.status(200).send({
+				gameKey: gameKey,
+				playerKey: req.user.key
+			}))
+			.catch(e => trap(e, req, res));
+		}
+
+		/**
+		 * Handle /addRobot/:gameKey to add a robot to the game
+		 * It's an error to add a robot to a game that already has a robot.
+		 * @return {Promise}
+		 */
+		request_addRobot(req, res) {
+			const gameKey = req.body.gameKey;
+			const dic = req.body.dictionary;
+			console.debug("Add robot",req.body);
+			return this.loadGame(gameKey)
+			.then(game => {
+				if (game.hasRobot())
+					return res.status(500).send("Game already has a robot");
+				console.log(`Robot joining ${gameKey} with ${dic}`);
+				// Robot always has the same player key
+				const robot = new Player(
+					'Robot', UserManager.ROBOT_KEY, true);
+				if (dic && dic !== 'none')
+					robot.dictionary = dic;
+				game.addPlayer(robot);
+				return game.save()
+				// Game may now be ready to start
+				.then(game => game.playIfReady())
+				.then(mess => res.status(200)
+					  .send(mess || 'Robot'));
+			})
+			.catch(e => trap(e, req, res));
+		}
+
+		/**
+		 * Handle /leave/:gameKey player leaving a game.
+		 * @return {Promise}
+		 */
+		request_leave(req, res) {
 			const gameKey = req.params.gameKey;
 			const playerKey = req.params.playerKey;
 			return this.loadGame(gameKey)
-			.then(() => {
-				console.log(`Player ${playerKey} Entering ${gameKey}`); 
-				res.cookie(gameKey, playerKey, {
-					path: '/;SameSite=Strict',
-					maxAge: (30 * 24 * 60 * 60 * 1000) // 30 days
-				});
-				// Redirect to handle_gameGET() for the HTML
-				res.redirect(`/game/${gameKey}`);
+			.then(game => {
+				console.log(`Player ${playerKey} leaving ${gameKey}`);
+				const player = game.getPlayerWithKey(playerKey);
+				if (player) {
+					game.removePlayer(player);
+					return game.save()
+					.then(() => {
+						this.updateMonitors();
+						return res.status(200).send(
+							{ gameKey: gameKey, playerKey: playerKey });
+					});
+				}
+				return res.status(500).send([
+					/*i18n*/"Player is not in game", playerKey, gameKey
+				]);
 			})
-			.catch(e => this.trap(e, res));
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Handler for GET /game/:gameKey
-		 * If the accept: in the request is asking for 'application/json'
-		 * then respond with JSON with the current game state, if it's
-		 * asking for HTML respond with the HTML page for the game.
+		 * Handle /game/:gameKey request for a dump of the game information.
+		 * This sends the entire Game object, including the entire Turn history
+		 * and the Board
+		 * @return {Promise}
 		 */
-		handle_gameGET(req, res) {
+		request_game(req, res) {
 			const gameKey = req.params.gameKey;
-			// Use express-negotiate to negotiate the response type
-			req.negotiate({
-				'application/json': () => this.db.get(gameKey, Game.classes)
-				.then(game => res.send(Fridge.freeze(game)))
-				.catch(e => this.trap(e, res)),
-				'html': () => res.sendFile(requirejs.toUrl('html/game.html'))
-			});
+			return this.db.get(gameKey, Game.classes)
+			.then(game => res.status(200).send(Fridge.freeze(game)))
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Handler for GET /bestPlay
-		 * @return Promise
+		 * Handle /bestPlay/:gameKey/:playerKey
+		 * Find the best play for the player, given the current board
+		 * state. Note that it may not be their turn, that's OK, this is debug
+		 * @return {Promise}
 		 */
-		handle_bestPlay(req, res) {
+		request_bestPlay(req, res) {
 			const gameKey = req.params.gameKey;
 			const playerKey = req.params.playerKey;
 			return this.loadGame(gameKey)
-			.then(game => game.lookupPlayer(playerKey))
-			// Find the best play for the player, given the current board
-			// state. Note that it may not be their turn, that's OK, this is debug
-			.then(info => findBestPlay(info.game, info.player.rack.tiles()))
-			.then(play => res.send(Fridge.freeze(play)))
-			.catch(e => this.trap(e, res));
+			.then(game => {
+				const player = game.getPlayerWithKey(playerKey);
+				return Platform.findBestPlay(game, player.rack.tiles);
+			})
+			.then(play => res.status(200).send(Fridge.freeze(play)))
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Handler for POST /deleteGame
+		 * Handle /deleteGame/:gameKey
+		 * Delete a game.
+		 * @return {Promise}
 		 */
-		handle_deleteGame(req, res) {
+		request_deleteGame(req, res) {
 			const gameKey = req.params.gameKey;
+			console.log("Delete game",gameKey);
 			return this.loadGame(gameKey)
+			.then(game => game.stopTimers())
 			.then(() => this.db.rm(gameKey))
-			.then(() => res.send(`OK ${gameKey} deleted`))
-			.catch(e => this.trap(e, res));
-		}
-
-		handle_anotherGame(req, res) {
-			return this.loadGame(req.params.gameKey)
-			.then(game => game.anotherGame())
-			.catch(e => this.trap(e, res));
+			.then(() => res.status(200).send(`${gameKey} deleted`))
+			.catch(e => trap(e, req, res));
 		}
 
 		/**
-		 * Handler for POST /game
+		 * Create another game with the same players.
+		 * @return {Promise}
+		 */
+		request_anotherGame(req, res) {
+			return this.loadGame(req.params.gameKey)
+			.then(game => {
+				return game.anotherGame()
+				.then(() => res.status(200).send(game.nextGameKey));
+			})
+			.catch(e => trap(e, req, res));
+		}
+
+		/**
 		 * Result is always a Turn object, though the actual content
 		 * varies according to the command sent.
-		 * @return Promise
+		 * @return {Promise}
 		 */
-		handle_gamePOST(req, res) {
+		request_command(req, res) {
+			const command = req.params.command;
 			const gameKey = req.params.gameKey;
-			// Get cookie set by handle_enterGame that identifies the player
-			const playerKey = req.cookies[gameKey];
+			const playerKey = req.params.playerKey;
+			//console.debug(`Handling ${command} ${gameKey} ${playerKey}`);
 			return this.loadGame(gameKey)
-			.then(game => game.lookupPlayer(playerKey))
-			.then(info => {
-				const game = info.game;
+			.then(game => {
+				const player = game.getPlayerWithKey(playerKey);
 
-				if (game.ended)
+				if (game.hasEnded())
 					return Promise.resolve();
 
-				// Who the request is coming from
-				const player = info.player;
-				const command = req.body.command;
+				// The command name and arguments
 				const args = req.body.args ? JSON.parse(req.body.args) : null;
 				
-				console.log(`COMMAND ${command} player ${player.name} game ${game.key}`, args);
+				console.debug(`COMMAND ${command} player ${player.name} game ${game.key}`);
 
 				let promise;
 				switch (command) {
 
 				case 'makeMove':
-					promise = game.checkTurn(player)
-					.then(game => game.makeMove(args));
+					this.checkTurn(player, game);
+					promise = game.makeMove(args);
 					break;
 
 				case 'pass':
-					promise = game.checkTurn(player)
-					.then(game => game.pass('pass'));
+					this.checkTurn(player, game);
+					promise = game.pass('pass');
 					break;
 
 				case 'swap':
-					promise = game.checkTurn(player)
-					.then(game => game.swap(args));
+					this.checkTurn(player, game);
+					promise = game.swap(args);
 					break;
 
 				case 'challenge':
-					// Check the last move in the dictionary
+					this.checkTurn(player, game);
 					promise = game.challenge();
 					break;
 
@@ -611,27 +846,36 @@ define(
 					promise = game.takeBack('took-back');
 					break;
 
+				case 'confirmGameOver':
+					promise = game.confirmGameOver(/*i18n*/'Game over');
+					break;
+
+				case 'pause':
+					promise = game.togglePause(player);
+					break;
+
+				case 'unpause':
+					promise = game.togglePause(player);
+					break;
+
 				default:
-					// Terminal, no point in translating
 					throw Error(`unrecognized command: ${command}`);
 				}
 
-				return promise.then(turn => {
-					game.finishTurn(turn)
-					.then(() => {
-						// Notify non-game monitors (games pages)
-						this.updateMonitors();
-						// Respond with the new tile list for the
-						// human player. This is only used for swap
-						// and makeMove, and other info (such as robot
-						// tile states) is sent using messaging.
-						// TODO: this is messy; mixed messaging.
-						console.log("Sending new tiles", turn.newTiles);
-						res.send(Fridge.freeze(turn.newTiles || []));
-					});
+				return promise.then(
+					turn =>	{
+						if (turn)
+							return game.finishTurn(turn); // turn taken
+						return game.save(); // simple state change
+					})
+				.then(() => {
+					//console.debug(`${command} command handled`);
+					// Notify non-game monitors (games pages)
+					this.updateMonitors();
+					res.status(200).send("OK");
 				});
 			})
-			.catch(e => this.trap(e, res));
+			.catch(e => trap(e, req, res));
 		}
 	}
 		
@@ -643,7 +887,7 @@ define(
 			['c', 'config=ARG', 'Path to config file (default config.json)']
 		])
 			.bindHelp()
-			.setHelp('Crossword game server\n[[OPTIONS]]')
+			.setHelp('Xanado server\n[[OPTIONS]]')
 			.parseSystem()
 			.options;
 
@@ -653,13 +897,12 @@ define(
 
 		// Configure email
 		.then(config => {
-			console.log('config', config);
 
 			if (config.mail) {
 				let transport;
 				if (config.mail.transport === "mailgun") {
 					if (!process.env.MAILGUN_SMTP_SERVER)
-						console.log("mailgun configuration requested, but MAILGUN_SMTP_SERVER not defined");
+						console.error('mailgun configuration requested, but MAILGUN_SMTP_SERVER not defined');
 					else {
 						if (!config.mail.sender)
 							config.mail.sender = `wordgame@${process.env.MAILGUN_DOMAIN}`;

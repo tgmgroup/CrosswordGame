@@ -2,16 +2,6 @@
    license information */
 /* eslint-env amd, node */
 
-/**
- * A Trie/DAWG node.
- * Represents a letter in a set of words. The node may prepresent the end.
- * It has pointers to a child list representing the next letters that can
- * follow this letter, and a next pointer to the next alternative to this
- * letter in the child list of it's parent node.
- * Note this is only used while generating a DAWG from a Lexicon. TrieNodes
- * are serialised using the above structure but are then rebuilt using
- * LetterNodes at the sharp end.
- */
 define('dawg/TrieNode', () => {
 
 	// Second integer of node tuple is encoded
@@ -21,14 +11,24 @@ define('dawg/TrieNode', () => {
 
 	let nodeIds = 0;
 
+	/**
+	 * A Trie/DAWG node.
+	 * Represents a letter in a set of words.
+	 * It has pointers to a child list representing the next letters that can
+	 * follow this letter, and a next pointer to the next alternative to this
+	 * letter in the child list of it's parent node.
+	 * Note this is only used while generating a DAWG from a lexicon. TrieNodes
+	 * are serialised using the above structure but are then rebuilt using
+	 * {@link LetterNode}s at the sharp end.
+	 */
 	class TrieNode {
 		/**
-		 * @param letter codepoint
-		 * @param next next node pointer
-		 * @param isWordEnding true if this is an end-of-word node
-		 * @param starterDepth The maximum depth below this node before the
+		 * @param {string} letter codepoint
+		 * @param {TrieNode} next next node pointer
+		 * @param {boolean} isWordEnding true if this is an end-of-word node
+		 * @param {number} starterDepth The maximum depth below this node before the
 		 * end-of-word is reached, for the first word added
-		 * @param isFirstChild is the first child of the parent node
+		 * @param {boolean} isFirstChild is the first child of the parent node
 		 */
 		constructor(letter, next, isWordEnding, starterDepth, isFirstChild) {
 			this.letter = letter; 
@@ -66,7 +66,7 @@ define('dawg/TrieNode', () => {
 		/**
 		 * Mark a node as pruned, and recursively mark every node
 		 * under and after it as well
-		 * @return the total number of nodes pruned as a result
+		 * @return {number} the total number of nodes pruned as a result
 		 */
 		prune() {
 			if (this.isPruned)
@@ -84,11 +84,16 @@ define('dawg/TrieNode', () => {
 		}
 
 		/**
+		 * @callback TrieNode~wordCallback
+		 * @param {TrieNode} nodes list of nodes on the path
+		 * from the root to the end of the word
+		 */
+
+		/**
 		 * Depth-first tree walk. Will visit ends of words in
 		 * sorted order. Caution; this is NOT the same as dawg/Node.eachWord.
-		 * @param nodes list of nodes visited to create the word
-		 * @param cb callback function, takes list of nodes on the path
-		 * from the root to the end of the word
+		 * @param {TrieNode[]} nodes list of nodes visited to create the word
+		 * @param {TrieNode~wordCallback} cb callback function
 		 */
 		eachWord(nodes, cb) {
 
@@ -109,8 +114,8 @@ define('dawg/TrieNode', () => {
 		/**
 		 * Search along this's child next chain for a node with the 
 		 * given letter.
-		 * @param thisLetter letter to look for
-		 * @return the node found, or null
+		 * @param {string} thisLetter letter to look for
+		 * @return {TrieNode} the node found, or null
 		 */
 		findChild(thisLetter) {
 			let result = this.child;
@@ -127,9 +132,9 @@ define('dawg/TrieNode', () => {
 		/**
 		 * Insert a letter in the child list of this node. The child
 		 * list is sorted on letter
-		 * @param thisLetter letter to add
-		 * @param wordEnder true if this is the end of a word
-		 * @param startDepth
+		 * @param {string} thisLetter letter to add
+		 * @param {boolean} wordEnder true if this is the end of a word
+		 * @param {number} startDepth depth of shallowest node
 		 */
 		insertChild(thisLetter, wordEnder, startDepth) {
 			this.numberOfChildren++;
@@ -163,6 +168,8 @@ define('dawg/TrieNode', () => {
 		/**
 		 * Determine if this and other are the parent nodes
 		 * of equal Trie branches.
+		 * @param {TrieNode} other other tree to compare
+		 * @return {boolean} if the are the same
 		 */
 		sameSubtrie(other) {
 			if (other === this) // identity
@@ -193,6 +200,8 @@ define('dawg/TrieNode', () => {
 		 * identical to 'this'. If the function returns 'this'
 		 * then it is the first of its kind in the
 		 * Trie.
+		 * @param {TrieNode[][]} red reduction structure
+		 * @return {TrieNode}
 		 */
 		findSameSubtrie(red) {
 			//return red[this.maxChildDepth].find(n => this.sameSubtrie(n));
@@ -208,7 +217,8 @@ define('dawg/TrieNode', () => {
 		/**
 		 * Recursively replaces all redundant nodes in a trie with their
 		 * first equivalent.
-		 * @param red reduction structure
+		 * @param {TrieNode[][]} red reduction structure
+		 * @return {number} no of nodes replaced
 		 */
 		replaceRedundantNodes(red) {
 
@@ -244,6 +254,7 @@ define('dawg/TrieNode', () => {
 		/**
 		 * Encode the node in a pair of integers. Requires node indices to have
 		 * been established.
+		 * @param {number[]} array array to accept the encoding
 		 */
 		encode(array) {
 			array.push(this.letter.codePointAt(0));

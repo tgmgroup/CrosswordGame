@@ -1,5 +1,6 @@
 // Scrabble with tile distributions determined using Valett using
 // dictionaries/Custom_English.txt as the corpus
+
 define('editions/Custom_Scrabble', ['editions/_Scrabble'], (Scrabble) => {
 
 	const scrabble = Scrabble();

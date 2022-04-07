@@ -1,7 +1,7 @@
 {
 	"name": "html-scrabble",
 	"description": "Multi user Scrabble game",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"author": {
 		"name": "Crawford Currie",
 		"url": "https://github.com/cdot"
@@ -12,28 +12,35 @@
 	},
 	"main": "server",
 	"engines": {
-		"node": ">=11.15.0"
+		"node": ">=12.0.0"
 	},
 	"license": "MIT",
 	"dependencies": {
-		"cookie-parser": ">=1.3.1",
-		"errorhandler": ">=1.1.0",
-		"express": ">=3.0.0",
-		"express-basic-auth": "^1.2.0",
-		"express-negotiate": ">=0.0.5",
-		"fs-extra": "^9.1.0",
-		"get-user-locale": "^1.4.0",
-		"https": "^1.0.0",
-		"method-override": ">=2.0.2",
-		"node-getopt": "^0.3.2",
-		"node-gzip": "^1.1.2",
-		"nodemailer": ">=6.4.11",
-		"requirejs": "^2.3.6",
-		"socket.io": ">=2.3.0"
+		"bcrypt": "^5.0.1",
+		"cookie-parser": ">=1.4.6",
+		"errorhandler": ">=1.5.1",
+		"express": ">=4.17.3",
+		"express-basic-auth": ">=1.2.1",
+		"express-negotiate": ">=0.0.6",
+		"express-session": "^1.17.2",
+		"get-user-locale": ">=1.4.0",
+		"https": ">=1.0.0",
+		"node-getopt": ">=0.3.2",
+		"node-gzip": ">=1.1.2",
+		"nodemailer": ">=6.7.3",
+		"passport": "^0.5.2",
+		"passport-facebook": "^3.0.0",
+		"passport-google-oauth20": "^2.0.0",
+		"proper-lockfile": "^4.1.2",
+		"requirejs": ">=2.3.6",
+		"socket.io": ">=4.4.1"
 	},
 	"devDependencies": {
-		"chai": "^4.3.4",
-		"mocha": "^8.3.2"
+		"marked": "^4.0.12",
+		"chai": ">=4.3.6",
+		"eslint": ">=8.12.0",
+		"jsdoc": "^3.6.10",
+		"mocha": ">=9.2.2"
 	},
 	"scripts": {
 		"web": "node server.js"
@@ -45,47 +52,40 @@
 		},
 		"env": {
 			"shared-node-browser": true,
-			"jquery": true
+			"jquery": true,
+			"es6": true,
+			"amd": true
 		},
 		"globals": {
-			"define": false,
-			"ArrayBuffer": false,
-			"Buffer": false,
-			"Uint8Array": false,
-			"Uint8ClampedArray": false,
-			"Int8Array": false,
-			"Int16Array": false,
-			"Uint16Array": false,
-			"Int32Array": false,
-			"Uint32Array": false,
-			"Float32Array": false,
-			"Float64Array": false,
-			"XMLHttpRequest": false,
-			"WeakMap": false,
-			"require": false,
-			"module": false,
-			"Promise": false,
-			"requirejs": true
+			"requirejs": "writable",
+			"Mocha": "writable"
 		},
 		"rules": {
-			"strict": 0,
-			"no-underscore-dangle": 0,
-			"curly": 0,
 			"camelcase": 0,
-			"no-unused-vars": 1,
+			"curly": 0,
+			"dot-notation": 1,
+			"new-cap": 0,
+			"no-alert": 0,
 			"no-console": 0,
 			"no-debugger": 0,
-			"no-alert": 1,
-			"no-new": 0,
-			"new-cap": 0,
-			"dot-notation": 1,
-			"no-trailing-spaces": 0,
-			"no-useless-escape": 1,
-			"no-use-before-define": 1,
+			"no-eval": 0,
+			"no-fallthrough": 0,
 			"no-loop-func": 1,
-			"no-eval": 1,
+			"no-mixed-spaces-and-tabs": 0,
+			"no-new": 0,
+			"no-redeclare": [
+				"error",
+				{
+					"builtinGlobals": true
+				}
+			],
+			"no-trailing-spaces": 0,
+			"no-underscore-dangle": 0,
+			"no-unused-vars": 0,
+			"no-useless-escape": 1,
+			"no-use-before-define": 0,
 			"quotes": 0,
-			"no-mixed-spaces-and-tabs": 0
+			"strict": 0
 		}
 	}
 }

@@ -9,12 +9,13 @@
  * because we want to be able to run it in a worker thread. Loading
  * it separately as a stand-alone function lets us both run it directly
  * or in the worker by simply changing a dependency.
+ * The entry point to this module is the 'findBestPlay' function only.
+ * @module game/findBestPlay
+ * @exports game/findBestPlay
  */
-define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dictionary'], (Edition, Tile, Move, Dictionary) => {
-
-	/**
-	 * The entry point to this module is the 'findBestPlay' function only.
-	 */
+define('game/findBestPlay', [
+	'game/Edition', 'game/Tile', 'game/Move', 'dawg/Dictionary'
+], (Edition, Tile, Move, Dictionary) => {
 
 	// Shortcuts to game information during move computation
 	let board;       // class Board
@@ -32,9 +33,12 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 	/**
 	 * Unlike Appel and Jacobsen, who anchor plays on empty squares,
 	 * we anchor plays on a square with a tile that has an adjacent
-	 * (horizontal or vertical) non-empty square.
-	 * @param col, row the square to inspect
-	 * @return true if this square is a valid anchor
+	 * (horizontal or vertical) non-empty square. This significantly
+	 * reduces the number of anchors that have to be evaluated.
+	 * @param {number} col the square to inspect
+	 * @param {number} row the square to inspect
+	 * @return {boolean} true if this square is a valid anchor
+	 * @private
 	 */
 	function isAnchor(col, row) {
 		return !board.at(col, row).isEmpty()
@@ -47,9 +51,10 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 	/**
 	 * Return a list of the letters that are in both arrays. Does
 	 * not handle blank!
-	 * @param a array of letters
-	 * @param b array of letters
-	 * @return intersection of a and b
+	 * @param {string[]} a array of letters
+	 * @param {string[]} b array of letters
+	 * @return {string[]} intersection of a and b
+	 * @private
 	 */
 	function intersection(a, b) {
 		return a.filter(l => b.indexOf(l) >= 0);
@@ -58,6 +63,9 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 	/**
 	 * Mainly for debug, return a list of tiles as a string.
 	 * This lets us see how/if blanks have been used.
+	 * @param {Tile[]} tiles
+	 * @return {string}
+	 * @private
 	 */
 	function pack(tiles) {
 		let word = tiles.map(l => l.letter).join('');
@@ -77,9 +85,10 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 	 * horizontal cross word.  The indices are chosen such that the
 	 * cells can be indexed using the dcol parameter in the other
 	 * functions.
-	 * @param board the Board
-	 * @param available the set of available letters
-	 * @return [c][r][2] the cross check letter matrix.
+	 * @param {Board} board the Board
+	 * @param {string[]} available the set of available letters
+	 * @return {string[][][]} [c][r][2] the cross check letter matrix
+	 * @private
 	 */
 	function computeCrossChecks(board, available) {
 		const xChecks = [];
@@ -167,13 +176,17 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
      * compute its point value, and update the best score
      * accordingly.
 	 * 
-     * @param col, row index of the current position on the board. This
+     * @param {number} col index of the current position on the board. This
 	 * is the posiiton of the last character of the word constructed so far.
-     * @param dcol, drow the extension direction (only one will be 1)
-     * @param rackTiles tiles remaining from the user's letter rack.
-	 * @param tilesPlayed number of tiles from the rack already played
-	 * @param dNode the current LetterNode
-	 * @param wordSoFar the known letters terminating at the dNode. List of Tile
+     * @param {number} row index of the current position on the board. This
+	 * is the posiiton of the last character of the word constructed so far.
+     * @param {number} dcol 1 if the extension direction is across
+     * @param {number} drow 1 if the extension direction is down
+     * @param {Tile[]} rackTiles tiles remaining from the user's letter rack.
+	 * @param {number} tilesPlayed number of tiles from the rack already played
+	 * @param {LetterNode} dNode the current LetterNode
+	 * @param {Tile[]} wordSoFar the known letters terminating at the dNode.
+	 * @private
      */
 	function forward(col, row,
 					 dcol, drow,
@@ -201,10 +214,11 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
             if (score > bestScore) {
 				bestScore = score;
 				//console.log(drow > 0 ? 'vertical' : 'horizontal')
-                report(new Move(
-					wordSoFar.filter(t => !board.at(t.col, t.row).tile),
-					words,
-					score));
+                report(new Move({
+					placements: wordSoFar.filter(t => !board.at(t.col, t.row).tile),
+					words: words,
+					score: score
+				}));
 			}
 			else if (col == 5 && row == 6)
 				report(`Reject '${pack(wordSoFar)}' at ${col},${row} ${score}`);
@@ -239,8 +253,8 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 				const rackTile = shrunkRack.find(l => l.letter === letter)
 					  || shrunkRack.find(l => l.isBlank);
 				wordSoFar.push(
-					new Tile(letter, rackTile.isBlank, rackTile.score,
-							 ecol, erow));
+					new Tile({letter:letter, isBlank:rackTile.isBlank, score:rackTile.score,
+							  col: ecol, row: erow}));
 				shrunkRack = shrunkRack.filter(t => t !== rackTile);
 			} else
 				wordSoFar.push(board.at(ecol, erow).tile);
@@ -264,14 +278,18 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 	 * the word it may be part of, try to back up/left before extending
 	 * down/right.
 	 * 
-     * @param col, row the current position on the board
-     * @param dcol, drow the extension direction (only one will be 1)
-     * @param rackTiles tiles remainig on the user's letter rack, list of Tile
-	 * @param tilesPlayed number of tiles from the rack already played
-	 * @param anchorNode the DictNode where we started backing up
-	 * @param dNode the current dictionary node
-     * @param wordSoFar the letters found as part of the word so far. List
-	 * of Tile.
+     * @param {number} col index of the current position on the board. This
+	 * is the posiiton of the last character of the word constructed so far.
+     * @param {number} row index of the current position on the board. This
+	 * is the posiiton of the last character of the word constructed so far.
+     * @param {number} dcol 1 if the extension direction is across
+     * @param {number} drow 1 if the extension direction is down
+     * @param {Tile[]} rackTiles tiles remaining from the user's letter rack.
+	 * @param {number} tilesPlayed number of tiles from the rack already played
+	 * @param {LetterNode} anchorNode the DictNode where we started backing up
+	 * @param {LetterNode} dNode the current LetterNode
+	 * @param {Tile[]} wordSoFar the known letters terminating at the dNode.
+	 * @private
      */
     function back(col, row,
 				  dcol, drow,
@@ -319,8 +337,13 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 				const tile = shrunkRack.find(l => l.letter === letter)
 					  || shrunkRack.find(l => l.isBlank);
 				wordSoFar.unshift(
-					new Tile(letter, tile.isBlank, tile.score,
-							 ecol, erow));
+					new Tile({
+						letter: letter,
+						isBlank: tile.isBlank,
+						score: tile.score,
+						col: ecol,
+						row: erow
+					}));
 				shrunkRack = shrunkRack.filter(t => t !== tile);
 			} else
 				// Letter already on the board
@@ -359,6 +382,8 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 	/**
 	 * Special case of the opening move. Find anagrams of the player's
 	 * rack, and find the highest scoring position for each possible word.
+	 * @param {Tile[]} rackTiles tiles on the rack
+	 * @private
 	 */
 	function bestOpeningPlay(rackTiles) {
 		const ruck = rackTiles.map(l => l.letter).join('');
@@ -380,7 +405,11 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 					choice = '';
 					break;
 				}
-				placements.push(new Tile(c, rackTile.isBlank, rackTile.score));
+				placements.push(new Tile({
+					letter: c,
+					isBlank: rackTile.isBlank,
+					score:rackTile.score
+				}));
 				shrunkRack = shrunkRack.filter(t => t !== rackTile);
 			}
 
@@ -403,9 +432,11 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 				if (score > bestScore) {
 					bestScore = score;
 					//console.log(drow > 0 ? 'vertical' : 'horizontal')
-					report(new Move(placements, [
-						{ word: choice, score: score }
-					], score));
+					report(new Move({
+						placements: placements,
+						words: [{ word: choice, score: score }],
+						score: score
+					}));
 				}
 			}
 		}
@@ -413,25 +444,24 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 
 	/*
 	 * Given a user's letter rack, compute the best possible move.
-	 * @pram game the Game
-	 * @param rack rack in the form of a simple list of Tile
-	 * @param listener fn() that accepts a best play whenever a new
-	 * one is found, or a string containing a message
-	 * @return Promise that resolves when all best moves have been identified
+	 * @function game/findBestPlay
+	 * @param {Game} game the Game
+	 * @param {Tile[]} rack rack in the form of a simple list of Tile
+	 * @param {string} dictionary name of dictionary to use
+	 * @param {function} listener Function that is called with a Move each time
+	 * a new best play is found, or a string containing a progress or error
+	 * message.
+	 * @return {Promise} Promise that resolves when all best moves have been
+	 * identified
+     * @alias module:game/findBestPlay
 	 */
-    function findBestPlay(game, rack, listener) {
+    function findBestPlay(game, rack, listener, dictionary) {
 		report = listener;
 
 		if (!game.edition) {
 			report('Error: Game has no edition', game);
 			// Terminal, no point in translating
 			return Promise.reject('Game has no edition');
-		}
-
-		if (!game.dictionary) {
-			report('Error: Cannot find moves with no dictionary');
-			// Terminal, no point in translating
-			return Promise.reject('Game has no dictionary');
 		}
 
 		// sort and reverse to make sure high value letters come
@@ -445,10 +475,10 @@ define('game/findBestPlay', ['game/Edition', 'game/Tile', 'game/Move', 'dawg/Dic
 		report('Finding best play for rack ' + rackTiles);
 
 		board = game.board;
-		report(`on ${board}` );
+		report(`on ${board}`);
 
 		const preamble = [
-			Dictionary.load(game.dictionary),
+			Dictionary.load(dictionary || game.dictionary),
 			Edition.load(game.edition)
 		];
 

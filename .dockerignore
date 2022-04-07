@@ -1,2 +1,17 @@
+.git
+.gitignore
 node_modules
 npm-debug.log
+Dockerfile*
+docker-compose*
+README.md
+LICENSE
+Makefile
+.vscode
+DEVELOPER.md
+games/*.game
+test
+bin
+doc
+https.*
+config*.json

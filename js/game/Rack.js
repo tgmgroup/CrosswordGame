@@ -1,6 +1,6 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env amd, node, jquery */
+/* eslint-env node, jquery */
 
 /**
  * A Rack is a set of tiles that a player can play from. It's
@@ -9,12 +9,13 @@
 define('game/Rack', ['game/Surface'], Surface => {
 
 	/**
-	 * A Rack is a 1-column Surface
+	 * A Rack is a 1-column {@link Surface}
 	 */
 	class Rack extends Surface {
 
 		/**
-		 * @param size a rack size, or an array of Tile (for tests)
+		 * @param {(number|Tile[])} size a rack size, or an array
+		 * of Tile (for tests)
 		 */
 		constructor(size) {
 			super(typeof size === 'number' ? size : size.length, 1,
@@ -32,8 +33,8 @@ define('game/Rack', ['game/Surface'], Surface => {
 		}
 
 		/**
-		 * @override Surface
 		 * One dimensional
+		 * @override
 		 */
 		at(col) {
 			return super.at(col, 0);
@@ -41,101 +42,67 @@ define('game/Rack', ['game/Surface'], Surface => {
 
 		/**
 		 * Add a Tile to the rack
-		 * @param tile the Tile to add, must != null
-		 * @return the col of the added tile
+		 * @param {Tile} tile the Tile to add, must != null
+		 * @return {number} the col of the added tile (or -1
+		 * if it couldn't be placed)
 		 */
 		addTile(tile) {
 			let col = -1;
-			this.forEachSquare(square => {
-				if (!square.tile) {
-					square.placeTile(tile);
-					col = square.col;
-					return true;
-				}
-				return false;
+			this.forEachEmptySquare(square => {
+				square.placeTile(tile);
+				col = square.col;
+				return true;
 			});
 			return col;
 		}
 
 		/**
-		 * Get the number of squares currently occupied by a tile
-		 */
-		squaresUsed() {
-			let count = 0;
-			this.forEachSquare(square => {
-				if (square.tile) count++;
-			});
-			return count;
-		}
-
-		/**
-		 * Get an array of the tiles currently on the rack
-		 */
-		tiles() {
-			let tiles = [];
-			this.forEachSquare(square => {
-				if (square.tile) tiles.push(square.tile);
-			});
-			return tiles;
-		}
-
-		/**
 		 * Get an array of the letters currently on the rack
+		 * @return {string[]}
 		 */
 		letters() {
 			return this.tiles().map(tile => tile.letter);
 		}
 
 		/**
-		 * Find a Tile on the rack that can represent the given letter.
-		 * If a normal letter can't be found, a blank will be used.
-		 * @param letter the letter to find
-		 * @return a Square
+		 * Find the Square that contains a Tile that can represent
+		 * the given letter.
+		 * If a letter tile can't be found, a blank will be used if there
+		 * is one.
+		 * @param {string} letter the letter to find
+		 * @return {Square} carrying a matching tile, or undefined
 		 */
 		findSquare(letter) {
 			let square;
-			this.forEachSquare(sq => {
-				if (sq.tile) {
-					if (!square && sq.tile.isBlank
-					   || sq.tile.letter === letter)
-						square = sq;
-				}
+			this.forEachTiledSquare(sq => {
+				if (!square && sq.tile.isBlank
+					|| sq.tile.letter === letter)
+					square = sq;
 			});
 
 			return square;
 		}
 
 		/**
-		 * Find the first Tile the rack that has the given letter. Does
-		 * not modify the rack.
-		 * @param letter the letter to find
-		 * @return a Tile or null
-		 */
-		findTile(letter) {
-			return this.findSquare(letter).tile;
-		}
-
-		/**
 		 * Find and remove a tile from the rack. Will match the requested
 		 * tile within the Rack and return it.
-		 * @param remove the Tile to remove, or null to remove any tile
-		 * @return the removed tile
+		 * @param {Tile} remove the Tile to remove, or null to remove any tile
+		 * @return {Tile} the removed tile
 		 */
 		removeTile(remove) {
-			const square = this.findSquare(remove.letter, true);
+			const square = this.findSquare(remove.letter);
 			if (!square)
-				// Terminal, no point in translating
-				throw Error('Cannot find a tile on the rack for '
-							+ remove.letter);
+				throw Error("Cannot find '"
+							+ remove.letter + "' on " + this);
 			const tile = square.tile;
-			tile.letter = remove.letter;
+			tile.letter = remove.letter; // TODO: huh?
 			square.placeTile(null);
 			return tile;
 		}
 
 		/**
 		 * Shuffle tile positions within the rack
-		 * @return this
+		 * @return {Rack} this
 		 */
 		shuffle() {
 			const len = this.cols;
@@ -153,21 +120,30 @@ define('game/Rack', ['game/Surface'], Surface => {
 		}
 
 		/**
+		 * Get a list of tiles that are not blanks
+		 */
+		lettersLeft() {
+			return this.tiles().filter(tile => !tile.isBlank)
+			.map(tile => tile.letter);
+		}
+
+		/**
 		 * Create the DOM for the Rack.
-		 * @param idbase base of id's to uniquely identify this rack
-		 * @param underlay a string of letters to use as background of
+		 * @param {string} idbase base of id's to uniquely identify this rack
+		 * @param {string} underlay a string of letters to use as background of
 		 * the rack squares. This is in place of a label.
+		 * @return {jQuery}
 		 */
 		createDOM(idbase, underlay) {
-			const $table = $('<table class="rackTable"></table>');
+			const $table = $('<table class="Rack"></table>');
 			const $tr = $(`<tr></tr>`);
 			let idx = 0;
 			this.forEachSquare(square => {
 				const $td = square.createDOM(idbase, idx);
 				if (underlay) {
 					const letter = underlay.charAt(idx);
-					$td.addClass('bgLetterContainer');
-					$td.append(`<div class='bgLetter'>${letter}</div>`);
+					$td.addClass('underlay-container');
+					$td.append(`<div class='underlay'>${letter}</div>`);
 				}
 				$tr.append($td);
 				idx++;

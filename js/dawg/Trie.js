@@ -8,7 +8,7 @@
  */
 define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 	/**
-	 * A Trie - a tree of nodes, each of which has a next pointer to another
+	 * A tree of nodes, each of which has a letter, a next pointer to another
 	 * node, and a child pointer to another node.
 	 */
 	class Trie {
@@ -33,7 +33,7 @@ define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 
 		/**
 		 * Add a word to the Trie
-		 * @param word string
+		 * @param {string} word word to add
 		 */
 		addWord(word) {
 			let current = this.first;
@@ -73,10 +73,11 @@ define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 		}
 
 		/**
-		 * Construct an array indexed on maxChildDepth (word length)
+		 * Construct an array indexed on `maxChildDepth` (word length)
 		 * Each entry is an array that contains all the nodes with that
-		 * maxChildDepth.
-		 * @return the structure
+		 * `maxChildDepth`.
+		 * @return {TrieNode[][]} the structure
+		 * @private
 		 */
 		createReductionStructure() {
 			console.log('\nCreate reduction structure');
@@ -125,6 +126,8 @@ define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 		 * there are so many of them.  It is faster to start with nodes of
 		 * the largest 'maxChildDepth' to recursively reduce as many lower
 		 * nodes as possible.
+		 * @param {TrieNode[][]} red the reduction structure
+		 * @private
 		 */
 		findPrunedNodes(red) {
 			console.log('\nMark redundant nodes as pruned');
@@ -176,9 +179,10 @@ define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 		}
 
 		/**
-		 * Label all of the remaining nodes in the Trie-Turned-DAWG so that
+		 * Label all of the remaining nodes in the Trie-turned-DAWG so that
 		 * they will fit contiguously into an unsigned integer array.
-		 * @return all the nodes in the order they are indexed
+		 * @return {TrieNode[]} all the nodes in the order they are indexed
+		 * @private
 		 */
 		assignIndices() {
 
@@ -217,7 +221,8 @@ define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 		}
 
 		/**
-		 * Go through the steps to 
+		 * Go through the steps to generate a DAWG from a Trie tree
+		 * by merging duplicate sub-trees.
 		 */
 		generateDAWG() {
 
@@ -229,14 +234,12 @@ define('dawg/Trie', ['dawg/TrieNode'], TrieNode => {
 			// first equivalent in the Trie
 			let trimmed = this.first.child.replaceRedundantNodes(red);
 			console.log(`Pruned ${trimmed} nodes`);
-
-			return red;
 		}
 
 		/**
-		 * Convert a DAWG expressed as a network of Trie nodes into a
+		 * Convert a Trie tree (DAWG) nodes into a
 		 * linear 32-bit integer array.
-		 * @return array of integers
+		 * @return {number[]} array of integers
 		 */
 		encodeDAWG() {
 			console.log('\nGenerate the unsigned integer array');

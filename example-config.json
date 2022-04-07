@@ -1,4 +1,4 @@
-// Rename this file 'config.json' and remove ALL // comments
+// Rename this file as 'config.json' and remove ALL // comments
 {
 	// The port on the server to use. The default 9093 is used by several
 	// other applications, see:
@@ -10,9 +10,9 @@
 	// Optional mail configuration.
 	// Not required unless you are mailing out invitations.
     "mail": {
-        "sender": "Crossword Server <crosswords@example.com>",
-		// You can also set "transport" to the string "mailgun" to use a mailgun
-		// configuration. https://www.mailgun.com/
+        "sender": "XANADO <xanado@example.com>",
+		// You can also set "transport" to the string "mailgun" to use
+		// a mailgun configuration. https://www.mailgun.com/
 		"transport": {
 			// This structure is passed directly to the nodemailer
 			// createTransport function. Refer to the 'nodemailer'
@@ -28,16 +28,41 @@
 	// The default dictionary when creating new games. Note that the
 	// robot player requires a dictionary. Dictionaries can be found
 	// in the 'dictionaries' directory.
-    "defaultDictionary": "SOWPODS_English",
+    "defaultDictionary": "CSW2019_English",
 
-	// Optional Basic Auth credentials used to control access to the
-	// create and delete functions of the games list.
+	// Access control
 	"auth": {
-		"user": "pass"
+		// Probably best to leave this as-is
+		"sessionSecret": "cross words",
+		// Path to file used to store usernames and passwords (in plain text!)
+		"db_file" : "passwd.json",
+		// Configurations for oauth2 providers. You have to have registered the
+		// application and obtained client id's and secrets from the provider's webiste
+		"oauth2": {
+			// These configurations are passed directly to the Passport Strategy for the
+			// named provider e.g. passport-google, passport-facebook
+			"google": {
+				"logo": "https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA",
+				"module": "passport-google-oauth20",
+				"clientID":"YOUR CLIENT ID",
+				"clientSecret":"YOUR SECRET",
+				"scope": [ "profile", "email" ],
+				// Google requires a fully qualified URL, by their policies
+				"callbackURL": "protocol://YOUR.SERVER/oauth2/callback/google"
+			},
+			"facebook": {
+				"logo": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+				"clientID":"YOUR CLIENT ID",
+				"clientSecret": "YOUR CLIENT SECRET",
+				"profileFields": ["id", "displayName", "email"],
+				// Facebook requires a relative URL. Put an absolute URL in and you
+				// will get a blank page and facebook will never redirect
+				"callbackURL": "/oauth2/callback/facebook"
+			}
 	},
 
 	// Optional HTTPS configuration. HTTPS is required for notifications
-	// to work in the browser. See
+	// to work in the browser and is important for protecting passwords. See
 	// https://linuxize.com/post/creating-a-self-signed-ssl-certificate/
 	// for how to create a self-signed certificate. On linux:
 	// openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out https.crt -keyout https.key

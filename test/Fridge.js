@@ -1,7 +1,7 @@
 /*@preserve Copyright (C) 2021 Crawford Currie http://c-dot.co.uk license MIT*/
 /* eslint-env node, mocha */
 
-if (typeof module !== 'undefined') {
+if (typeof requirejs === 'undefined') {
     requirejs = require('requirejs');
     // node.js
 }
@@ -28,7 +28,7 @@ requirejs(['test/TestRunner', 'game/Fridge'], (TestRunner, Fridge) => {
     let tr = new TestRunner('Fridge');
     let assert = tr.assert;
 	
-    tr.addTest('simple', () => {
+    tr.addTest('simple-object', () => {
 
 		let simple = {
 			number: 10,
@@ -50,7 +50,17 @@ requirejs(['test/TestRunner', 'game/Fridge'], (TestRunner, Fridge) => {
 		assert.equal(thawed.classObject.toString(), simple.classObject.toString());
 	});
 
-    tr.addTest('instance-ref', () => {
+    tr.addTest('date', () => {
+
+		let frood = new Date();
+		let frozen = Fridge.freeze(frood);
+		//console.log(JSON.stringify(frozen));
+		let thawed = Fridge.thaw(frozen, [ Wibble ]);
+		assert(thawed instanceof Date);
+		assert.deepEqual(frood, thawed);
+	});
+
+     tr.addTest('instance-ref', () => {
 
 		let frood = new Wibble('frood');
 		let simple = {
@@ -65,6 +75,16 @@ requirejs(['test/TestRunner', 'game/Fridge'], (TestRunner, Fridge) => {
 		assert.equal(thawed.obj1, thawed.obj2);
 	});
 
+    tr.addTest('array', () => {
+
+		let frood = [ 1, 2, 3, 4];
+		let frozen = Fridge.freeze(frood);
+		//console.log(JSON.stringify(frozen));
+		let thawed = Fridge.thaw(frozen, [ Wibble ]);
+		//console.log(JSON.stringify(thawed));
+		 assert.deepEqual(frood, thawed);
+	});
+
     tr.addTest('array-ref', () => {
 
 		let frood = [ 1, 2, 3, 4];
@@ -76,8 +96,19 @@ requirejs(['test/TestRunner', 'game/Fridge'], (TestRunner, Fridge) => {
 		//console.log(JSON.stringify(frozen));
 		let thawed = Fridge.thaw(frozen, [ Wibble ]);
 		//console.log(JSON.stringify(thawed));
-		assert.equal(thawed.obj1, thawed.obj2);
+		assert.deepEqual(thawed.obj1, thawed.obj2);
 	});
+
+    tr.addTest('array-of', () => {
+
+		let frood = [ { 1: 2, 3: 4} ];
+		let frozen = Fridge.freeze(frood);
+		//console.log(JSON.stringify(frozen));
+		let thawed = Fridge.thaw(frozen, [ Wibble ]);
+		//console.log(JSON.stringify(thawed));
+		 assert.deepEqual(frood, thawed);
+	});
+
 
     tr.addTest('object-ref', () => {
 
@@ -98,10 +129,34 @@ requirejs(['test/TestRunner', 'game/Fridge'], (TestRunner, Fridge) => {
 		let frood = new Wibble();
 		frood.wibble = frood;
 		let frozen = Fridge.freeze(frood);
-		console.log(JSON.stringify(frozen));
+		//console.log(JSON.stringify(frozen));
 		let thawed = Fridge.thaw(frozen, [ Wibble ]);
 		//console.log(JSON.stringify(thawed));
 		assert.equal(thawed.obj1, thawed.obj2);
+	});
+
+	class Weeble extends Wibble {
+		constructor(wib) {
+			super(wib);
+		}
+
+		Freeze() {
+			return `frozen ${this.wibble}`;
+		}
+
+		static Thaw(data) {
+			return new Weeble(`thawed ${data}`);
+		}
+	}
+
+    tr.addTest('methods', () => {
+
+		let frood = new Weeble("BLIB");
+		let frozen = Fridge.freeze(frood);
+		//console.log(JSON.stringify(frozen));
+		let thawed = Fridge.thaw(frozen, [ Weeble ]);
+		//console.log(JSON.stringify(thawed));
+		assert.equal("thawed frozen BLIB", thawed.wibble);
 	});
 
 	tr.run();

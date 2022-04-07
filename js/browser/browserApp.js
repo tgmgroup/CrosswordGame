@@ -16,26 +16,22 @@ define('browser/browserApp', [
 	'i18n_messagestore',
 	'i18n_parser'
 ], () => {
-	return new Promise(resolve => {
-		$.getJSON('/locales', function(locales) {
-			const params = {};
-			locales.forEach(locale => {
-				params[locale] = `/i18n/${locale}.json`;
-			});
-			// Note: without other guidance, i18n will use the locale
-			// already in the browser - which is fine by us!
-			$.i18n().load(params)
-			.done(() => {
-				console.log('Locale is ready');
-				resolve(Object.keys(params));
-			});
+	return $.get('/locales')
+	.then(locales => {
+		const params = {};
+		locales.forEach(locale => {
+			params[locale] = `/i18n/${locale}.json`;
 		});
+		// Note: without other guidance, i18n will use the locale
+		// already in the browser - which is fine by us!
+		return $.i18n().load(params).then(() => locales);
 	})
 	.then(locales => {
+		console.log('Locales available', locales.join(', '));
 		// Expand/translate strings in the HTML
 		return new Promise(resolve => {
 			$(document).ready(() => {
-				console.log('Translating HTML to',$.i18n().locale);
+				console.log('Translating HTML to', $.i18n().locale);
 				$('body').i18n();
 				resolve(locales);
 			});

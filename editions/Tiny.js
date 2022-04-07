@@ -19,17 +19,27 @@ define('editions/Tiny', () => {
 		{ letter: 'C', score: 3, count: 1 },
 		{ letter: 'D', score: 2, count: 2 },
 		{ letter: 'E', score: 1, count: 5 },
+		{ letter: 'F', score: 3, count: 1 },
 		{ letter: 'G', score: 2, count: 1 },
+		{ letter: 'H', score: 2, count: 1 },
 		{ letter: 'I', score: 1, count: 4 },
+		{ letter: 'J', score: 4, count: 1 },
+		{ letter: 'K', score: 4, count: 1 },
 		{ letter: 'L', score: 1, count: 3 },
 		{ letter: 'M', score: 3, count: 1 },
 		{ letter: 'N', score: 1, count: 3 },
 		{ letter: 'O', score: 1, count: 4 },
 		{ letter: 'P', score: 3, count: 1 },
+		{ letter: 'Q', score: 4, count: 1 },
 		{ letter: 'R', score: 1, count: 5 },
 		{ letter: 'S', score: 1, count: 5 },
 		{ letter: 'T', score: 1, count: 4 },
-		{ letter: 'U', score: 1, count: 4 }
+		{ letter: 'U', score: 1, count: 3 },
+		{ letter: 'V', score: 4, count: 1 },
+		{ letter: 'W', score: 3, count: 1 },
+		{ letter: 'X', score: 2, count: 1 },
+		{ letter: 'Y', score: 2, count: 1 },
+		{ letter: 'Z', score: 4, count: 1 }
 	];
 
 	return {

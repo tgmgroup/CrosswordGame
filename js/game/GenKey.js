@@ -4,6 +4,7 @@
 
 /**
  * Simple function to generate a 8-byte random hex key
+ * @return {string}
  */
 define('game/GenKey', () => {
 	const chs = '0123456789abcdef'.split('');

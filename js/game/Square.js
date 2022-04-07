@@ -2,33 +2,33 @@
    license information */
 /* eslint-env amd, jquery */
 
-/**
- * A square on the game board or rack. A Tile holder with some
- * underlying attributes; a position, an owner, and a type that
- * dictates the score multipliers that apply.  The owner will be a
- * Rack or a Board.
- */
-define('game/Square', ['platform/Platform'], Platform => {
+define('game/Square', ['platform'], (Platform) => {
 
 	// Map the characters in the board template to CSS classes
 	const CSS_CLASS =  {
-		M: 'Middle',
-		Q: 'QuadWord',
-		q: 'QuadLetter',
-		T: 'TripleWord',
-		t: 'TripleLetter',
-		D: 'DoubleWord',
-		d: 'DoubleLetter',
-		_: 'Normal'
+		M: /*i18n*/"square-M",
+		Q: /*i18n*/"square-Q",
+		q: /*i18n*/"square-q",
+		T: /*i18n*/"square-T",
+		t: /*i18n*/"square-t",
+		D: /*i18n*/"square-D",
+		d: /*i18n*/"square-d",
+		_: /*i18n*/"square-_"
 	};
 
 	/**
-	 * @param type  /^[QqTtSs_]$/ see Board.js
-	 * @param owner Board or Rack
-	 * @param col column where the square is
-	 * @param row row where the square is (undefined on a rack)
+	 * A square on the game board or rack. A Tile holder with some
+	 * underlying attributes; a position, an owner, and a type that
+	 * dictates the score multipliers that apply. The owner will be a
+	 * subclass of {@link Surface} (a {@link Rack} or a {@link Board})
 	 */
 	class Square {
+		/**
+		 * @param {string} type /^[QqTtSs_]$/ see {@link Board}
+		 * @param {Surface} owner the container this is in
+		 * @param {number} col 0-based column where the square is
+		 * @param {number} row 0-based row where the square is (undefined on a rack)
+		 */
 		constructor(type, owner, col, row) {
 			this.type = type;
 			this.owner = owner; // Rack or Board
@@ -65,13 +65,13 @@ define('game/Square', ['platform/Platform'], Platform => {
 
 		/**
 		 * Place a tile on this square
-		 * @param tile the Tile to place
-		 * @param lockedwhether the tile is to be locekd to the square
+		 * @param {Tile} tile the Tile to place
+		 * @param {boolean} lockedwhether the tile is to be locekd to the square
 		 * (fixed on the board)
 		 */
 		placeTile(tile, locked) {
 			if (tile && this.tile && tile !== this.tile) {
-				console.log('Tile ', tile, ' over ', this.tile);
+				console.error("Tile ", tile, " over ", this.tile);
 				throw Error(`Square already occupied: ${this}`);
 			}
 
@@ -113,7 +113,7 @@ define('game/Square', ['platform/Platform'], Platform => {
 		 */
 		createDOM(idbase, col, row) {
 			const $td = $(`<td></td>`);
-			$td.addClass(CSS_CLASS[this.type]);
+			$td.addClass(`square-${this.type}`);
 
 			let id = `${idbase}_${col}`;
 			if (typeof row !== 'undefined')
@@ -128,8 +128,8 @@ define('game/Square', ['platform/Platform'], Platform => {
 
 		refreshDOM() {
 			const $div = $(`#${this.id}`)
-				.removeClass('Selected')
-				.removeClass('Temp')
+				.removeClass('selected')
+				.removeClass('temporary')
 				.off('click');
 
 			if (this.tile)
@@ -138,33 +138,32 @@ define('game/Square', ['platform/Platform'], Platform => {
 				this.refreshEmpty($div);
 		}
 
+		/**
+		 * Set the square as (un)selected; UI
+		 * @param {boolean} sel 
+		 */
 		setSelected(sel) {
 			if (sel && this.tile)
-				$(`#${this.id}`).addClass('Selected');
+				$(`#${this.id}`).addClass('selected');
 			else
-				$(`#${this.id}`).removeClass('Selected');
-			// Unused
-			//$('#board td').removeClass('Targeted');
-			//if (!this.tile)
-			//	$(`#${this.id}`).addClass('Targeted');
+				$(`#${this.id}`).removeClass('selected');
 		}
 
 		/**
-		 * @private
 		 * Update a square that has a Tile dropped on it
-		 * @param square the square to update
-		 * @param $div the <div> for the square
+		 * @param {jQuery} $div the <div> for the square
+		 * @private
 		 */
 		refreshOccupied($div) {
 			if ($div.hasClass('ui-droppable'))
 				$div.droppable('destroy');
 
 			$div
-			.removeClass('Empty')
-			.addClass('Tile');
+			.removeClass("empty-square")
+			.addClass("tiled-square");
 
 			if (this.tile.isBlank)
-				$div.addClass('BlankLetter');
+				$div.addClass('blank-letter');
 
 			if (this.tileLocked) {
 				$div.addClass('Locked');
@@ -173,7 +172,7 @@ define('game/Square', ['platform/Platform'], Platform => {
 			} else {
 				// tile isn't locked, valid drag source
 				$div
-				.addClass('Temp')
+				.addClass('temporary')
 				.on('click', () => Platform.trigger('SelectSquare', [ this ]));
 
 				$div.draggable({
@@ -188,10 +187,10 @@ define('game/Square', ['platform/Platform'], Platform => {
 						// Configure drag helper
 						$(jui.helper)
 						.animate({'font-size' : '120%'}, 300)
-						.addClass('dragBorder');
+						.addClass('drag-border');
 					},
 
-					drag: (event, jui) => $(jui.helper).addClass('dragBorder'),
+					drag: (event, jui) => $(jui.helper).addClass('drag-border'),
 
 					stop: () => $div.css({ opacity: 1 })
 				});
@@ -200,16 +199,15 @@ define('game/Square', ['platform/Platform'], Platform => {
 			const letter = this.tile.letter;
 			const score = this.tile.score;
 			const $a = $('<a></a>');
-			$a.append(`<span class='Letter'>${letter}</span>`);
-			$a.append(`<span class='Score'>${score}</span>`);
+			$a.append(`<span class='letter'>${letter}</span>`);
+			$a.append(`<span class='score'>${score}</span>`);
 			$div.html($a);
 		}
 
 		/**
-		 * @private
 		 * Update a square that doesn't have a Tile dropped on it
-		 * @param square the square to update
-		 * @param $div the <div> for the square
+		 * @param {jQuery} $div the <div> for the square
+		 * @private
 		 */
 		refreshEmpty($div) {
 
@@ -219,13 +217,13 @@ define('game/Square', ['platform/Platform'], Platform => {
 
 			// no tile on the square, valid drop target
 			$div
-			.removeClass('Tile')
-			.addClass('Empty');
+			.removeClass("tiled-square")
+			.addClass('empty-square');
 
 			$div.on('click', () => Platform.trigger('SelectSquare', [ this ]))
 			// Handle something dropping on us
 			.droppable({
-				hoverClass: 'dropActive',
+				hoverClass: 'drop-active',
 				drop: (event, jui) => {
 					const source = $(jui.draggable).data('square');
 					// Tell the main UI about it
@@ -233,10 +231,9 @@ define('game/Square', ['platform/Platform'], Platform => {
 				}
 			});
 
-			const text = $.i18n(`square-${CSS_CLASS[this.type]}`);
-
-			$div.addClass('Empty')
-			.removeClass('Tile')
+			const text = $.i18n(`square-${this.type}`);
+			$div.addClass('empty-square')
+			.removeClass("tiled-square")
 			.html(`<a>${text}</a>`);
 		}
 	}		

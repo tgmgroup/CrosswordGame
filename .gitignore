@@ -6,3 +6,9 @@ node_modules
 .idea
 *.iml
 *~
+doc/*.html
+doc/*.html
+doc/fonts
+doc/scripts
+doc/styles
+games/*.game

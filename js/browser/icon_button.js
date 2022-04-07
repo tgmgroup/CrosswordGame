@@ -6,10 +6,20 @@
  * buttons with images for icons. The "icon" option is extended to detect
  * if the icon-name starts with "ui-icon-" and if not, assumes the icon
  * is defined by a CSS class. It also supports specifying the icon name via
- * a data-icon= attribute in HTML.
+ * a data-icon= attribute in HTML. Example CSS:
+ * ```
+ * .icon-search {
+ *     background-image: url('../images/search.svg')!important;
+ * }
+ * ```
+ * Example HTML:
+ * ```
+ * <button class="icon_button" data-icon="icon-search">
+ * Search</button>
+ * ```
  */
-define("js/jq/icon_button", ["jquery-ui"], function () {
-    $.widget("squirrel.icon_button", $.ui.button, {
+define("js/browser/icon_button", ["jqueryui"], function () {
+    $.widget("jquery.icon_button", $.ui.button, {
         _create: function () {
             this.options.icon = this.options.icon || this.element.data("icon");
             if (this.options.icon && !/^ui-icon-/.test(this.options.icon)) {
@@ -17,7 +27,7 @@ define("js/jq/icon_button", ["jquery-ui"], function () {
                     primary: this.options.icon
                 };
                 this.options.classes = {
-                    "ui-button-icon": "squirrel-icon"
+                    "ui-button-icon": "icon_button"
                 };
                 delete this.options.icon;
             }
@@ -30,7 +40,7 @@ define("js/jq/icon_button", ["jquery-ui"], function () {
                 option = "icons";
                 value = {
                     primary: value
-                }
+                };
             }
             this._super(option, value);
         }

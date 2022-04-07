@@ -4,6 +4,8 @@
  * simple.
  * Copyright and license as described at https://github.com/jmlewis/valett
  */
+/* eslint-env amd */
+
 define('design/ValettCore', () => {
 
 	function norm(vector) {
@@ -48,7 +50,8 @@ define('design/ValettCore', () => {
 	class Valett {
 
 		/*
-		 * @param letters list of single-character strings
+		 * @param {string[]} words word list
+		 * @param {string[]} letters list of single-character strings
 		 */
 		constructor(words, letters) {
 			this.words = words;

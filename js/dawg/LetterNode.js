@@ -17,10 +17,16 @@ define('dawg/LetterNode', () => {
 		}
 
 		/**
+		 * @callback LetterNode~wordCallback
+		 * @param {string} word found
+		 * @param {LetterNode} node node where word was terminated
+		 */
+
+		/**
 		 * Enumerate each word in the dictionary. Calls cb on each word.
 		 * Caution this is NOT the same as dawg/TrieNode.eachWord.
-		 * @param s the word constructed so far
-		 * @param cb the callback, accepts a string and a node
+		 * @param {string} s the word constructed so far
+		 * @param {LetterNode~wordCallback} cb the callback
 		 */
 		eachWord(s, cb) {
 			if (this.isEndOfWord)
@@ -33,6 +39,14 @@ define('dawg/LetterNode', () => {
 				this.next.eachWord(s, cb);
 		}
 
+		/**
+		 * Enumerate each LONG word in the dictionary. A long word is one
+		 * that has no child nodes i.e. cannot be extended by adding more
+		 * letters to create a new word. Calls cb on each word.
+		 * Caution this is NOT the same as dawg/TrieNode.eachWord.
+		 * @param {string} s the word constructed so far
+		 * @param {wordCallback} cb the callback
+		 */
 		eachLongWord(s, cb) {
 			if (this.isEndOfWord && !this.child)
 				cb(s + this.letter, this);
@@ -45,10 +59,15 @@ define('dawg/LetterNode', () => {
 		}
 
 		/**
+		 * @callback LetterNode~nodeCallback
+		 * @param {LetterNode} node node
+		 * @return {boolean} true to continue the iteration, false to stop it.
+		 */
+
+		/**
 		 * Enumerate each node in the dictionary in depth-first order.
 		 * Calls cb on each node.
-		 * @param cb the callback, accepts a node. If the callback returns
-		 * true, will carry on, otherwise will terminate the enumeration.
+		 * @param {LetterNode~nodeCallback} cb the callback
 		 */
 		eachNode(cb) {
 			if (!cb(this))
@@ -85,11 +104,12 @@ define('dawg/LetterNode', () => {
 		}
 
 		/**
-		 * Return the Node that matches the last character
+		 * Return the LetterNode that matches the last character
 		 * in chars, even if it's not isEndOfWord
-		 * @param chars a string of characters that may
+		 * @param {string} chars a string of characters that may
 		 * be the root of a word
-		 * @param index the start index within partialWord
+		 * @param {number} index the start index within partialWord
+		 * @return {LetterNode} node found, or undefined
 		 */
 		match(chars, index) {
 			if (typeof index === 'undefined')
@@ -108,10 +128,11 @@ define('dawg/LetterNode', () => {
 		}
 
 		/**
-		 * @param realWord the string built so far in this recursion
-		 * @param blankedWord the string built using spaces for blanks
+		 * @param {string} realWord the string built so far in this recursion
+		 * @param {string} blankedWord the string built using spaces for blanks
 		 * if they are used
-		 * @param sortedChars the available set of characters, sorted
+		 * @param {string} sortedChars the available set of characters, sorted
+		 * @param {string[]} foundWords list of words found
 		 */
 		findAnagrams(realWord, blankedWord, sortedChars, foundWords) {
 
@@ -151,8 +172,6 @@ define('dawg/LetterNode', () => {
 			if (this.next)
 				this.next.findAnagrams(
 					realWord, blankedWord, sortedChars, foundWords);
-
-			return foundWords;
 		}
 	}
 

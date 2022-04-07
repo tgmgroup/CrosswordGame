@@ -32,7 +32,7 @@ For more details on how to run the game or add dictionaries, check out C-Dot Con
 
 ## About Scrabble:
 
-[SCRABBLE®](http://www.scrabble.com/) is a registered trademark. All
+- [SCRABBLE®](http://www.scrabble.com/) is a registered trademark. All
 intellectual property rights in and to the game are owned in the U.S.A
 and Canada by Hasbro Inc., and throughout the rest of the world by
 J.W. Spear & Sons Limited of Maidenhead, Berkshire, England, a

@@ -6,6 +6,9 @@
 /**
  * Command-line invocation of the Valett word corpus analyser
  * Based on code from https://github.com/jmlewis/valett
+ *
+* `node js/design/valett.js` will tell you how to use it.
+ * @module
  */
 const requirejs = require('requirejs');
 
@@ -13,7 +16,8 @@ requirejs.config({
 	baseUrl: `${__dirname}/..`
 });
 
-requirejs(['node-getopt', 'fs-extra', 'design/ValettCore'], (Getopt, Fs, Valett) => {
+requirejs(['node-getopt', 'fs', 'design/ValettCore'], (Getopt, fs, Valett) => {
+	const Fs = fs.promises;
 	const config = { // default config for Scrabble(R)
 		weights: {
 			frequency: .34,

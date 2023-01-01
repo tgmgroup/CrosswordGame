@@ -32,7 +32,7 @@
 		"src/*/*.js",
 		"package.json",
 		"package-lock.json",
-		"README.md.md"
+		"README.md"
 	],
 	"license": "MIT",
 	"dependencies": {
@@ -79,7 +79,7 @@
 		"webpack-cli": "latest"
 	},
 	"scripts": {
-		"build": "node bin/update-indexes;(webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js)",
+		"build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
 		"server": "node bin/server.js",
 		"start": "node bin/server.js",
 		"debug": "node bin/server.js --config config.json --debug all",

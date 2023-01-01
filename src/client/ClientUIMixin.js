@@ -4,18 +4,18 @@
 /* eslint-env browser, jquery */
 
 // The documented method for importing socket.io in ESM is:
-// import { io } from "../../node_modules/socket.io/client-dist/socket.io.esm.min.js";
+// import { io } from "socket.io/client-dist/socket.io.esm.min.js";
 // This works fine in the unpacked version, but fails when webpacked.
 //
 // The following clumsy hack is the only way I could get it to work in both
 // the unpacked and th packed versions. If someone can do better, please do!
 /* global io */
-import * as SI from "../../node_modules/socket.io/client-dist/socket.io.js";
+import * as SI from "socket.io/client-dist/socket.io.js";
 if (typeof io === "undefined")
   window.io = SI.io;
 
-import "../../node_modules/jquery/dist/jquery.js";
-import "../../node_modules/jquery-ui/dist/jquery-ui.js";
+import "jquery/dist/jquery.js";
+import "jquery-ui/dist/jquery-ui.js";
 
 import { Game } from "../game/Game.js";
 import { Tile } from "../game/Tile.js";

@@ -3,13 +3,13 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser, jquery */
 
-import "../../node_modules/jquery/dist/jquery.js";
-import "../../node_modules/@wikimedia/jquery.i18n/src/jquery.i18n.js";
-import "../../node_modules/@wikimedia/jquery.i18n/src/jquery.i18n.language.js";
-import "../../node_modules/@wikimedia/jquery.i18n/src/jquery.i18n.messagestore.js";
-import "../../node_modules/@wikimedia/jquery.i18n/src/jquery.i18n.parser.js";
-import "../../node_modules/@wikimedia/jquery.i18n/src/jquery.i18n.fallbacks.js";
-import "../../node_modules/@wikimedia/jquery.i18n/src/jquery.i18n.emitter.js";
+import "jquery/dist/jquery.js";
+import "@wikimedia/jquery.i18n/src/jquery.i18n.js";
+import "@wikimedia/jquery.i18n/src/jquery.i18n.language.js";
+import "@wikimedia/jquery.i18n/src/jquery.i18n.messagestore.js";
+import "@wikimedia/jquery.i18n/src/jquery.i18n.parser.js";
+import "@wikimedia/jquery.i18n/src/jquery.i18n.fallbacks.js";
+import "@wikimedia/jquery.i18n/src/jquery.i18n.emitter.js";
 
 import { stringify } from "../common/Utils.js";
 

@@ -26,7 +26,7 @@ describe("browser/BrowserPlayer", () => {
     $.i18n = I18N;
     return Promise.all([
       I18N().load("en"),
-      import("../../node_modules/jquery-ui/dist/jquery-ui.js")
+      import("jquery-ui/dist/jquery-ui.js")
     ]);
   });
 

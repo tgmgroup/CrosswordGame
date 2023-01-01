@@ -16,39 +16,39 @@
 		"access": "public"
 	},
 	"files": [
-		"*.md",
 		"audio/*.mp3",
 		"bin/*.js",
 		"css/*.css",
 		"css/*.json",
-		"dist/*.html",
-		"dist/*/*.js",
 		"dictionaries/*.dict",
 		"dictionaries/index.json",
+		"dist/*.html",
+		"dist/**/*",
 		"editions/*.json",
+		"games/*",
 		"html/*.html",
 		"i18n/*.json",
 		"images/*",
+		"src/*/*.js",
 		"package.json",
-		"src/*/*.js"
+		"package-lock.json",
+		"README.md.md"
 	],
 	"license": "MIT",
 	"dependencies": {
 		"@cdot/cbor": "latest",
 		"@cdot/dictionary": "latest",
-		"@rwap/jquery-ui-touch-punch": "github:RWAP/jquery-ui-touch-punch",
+		"@rwap/jquery-ui-touch-punch": "latest",
 		"@wikimedia/jquery.i18n": "latest",
 		"async-lock": "latest",
 		"bcrypt": "latest",
 		"express": "latest",
 		"express-session": "latest",
-		"https": "latest",
 		"jquery": "latest",
 		"jquery-ui": "latest",
 		"jquery.cookie": "latest",
 		"nodemailer": "latest",
 		"normalize.css": "latest",
-		"npm": "^9.2.0",
 		"passport": "latest",
 		"passport-facebook": "latest",
 		"passport-google-oauth20": "latest",
@@ -90,6 +90,9 @@
 		"tx": "node bin/checkStrings.js",
 		"update": "ncu -u ",
 		"docker": "npm run build; docker build . --tag xanado --file build/Dockerfile"
+	},
+	"bin": {
+		"xanado": "./bin/server.js"
 	},
 	"eslintConfig": {
 		"extends": "eslint:recommended",

@@ -18,8 +18,8 @@
  * Search</button>
  * ```
  */
-import "../../node_modules/jquery/dist/jquery.js";
-import "../../node_modules/jquery-ui/dist/jquery-ui.js";
+import "jquery/dist/jquery.js";
+import "jquery-ui/dist/jquery-ui.js";
 
 $.widget("jquery.icon_button", $.ui.button, {
   _create: function () {

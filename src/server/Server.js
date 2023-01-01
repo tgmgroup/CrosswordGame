@@ -63,22 +63,23 @@ function reply(res, data) {
  * * {@linkcode Server#GET_defaults|`GET /defaults`}
  * * {@linkcode Server#GET_dictionaries|GET /dictionaries}
  * * {@linkcode Server#GET_editions|GET /editions}
- * * {@linkcode Server#GET_game|GET /game/:gameKey}
+ * * {@linkcode Server#GET_edition|GET /edition/:edition}
  * * {@linkcode Server#GET_games|GET /games/:send}
+ * * {@linkcode Server#GET_game|GET /game/:gameKey}
  * * {@linkcode Server#GET_history|GET /history}
- * * {@linkcode Server#GET_POST_join|GET /join/:gameKey}
  * * {@linkcode Server#GET_locales|GET /locales}
- * * {@linkcode Server#GET_theme|GET /theme/:css
- * * {@linkcode Server#GET_themes|GET /themes}
+ * * {@linkcode Server#GET_css|GET /css}
+ * * {@linkcode Server#GET_POST_join|GET /join/:gameKey}
+ * * {@linkcode Server#GET_POST_join|POST /join/:gameKey}
  * * {@linkcode Server#POST_addRobot|POST /addRobot/:gameKey}
  * * {@linkcode Server#POST_anotherGame|POST /anotherGame/:gameKey}
  * * {@linkcode Server#POST_createGame|POST /createGame}
  * * {@linkcode Server#POST_deleteGame|POST /deleteGame/:gameKey}
  * * {@linkcode Server#POST_invitePlayers|POST /invitePlayers/:gameKey}
- * * {@linkcode Server#GET_POST_join|POST /join/:gameKey}
  * * {@linkcode Server#POST_leave|POST /leave/:gameKey}
  * * {@linkcode Server#POST_removeRobot|POST /removeRobot/:gameKey}
  * * {@linkcode Server#POST_sendReminder|POST /sendReminder/:gameKey}
+ * * {@linkcode Server#POST_command|POST /command/:command/:gameKey}
  *
  * See also {@link UserManager} for other user management routes.
  */

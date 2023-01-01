@@ -3,8 +3,8 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser, jquery */
 
-import "../../node_modules/jquery/dist/jquery.js";
-import "../../node_modules/jquery-ui/dist/jquery-ui.js";
+import "jquery/dist/jquery.js";
+import "jquery-ui/dist/jquery-ui.js";
 
 import { Game } from "../game/Game.js";
 const Player = Game.CLASSES.Player;

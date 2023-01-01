@@ -9,8 +9,8 @@
 import { BrowserPlatform } from "../browser/BrowserPlatform.js";
 window.Platform = BrowserPlatform;
 
-import "../../node_modules/jquery/dist/jquery.js";
-import "../../node_modules/jquery-ui/dist/jquery-ui.js";
+import "jquery/dist/jquery.js";
+import "jquery-ui/dist/jquery-ui.js";
 
 import { Game } from "../game/Game.js";
 import { UI } from "../browser/UI.js";

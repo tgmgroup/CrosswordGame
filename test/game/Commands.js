@@ -1,10 +1,9 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
+/* eslint-env mocha,node */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
-// disable findBestPlay worker threads
-ServerPlatform.USE_WORKERS = false;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
 import { MemoryDatabase } from "../MemoryDatabase.js";
 import { TestSocket } from "../TestSocket.js";
 import sparseEqual from "../sparseEqual.js";
@@ -12,13 +11,13 @@ import sparseEqual from "../sparseEqual.js";
 import { stringify } from "../../src/common/Utils.js";
 import { Commands } from "../../src/game/Commands.js";
 import { Game as _Game } from "../../src/game/Game.js";
+// disable worker threads
+_Game.USE_WORKERS = false;
 
 const Game = Commands(_Game);
 Game.CLASSES.Game = Game;
 const Tile = Game.CLASSES.Tile;
 const Move = Game.CLASSES.Move;
-const Square = Game.CLASSES.Square;
-const Turn = Game.CLASSES.Turn;
 const Player = Game.CLASSES.Player;
 
 /**
@@ -27,7 +26,7 @@ const Player = Game.CLASSES.Player;
 
 describe("game/Commands.js", () => {
 
-  function UNit() {}
+  before(setupPlatform);
 
   it("swap", () => {
     const game = new Game({
@@ -41,7 +40,6 @@ describe("game/Commands.js", () => {
     const human2 = new Player({
       name: "Human 2", key: "human2", isRobot: false}, Game.CLASSES);
     const socket1 = new TestSocket();
-    let turns1 = 0;
     socket1
     .on(Game.Notify.TURN, (turn, event, seqNo) => {
       switch (seqNo) {
@@ -67,7 +65,7 @@ describe("game/Commands.js", () => {
     });
 
     const socket2 = new TestSocket();
-    socket2.on(Game.Notify.TURN, (turn, event) => {
+    socket2.on(Game.Notify.TURN, (turn) => {
       // human2 should see a redacted version of the SWAPPED turn
       assert.equal(turn.type, Game.Turns.SWAPPED);
       assert(!turn.words);
@@ -138,7 +136,7 @@ describe("game/Commands.js", () => {
       _noPlayerShuffle: true
     });
     const socket = new TestSocket();
-    socket.on(Game.Notify.NEXT_GAME, (data, event) => {
+    socket.on(Game.Notify.NEXT_GAME, (data) => {
       //console.debug("anotherGame", info);
       assert.equal(data.gameKey, game.nextGameKey);
       socket.done();
@@ -288,7 +286,7 @@ describe("game/Commands.js", () => {
         assert.fail(`UNEXPECTED ${event} ${seqNo} ${stringify(m)}`);
       }
     });
-    socket1.on(Game.Notify.CONNECTIONS, (data, event, seqNo) => {
+    socket1.on(Game.Notify.CONNECTIONS, () => {
       //console.log(`conn ${seqNo}`);
     });
     socket1.on("*", (data, event, seqNo) => {
@@ -416,7 +414,7 @@ describe("game/Commands.js", () => {
         assert.fail(`UNEXPECTED ${event} ${seqNo} ${stringify(m)}`);
       }
     })
-    .on(Game.Notify.CONNECTIONS, (data, event, seqNo) => {
+    .on(Game.Notify.CONNECTIONS, () => {
       //console.log(`conn ${seqNo}`);
     })
     .on("*", (data, event, seqNo) => {
@@ -484,7 +482,6 @@ describe("game/Commands.js", () => {
       name: "Human 1", key: "human1", isRobot: false}, Game.CLASSES);
     const human2 = new Player({
       name: "Human 2", key: "human2", isRobot: false}, Game.CLASSES);
-    const aTile = new Tile({letter:"A", score:1 });
 
     const game = new Game({
       edition:"Test",
@@ -493,7 +490,7 @@ describe("game/Commands.js", () => {
       _noPlayerShuffle: true
     });
     const socket = new TestSocket();
-    socket.on(Game.Notify.TURN, (turn, event) => {
+    socket.on(Game.Notify.TURN, (turn) => {
       //console.debug(turn, event);
       assert.equal(turn.type, Game.Turns.PLAYED);
       assert.equal(turn.playerKey, human1.key);
@@ -603,7 +600,6 @@ describe("game/Commands.js", () => {
     });
     const socket = new TestSocket();
     socket.on(Game.Notify.CONNECTIONS, () => {});
-    let turns = 0;
     socket.on(Game.Notify.TURN, (turn, event, seqNo) => {
       switch (seqNo) {
       case 1:
@@ -654,7 +650,6 @@ describe("game/Commands.js", () => {
       assert.deepEqual(human1.rack.letters().sort(),
                        [ "A", "B", "C", "P", "Q" ]);
       assert(game.letterBag.isEmpty());
-      
     })
     // Player 0 takes their move back, tils should return to the bag
     .then(() => game.takeBack(human1, Game.Turns.TOOK_BACK))
@@ -755,7 +750,7 @@ describe("game/Commands.js", () => {
     .then(g => assert.equal(g.pausedBy, human1.name))
     .then(() => game.unpause(human2))
     .then(g => assert.strictEqual(g, game))
-    .then(g => assert(!game.pausedBy));
+    .then(() => assert(!game.pausedBy));
   });
 });
 

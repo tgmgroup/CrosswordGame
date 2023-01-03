@@ -1,20 +1,21 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
+/* eslint-env mocha, node */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
+import { MemoryDatabase } from "../MemoryDatabase.js";
 
 import { stringify } from "../../src/common/Utils.js";
-import { MemoryDatabase } from "../MemoryDatabase.js";
 import { TestSocket } from "../TestSocket.js";
 import sparseEqual from "../sparseEqual.js";
 import { Commands } from "../../src/game/Commands.js";
 import { Game as _Game } from "../../src/game/Game.js";
+_Game.USE_WORKERS = false;
 const Game = Commands(_Game);
 Game.CLASSES.Game = Game;
 const Tile = Game.CLASSES.Tile;
 const Player = Game.CLASSES.Player;
-const Turn = Game.CLASSES.Turn;
 const Move = Game.CLASSES.Move;
 
 /**
@@ -23,8 +24,8 @@ const Move = Game.CLASSES.Move;
  */
 describe("game/Challenges", () => {
 
-  function UNit() {}
-  
+  before(setupPlatform);
+
   it("bad challenge by next player - miss turn", () => {
     const game = new Game({
       edition:"Test",
@@ -76,7 +77,7 @@ describe("game/Challenges", () => {
         assert.fail(`UNEXPECTED ${event} ${seqNo} ${stringify(turn)}`);
       }
     })
-    .on(Game.Notify.CONNECTIONS, (data, event, seqNo) => {})
+    .on(Game.Notify.CONNECTIONS, () => {})
     .on("*", (data, event, seqNo) => {
       assert.fail(`UNEXPECTED EVENT ${seqNo} ${stringify(data)}`);
     });
@@ -152,7 +153,7 @@ describe("game/Challenges", () => {
         assert.fail(`UNEXPECTED ${event} ${seqNo} ${stringify(turn)}`);
       }
     });
-    socket.on(Game.Notify.CONNECTIONS, (data,event,seqNo) => {
+    socket.on(Game.Notify.CONNECTIONS, () => {
       //console.log("con",seqNo);
     });
     socket.on("*", (data, event, seqNo) => {
@@ -342,7 +343,6 @@ describe("game/Challenges", () => {
       score: 99
     });
     const socket = new TestSocket();
-    let turns = 0;
     const handle = (turn, event, seqNo) => {
       switch (seqNo) {
       case 1:
@@ -414,7 +414,6 @@ describe("game/Challenges", () => {
       score: 99
     });
     const socket = new TestSocket();
-    let turns = 0;
     const handle = (turn, event, seqNo) => {
       switch (seqNo) {
       case 1:
@@ -722,7 +721,7 @@ describe("game/Challenges", () => {
       human1.rack.addTile(game.letterBag.removeTile({letter:"R"}));
       human1.rack.addTile(game.letterBag.removeTile({letter:"T"}));
 
-      game.addPlayer(human2);      
+      game.addPlayer(human2);
       human2.rack.addTile(game.letterBag.removeTile({letter:"Q"}));
 
       game.whosTurnKey = human1.key;
@@ -800,7 +799,7 @@ describe("game/Challenges", () => {
       human1.rack.addTile(game.letterBag.removeTile({letter:"R"}));
       human1.rack.addTile(game.letterBag.removeTile({letter:"T"}));
 
-      game.addPlayer(human2);      
+      game.addPlayer(human2);
       human2.rack.addTile(game.letterBag.removeTile({letter:"Q"}));
 
       // Empty the bag
@@ -992,7 +991,7 @@ describe("game/Challenges", () => {
       john.rack.addTile(game.letterBag.removeTile({letter:"A"}));
       john.rack.addTile(game.letterBag.removeTile({letter:"R"}));
       john.rack.addTile(game.letterBag.removeTile({letter:"D"}));
-      
+
       game.addPlayer(paul);
       paul.rack.addTile(game.letterBag.removeTile({letter:"U"}));
       game.whosTurnKey = john.key;

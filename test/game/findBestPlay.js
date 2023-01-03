@@ -1,9 +1,10 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node */
+/* eslint-env mocha */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform} from "../TestPlatform.js";
+
 import { Game } from "../../src/game/Game.js";
 import { findBestPlay } from "../../src/game/findBestPlay.js";
 const Player = Game.CLASSES.Player;
@@ -12,6 +13,8 @@ const Rack = Game.CLASSES.Rack;
 const Move = Game.CLASSES.Move;
 
 describe("game/findBestPlay", () => {
+
+  before(setupPlatform);
 
   it("blanks", () => {
     let bestMoves = [];
@@ -122,14 +125,14 @@ describe("game/findBestPlay", () => {
       assert.equal(last.placements[1].letter, "R");
       assert.equal(last.placements[1].score, 1);
       assert.equal(last.placements[1].col, 2);
-      assert.equal(last.placements[1].row, 6);      
+      assert.equal(last.placements[1].row, 6);
       assert.equal(last.placements[2].letter, "A");
       assert.equal(last.placements[2].score, 1);
       assert.equal(last.placements[2].col, 3);
-      assert.equal(last.placements[2].row, 6);      
+      assert.equal(last.placements[2].row, 6);
     });
   });
-     
+
   it("noe", () => {
     let bestMoves = [];
     let rack = new Rack(Game.CLASSES, { id: "best", size: 7 });
@@ -164,7 +167,7 @@ describe("game/findBestPlay", () => {
         "| | | | | | | | | | | | | | | |\n" +
         "| | | | | | | | | | | | | | | |\n");
     })
-    
+
     .then(game => findBestPlay(
       game, rack.tiles(),
       move => {
@@ -176,7 +179,7 @@ describe("game/findBestPlay", () => {
 
     .then(() => {
       assert.equal(bestMoves.length, 2);
-      
+
       assert.equal(bestMoves[0].words.length, 1);
       assert.equal(bestMoves[0].words[0].word, "ATAXIA");
       assert.equal(bestMoves[0].words[0].score, 14);
@@ -186,7 +189,7 @@ describe("game/findBestPlay", () => {
       assert.equal(bestMoves[1].words[0].score, 24);
     });
   });
-  
+
   it("town", () => {
     let bestMoves = [];
     const rack = new Rack(Game.CLASSES, { id: "best", size: 7 });

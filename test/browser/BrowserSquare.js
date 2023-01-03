@@ -1,20 +1,9 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha, node */
 
-import { JSDOM } from "jsdom";
-const { window } = new JSDOM(
-  '<!doctype html><html><body id="working"></body></html>');
-global.window = window;
-global.document = window.document;
-global.navigator = { userAgent: "node.js" };
-import jquery from "jquery";
-global.$ = global.jQuery = jquery(window);
-
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
-
-import { I18N } from "../../src/server/I18N.js";
+import { assert } from "chai";
+import { setupBrowser } from "../TestPlatform.js";
 
 import { BrowserSquare } from "../../src/browser/BrowserSquare.js";
 import { BrowserTile } from "../../src/browser/BrowserTile.js";
@@ -24,16 +13,7 @@ import { BrowserTile } from "../../src/browser/BrowserTile.js";
  */
 describe("browser/BrowserSquare", () => {
 
-  before(() => {
-    // Delayed imports to allow jQuery to be defined
-    $.i18n = I18N;
-    return Promise.all([
-      I18N().load("en"),
-      import("jquery-ui/dist/jquery-ui.js")
-    ]);
-  });
-
-  function UNit() {}
+  before(setupBrowser);
 
   it('$populate', () => {
     let sq = new BrowserSquare({type: 'q', surface: { id: "base" }, col: 56, row: 42});
@@ -72,7 +52,7 @@ describe("browser/BrowserSquare", () => {
     sq.placeTile(tile);
     sq.$populate($td);
     sq.select(false);
-    
+
     const $letter = $('<span class="letter">S</span>');
     const $score = $('<span class="score">0</span>');
     const $glyph = $('<div class="glyph"></div>');
@@ -135,7 +115,7 @@ describe("browser/BrowserSquare", () => {
           .append($glyph);
     $td = $('<td class="square-_" id="surface_56x42"></td>').append($tile);
     $("body").append($('<div id="exp"></div>').append($td));
-    
+
     const $act = $("#act").children().first();
     const $exp = $("#exp").children().first();
     assert($act[0].isEqualNode($exp[0]),
@@ -163,7 +143,7 @@ describe("browser/BrowserSquare", () => {
           .append($glyph);
     $td = $('<td class="square-_" id="surface_56x42"></td>').append($tile);
     const $dexp = $('<div></div>').append($td);
-    
+
     assert($dact[0].isEqualNode($dexp[0]),
            "\n" + $dact.html() + "\n" + $dexp.html());
 

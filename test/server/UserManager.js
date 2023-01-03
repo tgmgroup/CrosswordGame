@@ -1,13 +1,13 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
-/* global Platform */
+/* eslint-env mocha,node */
 
 import chai from "chai";
+const assert = chai.assert;
 import http from "chai-http";
 chai.use(http);
-import { promises as Fs } from "fs";
 import { ServerPlatform } from "../../src/server/ServerPlatform.js";
+/* global Platform */
 global.Platform = ServerPlatform;
 import tmp from "tmp-promise";
 import sparseEqual from "../sparseEqual.js";
@@ -19,8 +19,6 @@ import { UserManager } from "../../src/server/UserManager.js";
  * Basic unit tests for UserManager class. Only tests Xanado signins.
  */
 describe("server/UserManager", () => {
-
-  function UNit() {}
 
   const config = {
     auth: {
@@ -40,7 +38,7 @@ describe("server/UserManager", () => {
       .then(() => tmp.file())
       .then(o => config.auth.db_file = o.path)
       .then(() => tmp.dir())
-      .then(o => config.games = o.path)      
+      .then(o => config.games = o.path)
       .then(() => Platform.i18n().load("en-GB"));
     });
 
@@ -115,7 +113,7 @@ describe("server/UserManager", () => {
       return res.body.key;
     });
   }
-  
+
   // Promise to signin user. Resolve to cookie.
   function signin(server, user) {
     return chai.request(server.express)
@@ -211,11 +209,11 @@ describe("server/UserManager", () => {
       register_password: "test_pass",
       register_email: "test@email.com"
     })
-    
+
     .then(() => signin(server, {
       signin_username: "test_user", signin_password: "test_pass"
     }))
-    
+
     .then(c => {
       cookie = c;
       return chai.request(server.express)
@@ -252,7 +250,7 @@ describe("server/UserManager", () => {
       assert(res.body.key.length > 1);
     });
   });
-  
+
   it("signed in /users", () => {
     let cookie;
     const server = new Server(config);
@@ -289,7 +287,7 @@ describe("server/UserManager", () => {
   });
 
   it("/reset-password", () => {
-    let cookie, token;
+    let token;
     const server = new Server(config);
     // server.mail.transport hasn't been configured yet
     assert(!server.config.mail);
@@ -314,7 +312,7 @@ describe("server/UserManager", () => {
       register_password: "test_pass",
       register_email: "test@email.com"
     })
-    .then(cookie => chai.request(server.express)
+    .then(() => chai.request(server.express)
           .post("/reset-password")
           .send({reset_email: "unknown@email.com"}))
     .then(res => {

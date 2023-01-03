@@ -1,7 +1,7 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
 License MIT. See README.md at the root of this distribution for full copyright
 and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 
 import { assert } from "chai";
 import { Fridge } from "../../src/common/Fridge.js";
@@ -102,7 +102,6 @@ describe("common/Fridge", () => {
     assert.deepEqual(frood, thawed);
   });
 
-  
   it('object-ref', () => {
 
     let frood = { 1: 2, 3: 4 };
@@ -174,4 +173,19 @@ describe("common/Fridge", () => {
     assert(thawed.obj());
     assert(thawed.mixin());
   });
+
+  class Unfreezable extends Wibble {
+    static UNFREEZABLE = true;
+    constructor(wib) {
+      super(wib);
+    }
+  }
+
+  it('unfreezable', () => {
+
+    let frood = new Unfreezable();
+    let frozen = Fridge.freeze(frood);
+    let thawed = Fridge.thaw(frozen, { Wibble: Wibble });
+    assert(thawed instanceof Wibble);
+  });  
 });

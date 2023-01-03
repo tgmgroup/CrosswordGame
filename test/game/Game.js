@@ -1,12 +1,10 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha,node */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
 import { Game } from "../../src/game/Game.js";
-const Tile = Game.CLASSES.Tile;
-const Move = Game.CLASSES.Move;
 const Square = Game.CLASSES.Square;
 const Turn = Game.CLASSES.Turn;
 const Player = Game.CLASSES.Player;
@@ -17,7 +15,7 @@ const Player = Game.CLASSES.Player;
  */
 describe("game/Game", () => {
 
-  function UNit() {}
+  before(setupPlatform);
 
   it("construct, serialisable, fromSimple", () => {
     const p = {
@@ -96,7 +94,7 @@ describe("game/Game", () => {
       assert.equal(s.turns.length, 0);
     });
   });
-  
+
   it("basics", () => {
     const p = {
       //_debug: console.debug,
@@ -122,13 +120,11 @@ describe("game/Game", () => {
 
     const human4 = new Player({
       name:"human4", key:"human4", isRobot: false}, Game.CLASSES);
-    const robot2 = new Player({
-      name:"Robot 2", key:"robot2", isRobot: true}, Game.CLASSES);
 
     const um = { // UserManager fixture
       getUser: k => Promise.resolve({ email: k.key + "@players.com" })
     };
-    
+
     return game.create()
     .then(() => {
       assert.equal(game.edition, p.edition);
@@ -157,10 +153,10 @@ describe("game/Game", () => {
       human2.score = 2;
       human3.score = 3;
       human4.score = 4;
-      
+
       human4._isConnected = true;
       human4.isNextToGo = true;
-      
+
       let player = game.getPlayer();
       assert.equal(player, human2);
       player = game.getPlayerWithKey(human2.key);
@@ -223,7 +219,7 @@ describe("game/Game", () => {
       });
     });
   });
-  
+
   it("turns", () => {
     const p = {
       //_debug: console.debug,
@@ -290,11 +286,10 @@ describe("game/Game", () => {
       //_debug: console.debug,
       maxPlayers: 10
     };
-    let game;
     return new Game(p)
     .create()
     .then(game => {
-      const frozen = Game.toCBOR(game);
+      Game.toCBOR(game);
     });
   });
 });

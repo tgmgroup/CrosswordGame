@@ -16,10 +16,11 @@
 		"access": "public"
 	},
 	"files": [
+        "README.md",
 		"audio/*.mp3",
 		"bin/*.js",
 		"css/*.css",
-		"css/*.json",
+		"css/index.json",
 		"dictionaries/*.dict",
 		"dictionaries/index.json",
 		"dist/*.html",
@@ -31,8 +32,7 @@
 		"images/*",
 		"src/*/*.js",
 		"package.json",
-		"package-lock.json",
-		"README.md"
+		"package-lock.json"
 	],
 	"license": "MIT",
 	"dependencies": {
@@ -104,9 +104,6 @@
 			"shared-node-browser": true,
 			"jquery": true,
 			"es2021": true
-		},
-		"globals": {
-			"assert": "writable"
 		},
 		"plugins": [
 			"import"

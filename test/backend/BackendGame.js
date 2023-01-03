@@ -1,14 +1,16 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha,node */
 
+import { assert } from "chai";
 import { TestSocket } from '../TestSocket.js';
 import { MemoryDatabase } from "../MemoryDatabase.js";
 import sparseEqual from "../sparseEqual.js";
+import { setupPlatform, getTestGame } from "../TestPlatform.js";
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
-ServerPlatform.USE_WORKERS = true;
+import { Game } from "../../src/game/Game.js";
+Game.USE_WORKERS = true;
+
 import { BackendGame } from "../../src/backend/BackendGame.js";
 import { FileDatabase } from "../../src/server/FileDatabase.js";
 const Player = BackendGame.CLASSES.Player;
@@ -21,7 +23,9 @@ const Tile = BackendGame.CLASSES.Tile;
  */
 describe("backend/BackendGame", () => {
 
-	function UNit() {}
+	//function UNit() {}
+
+  before(setupPlatform);
 
 	it("last move in game", () => {
 		const game = new BackendGame({
@@ -48,7 +52,7 @@ describe("backend/BackendGame", () => {
 		const socket = new TestSocket();
 		socket.on(
       BackendGame.Notify.TURN,
-		  (data, event, order) => {
+		  (data) => {
 			  sparseEqual(data, {
 					  type: BackendGame.Turns.PLAYED,
 					  playerKey: human1.key,
@@ -159,7 +163,7 @@ describe("backend/BackendGame", () => {
 			score: 99
 		});
 		const socket1 = new TestSocket();
-		socket1.on(BackendGame.Notify.REJECT, (data, event) => {
+		socket1.on(BackendGame.Notify.REJECT, (data) => {
 			assert.deepEqual(data, {
 				playerKey: human1.key,
 				words: [ "XYZ" ] });
@@ -195,13 +199,9 @@ describe("backend/BackendGame", () => {
 	});
 
 	it("load from database", () => {
-		const db = new FileDatabase({
-      dir: "test/data", ext: "game"
-    });
-		return db.get("unfinished_game")
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
-    .then(game => game.onLoad(new MemoryDatabase()))
+		return getTestGame("unfinished_game", BackendGame)
 		.then(game => {
+      game.onLoad(new MemoryDatabase());
       //game._debug = console.debug;
 			const human = game.getPlayerWithKey("human");
 			return game.pass(human, BackendGame.Turns.PASSED);

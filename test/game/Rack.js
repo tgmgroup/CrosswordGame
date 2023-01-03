@@ -1,13 +1,13 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 
 import { assert } from "chai";
 
 import { Game } from "../../src/game/Game.js";
 const Rack = Game.CLASSES.Rack;
 const Tile = Game.CLASSES.Tile;
-const Square = Game.CLASSES.Square;
+
 /**
  * Unit tests for Rack
  */
@@ -51,7 +51,7 @@ describe("game/Rack", () => {
     assert.deepEqual(r.letters().sort(), [" ", "B", "C", "D"]);
     assert.deepEqual(r.lettersLeft().sort(), ["B", "C", "D"]);
   });
-  
+
   it("wild", () => {
     let r = new Rack(Game.CLASSES, { id: "base", size: 10 });
     r.isWild = true;

@@ -1,14 +1,12 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-import path from "path";
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+/* eslint-env mocha,node */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+
+/* global Platform */ import { setupPlatform, getTestGame } from "../TestPlatform.js";
 
 import { MemoryDatabase } from "../MemoryDatabase.js";
-import { FileDatabase } from "../../src/server/FileDatabase.js";
 import { Commands } from "../../src/game/Commands.js";
 import { Replay } from "../../src/game/Replay.js";
 import { Undo } from "../../src/game/Undo.js";
@@ -93,8 +91,6 @@ describe("game/Replay", () => {
       return preBag.sort().join("");
     });
   }
-
-  function UNit() {}
 
   /* Turns:
 [
@@ -216,21 +212,19 @@ describe("game/Replay", () => {
   }
 ]
 */
+  before(setupPlatform);
+
   it("replay", () => {
     let preGame, game, preBag;
-    
-    const db = new FileDatabase({
-      dir: `${__dirname}/../data`, ext: "game"
-    });
-    return db.get("good_game")
-    .then(d => Game.fromCBOR(d, Game.CLASSES))
-    .then(g => preGame = g)
-    .then(() => preGame.onLoad(db))
-    .then(() => getEditionBag(preGame))
-    .then(pb => preBag = pb)
 
-    .then(() => game = new Game(preGame))
-    .then(() => {
+    return getTestGame("good_game", Game)
+    .then(g => {
+      preGame = g;
+      return getEditionBag(preGame);
+    })
+    .then(pb => {
+      preBag = pb;
+      game = new Game(preGame);
       game.key = "simulated_game";
       //game._debug = console.debug;
       game.replay(preGame);
@@ -239,7 +233,7 @@ describe("game/Replay", () => {
 
     .then(() => {
       let promise = Promise.resolve();
-      for (const i in game.game.turns)
+      for (let i = 0; i < game.game.turns.length; i++)
         promise = promise.then(() => {
           checkBag(game, preBag);
           return game.step()
@@ -249,22 +243,18 @@ describe("game/Replay", () => {
       .then(() => assertGameEqual(game, preGame));
     });
   });
-  
+
   it("issue 50", () => {
     let preGame, game, preBag = [];
 
-    const db = new FileDatabase({
-      dir: `${__dirname}/../data`, ext: "game"
-    });
-    return db.get("kolano")
-    .then(d => Game.fromCBOR(d, Game.CLASSES))
-    .then(g => preGame = g)
-    .then(() => preGame.onLoad(db))
-    .then(() => getEditionBag(preGame))
-    .then(pb => preBag = pb)
- 
-    .then(() => game = new Game(preGame))
-    .then(() => {
+    return getTestGame("kolano", Game)
+    .then(g => {
+      preGame = g;
+      return getEditionBag(preGame);
+    })
+    .then(pb => {
+      preBag = pb;
+      game = new Game(preGame);
       game.key = "simulated_game";
       game.replay(preGame);
       //game._debug = console.debug;
@@ -291,25 +281,21 @@ describe("game/Replay", () => {
   it("issue 49", () => {
     let preGame, game, preBag;
 
-    const db = new FileDatabase({
-      dir: `${__dirname}/../data`, ext: "game"
-    });
-    return db.get("8-letter-rack")
-    .then(d => Game.fromCBOR(d, Game.CLASSES))
-    .then(g => preGame = g)
-    .then(() => preGame.onLoad(db))
-    .then(() => getEditionBag(preGame))
-    .then(pb => preBag = pb)
-
-    .then(() => game = new Game(preGame))
-    .then(() => {
+    return getTestGame("8-letter-rack", Game)
+    .then(g => {
+      preGame = g;
+      return getEditionBag(preGame);
+    })
+    .then(pb => {
+      preBag = pb;
+      game = new Game(preGame);
+      game.key = "simulated_game";
       //game._debug = console.debug;
       game.replay(preGame);
-      game.key = "simulated_game";
     })
     .then(() => game.onLoad(new MemoryDatabase()))
     .then(async () => {
-      for (const i in preGame.turns) {
+      for (let i = 0; i < preGame.turns.length; i++) {
         checkBag(game, preBag);
         await game.step();
         checkBag(game, preBag);

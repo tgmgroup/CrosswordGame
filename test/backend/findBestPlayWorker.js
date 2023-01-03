@@ -1,9 +1,10 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node */
+/* eslint-env mocha,node */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
+
 import { BackendGame } from "../../src/backend/BackendGame.js";
 import { findBestPlay } from "../../src/backend/findBestPlayController.js";
 const Player = BackendGame.CLASSES.Player;
@@ -12,6 +13,8 @@ const Rack = BackendGame.CLASSES.Rack;
 const Move = BackendGame.CLASSES.Move;
 
 describe("backend/findBestPlay", () => {
+
+  before(setupPlatform);
 
   it("worker", () => {
     let bestMoves = [];
@@ -71,11 +74,11 @@ describe("backend/findBestPlay", () => {
       assert.equal(last.placements[1].letter, "R");
       assert.equal(last.placements[1].score, 1);
       assert.equal(last.placements[1].col, 2);
-      assert.equal(last.placements[1].row, 6);      
+      assert.equal(last.placements[1].row, 6);
       assert.equal(last.placements[2].letter, "A");
       assert.equal(last.placements[2].score, 1);
       assert.equal(last.placements[2].col, 3);
-      assert.equal(last.placements[2].row, 6);      
+      assert.equal(last.placements[2].row, 6);
     });
   });
 });

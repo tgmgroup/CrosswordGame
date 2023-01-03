@@ -1,6 +1,5 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node */
 
 /**
  * This is NOT a unit test, it is a stand-alone test for the game engine.

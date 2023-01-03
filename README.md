@@ -42,6 +42,8 @@ This fork has some major differences:
 
 # Installation
 
+The server code is written in Javascript ES6 and tested using `node.js` version 19.2.0. It may work in earlier versions of `node.js`, but is untested. The server has only been tested running on Ubuntu 22.04. The client is also written in Javascript and works in all the browsers tested so far (Chrome, Firefox, Android, Opera.)
+
 ## Single-player (runs in the browser)
 If you want to play the single-player version against the computer, then all
 you have to do is to visit a server where it has been installed.
@@ -224,7 +226,6 @@ https://linuxize.com/post/creating-a-self-signed-ssl-certificate/
 for instructions.
 
 # Development
-The server code is written in Javascript ES6 and tested using `node.js` version 12.0.0. It may work in earlier versions of `node.js`, but is untested. The client is also written in Javascript and works in all the browsers I tested (Chrome, Firefox, Android, Opera.) Apple products - iOS, Safari, MacOS - are NOT tested.
 
 Further development is welcome, especially:
 - User interface translations
@@ -259,7 +260,7 @@ Xanado is hosted on your own server and doesn't store any information about you 
 ## CODE COPYRIGHT AND LICENSE
 
 The current code was written by Crawford Currie and is
-Copyright &copy; 2021-2022 Xanado Project. However it is
+Copyright &copy; 2021-2023 Xanado Project. However it is
 built on the work of many people, most notably Hans Hübner, Daniel
 Weck, Elijah Sawyers, Andrew Appel, Guy Jacobsen, and Joshua Lewis, and
 the many people who they in turn based their work on. All these individuals
@@ -267,3 +268,10 @@ are acknowledged as sharing the copyright to parts of the work.
 
 The code is licensed under the terms of the [MIT license](https://en.wikipedia.org/wiki/MIT_License),
 as the most restrictive of the licenses of the contributory works.
+
+## Contributors
+In alphabetical order
+- Alexander Weps @exander77
+- Crawford Currie @cdot
+- Paul Kolano @pkolano
+- Warren Bank @warren-bank

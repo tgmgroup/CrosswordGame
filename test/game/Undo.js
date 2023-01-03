@@ -1,18 +1,12 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha,node */
 
-import path from "path";
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
-
+import { assert } from "chai";
+import { setupPlatform, getTestGame } from "../TestPlatform.js";
 import { stringify } from "../../src/common/Utils.js";
 import { MemoryDatabase } from "../MemoryDatabase.js";
 import { TestSocket } from "../TestSocket.js";
-import { FileDatabase } from "../../src/server/FileDatabase.js";
 import { Commands } from "../../src/game/Commands.js";
 import { Undo } from "../../src/game/Undo.js";
 import { Game as _Game } from "../../src/game/Game.js";
@@ -24,6 +18,8 @@ const Move = Game.CLASSES.Move;
 const Turn = Game.CLASSES.Turn;
 
 describe("game/Undo", () => {
+
+  before(setupPlatform);
 
   function assertGameEqual(actual, expected, noTurns) {
     const elb = expected.letterBag;
@@ -68,8 +64,6 @@ describe("game/Undo", () => {
     }
   }
 
-  function UNit() {}
-  
   it("unswap", () => {
     const game = new Game({
       edition:"Test",
@@ -83,21 +77,21 @@ describe("game/Undo", () => {
     const human2 = new Player({
       name: "Human 2", key: "human2", isRobot: false}, Game.CLASSES);
     const frontend = new TestSocket("front end");
-    frontend.on(Game.Notify.TURN, (turn, event, seqNo) => {
+    frontend.on(Game.Notify.TURN, (turn) => {
       assert.equal(turn.type, "swap");
       frontend.done();
     })
-    .on("*", (data, event) => {});
+    .on("*", () => {});
 
-    let A, B, C, D, E, preswap;
+    let A, C, E, preswap;
     return game.create()
     .then(() => game.onLoad(new MemoryDatabase()))
     .then(game => {
       game.addPlayer(human1);
       human1.rack.addTile(A = game.letterBag.getRandomTile());
-      human1.rack.addTile(B = game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
       human1.rack.addTile(C = game.letterBag.getRandomTile());
-      human1.rack.addTile(D = game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
       human1.rack.addTile(E = game.letterBag.getRandomTile());
       game.addPlayer(human2, true);
     })
@@ -151,16 +145,16 @@ describe("game/Undo", () => {
       socket.done();
       assert.fail(`UNEXPECTED EVENT ${seqNo} ${stringify(data)}`);
     });
-    let A, B, C, D, E, prepass;
+    let prepass;
     return game.create()
     .then(() => game.onLoad(new MemoryDatabase()))
     .then(game => {
       game.addPlayer(human1);
-      human1.rack.addTile(A = game.letterBag.getRandomTile());
-      human1.rack.addTile(B = game.letterBag.getRandomTile());
-      human1.rack.addTile(C = game.letterBag.getRandomTile());
-      human1.rack.addTile(D = game.letterBag.getRandomTile());
-      human1.rack.addTile(E = game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
+      human1.rack.addTile(game.letterBag.getRandomTile());
       game.addPlayer(human2, true);
       game.whosTurnKey = human1.key;
     })
@@ -190,7 +184,6 @@ describe("game/Undo", () => {
       name: "Human 1", key: "human1", isRobot: false}, Game.CLASSES);
     const human2 = new Player({
       name: "Human 2", key: "human2", isRobot: false}, Game.CLASSES);
-    const aTile = new Tile({letter:"A", score:1 });
 
     const game = new Game({
       edition:"Test",
@@ -200,7 +193,7 @@ describe("game/Undo", () => {
       allowUndo: true
     });
     const socket = new TestSocket("unplay");
-    socket.on(Game.Notify.TURN, (turn, event, seqNo) => {
+    socket.on(Game.Notify.TURN, (turn) => {
       assert.equal(turn.type, "play");
     })
     .on(Game.Notify.UNDONE, (data, event, seqNo) => {
@@ -279,8 +272,7 @@ describe("game/Undo", () => {
       assert.equal(data.type, "took-back");
       socket.done();
     });
-    socket.on("*", (turn, event) => {
-    });
+    socket.on("*", () => {});
     let preplay, pretakeback, posttakeback;
     return game.create()
     .then(() => game.onLoad(new MemoryDatabase()))
@@ -309,11 +301,8 @@ describe("game/Undo", () => {
 
   // Unplay an entire game (including a challenge)
   it("undo", () => {
-    const db = new FileDatabase({ dir: `${__dirname}/../data`, ext: "game" });
-    let game;
-    return db.get("finished_game")
-    .then(d => Game.fromCBOR(d, Game.CLASSES))
-    .then(game => game.onLoad(new MemoryDatabase()))
+    return getTestGame("finished_game", Game)
+    .then(game => { game._db = new MemoryDatabase(); return game; })
     .then(game => {
       game.allowUndo = true;
       //game._debug = console.debug;

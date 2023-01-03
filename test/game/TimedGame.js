@@ -1,9 +1,9 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node */
+/* eslint-env mocha */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
 import { MemoryDatabase } from "../MemoryDatabase.js";
 import { TestSocket } from '../TestSocket.js';
 
@@ -19,8 +19,8 @@ const Player = Game.CLASSES.Player;
 describe("game/TimedGame", function() {
 
   this.timeout(10000);
-  
-  function UNit() {}
+
+  before(setupPlatform);
 
   it('timeout and end game', () => {
     const human1 = new Player({
@@ -36,7 +36,6 @@ describe("game/TimedGame", function() {
       timerType: Game.Timer.TURN,
       timeAllowed: 1 / 60
     });
-    let nextTurn = 0;
     const socket = new TestSocket();
     // Expected turns
     const handle = (turn, event, seqNo) => {
@@ -122,7 +121,6 @@ describe("game/TimedGame", function() {
       timeAllowed: 1 / 60,
       timePenalty: 60
     });
-    let nextTurn = 0;
 
     const socket = new TestSocket();
     // Expected turns

@@ -1,8 +1,9 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
+/* eslint-env mocha,node */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
 
 import { Edition } from "../../src/game/Edition.js";
 import { Game } from "../../src/game/Game.js";
@@ -14,8 +15,8 @@ const Tile = Game.CLASSES.Tile;
  */
 describe("game/Board", () => {
 
-  function UNit() {}
-  
+  before(setupPlatform);
+
   it("construct, parse, place, and unplace", () => {
     return Edition.load("Test")
     .then(edition => {
@@ -113,7 +114,7 @@ describe("game/Board", () => {
           assert(!b.touchingOld(r, c));
       const mr = Math.floor(b.rows / 2);
       const mc = Math.floor(b.cols / 2);
-      
+
       const W = new Tile({letter: "W", score:4});
       const O = new Tile({letter: "O", score:1});
       const R = new Tile({letter: "R", score:2, isBlank:true});
@@ -163,7 +164,7 @@ describe("game/Board", () => {
         { word: "SWORD", score: 11 },
         { word: "SUN", score: 5 } ]);
       assert.equal(g1, 16);
-      
+
       b.at(mc-1, mr).placeTile(S, true);
       b.at(mc-1, mr + 1).placeTile(U, true);
       b.at(mc-1, mr + 2).placeTile(N, true);

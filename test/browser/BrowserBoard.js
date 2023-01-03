@@ -1,21 +1,10 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha,node */
 
-import { JSDOM } from "jsdom";
-const { window } = new JSDOM(
-  '<!doctype html><html><body id="working"></body></html>');
-global.window = window;
-global.document = window.document;
-global.navigator = { userAgent: "node.js" };
-import jquery from "jquery";
-global.$ = global.jQuery = jquery(window);
-
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupBrowser, setupI18n } from "../TestPlatform.js";
 import sparseEqual from "../sparseEqual.js";
-
-import { I18N } from "../../src/server/I18N.js";
 
 import { Edition } from "../../src/game/Edition.js";
 import { BrowserGame } from "../../src/browser/BrowserGame.js";
@@ -24,16 +13,7 @@ const Board = BrowserGame.CLASSES.Board;
 
 describe("browser/BrowserBoard", () => {
 
-  function UNit() {}
-
-  before(() => {
-    // Delayed imports to allow jQuery to be defined
-    $.i18n = I18N;
-    return Promise.all([
-      I18N().load("en"),
-      import("jquery-ui/dist/jquery-ui.js")
-    ]);
-  });
+  before(() => setupBrowser().then(() => setupI18n()));
 
   it("analysePlay", () => {
     return Edition.load("Test")
@@ -44,7 +24,7 @@ describe("browser/BrowserBoard", () => {
           assert(!b.touchingOld(r, c));
       const mr = Math.floor(b.rows / 2);
       const mc = Math.floor(b.cols / 2);
-      
+
       const W = new Tile({letter: "W", score:4});
       const O = new Tile({letter: "O", score:1});
       const R = new Tile({letter: "R", score:2, isBlank:true});
@@ -125,7 +105,6 @@ describe("browser/BrowserBoard", () => {
         score: 6,
         placements: [ U, N ]
       });
-      
     });
   });
 
@@ -138,12 +117,12 @@ describe("browser/BrowserBoard", () => {
           assert(!b.touchingOld(r, c));
       const mr = Math.floor(b.rows / 2);
       const mc = Math.floor(b.cols / 2);
-      
+
       const W = new Tile({letter: "W", score:4});
       const O = new Tile({letter: "O", score:1});
       const R = new Tile({letter: "R", score:2, isBlank:true});
       const D = new Tile({letter: "D", score:3});
-      
+
       b.at(mr, mc).placeTile(W);
       b.at(mr, mc+1).placeTile(O);
       b.at(mr, mc+2).placeTile(R);
@@ -193,12 +172,12 @@ describe("browser/BrowserBoard", () => {
           assert(!b.touchingOld(r, c));
       const mr = Math.floor(b.rows / 2);
       const mc = Math.floor(b.cols / 2);
-      
+
       const W = new Tile({letter: "W", score:4});
       const O = new Tile({letter: "O", score:1});
       const R = new Tile({letter: "R", score:2, isBlank:true});
       const D = new Tile({letter: "D", score:3});
-      
+
       b.at(mr, mc).placeTile(W);
       b.at(mr, mc+1).placeTile(O);
       b.at(mr+1, mc+2).placeTile(R);
@@ -218,12 +197,12 @@ describe("browser/BrowserBoard", () => {
           assert(!b.touchingOld(r, c));
       const mr = Math.floor(b.rows / 2);
       const mc = Math.floor(b.cols / 2);
-      
+
       const W = new Tile({letter: "W", score:4});
       const O = new Tile({letter: "O", score:1});
       const R = new Tile({letter: "R", score:2, isBlank:true});
       const D = new Tile({letter: "D", score:3});
-      
+
       b.at(mr, mc+1).placeTile(W);
       b.at(mr, mc+2).placeTile(O);
       b.at(mr, mc+3).placeTile(R);
@@ -243,12 +222,9 @@ describe("browser/BrowserBoard", () => {
           assert(!b.touchingOld(r, c));
       const mr = Math.floor(b.rows / 2);
       const mc = Math.floor(b.cols / 2);
-      
+
       const W = new Tile({letter: "W", score:4});
-      const O = new Tile({letter: "O", score:1});
-      const R = new Tile({letter: "R", score:2, isBlank:true});
-      const D = new Tile({letter: " ", isBlank: true, score:3});
-      
+
       b.at(mr, mc).placeTile(W);
 
       let move = b.analysePlay();
@@ -291,11 +267,9 @@ describe("browser/BrowserBoard", () => {
     const W = new Tile({letter: "W", score:4});
     const O = new Tile({letter: "O", score:1});
     const R = new Tile({letter: "R", score:2, isBlank:true});
-    const D = new Tile({letter: "D", score:3});
     const A = new Tile({letter: "A", score: 1});
     const L = new Tile({letter: "L", isBlank:true, score: 2});
-    const K = new Tile({letter: "K", score: 5});
-    
+
     // Lock down the play.
     b.at(0, 0).placeTile(W, true);
     b.at(0, 1).placeTile(O, true);

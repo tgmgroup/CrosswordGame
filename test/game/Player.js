@@ -1,6 +1,6 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 
 import { assert } from "chai";
 import { Game } from "../../src/game/Game.js";
@@ -29,7 +29,7 @@ describe("game/Player", () => {
     assert.equal(player.passes, 0);
     assert.equal(player.clock, 0);
   });
-  
+
   it("valueOf, toString, and serialisable", () => {
     const p = {
       name: "Player 1",

@@ -1,28 +1,27 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node */
+/* eslint-env mocha */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+/* global Platform */ import { setupPlatform } from "../TestPlatform.js";
 
 import { MemoryDatabase } from "../../test/MemoryDatabase.js";
 import { stringify } from "../../src/common/Utils.js";
 import { TestSocket } from '../TestSocket.js';
 import { Game as _Game } from "../../src/game/Game.js";
 import { Commands } from "../../src/game/Commands.js";
+_Game.USE_WORKERS = false;
 const Game = Commands(_Game);
 const Player = Game.CLASSES.Player;
 const Tile = Game.CLASSES.Tile;
 const Move = Game.CLASSES.Move;
-
-ServerPlatform.USE_WORKERS = false;
 
 /**
  * Unit tests for robot.
  */
 describe("game/RobotPlays", () => {
 
-  function UNit() {}
+  before(setupPlatform);
 
   it("robot to play when ready", () => {
     const game = new Game({
@@ -270,7 +269,7 @@ describe("game/RobotPlays", () => {
       score: 99
     });
     const socket = new TestSocket();
-    let turns = 0, exp;
+    let exp;
     const handle = (turn, event, seqNo) => {
       switch (seqNo) {
       case 1:
@@ -349,7 +348,6 @@ describe("game/RobotPlays", () => {
 
     const socket = new TestSocket();
     socket.on(Game.Notify.CONNECTIONS, () => {});
-    let turns = 0;
     socket.on(Game.Notify.TURN, (turn, event, seqNo) => {
       switch (seqNo) {
       case 1:
@@ -385,7 +383,7 @@ describe("game/RobotPlays", () => {
       human.rack.addTile(game.letterBag.removeTile({letter:"X"}));
       human.rack.addTile(game.letterBag.removeTile({letter:"Y"}));
       human.rack.addTile(game.letterBag.removeTile({letter:"Z"}));
-      
+
       game.addPlayer(robot);
       robot.rack.addTile(game.letterBag.removeTile({letter:"O"}));
       robot.rack.addTile(game.letterBag.removeTile({letter:"N"}));

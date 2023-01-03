@@ -1,27 +1,24 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha, node */
 
-import { JSDOM } from "jsdom";
-const { window } = new JSDOM(
-  '<!doctype html><html><head><link id="jQueryTheme" href="this/themes/that.css"></head><body id="working"></body></html>');
-global.window = window;
-global.document = window.document;
-global.navigator = { userAgent: "node.js" };
-import jquery from "jquery";
-global.$ = global.jQuery = jquery(window);
-
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupBrowser } from "../TestPlatform.js";
 
 describe("browser/UI", () => {
 
   let UI;
-  
-  before(() =>
-         import("../../src/browser/UI.js")
-         .then(mod => UI = mod.UI)
-         .catch(e => console.error(e)));
+
+  before(() => setupBrowser()
+         // UI imports jquery.i18n which requires jquery, so have
+         // to delay the import
+         .then(() => import("../../src/browser/UI.js"))
+         .then(mod => UI = mod.UI));
+
+  beforeEach(() => {
+    $("head").empty();
+    $("body").empty();
+  });
 
   it("parseURLArguments", () => {
     const a = UI.parseURLArguments("http://a.b/c?a=1&b=2;c=3");
@@ -50,31 +47,95 @@ describe("browser/UI", () => {
     assert.equal(UI.formatTimeInterval(-(60 * 60 + 1)), "-01:00:01");
   });
 
-  it("jQuery theme", () => {
+  it("themes", () => {
+    $("head")
+    .append(`<link id="xanadoCSS" href="../css/default.css" rel="stylesheet" type="text/css">`)
+    .append(`<link id="jQueryTheme" href="../node_modules/jquery-ui/dist/themes/pepper-grinder/jquery-ui.min.css" rel="stylesheet" type="text/css">`);
     class NUI extends UI {
       getSetting(t) {
         switch (t) {
-        case "jqTheme": return "jquerytheme";
-        case "xanadoCSS": return "xanadocss";
+        case "jqTheme": return "le-frog";
+        case "xanadoCSS": return "exander77";
         default: assert.fail(t); return false;
         }
       }
-    };
+    }
     (new NUI()).initTheme();
-    assert.equal($("#jQueryTheme").attr("href"), "this/themes/jquerytheme.css");
+    let url = $("#xanadoCSS").attr("href");
+    assert(/\/css\/exander77\.css$/.test(url));
+    url = $("#jQueryTheme").attr("href");
+    assert(/\/themes\/le-frog\//.test(url));
   });
 
-  it("initLocale", () => {
+  /** JSDOM doesn't support stylesheets, so this is academic
+  it("editCSSRule", () => {
+    console.log($("html").html());
+
+    const url = `${import.meta.url}/../../../css/default.css`;
+    const link = document.createElement("link");
+    link.id ="xanadoCSS";
+    link.href = url;
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    $("head").append(link)
+    .append("<style>.Blah{height:1,width:2}</style>");
+    window.addEventListener("DOMContentLoaded",
+                            () => console.log("FUCK"));
+    window.addEventListener("load",
+                            () => console.log("FUCK"));
+
+    console.log($("html").html());
+
+    const ui = new UI();
+    return new Promise(resolve => {
+       
+        ui.editCSSRule(".Surface td", { height: 666, width: -666 });
+        resolve();
+      }, 500);
+    });
+  });
+  */
+
+  it("initLocale(fr)", () => {
     class NUI extends UI {
       getSetting(t) {
         switch (t) {
-        case "language": return "farsi";
+        case "language": return "fr";
         }
         assert.fail(t); return false;
       }
-      getLocales() { return Promise.resolve([ "farsi" ]); }
-    };
-    (new NUI()).initLocale();
+      getLocales() { return Promise.resolve([ "en", "fr" ]); }
+    }
+    return (new NUI()).initLocale()
+    .then(() => {
+      assert.equal($.i18n("not a valid string"), "not a valid string");
+      assert.equal($.i18n("h-won", "Nobody"), "Nobody gagne");
+    });
+  });
+
+  it("initLocale(en)", () => {
+    $("body").append(`<div id="test" data-i18n="label-pick-player" data-i18n-tooltip="label-placed"></div>`);
+    class NUI extends UI {
+      getSetting(t) {
+        switch (t) {
+        case "language": return "en";
+        }
+        assert.fail(t); return false;
+      }
+      getLocales() { return Promise.resolve([ "en", "fr" ]); }
+    }
+    return (new NUI()).initLocale()
+    .then(() => {
+      assert.equal($.i18n("not a valid string"), "not a valid string");
+      assert.equal($.i18n("h-won", "Nobody"), "Nobody won");
+
+      assert.equal($("#test").html(), $.i18n("label-pick-player"));
+
+      const it = $("#test");
+      it.tooltip("open");
+      assert.equal((it.tooltip("option", "content")).call(it[0]),
+                   $.i18n("label-placed"));
+    });
   });
 
   it("setSettings", () => {
@@ -84,10 +145,57 @@ describe("browser/UI", () => {
       getSetting(t) {
         return this.settings[t];
       }
-    };
+    }
     const ui = new NUI();
     ui.setSettings({ a: "1", b: 2 });
     assert.equal(ui.getSetting("a"), 1);
     assert.equal(ui.getSetting("b"), 2);
+  });
+
+  it("personalise", () => {
+    $("body").append(`<div id="personaliseButton" class="dialog"></div>`);
+    const ui = new UI();
+
+    // Force an import of SettingsDialog
+    ui.attachUIEventHandlers();
+    $("#personaliseButton").trigger("click");
+  });
+
+  it("alerts", () => {
+    $("body").append(`<div id="alertDialog" class="dialog"></div>`);
+    const ui = new UI();
+
+    let caught;
+    function catcher(...args) {
+      caught = args.join(" ");
+    };
+
+    let dlg = ui.alert("simple string", "Alert", catcher);
+    let $dlg = $("#alertDialog").parent();
+    assert.equal($dlg.find(".ui-dialog-title").text(), "Alert");
+    assert.equal($dlg.find(".alert").text(), "simple string");
+    assert.equal(caught, "ALERT simple string");
+
+    dlg = ui.alert(new Error("Oops!"), "Apocalypse", catcher);
+    $dlg = $("#alertDialog").parent();
+    assert.equal($dlg.find(".ui-dialog-title").text(), "Apocalypse");
+    assert.equal($dlg.find(".alert").text(), "Oops!");
+    assert(/^ALERT Oops!/.test(caught));
+    assert(/browser\/UI.js:/.test(caught));
+
+    dlg = ui.alert([ "h-won", "The winner"], "Podium", catcher);
+    $dlg = $("#alertDialog").parent();
+    assert.equal($dlg.find(".ui-dialog-title").text(), "Podium");
+    assert.equal($dlg.find(".alert").text(), "The winner won");
+    assert.equal(caught, "ALERT The winner won");
+
+    dlg = ui.alert({ won: "The winner" }, "Medal", catcher);
+    $dlg = $("#alertDialog").parent();
+    assert.equal($dlg.find(".ui-dialog-title").text(), "Medal");
+    assert.equal($dlg.find(".alert").text(), `{won:"The winner"}`);
+    assert.equal(caught, `ALERT {won:"The winner"}`);
+  });
+
+  it("plays audio", () => {
   });
 });

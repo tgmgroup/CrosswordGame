@@ -1,20 +1,19 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 
+import { assert } from "chai";
 import { Edition } from "../../src/game/Edition.js";
 import { Tile } from "../../src/game/Tile.js";
 import { LetterBag } from "../../src/game/LetterBag.js";
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
-import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
 
 /**
  * Unit tests for Rack
  */
 describe("game/LetterBag", () => {
 
-  function UNit() {}
+  before(setupPlatform);
 
   it("basics", () => {
     return Edition.load("Test")
@@ -35,7 +34,6 @@ describe("game/LetterBag", () => {
       assert.equal(bag.letters().sort().join(""), base);
       t = bag.getRandomTiles(10);
       assert.equal(t.length, 10);
-      const ts = t.map(t => t.letter).sort().join("");
       assert.equal(bag.letters().length, 49);
       bag.returnTiles(t);
       assert.equal(bag.letters().sort().join(""), base);
@@ -56,7 +54,6 @@ describe("game/LetterBag", () => {
       bag.returnTile(q);
       assert.equal(bag.letters().length, 59);
       assert.equal(bag.letters().sort().join(""), base);
-      
     });
   });
 
@@ -66,7 +63,6 @@ describe("game/LetterBag", () => {
       let bag = new LetterBag(edition);
       bag.isWild = true;
       assert.equal(bag.letters().length, 59);
-      let base = bag.letters().sort().join("");
       assert.equal(bag.legalLetters.length, 26);
       assert(!bag.isEmpty());
 

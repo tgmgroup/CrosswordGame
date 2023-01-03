@@ -1,10 +1,11 @@
 /*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
 License MIT. See README.md at the root of this distribution for full copyright
 and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env node */
+/* eslint-env mocha */
 
 import { Channel } from "../src/common/Channel.js";
 import { stringify } from "../src/common/Utils.js";
+import { assert } from "chai";
 
 /**
  * Simulator for socket.io, replaces the socket functionality with a
@@ -73,7 +74,7 @@ class TestSocket extends Channel {
     this.connection = endPoint;
     endPoint.connection = this;
   }
-  
+
   /**
    * Wait for the socket to be marked as `done()`. This will normally
    * be after all the expected messages have been received. If done()

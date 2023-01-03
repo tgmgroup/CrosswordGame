@@ -1,9 +1,10 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
+import { assert } from "chai";
+import { setupPlatform } from "../TestPlatform.js";
+
 import { MemoryDatabase } from "../../test/MemoryDatabase.js";
 import { Game } from "../../src/game/Game.js";
 import { findBestPlay } from "../../src/game/findBestPlay.js";
@@ -14,6 +15,8 @@ const Tile = Game.CLASSES.Tile;
  * Test first play on an empty board.
  */
 describe("game/RobotFirstPlay", () => {
+
+  before(setupPlatform);
 
   it("first play English Scrabble", () => {
     let bestPlay;

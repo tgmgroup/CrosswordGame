@@ -1,17 +1,13 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
-
-/* global Platform */
+/* eslint-env mocha,node */
 
 import chai from "chai";
+const assert = chai.assert;
 import http from "chai-http";
 chai.use(http);
-const expect = chai.expect;
-import { promises as Fs } from "fs";
 import { ServerPlatform } from "../../src/server/ServerPlatform.js";
 global.Platform = ServerPlatform;
-import { exec } from "child_process";
 import tmp from "tmp-promise";
 
 import { TestSocket } from '../TestSocket.js';
@@ -19,6 +15,7 @@ import { Server } from "../../src/server/Server.js";
 import { Game } from "../../src/game/Game.js";
 import { UserManager } from "../../src/server/UserManager.js";
 import sparseEqual from "../sparseEqual.js";
+
 /**
  * Basic unit tests for Server class.
  */
@@ -50,7 +47,7 @@ describe("server/Server.js", () => {
     });
 
   afterEach(() => process.removeAllListeners("unhandledRejection"));
-  
+
   // Promise to register user. Resolve to user key.
   function register(server, user) {
     return chai.request(server.express)
@@ -68,7 +65,7 @@ describe("server/Server.js", () => {
       return res.body.key;
     });
   }
-  
+
   // Promise to signin user. Resolve to session_cookie.
   function signin(server, user) {
     return chai.request(server.express)
@@ -80,8 +77,6 @@ describe("server/Server.js", () => {
     });
   }
 
-  function UNit() {}
-
   it("i18n", () => {
     return Platform.i18n().load("qqq")
     .then(() => {
@@ -91,7 +86,7 @@ describe("server/Server.js", () => {
         Platform.i18n("SWAP"), "Letters underlying the swap rack");
     });
   });
-  
+
   it("/defaults", () => {
     const s = new Server(config);
     return chai.request(s.express)
@@ -129,14 +124,13 @@ describe("server/Server.js", () => {
   });
 
   it("/games/:gameKey", () => {
-    let server = new Server(config), cookie, gamekey, playerkey;
+    let server = new Server(config), cookie, gamekey;
     return register(server, {
       register_username: "test_user",
       register_password: "test_pass",
       register_email: "test@email.com"
     })
-    .then(pk => {
-      playerkey = pk;
+    .then(() => {
       return signin(server, {
         signin_username: "test_user",
         signin_password: "test_pass"
@@ -257,7 +251,7 @@ describe("server/Server.js", () => {
       assert.equal(res.status, 200, res.text);
     });
   });
-  
+
   it("/createGame - /join - /addRobot - /game - /leave - /removeRobot - /games / - /history - /deleteGame", () => {
     let server = new Server(config), cookie, gamekey, playerkey;
     //server.debug = console.debug;
@@ -270,8 +264,7 @@ describe("server/Server.js", () => {
       console.log("SERVER SHOULD NEVER SEE", event, params);
     });
 
-    let sawTurn = false;
-    clientSock.on(Game.Notify.MESSAGE, (data, event, seqNo) => {
+    clientSock.on(Game.Notify.MESSAGE, (data) => {
       //assert(sawTurn); not if human ends up first player
       //console.log("INCOMING message",data);
       if (data.sender === "Advisor") {
@@ -280,11 +273,11 @@ describe("server/Server.js", () => {
           assert.deepEqual(data.args, [
             "test_user", "FROBNOZZ", "Oxford_5000" ]);
           return;
-          
+
         case "word-there":
           assert.deepEqual(data.args, [ "ABSTRACT", "Oxford_5000" ]);
           return;
-          
+
         case "_hint_":
           assert(data.args.length === 4);
           clientSock.done();
@@ -294,13 +287,12 @@ describe("server/Server.js", () => {
       }
       assert.fail(data);
     })
-    .on(Game.Notify.TURN, (turn, event, seqNo) => {
+    .on(Game.Notify.TURN, (turn) => {
       //console.log("INCOMING turn");
       assert.equal(turn.playerKey, UserManager.ROBOT_KEY);
       assert.equal(turn.gameKey, gamekey);
-      sawTurn = true;
     })
-    .on(Game.Notify.CONNECTIONS, (params, event) => {})
+    .on(Game.Notify.CONNECTIONS, () => {})
     .on("*", (params, event) => {
       console.log("CLIENT GOT", event, params);
     });
@@ -412,14 +404,13 @@ describe("server/Server.js", () => {
   });
 
   it("/anotherGame", () => {
-    let server = new Server(config), cookie, gamekey, playerkey;
+    let server = new Server(config), cookie, gamekey;
     return register(server, {
       register_username: "test_user",
       register_password: "test_pass",
       register_email: "test@email.com"
     })
-    .then(pk => {
-      playerkey = pk;
+    .then(() => {
       return signin(server, {
         signin_username: "test_user",
         signin_password: "test_pass"
@@ -517,7 +508,7 @@ describe("server/Server.js", () => {
   });
 
   it("401", () => {
-    let server = new Server(config), cookie, gamekey, playerkey;
+    let server = new Server(config);
     const proms = [
       chai.request(server.express)
       .post("/createGame")
@@ -584,7 +575,6 @@ describe("server/Server.js", () => {
       // server.mail.transport hasn't been configured yet
       assert(!server.config.mail);
       //server._debug = console.debug;
-      let token;
       server.config.mail = {
         sender: "unit tests",
         transport: {
@@ -621,7 +611,7 @@ describe("server/Server.js", () => {
   });
 
   it("/sendReminder", () => {
-    let cookie, gamekey, playerkey;
+    let cookie, gamekey;
     let server = new Server(config);
     return register(server, {
       register_username: "test_user",
@@ -638,7 +628,6 @@ describe("server/Server.js", () => {
           .set('Cookie', cookie))
     .then(res => {
       assert.equal(res.status, 200);
-      playerkey = res.body.key;
       return chai.request(server.express)
       .post("/createGame")
       .set('Cookie', cookie)
@@ -667,7 +656,6 @@ describe("server/Server.js", () => {
       assert.equal(res.status, 200, res.text);
       // server.mail.transport hasn't been configured yet
       //server._debug = console.debug;
-      let token;
       server.config.mail = {
         sender: "unit tests",
         transport: {

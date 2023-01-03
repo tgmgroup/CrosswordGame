@@ -1,20 +1,9 @@
 /* See README.md at the root of this distribution for copyright and
    license information */
-/* eslint-env node, mocha */
+/* eslint-env mocha,node */
 
-import { JSDOM } from "jsdom";
-const { window } = new JSDOM(
-  '<!doctype html><html><body id="working"></body></html>');
-global.window = window;
-global.document = window.document;
-global.navigator = { userAgent: "node.js" };
-import jquery from "jquery";
-global.$ = global.jQuery = jquery(window);
-
-import { ServerPlatform } from "../../src/server/ServerPlatform.js";
-global.Platform = ServerPlatform;
-
-import { I18N } from "../../src/server/I18N.js";
+import { assert } from "chai";
+import { setupBrowser } from "../TestPlatform.js";
 
 import { BrowserGame } from "../../src/browser/BrowserGame.js";
 const Player = BrowserGame.CLASSES.Player;
@@ -26,16 +15,7 @@ const Turn = BrowserGame.CLASSES.Turn;
  */
 describe("browser/BrowserGame", () => {
 
-	function UNit() {}
-
-  before(() => {
-    // Delayed imports to allow jQuery to be defined
-    $.i18n = I18N;
-    return Promise.all([
-      I18N().load("en"),
-      import("jquery-ui/dist/jquery-ui.js")
-    ]);
-  });
+  before(setupBrowser);
 
   it("andList", () => {
     assert.equal(BrowserGame.andList([]), "");
@@ -59,11 +39,8 @@ describe("browser/BrowserGame", () => {
 			{name:"Robot 1", key:"robot1", isRobot: true}, BrowserGame.CLASSES);
 		const human1 = new Player(
 			{name:"Human 1", key:"human1", isRobot: false}, BrowserGame.CLASSES);
-		const human2 = new Player(
-			{name:"Human 2", key:"human2", isRobot: false}, BrowserGame.CLASSES);
 
 		const game = new BrowserGame(p);
-    const e = "</span>";
     return game.create()
 		.then(() => {
 			game.addPlayer(human1, true);
@@ -96,7 +73,7 @@ describe("browser/BrowserGame", () => {
         game.tableRow("%k"), game.key);
     });
   });
-  
+
 	it("player table", () => {
 		const p = {
 			//_debug: console.debug,
@@ -202,7 +179,7 @@ describe("browser/BrowserGame", () => {
       return p;
     });
   }
-  
+
 	it("describeTurn tiles played and have replacements", () => {
     return make_p()
 		.then(p => {
@@ -233,7 +210,7 @@ describe("browser/BrowserGame", () => {
       //       "expect: " + sexp + "\n");
     });
   });
-    
+
 	it("describeTurn you played and have replacements", () => {
     return make_p()
 		.then(p => {
@@ -310,7 +287,7 @@ describe("browser/BrowserGame", () => {
             .append($word)
             .append($wordScore)
             .append("<span class='turn-total'>total 20</span>");
-      const $detail = 
+      const $detail =
             $('<div class="turn-detail"></div>')
             .append($turnScore);
       const nart = `${p.THEM.name} has no more tiles, game will be over unless you challenge`;
@@ -367,7 +344,7 @@ describe("browser/BrowserGame", () => {
 
 			assert($act[0].isEqualNode($exp[0]),"\n" +
              "actual: " + $act.html() + "\n" +
-             "expect: " + $exp.html() + "\n"); 
+             "expect: " + $exp.html() + "\n");
     });
   });
 

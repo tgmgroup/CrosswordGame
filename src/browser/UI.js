@@ -1,7 +1,9 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
+/* eslint-env browser */
+
+/* global assert */
 
 import "jquery/dist/jquery.js";
 import "@wikimedia/jquery.i18n/src/jquery.i18n.js";
@@ -22,6 +24,7 @@ class UI {
    * Debug function. Same signature as console.debug.
    * @member {function}
    */
+  /* c8 ignore next */
   debug = () => {};
 
   /**
@@ -41,9 +44,10 @@ class UI {
    * @param {string?} title title for the error dialog
    * @return {jQuery} the dialog
    */
-  alert(args, title) {
+  alert(args, title, log) {
     debugger;
-    console.error("ALERT", typeof args, args);
+    // The log parameter is used for unit tests
+    log = (log || console.error);
 
     // Handle a jqXHR
     if (typeof args === "object") {
@@ -56,21 +60,26 @@ class UI {
     }
 
     let message;
-    if (typeof(args) === "string") // simple string
+    if (typeof(args) === "string") { // simple string
       message = $.i18n(args);
-    else if (args instanceof Error) // Error object
-      message = stringify(args);
-    else if (args instanceof Array) { // First element i18n code
+      log("ALERT", message);
+    } else if (args instanceof Error) { // Error object
+      message = args.message;
+      log("ALERT", message, args.stack);
+    } else if (args instanceof Array) { // First element i18n code
       message = $.i18n.apply($.i18n, args);
-    } else // something else
+      log("ALERT", message);
+    } else { // something else
       message = stringify(args);
+      log("ALERT", message);
+    }
 
     return $("#alertDialog")
     .dialog({
       modal: true,
       title: title || $.i18n("XANADO problem")
     })
-    .html(`<p>${message}</p>`);
+    .html(`<p class="alert">${message}</p>`);
   }
 
   /**
@@ -90,6 +99,9 @@ class UI {
   notifyBackend(notification, data) {
     this.channel.emit(notification, data);
   }
+
+  // Server can't play audio, so coverage irrelevant
+  /* c8 ignore start */
 
   /**
    * Play an audio clip, identified by id. Clips must be
@@ -129,6 +141,8 @@ class UI {
     });
   }
 
+  /* c8 ignore stop */
+
   /**
    * Initialise CSS style cache
    * @return {Promise} a promise that resolves when the theme has changed.
@@ -152,6 +166,8 @@ class UI {
 
     return Promise.resolve();
   }
+
+  /* c8 ignore start */
 
   /**
    * Find the first CSS rule for the given selector.
@@ -192,6 +208,8 @@ class UI {
     rule.style.cssText = text;
   }
 
+  /* c8 ignore stop */
+
   /**
    * Promise to initialise the locale.
    * @return {Promise}
@@ -203,7 +221,10 @@ class UI {
       console.debug("User language", ulang);
       // Set up to load the language file
       const params = {};
-      params[ulang] = `../i18n/${ulang}.json`;
+      if (typeof global !== "undefined")
+        params[ulang] = `${import.meta.url}/../../../i18n/${ulang}.json`;
+      else
+        params[ulang] = `../i18n/${ulang}.json`;
       // Select the language and load
       return $.i18n({ locale: ulang })
       .load(params)
@@ -222,12 +243,12 @@ class UI {
     })
     .then(() => {
       $("button").button();
-      $(document)
+      $("[data-i18n-tooltip]")
       .tooltip({
-        items: "[data-i18n-tooltip]",
         content: function() {
           return $.i18n($(this).data("i18n-tooltip"));
         },
+        /* c8 ignore start */
         open: function(event, ui) {
           // Handle special case of a button that opens a dialog.
           // When the dialog closes, a focusin event is sent back
@@ -235,28 +256,9 @@ class UI {
           if (event.originalEvent.type === "focusin")
             ui.tooltip.hide();
         }
+        /* c8 ignore stop */
       });
     });
-  }
-
-  /**
-   * Get a user setting
-   * @param {string} key setting to get
-   */
-  getSetting(key) {
-    /* istanbul ignore next */
-    return key;
-  }
-
-  /**
-   * Set a user setting
-   * @param {string} key setting to set
-   * @param {string} value value to set
-   * @return {Promise} resolves when setting is complete
-   */
-  setSetting(key, value) {
-    /* istanbul ignore next */
-    assert.fail(`UI.setSetting ${key}=${value}`);
   }
 
   /**
@@ -270,6 +272,26 @@ class UI {
     ]);
   }
 
+  /* c8 ignore start */
+
+  /**
+   * Get a user setting
+   * @param {string} key setting to get
+   */
+  getSetting(key) {
+    return key;
+  }
+
+  /**
+   * Set a user setting
+   * @param {string} key setting to set
+   * @param {string} value value to set
+   * @return {Promise} resolves when setting is complete
+   */
+  setSetting(key, value) {
+    assert.fail(`UI.setSetting ${key}=${value}`);
+  }
+
   /**
    * Identify the signed-in user. Override in subclasses.
    * @return {Promise} a promise that resolves to an simple
@@ -279,7 +301,6 @@ class UI {
    * @throws Error if there is no session active
    */
   getSession() {
-    /* istanbul ignore next */
     assert.fail("UI.getSession");
   }
 
@@ -288,7 +309,6 @@ class UI {
    * @return {Promise} promise resolves to list of available locale names
    */
   getLocales() {
-    /* istanbul ignore next */
     assert.fail("UI.getLocales");
   }
 
@@ -298,7 +318,6 @@ class UI {
    * a list of css name strings.
    */
   getCSS() {
-    /* istanbul ignore next */
     assert.fail("UI.getCSS");
   }
 
@@ -310,7 +329,6 @@ class UI {
    * name strings.
    */
   getDictionaries() {
-    /* istanbul ignore next */
     assert.fail("UI.getDictionaries");
   }
 
@@ -323,9 +341,10 @@ class UI {
    * name strings.
    */
   getEditions() {
-    /* istanbul ignore next */
     assert.fail("UI.getEditions");
   }
+
+  /* c8 ignore stop */
 
   /**
    * Attach handlers to document objects. Override in sub-mixin or final

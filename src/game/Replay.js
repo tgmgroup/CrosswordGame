@@ -1,7 +1,6 @@
 /*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd */
 
 import { Game } from "./Game.js";
 const LetterBag = Game.CLASSES.LetterBag;
@@ -59,7 +58,7 @@ const Replay = superclass => class extends superclass {
       np.passes = p.passes;
       np.score = p.score;
       this.addPlayer(np);
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\tlast rack for", np.key, "was", np.rack.stringify());
     }
@@ -79,7 +78,7 @@ const Replay = superclass => class extends superclass {
     // Could use Undo to do this, but it's overkill as we don't need
     // (or want) to modify the board
     const turns = this.game.turns;
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("unwrap", turns.length, "turns");
     for (let i = this.game.turns.length - 1; i >= 0; i--) {
@@ -101,11 +100,11 @@ const Replay = superclass => class extends superclass {
 
     for (const pl of this.players) {
       pl.missNextTurn = false;
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("Start player", pl.stringify());
     }
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug) {
       this._debug("Start bag", this.letterBag.stringify());
       this._debug("--------------------------------");
@@ -127,7 +126,7 @@ const Replay = superclass => class extends superclass {
     turn.gameKey = this.key;
     return this.redo(turn) // redo comes from Undo.js
     .then(() => {
-      /* istanbul ignore if */
+      /* c8 ignore next 5 */
       if (this._debug) {
         for (const pl of this.players)
           this._debug(pl.stringify());

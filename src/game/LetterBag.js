@@ -2,6 +2,8 @@
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
+/* global assert */
+
 import { Tile } from "./Tile.js";
 
 /**
@@ -209,13 +211,16 @@ class LetterBag {
     return this.tiles.map(tile => tile.letter);
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Generate a simple string representation of the bag
    */
   stringify() {
     return "(" + this.letters().sort().join("") + ")";
   }
+
+  /* c8 ignore stop */
 }
 
 export { LetterBag }

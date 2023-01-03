@@ -2,6 +2,7 @@
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
+/* global assert */
 /* global Platform */
 
 import { Encoder, Decoder, IDREFHandler, TypeMapHandler, KeyDictionaryHandler, TagHandler } from "@cdot/cbor";
@@ -115,6 +116,12 @@ class Game {
     UNDO:              "undo",
     UNPAUSE:           "unpause"
   };
+
+  /**
+   * Indicate if we are to use worker threads for move computation or not
+   * (default true)
+   */
+  static USE_WORKERS = true;
 
   /**
    * Notifications sent between back and front end.
@@ -559,7 +566,7 @@ class Game {
       player.clock = this.timeAllowed * 60;
     if (fillRack)
       player.fillRack(this.letterBag, this.rackSize);
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug(this.key, "added player", player.stringify());
     return this;
@@ -576,7 +583,7 @@ class Game {
     assert(index >= 0,
            `No such player ${player.key} in ${this.key}`);
     this.players.splice(index, 1);
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug(player.key, "left", this.key);
     if (this.players.length < (this.minPlayers || 2)
@@ -649,7 +656,7 @@ class Game {
       } else
         return nextPlayer;
     }
-    /* istanbul ignore next */
+    /* c8 ignore next */
     return assert.fail(
       `Unable to determine next player after ${player.key}`);
   }
@@ -765,7 +772,8 @@ class Game {
       (turn, i) => cb(turn, i === this.turns.length - 1));
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Get the board square at [col][row]
    * @return {Square} at col,row
@@ -775,7 +783,6 @@ class Game {
     return this.board.at(col, row);
   }
 
-  /* istanbul ignore next */
   /**
    * Debug
    */
@@ -813,6 +820,8 @@ class Game {
       options.push(`Paused by ${this.pausedBy}`);
     return `Game ${this.key} {${options.join(", ")}}`;
   }
+
+  /* c8 ignore stop */
 
   /**
    * Determine if any players are robots.
@@ -1000,14 +1009,14 @@ class Game {
    * @return {Promise} promise that resolves to the game
    */
   playIfReady() {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("playIfReady ", this.key,
                   this.whosTurnKey ? `player ${this.whosTurnKey}` : "",
                   "state", this.state);
 
     if (this.hasEnded()) {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\tgame is over");
       return Promise.resolve(this);
@@ -1015,7 +1024,7 @@ class Game {
 
     // Check preconditions for starting the game
     if (this.players.length < (this.minPlayers || 2)) {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\tnot enough players");
       // Result is not used
@@ -1026,12 +1035,12 @@ class Game {
     // shuffle the players, and pick a random tile from the bag.
     // The shuffle can be suppressed for unit testing.
     if (this.state === Game.State.WAITING) {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\tpreconditions met");
 
       if (this.players.length > 1 && !this._noPlayerShuffle) {
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this._debug)
           this._debug("\tshuffling player order");
         for (let i = this.players.length - 1; i > 0; i--) {
@@ -1050,7 +1059,7 @@ class Game {
 
       const player = this.players[0];
       this.whosTurnKey = player.key; // assign before save()
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t", player.key, "to play");
       this.state = Game.State.PLAYING;
@@ -1066,7 +1075,7 @@ class Game {
       if (nextPlayer.isRobot)
         return this.startTurn(nextPlayer);
 
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\twaiting for", nextPlayer.name, "to play");
       this.startTheClock();
@@ -1130,7 +1139,7 @@ class Game {
        * @private
        */
       this._intervalTimer = setInterval(() => this.tick(), 1000);
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug(this.key, "started the clock");
       return true;
@@ -1146,7 +1155,7 @@ class Game {
   stopTheClock() {
     if (typeof this._intervalTimer == "undefined")
       return false;
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug(this.key, "stopped the clock");
     clearInterval(this._intervalTimer);
@@ -1195,7 +1204,7 @@ class Game {
     if (!this.players.find(p => p.passes < 2))
       return this.confirmGameOver(player, Game.State.TWO_PASSES);
 
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("startTurn", player.name, player.key);
 
@@ -1212,7 +1221,7 @@ class Game {
     // start the player's timer.
 
     if (this.timerType) {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\ttimed game,", player.name,
                     "has", (timeout || this.timeAllowed),
@@ -1220,7 +1229,7 @@ class Game {
       this.startTheClock(); // does nothing if already started
     }
     else {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\tuntimed game, wait for", player.name, "to play");
       return Promise.resolve(this);
@@ -1241,7 +1250,7 @@ class Game {
    */
   autoplay() {
     const player = this.getPlayer();
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("Autoplaying", player.name,
                   "using", player.dictionary || this.dictionary);
@@ -1274,10 +1283,10 @@ class Game {
                 .filter(word => !dict.hasWord(word.word));
           if (bad.length > 0) {
             // Challenge succeeded
-            /* istanbul ignore if */
+            /* c8 ignore next 2 */
             if (this._debug)
               this._debug("Challenging", lastPlayer.name);
-            /* istanbul ignore if */
+            /* c8 ignore next 2 */
             if (this._debug)
               this._debug("Bad words:", bad);
             return this.takeBack(player, Game.Turns.CHALLENGE_WON)
@@ -1300,16 +1309,16 @@ class Game {
 
       // We can play.
       let bestPlay = null;
-      return Platform.findBestPlay(
-        this, player.rack.tiles(),
+      return this.findBestPlay(
+        player.rack.tiles(),
         data => {
           if (typeof data === "string") {
-            /* istanbul ignore if */
+            /* c8 ignore next 2 */
             if (this._debug)
               this._debug(data);
           } else {
             bestPlay = data;
-            /* istanbul ignore if */
+            /* c8 ignore next 2 */
             if (this._debug)
               this._debug("Best", bestPlay.stringify());
           }
@@ -1318,7 +1327,7 @@ class Game {
         if (bestPlay)
           return mid.then(() => this.play(player, bestPlay));
 
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this._debug)
           this._debug(player.name, "can't play, passing");
         return this.pass(player, Game.Turns.PASSED);
@@ -1331,7 +1340,7 @@ class Game {
    * @return {Promise} promise resolves to a {@linkcode Dictionary}
    */
   getDictionary() {
-    /* istanbul ignore next */
+    /* c8 ignore next */
     assert(this.dictionary, "Game has no dictionary");
     return loadDictionary(this.dictionary);
   }
@@ -1342,7 +1351,7 @@ class Game {
    */
   save() {
     assert(this._db, "No _db for save()");
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("Saving game", this.key);
     return this._db.set(this.key, Game.toCBOR(this))
@@ -1358,7 +1367,7 @@ class Game {
    * @param {Object} data to send with message.
    */
   notifyPlayer(player, message, data) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("b>f", player.key, message,
                 stringify(data));
@@ -1380,7 +1389,7 @@ class Game {
    */
   notifyAll(message, data) {
     if (message !== Game.Notify.TICK)
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("b>f *", message, stringify(data));
     this._channels.forEach(channel => channel.emit(message, data));
@@ -1394,7 +1403,7 @@ class Game {
    * @param {Object} data to send with message
    */
   notifyOthers(player, message, data) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("b>f !", player.key, message, stringify(data));
     this._channels.forEach(
@@ -1468,24 +1477,24 @@ class Game {
 
     // Make sure this is a valid (known) player
     const player = this.players.find(p => p.key === playerKey);
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (playerKey && !player)
       console.error("WARNING: player key", playerKey,
                     "not found in game", this.key);
 
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.getConnection(player)) {
       console.error("WARNING:", playerKey, "already connected to",
                     this.key);
       player._isConnected = true;
     } else if (player) {
       // This player is just connecting
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t", player.name, "connected to", this.key);
       player._isConnected = true;
     } else {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\tconnected non-player");
     }
@@ -1504,15 +1513,15 @@ class Game {
     this.sendCONNECTIONS();
 
     // Add disconnect listener
-    /* istanbul ignore next */
+    /* c8 ignore next */
     channel.on("disconnect", () => {
       if (channel.player) {
         channel.player._isConnected = false;
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this._debug)
           this._debug(channel.player.name, "disconnected");
       } else {
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this._debug)
           this._debug("non-player disconnected");
       }
@@ -1591,7 +1600,39 @@ class Game {
     .then(() => this);
   }
 
+  /**
+   * @callback Platform~bestMoveCallback
+   * @param {(Move|string)} best move found so far, or a
+   * progress string for debug (only intended for developer)
+   */
 
+  /**
+   * Find the best play. This is used to abstract
+   * the best play controller from the rest of the server code,
+   * so it can be invoked either directly or asynchronously.
+   * @param {Game} game the Game
+   * @param {Tile[]} rack rack in the form of a simple list of Tile
+   * @param {Platform~bestMoveCallback} cb accepts a best play
+   * whenever a new one is found, or a string containing a
+   * message
+   * @param {string?} dictionary name of (or path to) dictionary to
+   * override the game dictionary
+   * @return {Promise} Promise that resolves when all best moves
+   * have been tried
+   * @abstract
+   */
+  findBestPlay(rack, cb, dictionary) {
+    return (Platform.USE_WORKERS
+            ? import(
+              /* webpackMode: "lazy" */
+              /* webpackChunkName: "findBestPlayController" */
+              "../backend/findBestPlayController.js")
+            : import(
+              /* webpackMode: "lazy" */
+              /* webpackChunkName: "findBestPlay" */
+              "../game/findBestPlay.js"))
+    .then(mod => mod.findBestPlay(this, rack, cb, dictionary));
+  }
 }
 
 export { Game }

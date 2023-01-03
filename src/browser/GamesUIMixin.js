@@ -1,7 +1,9 @@
 /*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
+/* eslint-env browser */
+
+/* global assert */
 
 import { Game } from "../game/Game.js";
 import { BrowserGame } from "./BrowserGame.js";
@@ -25,17 +27,7 @@ const GamesUIMixin = superclass => class extends superclass {
   + '<td class="h-state">%s</td>'
   + '</tr>';
 
-  /**
-   * Attach event handlers to objects in the UI
-   * @instance
-   * @memberof browser/GamesUIMixin
-   */
-  attachUIEventHandlers() {
-    super.attachUIEventHandlers();
-
-    $("#showAllGames")
-    .on("change", () => this.refreshGames());
-  }
+  /* c8 ignore start */
 
   /**
    * Used by GameDialog
@@ -98,6 +90,58 @@ const GamesUIMixin = superclass => class extends superclass {
    */
   observe(game) {
     assert.fail(`GamesUIMixin.observe ${game}`);
+  }
+
+  /**
+   * Get a list of past player successes and failures.
+   * @instance
+   * @memberof browser/GamesUIMixin
+   * @param {string} what 'all' or 'active' (default)
+   * @return {Promise} resolves to a list of objects, one per
+   * unique player, each with keys as follows:
+   * * key: player key
+   * * name: player name
+   * * score: total cumulative score
+   * * wins: number of wins
+   * * games: number of games played
+   */
+  getHistory(what) {
+    assert.fail(`GamesUIMixin.getHistory ${what}`);
+  }
+
+  /**
+   * Get a list of games
+   * @instance
+   * @memberof browser/GamesUIMixin
+   * @param {string} what `all` or `active`
+   * @return {Promise} resolves to a list of Game.simple
+   */
+  getGames(what) {
+    assert.fail(`GamesUIMixin.getGames ${what}`);
+  }
+
+  /**
+   * Get the given game
+   * @instance
+   * @memberof browser/GamesUIMixin
+   * @return {Promise} promise that resolves to a Game or Game.simple
+   */
+  getGame(key) {
+    assert.fail(`GamesUIMixin.getGame ${key}`);
+  }
+
+  /* c8 ignore stop */
+
+  /**
+   * Attach event handlers to objects in the UI
+   * @instance
+   * @memberof browser/GamesUIMixin
+   */
+  attachUIEventHandlers() {
+    super.attachUIEventHandlers();
+
+    $("#showAllGames")
+    .on("change", () => this.refreshGames());
   }
 
   /**
@@ -289,44 +333,6 @@ const GamesUIMixin = superclass => class extends superclass {
       .catch(e => console.error(e)),
       this.refreshGames()
     ]);
-  }
-
-  /**
-   * Get a list of past player successes and failures.
-   * @instance
-   * @memberof browser/GamesUIMixin
-   * @param {string} what 'all' or 'active' (default)
-   * @return {Promise} resolves to a list of objects, one per
-   * unique player, each with keys as follows:
-   * * key: player key
-   * * name: player name
-   * * score: total cumulative score
-   * * wins: number of wins
-   * * games: number of games played
-   */
-  getHistory(what) {
-    assert.fail(`GamesUIMixin.getHistory ${what}`);
-  }
-
-  /**
-   * Get a list of games
-   * @instance
-   * @memberof browser/GamesUIMixin
-   * @param {string} what `all` or `active`
-   * @return {Promise} resolves to a list of Game.simple
-   */
-  getGames(what) {
-    assert.fail(`GamesUIMixin.getGames ${what}`);
-  }
-
-  /**
-   * Get the given game
-   * @instance
-   * @memberof browser/GamesUIMixin
-   * @return {Promise} promise that resolves to a Game or Game.simple
-   */
-  getGame(key) {
-    assert.fail(`GamesUIMixin.getGame ${key}`);
   }
 };
 

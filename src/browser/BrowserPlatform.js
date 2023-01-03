@@ -1,7 +1,7 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
+/* eslint-env browser */
 
 /* global assert */
 
@@ -103,19 +103,6 @@ class BrowserPlatform /*extends Platform*/ {
     })
     .then(blob => new Response(blob).arrayBuffer())
     .then(ab => new Uint8Array(ab));
-  }
-
-  /**
-   * @implements Platform
-   */
-  static findBestPlay() {
-    // game/findBestPlay.js to block
-    // backend/findBestPlayController.js to use a worker thread (untested)
-    return import(
-      /* webpackMode: "lazy" */
-      /* webpackChunkName: "findBestPlay" */
-      "../game/findBestPlay.js")
-    .then(mod => mod.findBestPlay.apply(null, arguments));
   }
 
   /**

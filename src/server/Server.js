@@ -1,8 +1,9 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, node */
+/* eslint-env node */
 
+/* global assert */
 /* global Platform */
 
 import URL from 'url';
@@ -97,7 +98,7 @@ class Server {
      */
     this.config = config;
 
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (/^(server|all)$/i.test(config.debug))
       this.debug = console.debug;
 
@@ -136,7 +137,7 @@ class Server {
     // a script when a Promise that has no catch is rejected, and
     // we want to detect that case.
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     process.on("unhandledRejection", reason => {
       // Our Express handlers have some long promise chains, and we want
       // to be able to abort those chains on an error. To do this we
@@ -147,6 +148,7 @@ class Server {
 
       console.error("unhandledRejection", reason, reason ? reason.stack : "");
     });
+    /* c8 ignore stop */
 
     /**
      * Express server
@@ -168,14 +170,15 @@ class Server {
     // html, images, css etc. The Content-type should be set
     // based on the file mime type (extension) but Express doesn't
     // always get it right.....
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("static files from", staticRoot);
+
     this.express.use(Express.static(staticRoot));
 
     // Debug report incoming requests
     this.express.use((req, res, next) => {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("f>s", req.method, req.url);
       next();
@@ -305,7 +308,7 @@ class Server {
     this.express.use((err, req, res, next) => {
       if (res.headersSent)
         return next(err);
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("<-- 500", err);
       return res.status(500).send(err.message);
@@ -320,7 +323,7 @@ class Server {
    * @private
    */
   loadGameFromDB(key) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (typeof key === "undefined")
       return Promise.reject("Game key is undefined");
     if (this.games[key])
@@ -334,7 +337,7 @@ class Server {
       Events.EventEmitter.call(game);
 
       this.games[key] = game;
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (/^(game|all)$/i.test(this.config.debug))
         game._debug = console.debug;
 
@@ -349,7 +352,7 @@ class Server {
    * @private
    */
   socket_connect() {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("f>s connect");
     this.updateMonitors();
@@ -364,7 +367,7 @@ class Server {
    * @private
    */
   socket_disconnect(socket) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("f>s disconnect");
 
@@ -372,12 +375,12 @@ class Server {
     const i = this.monitors.indexOf(socket);
     if (i >= 0) {
       // Game monitor has disconnected
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("\tmonitor disconnected");
       this.monitors.slice(i, 1);
     } else
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("\tanonymous disconnect");
     this.updateMonitors();
@@ -390,7 +393,7 @@ class Server {
    * @private
    */
   socket_monitor(socket) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("f>s monitor");
     this.monitors.push(socket);
@@ -408,7 +411,7 @@ class Server {
    * @private
    */
   socket_join(socket, params) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug(
       "f>s join", params.playerKey, "joining", params.gameKey);
@@ -422,10 +425,11 @@ class Server {
         this.updateMonitors();
       });
     })
-    /* istanbul ignore next */
+    /* c8 ignore start */
     .catch(e => {
       console.error("socket join error:", e);
     });
+    /* c8 ignore stop */
   }
 
   /**
@@ -445,7 +449,7 @@ class Server {
       return;
 
     // Chat message
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("f>s message", message);
     const mess = message.text.split(/\s+/);
@@ -502,7 +506,7 @@ class Server {
    * @private
    */
   updateMonitors() {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("b>f update *");
     this.monitors.forEach(socket => socket.emit(BackendGame.Notify.UPDATE));
@@ -526,11 +530,12 @@ class Server {
     return this.userManager.getUser(
       {key: req.session.passport.user.key})
     .then(sender => `${sender.name}<${sender.email}>`)
+    /* c8 ignore start */
     .catch(
       // should never happen so long as only signed-in
-      // users can send mail
-      /* istanbul ignore next */
+      // users can send mail    
       () => this.config.mail.sender)
+    /* c8 ignore stop */
     .then(sender =>
           new Promise(
             resolve => this.userManager.getUser(to, true)
@@ -546,12 +551,9 @@ class Server {
             if (!uo.email) // no email
               return Platform.i18n("no-email",
                                    uo.name || uo.key);
-            /* istanbul ignore if */
+            /* c8 ignore next 2 */
             if (this.debug)
-              this.debug(
-                subject,
-                `${uo.name}<${uo.email}> from `,
-                sender);
+              this.debug(subject, `${uo.name}<${uo.email}> from `, sender);
             return this.config.mail.transport.sendMail({
               from: sender,
               to: uo.email,
@@ -745,10 +747,10 @@ class Server {
     .then(() => new BackendGame(req.body).create())
     .then(game => game.onLoad(this.db))
     .then(game => {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (/^(game|all)$/i.test(this.config.debug))
         game._debug = console.debug;
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("Created game", game.stringify());
       return game.save();
@@ -800,7 +802,7 @@ class Server {
    */
   POST_sendReminder(req, res) {
     const gameKey = req.params.gameKey;
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("Sending turn reminders to", gameKey);
     const gameURL =
@@ -823,10 +825,9 @@ class Server {
         const player = game.getPlayer();
         if (!player)
           return undefined;
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this.debug)
-          this.debug("Sending reminder mail to",
-                     `${player.name}/${player.key}`);
+          this.debug("Sending reminder mail to", `${player.name}/${player.key}`);
 
         const subject = Platform.i18n(
           "email-remind");
@@ -867,13 +868,13 @@ class Server {
         let player = game.getPlayerWithKey(playerKey);
         if (player) {
           // Known player is connecting
-          /* istanbul ignore if */
+          /* c8 ignore next 2 */
           if (this.debug)
             this.debug("Player", playerKey, "opening", gameKey);
           prom = game.playIfReady();
         } else {
           // New player is joining
-          /* istanbul ignore if */
+          /* c8 ignore next 2 */
           if (this.debug)
             this.debug("Player", playerKey, "joining", gameKey);
           player = new Player(
@@ -929,7 +930,7 @@ class Server {
       if (game.hasRobot())
         replyAndThrow(res, 400, `Game ${gameKey} already has a robot`);
 
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("Robot joining", gameKey, "with", dic);
       // Robot always has the same player key
@@ -940,9 +941,10 @@ class Server {
         canChallenge: req.body.canChallenge,
         delayBeforePlay: parseInt(req.body.delayBeforePlay || "0")
       }, BackendGame.CLASSES);
+      /* c8 ignore start */
       if (dic && dic !== "none")
-        /* istanbul ignore next */
         robot.dictionary = dic;
+      /* c8 ignore stop */
       game.addPlayer(robot, true);
       return game.save()
       // Game may now be ready to start
@@ -973,7 +975,7 @@ class Server {
       const robot = game.hasRobot();
       if (!robot)
         replyAndThrow(res, 400, `Game ${gameKey} doesn't have a robot`);
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("Robot leaving", gameKey);
       game.removePlayer(robot);
@@ -1005,7 +1007,7 @@ class Server {
       const player = game.getPlayerWithKey(playerKey);
       if (!player)
         replyAndThrow(res, 400, `Player ${playerKey} is not in game ${gameKey}`);
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("Player", playerKey, "leaving", gameKey);
       // Note that if the player leaving dips the number
@@ -1068,7 +1070,7 @@ class Server {
     return this.loadGameFromDB(gameKey)
     .catch(e => replyAndThrow(res, 400, `Game ${gameKey} load failed`, e))
     .then(game => {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("Delete game", gameKey);
       game.stopTheClock(); // in case it's running
@@ -1112,7 +1114,6 @@ class Server {
     const command = req.params.command;
     const gameKey = req.params.gameKey;
     const playerKey = req.user.key;
-    /* istanbul ignore if */
     //if (this.debug)
     //  this.debug("Handling", command, gameKey, playerKey);
     return this.loadGameFromDB(gameKey)

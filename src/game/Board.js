@@ -1,7 +1,8 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, node, jquery */
+
+/* global assert */
 
 import { Surface } from "./Surface.js";
 
@@ -104,7 +105,8 @@ class Board extends Surface {
           && this.at(col, row + 1).hasLockedTile()));
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Generate a string representation of the board in the format
    * readable by {@linkcode Board#parse|parse}
@@ -138,6 +140,8 @@ class Board extends Surface {
     }
     return s;
   }
+
+  /* c8 ignore stop */
 
   /**
    * Given a play at col, row, compute it's score. Used in

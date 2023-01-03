@@ -1,8 +1,9 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
+/* eslint-env browser */
 
+/* global assert */
 /* global Platform */
 
 import "jquery/dist/jquery.js";
@@ -18,7 +19,8 @@ import { UIEvents } from "./UIEvents.js";
 
 let BEEP;
 
-/* istanbul ignore next*/
+/* c8 ignore start */
+
 /**
  * Make a quiet noise.
  * @private
@@ -32,6 +34,8 @@ function beep() {
     console.error("Beep");
   }
 }
+
+/* c8 ignore stop */
 
 /**
  * Mixin with functionality for the user interface to a game in a browser.

@@ -2,6 +2,8 @@
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
+/* global assert */
+
 //import { Database } from "../common/Database.js";
 import { promises as Fs } from "fs";
 import path from "path";

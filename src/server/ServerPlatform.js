@@ -18,6 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * @implements Platform
  */
 class ServerPlatform /* extends Platform */ {
+
   static i18n = I18N;
 
   /**
@@ -25,22 +26,6 @@ class ServerPlatform /* extends Platform */ {
    */
   static trigger(e, args) {
     assert.fail(`ServerPlatform.trigger ${e} ${args}`);
-  }
-
-  /**
-   * Indicate if we are to use worker threads for move computation or not
-   * (default true)
-   */
-  static USE_WORKERS = true;
-
-  /**
-   * @implements Platform
-   */
-  static async findBestPlay() {
-    return (ServerPlatform.USE_WORKERS
-     ? import("../backend/findBestPlayController.js")
-     : import("../game/findBestPlay.js"))
-    .then(mod => mod.findBestPlay.apply(null, arguments));
   }
 
   /**

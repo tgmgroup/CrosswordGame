@@ -1,8 +1,8 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, node */
 
+/* global assert */
 /* global Platform */
 
 import { promises as Fs } from "fs";
@@ -131,7 +131,7 @@ class UserManager {
     ? config.auth.db_file : 'passwd.json';
     this.db = undefined;
 
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (/^(users|all)$/i.test(config.debug))
       this.debug = console.debug;
 
@@ -228,10 +228,11 @@ class UserManager {
       }),
       (req, res) => this.POST_signin(req, res));
 
-    /* istanbul ignore next */
+    /* c8 ignore start */
     app.get(
       "/oauth2-providers",
       (req, res) => this.GET_oauth2_providers(req, res));
+    /* c8 ignore stop */
 
     // Log out the current signed-in user
     app.post(
@@ -294,14 +295,15 @@ class UserManager {
    * @private
    */
   passportLogin(req, res, uo) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("UserManager: passportLogin ", uo.name, uo.key);
     return new Promise(resolve => {
       req.login(uo, e => {
-        /* istanbul ignore if */
-        if (e) throw e;
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
+        if (e)
+          throw e;
+        /* c8 ignore next 2 */
         if (this.debug)
           this.debug("UserManager:", uo.name, uo.key, "signed in");
         resolve(uo);
@@ -403,10 +405,9 @@ class UserManager {
             throw new Error(/*i18n*/"wrong-pass");
           })
           .catch(e => {
-            /* istanbul ignore if */
+            /* c8 ignore next 2 */
             if (this.debug)
-              this.debug("UserManager: getUser", desc,
-                         "failed; bad pass", e);
+              this.debug("UserManager: getUser", desc, "failed; bad pass", e);
             throw new Error(/*i18n*/"wrong-pass");
           });
         }
@@ -415,7 +416,7 @@ class UserManager {
             && uo.email === desc.email)
           return uo;
       }
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("UserManager: getUser", desc, "failed; no such user in",
                    db.map(uo=>uo.key).join(";"));
@@ -423,7 +424,8 @@ class UserManager {
     });
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Configure an OAuth2 Passport strategy
    * @private
@@ -437,7 +439,7 @@ class UserManager {
       // verify callback
       // see https://www.passportjs.org/packages/passport-google-oauth2/
       (accessToken, refreshToken, profile, done) => {
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (profile.emails && profile.emails.length > 0)
           profile.email = profile.emails[0].value;
         assert(profile.id && profile.displayName,
@@ -468,7 +470,6 @@ class UserManager {
       }));
   }
 
-  /* istanbul ignore next */
   /**
    * Get a list of oauth2 providers.
    * @param {Request} req
@@ -487,7 +488,6 @@ class UserManager {
     this.sendResult(res, 200, list);
   }
 
-  /* istanbul ignore next */
   /**
    * Log in to an oauth2 provider. Requires an origin= parameter.
    * @param {Request} req
@@ -536,7 +536,7 @@ class UserManager {
     }
     // The session will be saved at the end of the request chain.
 
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("UserManager: GET_oauth2_signin",
                  req.params.provider, "session=", req.session);
@@ -546,7 +546,6 @@ class UserManager {
       req.params.provider, { state: req.sessionID })(req, res);
   }
 
-  /* istanbul ignore next */
   /**
    * Callback used by an OAuth2 provider.
    * @param {Request} req
@@ -603,6 +602,8 @@ class UserManager {
     });
   }
 
+  /* c8 ignore stop */
+
   /**
    * Make a one-time token for use in password resets
    * @param {Object} user user object
@@ -637,7 +638,7 @@ class UserManager {
     .then(pw => {
       if (typeof pw !== "undefined")
         desc.pass = pw;
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("UserManager: add user", desc);
       this.db.push(desc);
@@ -651,7 +652,7 @@ class UserManager {
    * @private
    */
   sendResult(res, status, info) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("<--", status, info);
     res.status(status).send(info);
@@ -700,7 +701,7 @@ class UserManager {
   POST_signout(req, res) {
     if (req.isAuthenticated()) {
       const departed = req.session.passport.user.name;
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("UserManager: logging out", departed);
       return new Promise(resolve => req.logout(resolve))
@@ -760,7 +761,7 @@ class UserManager {
         && req.session.passport.user) {
       const pass = req.body.password;
       const userObject = req.session.passport.user;
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this.debug)
         this.debug("UserManager: changing pw for",
                    userObject.name, userObject.key);
@@ -790,7 +791,7 @@ class UserManager {
     assert(this.config.mail && this.config.mail.transport,
            "Mail is not configured");
     const email = req.body.reset_email;
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.debug)
       this.debug("UserManager: reset password for", email);
     const surly = `${req.protocol}://${req.get("Host")}`;
@@ -799,7 +800,7 @@ class UserManager {
       return this.setToken(user)
       .then(token => {
         const url = `${surly}/password-reset/${token}`;
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this.debug)
           this.debug("\tSend password reset", url, "to", user.email);
         return this.config.mail.transport.sendMail({
@@ -813,13 +814,14 @@ class UserManager {
         })
         .then(() => this.sendResult(
           res, 200, [ /*i18n*/"text-reset-sent", user.name ]))
+        /* c8 ignore start */
         .catch(
-          /* istanbul ignore next */
           e => {
             console.error("WARNING: Mail misconfiguration?", e);
             return this.sendResult(
               res, 500, [  /*i18n*/"text-no-email" ]);
           });
+        /* c8 ignore stop */
       });
     })
     .catch(e => this.sendResult(res, 403, [ e.message, email ]));
@@ -862,14 +864,13 @@ class UserManager {
       return this.getUser(req.user)
       .then(user => {
         user.settings = req.body;
-        /* istanbul ignore if */
+        /* c8 ignore next 2 */
         if (this.debug)
           this.debug("UserManager: session settings", user);
         return this.writeDB()
         .then(() => this.sendResult(res, 200, req.user.settings));
       });
     }
-    /* istanbul ignore next */
     return this.sendResult(res, 401, [  /*i18n*/"Not signed in" ]);
   }
 

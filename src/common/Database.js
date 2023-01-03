@@ -1,7 +1,8 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env node */
+
+/* global assert */
 
 /**
  * Interface to a simple games database to allow for
@@ -14,14 +15,14 @@
  */
 class Database {
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Promise to get a list of keys in the DB
    * @return {Promise} resolves to a `string[]` list of key names
    */
   keys() {}
 
-  /* istanbul ignore next */
   /**
    * Promise to set a key value
    * @param {string} key the entry key
@@ -30,7 +31,6 @@ class Database {
    */
   set(key, data) { assert.fail(`Database.set ${key} ${data}`); }
 
-  /* istanbul ignore next */
   /**
    * Promise to get a key value
    * @param {string} key the entry key
@@ -38,13 +38,14 @@ class Database {
    */
   get(key) { assert.fail(`Database.get ${key}`); }
 
-  /* istanbul ignore next */
   /**
    * Remove a key and all associated data
    * @param {string} key the entry key
    * @return {Promise} resolves to undefined
    */
   rm(key) { assert.fail(`Database.rm ${key}`); }
+
+  /* c8 ignore stop */
 }
 
 export { Database }

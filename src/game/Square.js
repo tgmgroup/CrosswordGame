@@ -125,7 +125,7 @@ class Square {
    * @return true if the tile is placed, false otherwise.
    */
   placeTile(tile, lock) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this.tile && this.tile !== tile)
       throw Error("Square already occupied");
 
@@ -156,7 +156,8 @@ class Square {
     return undefined;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Generate debug representation
    */
@@ -171,6 +172,7 @@ class Square {
       string += `<=${this.tile.stringify()}`;
     return string;
   }
+  /* c8 ignore stop */
 }
 
 export { Square }

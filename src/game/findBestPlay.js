@@ -1,7 +1,8 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd */
+
+/* global assert */
 
 import { loadDictionary } from "./loadDictionary.js";
 import { Edition } from "./Edition.js";
@@ -409,7 +410,7 @@ function bestOpeningPlay(rackTiles) {
     for (const c of choice.split("")) {
       const rackTile = shrunkRack.find(t => t.letter === c)
             || shrunkRack.find(t => t.isBlank);
-      /* istanbul ignore next */
+      /* c8 ignore next */
       assert(rackTile,
              "Can't do this with the available tiles");
       placements.push(new Tile({

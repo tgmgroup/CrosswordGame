@@ -1,7 +1,6 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, jquery */
 
 /**
  * A player in a {@linkcode Game}. Player objects are specific to
@@ -219,11 +218,11 @@ class Player {
    */
   tick() {
     this.clock--;
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("Tick", this.name, this.clock);
     if (this.clock <= 0 && typeof this._onTimeout === "function") {
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug(this.name, "has timed out at", new Date());
       this._onTimeout();
@@ -242,7 +241,7 @@ class Player {
    * timer expires, ignored if time undefined
    */
   setTimeout(time, onTimeout) {
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug(this.name, `turn timeout in ${time}s`);
     this.clock = time;

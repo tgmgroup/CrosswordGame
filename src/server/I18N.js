@@ -40,8 +40,8 @@ function I18N(s) {
                              `${locale.split("-")[0]}.json`);
         return Fs.readFile(langfile);
       })
+      /* c8 ignore start */
       .catch(
-        /* istanbul ignore next */
         () => {
           // Fall back to "en"
           langfile = Path.join(langdir, "en.json");
@@ -50,6 +50,7 @@ function I18N(s) {
       .then(buffer => {
         TX = JSON.parse(buffer.toString());
       });
+      /* c8 ignore stop */
     }
   };
 }

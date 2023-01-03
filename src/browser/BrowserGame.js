@@ -1,7 +1,9 @@
 /*Copyright (C) 2021-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, browser */
+/* eslint-env browser */
+
+/* global assert */
 
 import { Undo } from "../game/Undo.js";
 import { Commands } from "../game/Commands.js";
@@ -151,7 +153,6 @@ class BrowserGame extends Undo(Commands(Game)) {
       $span
       .append($('<span class="word"></span>')
               .append(word.word));
-      /* istanbul ignore else */
       if (!hideScore) {
         $span
         .append($(`<span class="word-score"></span>`)
@@ -160,7 +161,6 @@ class BrowserGame extends Undo(Commands(Game)) {
       sum += word.score;
     }
     // .score will always be a number after a move
-    /* istanbul ignore else */
     if (!hideScore && move.words.length > 1 || move.score > sum) {
       $span
       .append($(`<span class="turn-total"></span>`)
@@ -304,9 +304,10 @@ class BrowserGame extends Undo(Commands(Game)) {
       }
       break;
 
+      /* c8 ignore start */
     default:
-      /* istanbul ignore next */
       assert.fail(`Unknown move type ${turn.type}`);
+      /* c8 ignore stop */
     }
 
     return $description;

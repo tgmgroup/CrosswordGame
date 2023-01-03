@@ -1,5 +1,4 @@
 /*@preserve Copyright (C) 2017-2019 Crawford Currie http://c-dot.co.uk license MIT*/
-/* eslint-env browser,jquery */
 
 /**
  * Mini-widget that extends the jquery button widget to simplify using

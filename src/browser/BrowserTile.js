@@ -1,7 +1,7 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, browser, jquery */
+/* eslint-env browser */
 
 /* global Platform */
 
@@ -56,6 +56,7 @@ class BrowserTile extends Tile {
     this._$tile.data("Tile", this);
 
     if (this.isLocked) {
+      /* c8 ignore next 2 */
       if (this._$tile.hasClass("ui-draggable"))
         this._$tile.draggable("destroy");
       this._$tile
@@ -67,13 +68,13 @@ class BrowserTile extends Tile {
       // a new UI, or it may have lost its draggability when it was
       // locked onto the board, and is being unlocked by an undo.
       if (!this._$tile.hasClass("ui-draggable")) {
-        /* istanbul ignore next */
         this._$tile
         .draggable({
           revert: "invalid",
           opacity: 1,
           helper: "clone",
           appendTo: 'body',
+          /* c8 ignore start */
           start: (event, jui) => {
             Platform.trigger(UIEvents.CLEAR_SELECT);
             // Highlight drag source
@@ -83,6 +84,7 @@ class BrowserTile extends Tile {
           },
           drag: (event, jui) => $(jui.helper).addClass("being-dragged"),
           stop: () => this._$tile.css({ opacity: 1 })
+          /* c8 ignore stop */
         });
       }
       this._$tile

@@ -1,7 +1,9 @@
 /*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
+/* eslint-env browser */
+
+/* global assert */
 
 import { BrowserPlatform } from "../browser/BrowserPlatform.js";
 window.Platform = BrowserPlatform;

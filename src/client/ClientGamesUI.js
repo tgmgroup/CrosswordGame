@@ -1,7 +1,7 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
+/* eslint-env browser */
 
 /**
  * Browser app for client_games.html; populate the list of live games
@@ -366,5 +366,5 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
   }
 }
 
-new ClientGamesUI().create();
+export { ClientGamesUI }
 

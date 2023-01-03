@@ -106,7 +106,8 @@ class Tile {
     return this;
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * String representation for debugging
    */
@@ -117,6 +118,7 @@ class Tile {
           + (typeof this.row === "number" ? `,${this.row}` : "");
     return `${brackets.charAt(0)}${letter}${pos}${brackets.charAt(1)}`;
   }
+  /* c8 ignore stop */
 }
 
 /**

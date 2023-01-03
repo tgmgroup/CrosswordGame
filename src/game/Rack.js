@@ -1,7 +1,6 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env node, jquery */
 
 import { stringify } from "../common/Utils.js";
 import { Surface } from "./Surface.js";
@@ -196,13 +195,15 @@ class Rack extends Surface {
     .map(tile => tile.letter);
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * Debug
    */
   stringify() {
     return `[${this.tiles().map(t => stringify(t)).join(",")}]`;
   }
+  /* c8 ignore stop */
 }
 
 export { Rack }

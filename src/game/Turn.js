@@ -1,7 +1,6 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd */
 
 import { Tile } from "./Tile.js";
 import { Move } from "./Move.js";
@@ -121,7 +120,8 @@ class Turn extends Move {
     return new factory.Turn(simple);
   }
 
-  /* istanbul ignore next */
+  /* c8 ignore start */
+
   /**
    * String representation for debugging
    */
@@ -154,6 +154,8 @@ class Turn extends Move {
 
     return s;
   }
+
+  /* c8 ignore stop */
 }
 
 export { Turn }

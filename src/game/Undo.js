@@ -1,8 +1,8 @@
 /*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd */
 
+/* global assert */
 import { stringify } from "../common/Utils.js";
 import { Game } from "./Game.js";
 const Tile = Game.CLASSES.Tile;
@@ -82,7 +82,7 @@ const Undo = superclass => class extends superclass {
       this.bagToRack(turn.replacements, player);
     player.score -= turn.score;
     this.whosTurnKey = this.nextPlayer(player).key;
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("\tplayer now", this.whosTurnKey, turn);
   }
@@ -110,7 +110,7 @@ const Undo = superclass => class extends superclass {
    */
   unchallenge(turn) {
     const player = this.getPlayerWithKey(turn.challengerKey);
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("\t", stringify(player), "regained", turn.score);
     player.score -= turn.score;
@@ -131,7 +131,7 @@ const Undo = superclass => class extends superclass {
    */
   undo(turn, quiet) {
     assert(this.allowUndo, "Cannot Undo");
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("un-", turn.type);
     switch (turn.type) {
@@ -175,7 +175,7 @@ const Undo = superclass => class extends superclass {
    */
   redo(turn) {
     const player = this.getPlayerWithKey(turn.playerKey);
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("REDO", turn.type, turn);
     switch (turn.type) {
@@ -186,7 +186,7 @@ const Undo = superclass => class extends superclass {
       this.letterBag.predictable = true;
       this.letterBag.removeTiles(turn.replacements);
       this.letterBag.returnTiles(turn.replacements.map(t => new Tile(t)));
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t-- swap");
       return this.swap(player, turn.placements)
@@ -196,37 +196,36 @@ const Undo = superclass => class extends superclass {
       // Remove and return
       this.letterBag.removeTiles(turn.replacements);
       this.letterBag.returnTiles(turn.replacements.map(t => new Tile(t)));
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t-- play");
       return this.play(player, turn)
       .then(() => delete this.letterBag.predictable);
     case Game.Turns.PASSED:
     case Game.Turns.TIMED_OUT:
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t-- pass");
       return this.pass(player, turn.type);
     case Game.Turns.TOOK_BACK:
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t-- takeBack");
       return this.takeBack(player, turn.type);
     case Game.Turns.CHALLENGE_WON:
     case Game.Turns.CHALLENGE_LOST:
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t-- challenge");
       return this.challenge(
         this.getPlayerWithKey(turn.challengerKey), player);
     case Game.Turns.GAME_ENDED:
-      /* istanbul ignore if */
+      /* c8 ignore next 2 */
       if (this._debug)
         this._debug("\t-- confirmGameOver");
       return this.confirmGameOver(player, turn.endState);
     }
-    /* istanbul ignore next */
-    assert.fail(`Unrecognised turn type ${turn.type}`);
+    /* c8 ignore next */
     throw Error("Unrecognised turn type");
   }
 };

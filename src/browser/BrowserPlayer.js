@@ -1,7 +1,7 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, browser, jquery */
+/* eslint-env browser */
 
 import "jquery/dist/jquery.js";
 import { Player } from "../game/Player.js";

@@ -1,7 +1,6 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, node */
 
 const IB_ID = "_\u00CD";
 const IB_CN = "_\u0106";
@@ -54,9 +53,10 @@ class Fridge {
 
     function _freeze(unfrozen) {
       // Can't/don't want to serialise functions
-      /* istanbul ignore if */
+      /* c8 ignore start */
       if (typeof unfrozen === "function")
         throw Error("Can't freeze functions");
+      /* c8 ignore stop */
 
       if (!unfrozen || typeof unfrozen !== "object")
         return unfrozen;
@@ -75,10 +75,11 @@ class Fridge {
             return ret;
           }
         }
+      /* c8 ignore start */
       } catch (e) {
-        /* istanbul ignore next */
         throw new Error("Corrupt fridge");
       }
+      /* c8 ignore stop */
       const id = objectsFrozen.length;
       // Working property will be removed later
       Object.defineProperty(unfrozen, IB_ID, {
@@ -123,9 +124,11 @@ class Fridge {
           if (!/^#?_/.test(prop) && typeof unfrozen[prop] !== "function") {
             try {
               frozen[IB_DATA][prop] = _freeze(unfrozen[prop]);
+            /* c8 ignore start */
             } catch (e) {
               debugger;
             }
+            /* c8 ignore stop */
           }
       }
       return frozen;
@@ -164,9 +167,9 @@ class Fridge {
       if (Object.prototype.hasOwnProperty.call(object, IB_REF)) {
         // Reference to another object, that must already have
         // been thawed
-        /* istanbul ignore else */
         if (objectsThawed[object[IB_REF]])
           return objectsThawed[object[IB_REF]];
+        /* c8 ignore next */
         throw new Error(`reference to unthawed ${object[IB_REF]}`);
       }
 

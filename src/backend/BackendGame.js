@@ -1,7 +1,6 @@
 /*Copyright (C) 2021-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd */
 
 import { Game } from "../game/Game.js";
 import { Undo } from "../game/Undo.js";
@@ -51,7 +50,7 @@ class BackendGame extends Undo(Replay(Commands(Game))) {
     if (ageInDays <= 14)
       return Promise.resolve(this); // still active
 
-    /* istanbul ignore if */
+    /* c8 ignore next 2 */
     if (this._debug)
       this._debug("Game", this.key, "timed out");
 

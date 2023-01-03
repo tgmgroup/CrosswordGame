@@ -1,9 +1,10 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env amd, browser, jquery */
+/* eslint-env browser */
 
 /* global Platform */
+/* global assert */
 
 import { Square } from "../game/Square.js";
 import { UIEvents } from "./UIEvents.js";
@@ -62,8 +63,8 @@ class BrowserSquare extends Square {
       const $underlay = $(document.createElement("div")).addClass("underlay");
       $td.append($underlay);
       $underlay
-      .attr("data-long", Platform.i18n(`long-${this.type}`))
-      .attr("data-short", Platform.i18n(`short-${this.type}`));
+      .attr("data-long", $.i18n(`long-${this.type}`))
+      .attr("data-short", $.i18n(`short-${this.type}`));
     }
 
     if (this.tile)
@@ -129,6 +130,7 @@ class BrowserSquare extends Square {
     assert(!$td.hasClass("ui-droppable"), "Already droppable");
     $td.droppable({
       hoverClass: "drop-active",
+      /* c8 ignore start */
       drop: (event, jui) => {
         // jui.draggable is a $tile, which has had data("Square")
         // set in Tile.$ui
@@ -136,6 +138,7 @@ class BrowserSquare extends Square {
         // Tell the main UI about it
         Platform.trigger(UIEvents.DROP_TILE, [ from, this ]);
       }
+      /* c8 ignore stop */
     });
   }
 

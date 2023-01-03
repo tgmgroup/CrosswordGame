@@ -1,7 +1,6 @@
 /*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
-/* eslint-env browser, jquery */
 
 import { Dialog } from "../browser/Dialog.js";
 import { PasswordMixin } from "./PasswordMixin.js";

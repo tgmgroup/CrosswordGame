@@ -4,7 +4,13 @@
 
 /* global Platform */
 
+/* eslint-disable */
+// eslint (or more likely the import plugin) complains:
+// "No default export found in imported module "web-worker""
+// but it works fine.
 import Worker from "web-worker";
+/* eslint-enable */
+
 import { BackendGame } from "./BackendGame.js";
 
 /** @module */
@@ -25,7 +31,6 @@ function findBestPlay(
     // Apply the game time limit
     let timer;
     if (game.timerType === BackendGame.Timer.TURN) {
-      /* istanbul ignore next */
       timer = setTimeout(() => {
         console.error("findBestPlay timed out");
         worker.terminate();
@@ -41,19 +46,20 @@ function findBestPlay(
         break;
       case "exit":
         if (timer)
-          /* istanbul ignore next */
           clearTimeout(timer);
         resolve();
         break;
       }
     });
 
+    /* c8 ignore start */
     worker.addEventListener("error", e => {
       console.error("Worker:", e.message, e.filename, e.lineno);
       if (timer)
         clearTimeout(timer);
       reject();
     });
+    /* c8 ignore stop */
 
     worker.postMessage(BackendGame.toCBOR({
       Platform: Platform.name,

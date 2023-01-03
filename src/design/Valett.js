@@ -4,7 +4,6 @@
  * simple.
  * Copyright and license as described at https://github.com/jmlewis/valett
  */
-/* eslint-env amd */
 
 function norm(vector) {
   let sum = 0;

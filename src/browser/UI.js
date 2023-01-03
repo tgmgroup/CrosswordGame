@@ -199,13 +199,14 @@ class UI {
    */
   editCSSRule(selector, changes) {
     const rule = this.findCSSRule(selector);
-    assert(rule, selector);
-    let text = rule.style.cssText;
-    $.each(changes, (prop, val) => {
-      const re = new RegExp(`(^|[{; ])${prop}:[^;]*`);
-      text = text.replace(re, `$1${prop}:${val}px`);
-    });
-    rule.style.cssText = text;
+    if (rule) {
+      let text = rule.style.cssText;
+      $.each(changes, (prop, val) => {
+        const re = new RegExp(`(^|[{; ])${prop}:[^;]*`);
+        text = text.replace(re, `$1${prop}:${val}px`);
+      });
+      rule.style.cssText = text;
+    }
   }
 
   /* c8 ignore stop */

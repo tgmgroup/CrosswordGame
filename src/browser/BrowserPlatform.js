@@ -10,6 +10,8 @@ import "jquery-ui/dist/jquery-ui.js";
 import "@rwap/jquery-ui-touch-punch/jquery.ui.touch-punch.js";
 //import { Platform } from "../common/Platform.js";
 
+/* c8 ignore start */
+
 window.assert = (cond, mess) => {
   if (!cond) {
     alert("Assertion failure: " + mess);
@@ -136,6 +138,8 @@ class BrowserPlatform /*extends Platform*/ {
     return bits.join("/");
   }
 }
+
+/* c8 ignore stop */
 
 export { BrowserPlatform }
 

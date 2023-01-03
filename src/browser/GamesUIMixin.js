@@ -227,7 +227,8 @@ const GamesUIMixin = superclass => class extends superclass {
       .then(mod => new mod[Object.keys(mod)[0]]({
         game: game,
         ui: this
-      }));
+      }))
+      .catch(e => console.error(e));
     });
   }
 
@@ -261,7 +262,8 @@ const GamesUIMixin = superclass => class extends superclass {
       return;
     }
 
-    const $gt = $("#gamesList > tbody");
+    // Note: assumes table#gamesList has a tbody
+    let $gt = $("#gamesList > tbody");
     $gt.empty();
 
     const games = simples.map(
@@ -269,7 +271,10 @@ const GamesUIMixin = superclass => class extends superclass {
           .sort((a, b) => a.creationTimestamp < b.creationTimestamp ? -1 :
                 a.creationTimestamp > b.creationTimestamp ? 1 : 0);
 
-    games.forEach(game => $gt.append(this.$gameTableRow(game)));
+    games.forEach(game => {
+      const $row = this.$gameTableRow(game);
+      $gt.append($row);
+    });
 
     $("#gamesList").show();
   }
@@ -297,8 +302,12 @@ const GamesUIMixin = superclass => class extends superclass {
    */
   refreshGame(key) {
     return this.getGame(key)
-    .then(simple => this.showGame(
-      BrowserGame.fromSerialisable(simple[0], BrowserGame.CLASSES)))
+    .then(g => {
+      return (g instanceof BrowserGame)
+      ? g
+      : BrowserGame.fromSerialisable(g, BrowserGame.CLASSES);
+    })
+    .then(game => this.showGame(game))
     .catch(e => this.alert(e));
   }
 
@@ -311,7 +320,6 @@ const GamesUIMixin = superclass => class extends superclass {
    * have completed
    */
   refresh() {
-    //console.debug("refresh");
     return Promise.all([
       this.getHistory()
       .then(data => {

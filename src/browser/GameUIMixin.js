@@ -83,9 +83,13 @@ const GameUIMixin = superclass => class extends superclass {
    * Undo stack. Head of the stack is the most recent undo.
    * The undo stack is cleared when a normal play (swap, place,
    * challenge etc) is executed.
-   *
+   * @memberof browser/GameUIMixin
+   * @instance
+   * @private
    */
   undoStack = [];
+
+  /* c8 ignore start */
 
   /**
    * Send a game command to the game engine. Game commands are listed in
@@ -148,6 +152,8 @@ const GameUIMixin = superclass => class extends superclass {
     assert.fail(`GameUIMixin.getEdition ${ed}`);
   }
 
+  /* c8 ignore stop */
+
   /**
    * Append to the log pane. Messages are wrapped in a div, which
    * may have the optional css class.
@@ -181,6 +187,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @instance
    * @param {string} key the player key to check
    * @return {boolean} true if we are that player
+   * @private
    */
   isThisPlayer(key) {
     return this.player && this.player.key === key;
@@ -188,8 +195,8 @@ const GameUIMixin = superclass => class extends superclass {
 
   /**
    * Incoming notification to update list of active connections.
-   * @memberof browser/GameUIMixin
-   * @instance
+   * @param {object[]} observers list of observers (simple objects)
+   * @private
    */
   handle_CONNECTIONS(observers) {
     console.debug("f<b connections", stringify(observers));
@@ -1616,6 +1623,8 @@ const GameUIMixin = superclass => class extends superclass {
     this.sendCommand(Game.Command.CONFIRM_GAME_OVER);
   }
 
+  /* c8 ignore start */
+
   /**
    * Handler for the 'Another game?" button.
    * Invoked via click_turnButton.
@@ -1637,6 +1646,8 @@ const GameUIMixin = superclass => class extends superclass {
   action_nextGame() {
     assert.fail("GameUIMixin.action_nextGame");
   }
+
+  /* c8 ignore stop */
 
   /**
    * Handler for the 'Swap' button clicked. Invoked via 'click_turnButton'.
@@ -1749,6 +1760,8 @@ const GameUIMixin = superclass => class extends superclass {
     this.sendComand(Game.Command.UNDO);
   }
 
+  /* c8 ignore start */
+
   /**
    * Handler for click on the 'redo' button
    * @memberof browser/GameUIMixin
@@ -1766,6 +1779,8 @@ const GameUIMixin = superclass => class extends superclass {
    */
   canNotify() {
     const usingHttps = document.URL.indexOf("https:") === 0;
+
+    /* c8 ignore start */
 
     if (!(usingHttps
           && this.getSetting("notification")
@@ -1788,6 +1803,7 @@ const GameUIMixin = superclass => class extends superclass {
         });
       });
     }
+
   }
 
   /**
@@ -1830,6 +1846,8 @@ const GameUIMixin = superclass => class extends superclass {
       delete this._notification;
     }
   }
+
+  /* c8 ignore stop */
 };
 
 export { GameUIMixin }

@@ -79,10 +79,6 @@ describe("browser/UI", () => {
     link.type = "text/css";
     $("head").append(link)
     .append("<style>.Blah{height:1,width:2}</style>");
-    window.addEventListener("DOMContentLoaded",
-                            () => console.log("FUCK"));
-    window.addEventListener("load",
-                            () => console.log("FUCK"));
 
     console.log($("html").html());
 

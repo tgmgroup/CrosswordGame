@@ -127,5 +127,5 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
   }
 }
 
-new ClientGameUI().create();
+export { ClientGameUI }
 

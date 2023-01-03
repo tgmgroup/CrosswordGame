@@ -35,13 +35,16 @@ function makeConfig(html, js) {
   .then(content => {
     content = content.toString();
 
-    // Reroute the <script call to the main module.
+    // Strip out the importmap, not needed any more
+    content = content.replace(/<script type="importmap".*<\/script>/, "");
+
+    // Reroute the code import to dist
     // There can be only one!
     content = content.replace(
-      /(<script type="module" src=").*?([^/]+\/[^/]+.js")/,
+      /(import .* from ").*?([^/]+\/[^/]+.js")/,
       "$1../dist/$2");
 
-    // Pull nrcessary CSS files out of node_modules; they may not be
+    // Pull necessary CSS files out of node_modules; they may not be
     // installed on the target platform
     copyFile("../node_modules/normalize.css/normalize.css",
              "../dist/css/normalize.css");

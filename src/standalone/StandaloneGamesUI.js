@@ -213,4 +213,4 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
   }
 }
 
-new StandaloneGamesUI().create();
+export { StandaloneGamesUI }

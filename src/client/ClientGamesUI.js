@@ -367,4 +367,3 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
 }
 
 export { ClientGamesUI }
-

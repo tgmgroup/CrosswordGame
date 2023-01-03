@@ -20,7 +20,22 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
     <!-- Rewritten in browser/UI.js to reflect the preferences -->
     <link id="xanadoCSS" href="../css/default.css" rel="stylesheet" type="text/css">
 
-    <script type="module" src="../src/client/ClientGamesUI.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "jquery/": "../node_modules/jquery/",
+          "jquery-ui/": "../node_modules/jquery-ui/",
+          "@rwap/jquery-ui-touch-punch/": "../node_modules/@rwap/jquery-ui-touch-punch/",
+          "@cdot/cbor": "../node_modules/@cdot/cbor/dist/mjs/index.js",
+          "@cdot/dictionary": "../node_modules/@cdot/dictionary/dist/mjs/index.js",
+          "@wikimedia/jquery.i18n/": "../node_modules/@wikimedia/jquery.i18n/"
+        }
+      }
+    </script>
+    <script>
+      import { ClientGamesUI } from "../src/client/ClientGamesUI.js";
+      new ClientGamesUI().create();
+    </script>
   </head>
   <body class="games-ui">
     <div class="loading">

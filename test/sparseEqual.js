@@ -1,4 +1,5 @@
 // Used in testing
+import { assert } from "chai";
 
 function sparseEqual(actual, expected, path) {
   if (!path) path = "";

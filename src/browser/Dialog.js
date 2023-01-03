@@ -83,13 +83,16 @@ class Dialog {
       minWidth: 400,
       modal: true,
       open: () => {
+        let prom;
         if (this.$dlg.data("dialog_created"))
-          this.openDialog();
+          prom = this.openDialog();
         else {
           this.$dlg.data("dialog_created", true);
-          this.createDialog()
+          prom = this.createDialog()
           .then(() => this.openDialog());
         }
+        prom
+        .catch(e => console.error(e));
       }
     }));
   }

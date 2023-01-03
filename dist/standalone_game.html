@@ -14,13 +14,28 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
 
     <link href="../dist/css/normalize.css" rel="stylesheet" type="text/css">
 
-    <!-- Rewritten to reflect the preferences -->
+    <!-- Dynamically rewritten to reflect the preferences -->
     <link id="jQueryTheme" href="../dist/css/themes/pepper-grinder/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
-    <!-- Rewritten in browser/UI.js to reflect the preferences -->
+    <!-- Dynamically rewritten to reflect the preferences -->
     <link id="xanadoCSS" href="../css/default.css" rel="stylesheet" type="text/css">
 
-    <script type="module" src="../dist/standalone/StandaloneGameUI.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "jquery/": "../node_modules/jquery/",
+          "jquery-ui/": "../node_modules/jquery-ui/",
+          "@rwap/jquery-ui-touch-punch/": "../node_modules/@rwap/jquery-ui-touch-punch/",
+          "@cdot/cbor": "../node_modules/@cdot/cbor/dist/mjs/index.js",
+          "@cdot/dictionary": "../node_modules/@cdot/dictionary/dist/mjs/index.js",
+          "@wikimedia/jquery.i18n/": "../node_modules/@wikimedia/jquery.i18n/"
+        }
+      }
+    </script>
+    <script type="module">
+      import { StandaloneGameUI } from "../dist/standalone/StandaloneGameUI.js";
+      new StandaloneGameUI().create();
+    </script>
   </head>
   <body id="body" tabindex="0">
     <div class="loading">

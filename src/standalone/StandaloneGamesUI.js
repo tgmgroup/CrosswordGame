@@ -41,7 +41,7 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
           /* webpackMode: "lazy" */
           /* webpackChunkName: "GameSetupDialog" */
           "../browser/GameSetupDialog.js")
-        .then(mod => new mod[Object.keys(mod)[0]]({
+        .then(mod => new mod.GameSetupDialog({
           html: "standalone_GameSetupDialog",
           title: $.i18n("Create game"),
           ui: this,

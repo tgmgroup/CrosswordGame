@@ -36,7 +36,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
           /* webpackMode: "lazy" */
           /* webpackChunkName: "GameSetupDialog" */
           "../browser/GameSetupDialog.js")
-        .then(mod => new mod[Object.keys(mod)[0]]({
+        .then(mod => new mod.GameSetupDialog({
           title: $.i18n("Create game"),
           ui: this,
           postAction: "/createGame",

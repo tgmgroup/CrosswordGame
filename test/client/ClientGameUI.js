@@ -5,15 +5,15 @@
 import { assert } from "chai";
 import { setupBrowser } from "../TestPlatform.js";
 
-describe("client/ClientGamesUI", () => {
+describe("client/ClientGameUI", () => {
 
-  let ClientGamesUI;
+  let ClientGameUI;
 
   before(() => setupBrowser()
          // UI imports jquery.i18n which requires jquery, so have
          // to delay the import
-         .then(() => import("../../src/client/ClientGamesUI.js"))
-         .then(mod => ClientGamesUI = mod.ClientGamesUI));
+         .then(() => import("../../src/client/ClientGameUI.js"))
+         .then(mod => ClientGameUI = mod.ClientGameUI));
 
   beforeEach(() => {
     $("head").empty();
@@ -22,10 +22,6 @@ describe("client/ClientGamesUI", () => {
 
   it("handlers", () => {
     $("body").append(`<div id="create-game" class="dialog"></div>`);
-    const ui = new ClientGamesUI();
-
-    // Force an import of SettingsDialog
-    ui.attachUIEventHandlers();
-    //$("#create-game").trigger("click");
+    const ui = new ClientGameUI();
   });
 });

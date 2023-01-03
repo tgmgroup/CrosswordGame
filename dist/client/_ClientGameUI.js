@@ -305,6 +305,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/client/_ClientGameUI.js":
+/*!*************************************!*\
+  !*** ./src/client/_ClientGameUI.js ***!
+  \*************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ClientGameUI_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ClientGameUI.js */ \"./src/client/ClientGameUI.js\");\n\nnew _ClientGameUI_js__WEBPACK_IMPORTED_MODULE_0__.ClientGameUI().create();\n\n\n//# sourceURL=webpack://@cdot/xanado/./src/client/_ClientGameUI.js?");
+
+/***/ }),
+
 /***/ "./src/common/Fridge.js":
 /*!******************************!*\
   !*** ./src/common/Fridge.js ***!
@@ -541,7 +552,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "client/" + chunkId + ".ClientGameUI.js";
+/******/ 			return "client/" + chunkId + "._ClientGameUI.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -733,7 +744,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/client/ClientGameUI.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/client/_ClientGameUI.js");
 /******/ 	
 /******/ })()
 ;

@@ -329,7 +329,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 		// This function allow to reference async chunks and sibling chunks for the entrypoint
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "client/" + chunkId + ".ClientGameUI.js";
+/******/ 			return "standalone/" + chunkId + "._StandaloneGameUI.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	

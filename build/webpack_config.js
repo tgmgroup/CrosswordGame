@@ -41,7 +41,7 @@ function makeConfig(html, js) {
     // Reroute the code import to dist
     // There can be only one!
     content = content.replace(
-      /(import .* from ").*?([^/]+\/[^/]+.js")/,
+      /(<script .*? src=").*?([^/]+\/_[^/]+.js")/,
       "$1../dist/$2");
 
     // Pull necessary CSS files out of node_modules; they may not be

@@ -1,7 +1,7 @@
 {
 	"name": "@cdot/xanado",
 	"description": "Multi user crossword game",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"type": "module",
 	"author": {
 		"name": "Crawford Currie",

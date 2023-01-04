@@ -17,6 +17,8 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
     <!-- Rewritten to reflect the preferences -->
     <link id="jQueryTheme" href="../node_modules/jquery-ui/dist/themes/pepper-grinder/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
+    <link href="../css/default.css" rel="stylesheet" type="text/css">
+
     <!-- Rewritten in browser/UI.js to reflect the preferences -->
     <link id="xanadoCSS" href="../css/default.css" rel="stylesheet" type="text/css">
 
@@ -46,7 +48,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
             <!-- board will be created here in code -->
           </table>
           <div id="playRack">
-            <button class="distributionButton" data-i18n-tooltip="tt-distribution">{...}</button>
+            <button id="distributionButton" data-i18n-tooltip="tt-distribution">{...}</button>
             <table class="Surface rack">
               <!-- rack will be created here in code -->
             </table>
@@ -60,7 +62,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
           <div id="signinBlock" class="block">
             <div class="signed-in block-title">
               <span id="whoami"></span>
-              <div class="toolbox">
+              <div id="client_toolbox">
                 <span id="personaliseButton" data-i18n-tooltip="tt-personalise">&#9881;</span>
                 <span id="pauseButton" data-i18n-tooltip="tt-pause">&#128336;</span>
                 <span id="redoButton" data-i18n-tooltip="tt-redo">&#11023;</span>

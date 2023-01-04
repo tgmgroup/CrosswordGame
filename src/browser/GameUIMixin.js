@@ -808,7 +808,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @return {Promise} Promise that resolves to a game
    */
   createUI(game) {
-    console.debug("Loading UI for game", game);
+    console.debug("Loading UI for game", game.key);
 
     game._debug = console.debug;
     this.game = game;
@@ -854,10 +854,10 @@ const GameUIMixin = superclass => class extends superclass {
         this.setAction("action_anotherGame", $.i18n("Another game?"));
     }
 
-    $(".pauseButton")
+    $("#pauseButton")
     .toggle(typeof game.timerType !== "undefined");
 
-    $(".distributionButton")
+    $("#distributionButton")
     .on("click", () => this.showLetterDistributions());
 
     $("#undoButton")
@@ -1073,7 +1073,7 @@ const GameUIMixin = superclass => class extends superclass {
       $("body").focus();
     });
 
-    $(".pauseButton")
+    $("#pauseButton")
     .hide()
     .on("click", () => this.sendCommand(Game.Command.PAUSE));
 

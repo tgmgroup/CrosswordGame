@@ -295,7 +295,7 @@ class UI {
    * @return {Promise} promise that resolves to the settings
    */
   getDefaults(type) {
-    assert.fail("GameUIMixin.getDefaults");
+    assert.fail(`GameUIMixin.getDefaults(${type})`);
   }
 
   /**

@@ -3,6 +3,7 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
 
+/* global assert */
 /* global Platform */
 
 /**
@@ -64,7 +65,7 @@ class Dialog {
       minWidth: 400,
       width: 'auto'
     }, options);
-    
+
     /**
      * Cache of jQuery object
      * @member {jQuery}

@@ -312,7 +312,7 @@ const ClientUIMixin = superclass => class extends superclass {
       this.session = session;
       return session;
     })
-    .catch(e => {
+    .catch(() => {
       $(".signed-in").hide();
       $(".not-signed-in").show();
       if (typeof this.observer === "string")

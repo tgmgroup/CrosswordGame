@@ -5,7 +5,6 @@
 
 /* global assert */
 /* global Platform */
-/* global assert */
 
 import { Square } from "../game/Square.js";
 import { UIEvents } from "./UIEvents.js";

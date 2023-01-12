@@ -3,8 +3,6 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
 
-/* global assert */
-
 /**
  * Browser app for client_games.html; populate the list of live games
  */

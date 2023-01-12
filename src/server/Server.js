@@ -530,7 +530,7 @@ class Server {
     /* c8 ignore start */
     .catch(
       // should never happen so long as only signed-in
-      // users can send mail    
+      // users can send mail
       () => this.config.mail.sender)
     /* c8 ignore stop */
     .then(sender =>

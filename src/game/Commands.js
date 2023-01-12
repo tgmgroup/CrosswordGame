@@ -3,7 +3,6 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
 /* global assert */
-/* global Platform */
 
 import { genKey, stringify } from "../common/Utils.js";
 import { Game } from "./Game.js";

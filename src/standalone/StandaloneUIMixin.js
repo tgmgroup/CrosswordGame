@@ -3,6 +3,7 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
 
+/* global assert */
 /* global Platform */
 
 import "jquery/dist/jquery.js";

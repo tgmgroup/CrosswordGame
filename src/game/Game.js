@@ -1,4 +1,5 @@
-/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2019-2023
+ The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
@@ -228,31 +229,54 @@ class Game {
   };
 
   /**
+   * Defaults. CAREFUL! These defaults are not automatically applied
+   * in the constructor; if a field isn't set in the object passed to
+   * the constructor, the default will not be automatically applied
+   * (except for edition, which is always required). So if you want
+   * to change any of the defaults, you need to make sure the
+   * constructor code will pick the new value up.
+   */
+  static DEFAULTS = {
+	  edition:         "English_Scrabble",
+	  dictionary:      "CSW2019_English",
+
+    timerType:        Game.Timer.NONE,
+		timeAllowed:      25, // minutes per game
+		timePenalty:      0,
+
+    challengePenalty: Game.Penalty.NONE,
+		penaltyPoints:    5,
+
+    wordCheck:        Game.WordCheck.NONE,
+    predictScore:     true,
+    minPlayers:       2,
+    maxPlayers:       0,
+    allowUndo:        false,
+    allowTakeBack:    true
+  };
+
+  /**
    * Channels connecting to front ends
    * @member {Channel[]}
    * @private
    */
   _channels = [];
 
-  // Note that we do NOT use the field syntax for the fields that
-  // are serialised. If we do that, then the constructor blows the
-  // field away when loading using CBOR.
+  // WARNING! Do NOT use the ESM field syntax for the fields that are
+  // serialised. If we do that, then the constructor blows the field
+  // away when loading using CBOR. :-(
 
   /**
-   * A new game is constructed from scratch by
-   * ```
-   * new Game(...).create().then(game => game.onLoad(db)...
-   * ```
-   * A game identified by key is loaded from a db by
-   * ```
-   * db.get(key)
-   * .then(d => Game.fromCBOR(d, Game.CLASSES))
-   * .then(game => game.onLoad(db)...
-   * ```
-   * @param {object} params Parameter object. This can be another
-   * Game to copy game parameters, or a generic object with fields
-   * the same name as Game fields.
-   * Note that `players` and `turns` are not copied.
+   * @param {object} params Parameter object. This can be another Game
+   * to copy game parameters, or a generic object with fields the same
+   * names as Game.DEFAULTS fields. Note that only fields in
+   * `Game.DEFAULTS` are used, other fields are ignored.
+   *
+   * Note that if a field in `Game.DEFAULTS` is not defined in
+   * `params`, then the value from `Game.DEFAULTS` will *not* be
+   * applied (except for `edition`). A field missing from `params` is
+   * treated as `undefined`, and `undefined` means `undefined`, and
+   * *not* "apply the default".
    */
   constructor(params) {
 
@@ -357,7 +381,7 @@ class Game {
      * the data volume.
      * @member {string}
      */
-    this.edition = params.edition;
+    this.edition = params.edition || Game.DEFAULTS.edition;
 
     /*
      * When you name a field in a class declaration without an
@@ -382,38 +406,37 @@ class Game {
        */
       this.dictionary = params.dictionary;
 
-    if (params.timerType && params.timerType !== "none")
+    if (params.timerType && !/^none$/i.test(params.timerType)) {
       /**
        * Type of timer for this game.
        * @member {Timer?}
        */
       this.timerType = params.timerType;
+    }
 
     if (this.timerType) {
-      if (typeof params.timeAllowed !== "undefined")
+      if (typeof params.timeAllowed !== "undefined") {
         /**
          * Time limit for this game, in minutes. If `timerType` is
-         * `TIMER_GAME` defaults to 25 minutes, and 1 minute for
-         * `TIMER_TURN`.
+         * `Timer.GAME` defaults to 25 minutes, and 1 minute for
+         * `Timer.TURN`.
          * @member {number?}
          */
-        this.timeAllowed = params.timeAllowed;
-      else
-        this.timeAllowed = 0;
-      if (this.timeAllowed <= 0) {
-        if (this.timerType === Game.Timer.GAME)
-          this.timeAllowed = 25; // 25 minutes
-        else
-          this.timeAllowed = 1; // 1 minute
+        this.timeAllowed = params.timeAllowed || 0;
       }
+      else if (this.timerType === Game.Timer.GAME)
+        this.timeAllowed = Game.DEFAULTS.timeAllowed;
+      else
+        this.timeAllowed = 1;
 
-      if (this.timerType === Game.Timer.GAME)
+      if (this.timerType === Game.Timer.GAME) {
         /**
          * Time penalty for this game, points lost per minute over
          * timeAllowed. Only used if `timerType` is `TIMER_GAME`.
          * @member {number?}
          */
-        this.timePenalty = params.timePenalty || 5;
+        this.timePenalty = params.timePenalty || Game.DEFAULTS.timePenalty;
+      }
     }
 
     /**
@@ -424,42 +447,46 @@ class Game {
       this.challengePenalty = params.challengePenalty;
 
     if (this.challengePenalty === Game.Penalty.PER_TURN
-        || this.challengePenalty === Game.Penalty.PER_WORD)
+        || this.challengePenalty === Game.Penalty.PER_WORD) {
       /**
        * The score penalty to apply for a failed challenge. Only used
        * if `challengePenalty` is `Game.Penalty.PER_TURN` or `Game.Penalty.PER_WORD`.
        * @member {number?}
        */
-      this.penaltyPoints = params.penaltyPoints || 5;
+      this.penaltyPoints = params.penaltyPoints || Game.DEFAULTS.penaltyPoints;
+    }
 
-    if (params.wordCheck && params.wordCheck !== "none")
+    if (params.wordCheck && params.wordCheck !== "none") {
       /**
        * Whether or not to check plays against the dictionary.
        * @member {WordCheck?}
        */
       this.wordCheck = params.wordCheck;
+    }
 
-    if (params.minPlayers > 2)
+    if (params.minPlayers > 2) {
       /**
        * Least number of players must have joined before this game
        * can start. Must be at least 2.
        * @member {number?}
        */
       this.minPlayers = params.minPlayers;
+    }
 
-    if (params.maxPlayers > 2)
+    if (params.maxPlayers >= 2) {
       /**
-       * Most number of players who can join this game. 0
+       * Most number of players who can join this game. < 2
        * means no limit.
        * @member {number?}
        */
       this.maxPlayers = params.maxPlayers;
+    }
 
     if (typeof this.maxPlayers !== "undefined"
         && this.maxPlayers < (this.minPlayers || 2))
       delete this.maxPlayers; // infinity
 
-    if (params.predictScore)
+    if (params.predictScore) {
       /**
        * Whether or not to show the predicted score from tiles
        * placed during the game. This should be false in tournament
@@ -467,8 +494,9 @@ class Game {
        * @member {?boolean}
        */
       this.predictScore = true;
+    }
 
-    if (params.allowTakeBack)
+    if (params.allowTakeBack) {
       /**
        * Whether or not to allow players to take back their most recent
        * move without penalty, so long as the next player hasn't
@@ -476,16 +504,18 @@ class Game {
        * @member {boolean?}
        */
       this.allowTakeBack = true;
+    }
 
-    if (params.allowUndo)
+    if (params.allowUndo) {
       /**
        * Whether or not to allow players to undo previous
        * moves without penalty. Implies syncRacks.
        * @member {boolean?}
        */
       this.allowUndo = true;
+    }
 
-    if (params.syncRacks)
+    if (params.syncRacks) {
       /**
        * Disables obfustication of move data, so any player
        * could potentially reverse-engineer
@@ -493,29 +523,33 @@ class Game {
        * @member {boolean?}
        */
       this.syncRacks = true;
+    }
 
-    if (params._noPlayerShuffle)
+    if (params._noPlayerShuffle) {
       /**
        * Internal, for debug only.
        * @member {boolean?}
        * @private
        */
       this._noPlayerShuffle = true;
+    }
 
-    if (params.nextGameKey)
+    if (params.nextGameKey) {
       /**
        * When a game is ended, nextGameKey is the key for the
        * continuation game.
        * @member {string?}
        */
       this.nextGameKey = params.nextGameKey;
+    }
 
-    if (params.pausedBy)
+    if (params.pausedBy) {
       /**
-       * Name of the player who paused the game (if it's paused).
+       * Name (NOT key) of the player who paused the game (if it's paused).
        * @member {string?}
        */
       this.pausedBy = params.pausedBy;
+    }
   }
 
   /**
@@ -832,13 +866,12 @@ class Game {
   }
 
   /**
-   * Create a simple structure describing a subset of the game
-   * state, for sending to the 'games' interface using JSON.  The
-   * structure does not suffice to fully reconstruct the game; there
-   * will be no `board`, `rackSize`, `swapSize`, `bonuses`, `turns`
-   * will be a list of {@linkcode Turn#serialisable|Turn.serialisable},
-   * and `players` will be a list of
-   * {@linkcode Player#serialisable|Player.serialisable}.
+   * Create a simple structure describing a subset of the game state,
+   * for sending to the 'games' interface.  The structure does not
+   * suffice to fully reconstruct the game; there will be no `board`,
+   * `rackSize`, `swapSize`, `bonuses`, `turns` will be a list of
+   * {@linkcode Turn#serialisable|Turn.serialisable}, and `players`
+   * will be a list of {@linkcode Player#serialisable|Player.serialisable}.
    * @param {UserManager} um user manager object for getting emails; only
    * works on server side
    * @return {Promise} resolving to a simple object with
@@ -916,10 +949,13 @@ class Game {
     if (this.timeLimit && !this.timeAllowed)
       this.timeAllowed = this.timeLimit / 60;
 
-    if (!this._debug) {
+    if (!this._debug)
       this._debug = () => {};
-      this.players.forEach(p => p._debug = this._debug);
-    }
+    if (!this.players)
+      this.players = [];
+    this.players.forEach(p => p._debug = this._debug);
+    if (!this.turns)
+      this.turns = [];
 
     return Promise.resolve(this);
   }

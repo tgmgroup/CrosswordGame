@@ -23,8 +23,6 @@ const Tile = BackendGame.CLASSES.Tile;
  */
 describe("backend/BackendGame", () => {
 
-	//function UNit() {}
-
   before(setupPlatform);
 
 	it("last move in game", () => {

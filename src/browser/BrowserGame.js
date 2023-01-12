@@ -86,11 +86,11 @@ class BrowserGame extends Undo(Commands(Game)) {
       case "p":
         return BrowserGame.andList(this.getPlayers().map(p => p.name));
       case "s":
-        return this.hasEnded() ? $.i18n(
-          "h-won", this.getWinner().name)
-        : this.state === Game.State.WAITING
-        ? $.i18n("state-waiting")
-        : $.i18n("state-playing");
+        return this.hasEnded()
+        ? (this.getWinner() ? $.i18n("h-won", this.getWinner().name) : "?")
+        : (this.state === Game.State.WAITING
+           ? $.i18n("state-waiting")
+           : $.i18n("state-playing"));
       default:
         assert.fail(`Bad ${p1}`);
       }

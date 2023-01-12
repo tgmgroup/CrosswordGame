@@ -3,16 +3,35 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser,node */
 
+/**
+ * Support for Xanado unit tests (which use Mocha).
+ */
+
 /* global Platform */
+/* global jQuery */
+/* global $ */
+/* global DOM */
 
-import { assert } from "chai";
+import chai from "chai";
+const assert = chai.assert;
 
-let setupPlatform = () => assert(false);
-let setupBrowser = () => Promise.resolve();
-let getTestGame = () => Promise.resolve();
+// Non-persistent database in memory (not even LocalStorage)
+import { MemoryDatabase } from "./MemoryDatabase.js";
 
-if (typeof global === "undefined") {
-  setupPlatform = () => {
+// Placeholder to disable tests while debugging.
+function UNit() {};
+
+// Cache of fs.promises, for node.js only
+let Fs;
+
+/**
+ * Function to set up Platform (and localStorage if needed).
+ * Call in before()
+ * @return {Promise}
+ */
+function setupPlatform(){
+  if (typeof global === "undefined") {
+    // BROWSER
     return import("../src/browser/BrowserPlatform.js")
     .then(mod => {
       window.Platform = mod.BrowserPlatform;
@@ -20,85 +39,232 @@ if (typeof global === "undefined") {
     });
   };
 
-} else {
-
-  setupPlatform = () => {
-    return import("../src/server/ServerPlatform.js")
-    .then(mod => {
-      global.Platform = mod.ServerPlatform;
-      return global.Platform;
-    });
-  };
-
-  setupBrowser = () => {
-    return setupPlatform()
-
-    .then(() => Promise.all([
-      import("jsdom"),
-      import("jquery")
-    ]))
-    .then(mods => {
-      if (global.$) {
-        // Re-use the existing document.
-        $("head").empty();
-        $("body").empty();
-      } else {
-        const jsdom = mods[0];
-
-        class CustomResourceLoader extends jsdom.ResourceLoader {
-          fetch(url, options) {
-            // Override the contents of this script to do something unusual.
-            console.log("FETCH", url);
-            return super.fetch(url, options)
-            .then(buff => {
-              console.log("LOADED", url);
-              return buff;
-            });
-          }
-        }
-        const JSDOM = jsdom.JSDOM;     
-        const url = `${import.meta.url}/../../html/test.html`;
-        const { window } = new JSDOM(
-          `<!doctype html><html></html>"`,
-          {
-            runScripts: "dangerously",
-            resources: "usable", //new CustomResourceLoader(),
-            url: url
-          });
-        global.window = window;
-        global.document = window.document;
-        global.navigator = { userAgent: "node.js" };
-
-        const jquery = mods[1].default;
-        global.$ = global.jQuery = jquery(window);
-      }
-    })
-
-    .then(() => import("jquery-ui/dist/jquery-ui.js"));
-  };
-
-  getTestGame = (name, Class) => {
-    return Promise.all([
-      import("path"),
-      import("url"),
-      import("../src/server/FileDatabase.js")
+  // NODE.JS
+  return Promise.all([
+    Promise.all([
+      import("fs"),
+      import("tmp-promise"),
+      import("node-localstorage")
     ])
     .then(mods => {
-      const Path = mods[0];
-      const fileURLToPath = mods[1].fileURLToPath;
-      const __dirname = Path.dirname(fileURLToPath(import.meta.url));
-      const FileDatabase = mods[2].FileDatabase;
-      const db = new FileDatabase({
-        dir: `${__dirname}/data`, ext: "game"
+      Fs = mods[0].promises;
+      const tmp = mods[1].default;
+      const LocalStorage = mods[2].LocalStorage;
+      return tmp.dir()
+      .then(d => {
+        const ls = new LocalStorage(d.path);
+        global.localStorage = ls;
       });
-      return db.get(name)
-      .then(data => Class.fromCBOR(data, Class.CLASSES))
-      .then(game => game.onLoad(db));
-    });
-  };
+    }),
+    import("../src/server/ServerPlatform.js")
+    .then(mod => global.Platform = mod.ServerPlatform)
+  ]);
 }
 
-const setupI18n = () => {
+/**
+ * Set up jQuery and jQuery-UI
+ * * global.DOM
+ * * global.window
+ * * global.document
+ * * global.navigator
+ * * global.jQuery
+ * * global.$
+ * call in before(). jQuery will be re-used between combined tests
+ * (e.g.  npm run test or mocha *.js).
+ * @param {string?} url the url we are pretending to have been loaded from.
+ * Not supported in the browser.
+ * @param {string?} html path to an html file to load. Not supported
+ * in the browser.
+ * @return {Promise}
+ */
+function setup$(url, html) {
+  if (typeof global === "undefined") {
+    // Browser
+    return import("jquery")
+    .then(() => import("jquery-ui"));
+  }
+
+  // Node.js. Map URL to a file://
+  if (typeof url !== "string")
+    url = `${import.meta.url}/../html/test.html`;
+
+  if (global.$) {
+    // jQuery is already defined, can't reset the DOM because
+    // import() won't re-run side-effecting dependencies such as
+    // jquery so have to re-use the existing document. WARNING:
+    // subtle bugs may lie ahead! :-(
+    DOM.reconfigure({ url: url });
+    if (html) {
+      $("head").empty();
+      return Fs.readFile(html)
+      .then(buf => {
+        // Only the body, ignore the head
+        const html = buf.toString();
+        $("body").html(html.replace(/.*<body[^>]*>(.*)<\/body>.*/, "$1"));
+      });
+    } else {
+      $("head").empty();
+      $("body").empty();
+      return Promise.resolve();
+    }
+  }
+
+  return Promise.all([
+    import("jsdom"),
+    import("jquery")
+  ])
+  .then(mods => {
+    const jsdom = mods[0];
+    const jquery = mods[1].default;
+
+    // Monitor resource loading - debug - lets us track
+    // CSS etc loading
+    class CustomResourceLoader extends jsdom.ResourceLoader {
+      fetch(url, options) {
+        url = url.replace("/test/", "/");
+        //console.debug("FETCHING", url);
+        return super.fetch(url, options)
+        .then(buff => {
+          //console.debug("LOADED", url);
+          return buff;
+        });
+      }
+    }
+    const opts = {
+      resources: new CustomResourceLoader(), // debug
+      url: url
+    };
+    const JSDOM = jsdom.JSDOM;
+    //console.log(url);
+    const prom = html
+          ? JSDOM.fromFile(html, opts)
+          : Promise.resolve(new JSDOM(`<!doctype html><html></html>"`, opts));
+    return prom.then(dom => {
+      global.DOM = dom;
+      global.window = DOM.window;
+      global.document = DOM.window.document;
+      global.navigator = { userAgent: "node.js" };
+      global.$ = global.jQuery = jquery(window);
+      assert($.ajax);
+      assert.equal(jQuery.ajax, $.ajax);
+    });
+  })
+
+  .then(() => import("jquery-ui/dist/jquery-ui.js"));
+}
+
+/**
+ * Load a pre-existing test game fixture. The fixture is patched to route
+ * saves to a memory database.
+ * @param {string} name test game name (from test/data/*.game)
+ * @param { object} Class the load class, `Game` or a subclass thereof
+ */
+function getTestGame(name, Class) {
+  assert(typeof global !== "undefined", "node.js only");
+
+  return Promise.all([
+    import("path"),
+    import("url"),
+    import("../src/server/FileDatabase.js")
+  ])
+  .then(mods => {
+    const Path = mods[0];
+    const fileURLToPath = mods[1].fileURLToPath;
+    const __dirname = Path.dirname(fileURLToPath(import.meta.url));
+    const FileDatabase = mods[2].FileDatabase;
+    const db = new FileDatabase({
+      dir: `${__dirname}/data`, ext: "game"
+    });
+    return db.get(name)
+    .then(data => Class.fromCBOR(data, Class.CLASSES))
+    .then(game => game.onLoad(new MemoryDatabase()));
+  });
+}
+
+/**
+ * A fake server. This monkey-patches $.ajax. It takes a list of URLs that
+ * are expected to be requested, each with a promise that must be fulfilled
+ * with the result of the request. Once all requests have been made, the
+ * test should `wait` for the server. If any expected request is not
+ * received, that is teated as an error. Requests may be made multiple
+ * times in a single test, there is no check for repeats.
+ */
+class StubServer {
+
+  /**
+   * @param {object.<string,Promise} expects map from URL string to
+   * a promise that must be fulfilled with the result of the query.
+   */
+  constructor(expects) {
+    if (!expects) expects = {};
+    this.$ajax = $.ajax;
+    this.jQueryAjax = jQuery.ajax;
+    this.expected = expects || {};
+    this.received = {};
+
+    assert($.ajax);
+    assert.equal(jQuery.ajax, $.ajax);
+    $.ajax = (args) => {
+      //console.debug("AJAX", args);
+      if (/^file:/.test(args.url)) {
+        args.url = args.url.replace("file://", "");
+      } else if (this.expected[args.url]) {
+        this.received[args.url] = true;
+        return this.expected[args.url];
+      }
+      return $.when(
+        Platform.readFile(args.url)
+        .then(d => d.toString()));
+    };
+    assert($.ajax);
+    assert.equal(jQuery.ajax, $.ajax);
+  }
+
+  /**
+   * Add an extra "expect"
+   * @param {string} url url to expect
+   * @param {Promise} promise fulfilled with result of request
+   */
+  expect(url, promise) {
+    this.expected[url] = promise;
+  }
+
+  /**
+   * Wait for all expects to be fulfilled. The test might time out
+   * before all promises complete, but that's OK.
+   */
+  wait() {
+    const self = this;
+    return new Promise(resolve => {
+      setTimeout(function wait() {
+        let unsaw = false;
+        for (const f in self.expected) {
+          if (!self.received[f]) {
+            unsaw = true;
+            console.debug(`Awaiting "${f}"`);
+          }
+        }
+        if (unsaw)
+          setTimeout(wait, 100);
+        else {
+          $.ajax = self.$ajax;
+          assert($.ajax);
+          assert.equal(jQuery.ajax, $.ajax);
+          resolve();
+        }
+      }, 1);
+    });
+  }
+}
+
+/**
+ * Set up $.i18n, for testing modules that use $.i18n without themselves
+ * importing it explicitly. Requires jquery (see setup$()).
+ * @param {string} lang test language (defaults to "en")
+ * @param {boolean} debug to enable debug in jQuery.i18n
+ */
+function setupI18n(lang, debug) {
+  if (!lang) lang = "en";
   return Promise.all([
     import("@wikimedia/jquery.i18n/src/jquery.i18n.js"),
     import("@wikimedia/jquery.i18n/src/jquery.i18n.language.js"),
@@ -107,11 +273,15 @@ const setupI18n = () => {
     import("@wikimedia/jquery.i18n/src/jquery.i18n.fallbacks.js"),
     import("@wikimedia/jquery.i18n/src/jquery.i18n.emitter.js")
   ])
-  .then(() => {
-    //$.i18n.debug = true;
-    $.i18n({ locale: "en" })
-    .load( { en: `${import.meta.url}/../../i18n/en.json` });
+  .then(mods => {
+    assert($.i18n);
+    $.i18n.debug = debug;
+    let url = `${import.meta.url}/../../i18n/${lang}.json`
+        .replace(/\/[^/]+\/\.\./g, "");
+    const params = {};
+    params[lang] = url;
+    return $.i18n({ locale: lang }).load(params);
   });
 };
 
-export { setupPlatform, setupBrowser, setupI18n, getTestGame }
+export { setupPlatform, setup$, StubServer, setupI18n, getTestGame, UNit }

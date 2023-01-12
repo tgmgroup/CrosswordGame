@@ -22,14 +22,16 @@ class InvitePlayersDialog extends Dialog {
   }
 
   createDialog() {
-    const $email = this.$dlg.find("#playerEmail");
-    $email
-    .on('change', () => this.pick($email.val()));
+    return super.createDialog()
+    .then(() => {
+      const $email = this.$dlg.find("#playerEmail");
+      $email
+      .on('change', () => this.pick($email.val()));
 
-    const $select = this.$dlg.find("#knownUserSelect");
-    $select
-    .on("selectmenuchange", () => this.pick($select.val()));
-    return super.createDialog();
+      const $select = this.$dlg.find("#knownUserSelect");
+      $select
+      .on("selectmenuchange", () => this.pick($select.val()));
+    });
   }
 
   openDialog() {

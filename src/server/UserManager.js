@@ -1,4 +1,4 @@
-/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2019-2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
@@ -709,7 +709,7 @@ class UserManager {
         /*i18n*/"signed-out", departed ]));
     }
     return this.sendResult(
-      res, 401, [ /*i18n*/"Not signed in" ]);
+      res, 401, [ "Not signed in" ]);
   }
 
   /**
@@ -729,7 +729,7 @@ class UserManager {
       })));
 
     return this.sendResult(
-      res, 401, [ /*i18n*/"Not signed in" ]);
+      res, 401, [ "Not signed in" ]);
   }
 
   /**
@@ -777,7 +777,7 @@ class UserManager {
         req.session.passport.user.name ]));
     }
     return this.sendResult(
-      res, 401, [ /*i18n*/"Not signed in" ]);
+      res, 401, [ "Not signed in" ]);
   }
 
   /**
@@ -849,7 +849,7 @@ class UserManager {
         key: req.user.key,
         settings: req.user.settings
       });
-    return this.sendResult(res, 401, [  /*i18n*/"Not signed in" ]);
+    return this.sendResult(res, 401, [ "Not signed in" ]);
   }
 
   /**
@@ -871,7 +871,7 @@ class UserManager {
         .then(() => this.sendResult(res, 200, req.user.settings));
       });
     }
-    return this.sendResult(res, 401, [  /*i18n*/"Not signed in" ]);
+    return this.sendResult(res, 401, [ "Not signed in" ]);
   }
 
   /**
@@ -884,7 +884,7 @@ class UserManager {
   checkLoggedIn(req, res, next) {
     if (req.isAuthenticated())
       return next();
-    return this.sendResult(res, 401, [ /*i18n*/"Not signed in" ]);
+    return this.sendResult(res, 401, [ "Not signed in" ]);
   }
 }
 

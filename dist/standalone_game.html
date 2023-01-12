@@ -17,6 +17,8 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
     <!-- Dynamically rewritten to reflect the preferences -->
     <link id="jQueryTheme" href="../dist/css/themes/pepper-grinder/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
+    <link href="../css/default.css" rel="stylesheet" type="text/css">
+
     <!-- Dynamically rewritten to reflect the preferences -->
     <link id="xanadoCSS" href="../css/default.css" rel="stylesheet" type="text/css">
 
@@ -46,18 +48,19 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
             <!-- board will be created here in code -->
           </table>
           <div id="playRack">
-            <button class="distributionButton" data-i18n-tooltip="tt-distribution">{...}</button>
+            <button id="distributionButton" data-i18n-tooltip="tt-distribution">{...}</button>
             <table class="Surface rack">
               <!-- rack will be created here in code -->
             </table>
             <div class="controls">
               <button class="shuffle-button fat-button"></button>
               <button class="unplace-button fat-button"></button>
+              <button class="action-button" data-action="pass" data-i18n="Pass">
             </div>
           </div>
         </div>
         <div id="blocks" class="ui-widget">
-          <div id="topBlock" class="block">
+          <div id="standalone_topBlock" class="block">
             <div id="gameSetupButton" data-i18n-tooltip="tt-game-setup">&#127183;</div>
             <div id="libraryButton" data-i18n-tooltip="tt-library">&#127199;</div>
             <div id="personaliseButton" data-i18n-tooltip="tt-personalise">&#9881;</div>
@@ -67,7 +70,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
           <div id="scoresBlock" class="block">
             <div class="block-title" data-i18n="Scores"></div>
             <div class="playerList"></div>
-            <div class="observerCount hidden"></div>
+            <div class="observerCount"></div>
             <div class="letterbag"></div>
           </div>
           <div id="playBlock" class="block signed-in">
@@ -76,7 +79,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
             <table id="swapRack" class="Surface rack bottom-shade">
               <!-- swap rack will be created here in code -->
             </table>
-            <button class="turn-button" data-action="pass" data-i18n="Pass">
+            <button class="action-button" data-action="pass" data-i18n="Pass">
             </button>
           </div>          
           <div id="chatBlock" class="block">

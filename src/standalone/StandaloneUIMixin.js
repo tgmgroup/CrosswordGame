@@ -1,7 +1,10 @@
-/*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2022-2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
+
+/* global assert */
+/* global Platform */
 
 import "jquery/dist/jquery.js";
 import "jquery-ui/dist/jquery-ui.js";
@@ -12,6 +15,24 @@ import { Edition } from "../game/Edition.js";
 import { BackendGame } from "../backend/BackendGame.js";
 import { BrowserDatabase } from "../browser/BrowserDatabase.js";
 import { UI } from "../browser/UI.js";
+
+/**
+ * For getDefaults.
+ * @member {object}
+ */
+const DEFAULT_USER_SETTINGS = {
+  // User settings
+  one_window: true,
+	notification: false, // requires https
+	theme: "default",
+  jqTheme: "pepper-grinder",
+	warnings: true,
+	cheers: true,
+	tile_click: true,
+  turn_alert: true,
+  // No need to obfusticate
+  syncRacks: true
+};
 
 /**
  * Mixin with common code shared between client game and games interfaces
@@ -44,29 +65,10 @@ const StandaloneUIMixin = superclass => class extends superclass {
   static HUMAN_KEY = "You";
 
   /**
-   * Game defaults, for getGameDefaults
-   * @member {object}
-   */
-  static DEFAULTS = {
-	  edition: "English_Scrabble",
-	  dictionary: "British_English",
-    one_window: false,
-    // User settings
-	  notification: false,
-	  theme: "default",
-	  warnings: true,
-	  cheers: true,
-	  tile_click: true,
-    turn_alert: true,
-    // for ease of debug, frontend and backend racks should be the same
-    syncRacks: true
-  };
-
-  /**
    * The database that will be used for saving and reading games
    * @member {BrowserDatabase}
    */
-  db = new BrowserDatabase(BackendGame);
+  db = new BrowserDatabase();
 
   /**
    * There can be only one (player)
@@ -93,22 +95,18 @@ const StandaloneUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * @implements UI#getHistory
+   * @implements UI#getDefaults
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getHistory() {
-  }
-
-  /**
-   * @implements UI#getGameDefaults
-   * @instance
-   * @memberof standalone/StandaloneUIMixin
-   * @override
-   */
-  getGameDefaults() {
-    return Promise.resolve(this.constructor.DEFAULTS);
+  getDefaults(type) {
+    switch (type) {
+    case "game": return Promise.resolve(Game.DEFAULTS);
+    case "user": return Promise.resolve(DEFAULT_USER_SETTINGS);
+    default: assert.fail(type);
+    }
+    return undefined;
   }
 
   /**
@@ -118,8 +116,16 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @override
    */
   getSetting(key) {
-    return localStorage.getItem(`XANADO${key}`)
-    || this.constructor.DEFAULTS[key];
+    const session = localStorage.getItem(`XANADO${key}`);
+    if (session === null) {
+      // null means key does not exist
+      // see https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem
+      if (typeof Game.DEFAULTS[key] === "undefined")
+        return DEFAULT_USER_SETTINGS[key];
+      else
+        return Game.DEFAULTS[key];
+    } else
+      return session;
   }
 
   /**
@@ -129,7 +135,10 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @override
    */
   setSetting(key, value) {
-    localStorage.setItem(`XANADO${key}`, value);
+    if (typeof value !== "undefined")
+      localStorage.setItem(`XANADO${key}`, value);
+    else
+      localStorage.removeItem(`XANADO${key}`);
   }
 
   /**
@@ -139,7 +148,7 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @override
    */
   getCSS() {
-    return $.get("../css/index.json");
+    return Platform.readFile(Platform.getFilePath("css/index.json"));
   }
 
   /**
@@ -149,7 +158,7 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @override
    */
   getLocales() {
-    return $.get("../i18n/index.json");
+    return Platform.readFile(Platform.getFilePath("i18n/index.json"));
   }
 
   /**
@@ -159,7 +168,7 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @override
    */
   getEditions() {
-    return $.get(`../editions/index.json`);
+    return Platform.readFile(Platform.getFilePath("editions/index.json"));
   }
 
   /**
@@ -169,7 +178,7 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @override
    */
   getDictionaries() {
-    return $.get(`../dictionaries/index.json`);
+    return Platform.readFile(Platform.getFilePath("dictionaries/index.json"));
   }
 
   /**
@@ -190,6 +199,9 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @return {Promise} resolves to the created game
    */
   createGame(setup) {
+    if (!setup.dictionary || /^none$/i.test(setup.dictionary))
+      // Robot MUST have a dictionary
+      setup.dictionary = Game.DEFAULTS.dictionary;
     return Edition.load(setup.edition)
     .then(() => new BackendGame(setup).create())
     .then(game => game.onLoad(this.db))
@@ -197,7 +209,8 @@ const StandaloneUIMixin = superclass => class extends superclass {
       const robot = new Player({
         name: $.i18n("Robot"),
         key: this.constructor.ROBOT_KEY,
-        isRobot: true
+        isRobot: true,
+        canChallenge: true
       }, BackendGame.CLASSES);
 
       const human = new Player({
@@ -226,12 +239,18 @@ const StandaloneUIMixin = superclass => class extends superclass {
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @param {Key} key the key for the game to switch to
+   * @return {string} the new url
    */
   redirectToGame(key) {
     const parts = UI.parseURLArguments(window.location.toString());
     parts._URL = parts._URL.replace(/standalone_games./, "standalone_game.");
     parts.game = key;
-    window.location = UI.makeURL(parts);
+    const nurl = UI.makeURL(parts);
+    if (this.getSetting("one_window"))
+      location.replace(nurl);
+    else
+      window.open(nurl, "_blank");
+    return nurl;
   }
 
   /**

@@ -3,7 +3,6 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 
 /* global assert */
-/* global Platform */
 
 import { genKey, stringify } from "../common/Utils.js";
 import { Game } from "./Game.js";
@@ -716,7 +715,7 @@ const Commands = superclass => class extends superclass {
         hint.text = /*i18n*/"log-no-play";
       else {
         const start = bestPlay.placements[0];
-        hint.text = "_hint_";
+        hint.text = /*i18n*/"_hint_";
         const words = bestPlay.words.map(w => w.word).join(",");
         hint.args = [
           words, start.row + 1, start.col + 1, bestPlay.score

@@ -6,12 +6,25 @@ the following fields:
   [other applications](https://www.speedguide.net/port.php?port=9093)
 + `games` : Path to the directory where games files will be stored,
   relative to the root of the installation. Defaults to `games`.
-+ `defaults` : A structure containing defaults to apply to new games and the UI for new users.
-	+`edition` : The string name of the default edition when creating new games. Game editions can be found in the `editions` directory. Default is `English_Scrabble`.
++ `maxAge`: maximum age of a game, in milliseconds. Where it has been longer than this since the game was last interacted with, the game will be pruned. If this is missing or <= 0, games never time out.
++ `game_defaults` : A structure containing defaults to apply to new games.
+	+ `edition` : The string name of the default edition when creating new games. Game editions can be found in the `editions` directory. Default is `English_Scrabble`.
 	+ `dictionary` : The default dictionary when creating new games. Note that the robot player requires a dictionary. Dictionaries can be found in the 'dictionaries' directory. Default is `CSW2019_English`.
+    + `timerType` : Type of timer to use. This can be one of `Game timer` to impose a time limit on the entire game, or `Turn timer` to limit a single turn. Default is to have no timer.
+		+ `timeAllowed` : Time limit for a move or for the game, in minutes. If `timerType` is `Game timer` defaults to 25 minutes, and to 1 minute for `Turn timer`.
+		+ `timePenalty` : Points lost per minute over `timeAllowed`. Only used if `timerType` is `Game timer`. Default is 5 points per minute.
+    + `challengePenalty` : The type of penalty to apply for a failed challenge. One of `Miss next turn`, `Lose points`, or `Lose points per word`. Default is `Miss next turn`.
+		+ `penaltyPoints` : The score penalty to apply for a failed challenge. Only used if `challengePenalty` is `Lose points` or `Lose points per word`.
+    `wordCheck`: `Check words after play` to check plays against the dictionary, `Reject unknown words` to reject plays that are not in the dictionary with no penalty. Default is no check.
+    + `predictScore` : true or false. Whether or not to show the predicted score from tiles placed so far. Default is `true`.
+    + `minPlayers` Least number of players must have joined before this game can start. Must be at least 2, default is `2`.
+    + `maxPlayers` : Most number of players who can join a game. Default is no limit.
+    + `allowUndo` : Whether or not to allow players to undo previous moves without penalty. Default is `false`.
+    + `allowTakeBack` : Whether or not to allow players to take back their most recent move without penalty, so long as the next player hasn't challenged or played. Default is `true`.
++ `user_defaults` : Defaults that control the user's UI.
 	+ `notification` : Whether to generate UI notifications. Notifications require HTTPS. Defaults to `false`.
-	+ `jqTheme` : Name of one of the jQuery user interface themes.
 	+ `theme` : Layout theme, must be the name of a file in `css` (no extension). Defaults to `default`.
+	+ `jqTheme` : Name of one of the jQuery user interface themes.
 	+ `warnings` : Whether to generate warning sounds. Defaults to  `true`.
 	+ `cheers` : Whether to generate end of game cheers / groans. Defaults to `true`.
 	+ `tile` : Whether to make a click when a tile is placed. Defaults to `true`.

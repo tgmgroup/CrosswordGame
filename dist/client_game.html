@@ -17,6 +17,8 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
     <!-- Rewritten to reflect the preferences -->
     <link id="jQueryTheme" href="../dist/css/themes/pepper-grinder/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
+    <link href="../css/default.css" rel="stylesheet" type="text/css">
+
     <!-- Rewritten in browser/UI.js to reflect the preferences -->
     <link id="xanadoCSS" href="../css/default.css" rel="stylesheet" type="text/css">
 
@@ -25,6 +27,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
         "imports": {
           "jquery/": "../node_modules/jquery/",
           "jquery-ui/": "../node_modules/jquery-ui/",
+          "socket.io/": "../node_modules/socket.io/",
           "@rwap/jquery-ui-touch-punch/": "../node_modules/@rwap/jquery-ui-touch-punch/",
           "@cdot/cbor": "../node_modules/@cdot/cbor/dist/mjs/index.js",
           "@cdot/dictionary": "../node_modules/@cdot/dictionary/dist/mjs/index.js",
@@ -46,13 +49,14 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
             <!-- board will be created here in code -->
           </table>
           <div id="playRack">
-            <button class="distributionButton" data-i18n-tooltip="tt-distribution">{...}</button>
+            <button id="distributionButton" data-i18n-tooltip="tt-distribution">{...}</button>
             <table class="Surface rack">
               <!-- rack will be created here in code -->
             </table>
             <div class="controls">
               <button class="shuffle-button fat-button"></button>
               <button class="unplace-button fat-button"></button>
+              <button class="action-button" data-action="pass" data-i18n="Pass">
             </div>
           </div>
         </div>
@@ -60,26 +64,26 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
           <div id="signinBlock" class="block">
             <div class="signed-in block-title">
               <span id="whoami"></span>
-              <div class="toolbox">
+              <div id="client_toolbox">
                 <span id="personaliseButton" data-i18n-tooltip="tt-personalise">&#9881;</span>
                 <span id="pauseButton" data-i18n-tooltip="tt-pause">&#128336;</span>
                 <span id="redoButton" data-i18n-tooltip="tt-redo">&#11023;</span>
                 <span id="undoButton" data-i18n-tooltip="Undo the last play">&#11024;</span>
               </div>
             </div>
-            <div class="bad-user" class="hidden">
+            <div class="bad-user">
               <button data-i18n="Sign out"></button>
             </div>
-            <div class="notPlaying hidden" data-i18n="text-not-playing"></div>
+            <div class="not-playing" data-i18n="text-not-playing"></div>
             <div class="not-signed-in">
-              <span class="observer hidden"></span>
+              <span class="observer"></span>
               <button id="signin-button" data-i18n="Sign in" style="display:inline"></button>
             </div>
           </div>
           <div id="scoresBlock" class="block">
             <div class="block-title" data-i18n="Scores"></div>
             <div class="playerList"></div>
-            <div class="observerCount hidden"></div>
+            <div class="observerCount"></div>
             <div class="letterbag"></div>
           </div>
           <div id="playBlock" class="block signed-in">
@@ -88,7 +92,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
             <table id="swapRack" class="Surface rack bottom-shade">
               <!-- swap rack will be created here in code -->
             </table>
-            <button class="turn-button" data-action="pass" data-i18n="Pass">
+            <button class="action-button" data-action="pass" data-i18n="Pass">
             </button>
           </div>          
           <div id="chatBlock" class="block">

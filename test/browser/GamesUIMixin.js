@@ -3,7 +3,7 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupBrowser } from "../TestPlatform.js";
+import { setupPlatform, setup$ } from "../TestPlatform.js";
 import { Game } from "../../src/game/Game.js";
 import { GamesUIMixin } from "../../src/browser/GamesUIMixin.js";
 
@@ -11,7 +11,8 @@ describe("browser/GamesUIMixin", () => {
   let Test, ui, gamesList = [], gamesHistory = [];
 
   before(
-    () => setupBrowser()
+    () => setupPlatform()
+    .then(() => setup$())
     // UI imports jquery.i18n which requires jquery, so have
     // to delay the import
     .then(() => import("../../src/browser/UI.js"))
@@ -109,7 +110,7 @@ describe("browser/GamesUIMixin", () => {
 
       // Clicking on a gameTableRow should invoke GameDialog, which
       // will invoke $player.
-      // No testing here, just ensuring gameDialog is included in coverage
+      // No testing here, see GameDialog.js for that.
       $("#game1").trigger("click");
       // The trigger should have openDialog, which should have assigned "this"
       // but we have to wait...

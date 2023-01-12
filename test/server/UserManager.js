@@ -24,9 +24,20 @@ describe("server/UserManager", () => {
     auth: {
       "db_file" : "delayed"
     },
-    defaults: {
+    game_defaults: {
       edition: "Test",
       dictionary: "Oxford_5000",
+      allowTakeBack: true,
+      allowUndo: false,
+      challengePenalty: "Miss next turn",
+      maxPlayers: 0,
+      minPlayers: 2,
+      penaltyPoints: 5,
+      predictScore: true,
+      timeAllowed: 0,
+      timePenalty: 0
+    },
+    user_defaults: {
       theme: "default"
     }
   };

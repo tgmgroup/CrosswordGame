@@ -51,10 +51,6 @@ body {
   box-shadow: 0 0 0.5em #000000;
 }
 
-.hidden {
-  display: none;
-}
-
 /* Strip all padding off element */
 .no-padding {
   padding: 0 !important;
@@ -401,7 +397,7 @@ body.games-ui {
 }
 
 /* Button for making a play */
-#playBlock .turn-button {
+#playBlock .action-button {
   font-size: 130%;
 }
 
@@ -559,6 +555,7 @@ body.games-ui {
 }
 
 #playRack .controls {
+  display: flex;
 }
 
 /* rack control buttons - shuffle, unplace */
@@ -607,19 +604,25 @@ body.games-ui {
 
 /*------------ LANDSCAPE SCREEN ------------*/
 @media screen and (min-aspect-ratio: 1/1) {
+  #playBlock .action-button {
+    display: inline-block;
+  }
+
+  #playRack .action-button {
+    display: none!important;
+  }
+
+  /* Wraps UI components in game */
+  .game-interface {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
 }
 
 /*------------ PORTRAIT SCREEN ------------*/
 
 @media screen and (max-aspect-ratio: 1/1) {
-  /* Position the signin block above the board */
-  #signinBlock {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin-top: 3px;
-  }
 
   /* Override Surface - Board is full width */
   #board {
@@ -635,6 +638,29 @@ body.games-ui {
   #blocks {
     width: 100%;
     margin: 0;
+  }
+
+  #playBlock .action-button {
+    display: none;
+  }
+
+  #playRack .action-button {
+    display: inline-block;
+  }
+
+  /* Wraps UI components in game */
+  .game-interface {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Position the signin block above the board */
+  #signinBlock, #standalone_topBlock {
+    position: absolute;
+    top: 0;
+    left: 2vw;
+    width: 95vw;
   }
 }
 
@@ -937,11 +963,12 @@ body.games-ui {
   }
 }
 
-/* Wraps UI components in game */
-.game-interface {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+.hidden {
+  display: none !important;
+}
+
+.smaller {
+  font-size: smaller;
 }
 
 /* Override jquery-ui for shuffle and take-back buttons */

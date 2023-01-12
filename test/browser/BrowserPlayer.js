@@ -3,14 +3,17 @@
 /* eslint-env mocha,node */
 
 import { assert } from "chai";
-import { setupBrowser } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n } from "../TestPlatform.js";
 
 import { BrowserGame } from "../../src/browser/BrowserGame.js";
 const Player = BrowserGame.CLASSES.Player;
 
 describe("browser/BrowserPlayer", () => {
 
-  before(setupBrowser);
+  before(
+    () => setupPlatform()
+    .then(() => setup$())
+    .then(() => setupI18n()));
 
   it("$html-robot", () => {
     const p = {

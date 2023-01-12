@@ -3,6 +3,7 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
 
+/* global assert */
 /* global Platform */
 
 /**
@@ -26,10 +27,12 @@ class Dialog {
 
   /**
    * Construct the named dialog, demand-loading the HTML as
-   * necessary. Do not use this - use {@linkcode Dialog#open|open()}
-   * instead.
+   * necessary. Note that most options are consistent with the dialog,
+   * widget, with the exception of:
+   * * `modal` defaults to true
    * @param {string} id the dialog name
-   * @param {object} options options
+   * @param {object} options dialog options. These are passed on the
+   * dialog widget with some exceptions
    * @param {string?} options.html optional name of HTML file to
    * load, defaults to the id of the dialog
    * @param {string?} options.postAction AJAX call name. If defined,
@@ -39,6 +42,10 @@ class Dialog {
    * defined.
    * @param {function?} options.onSubmit Passed this, can be used without
    * postAction.
+   * @param {function?} options.onReady Passed this, called when
+   * openDialog has completed on the dialog (i.e. it's ready to be
+   * interacted with)
+   * @param {function?} options.debug same sig as console.debug
    * @param {function} options.error error function, passed jqXHR
    */
   constructor(id, options) {
@@ -47,11 +54,17 @@ class Dialog {
      */
     this.id = id;
 
+    assert(!options.open, "open is not supported");
+
     /**
      * Cache of settings
      * @member {object}
      */
-    this.options = options;
+    this.options = $.extend({
+      modal: true,
+      minWidth: 400,
+      width: 'auto'
+    }, options);
 
     /**
      * Cache of jQuery object
@@ -60,41 +73,52 @@ class Dialog {
      */
     this.$dlg = $(`#${id}`);
 
+    if (this.options.debug)
+      this.options.debug("Constructing", id);
+
     let promise;
     if (this.$dlg.length === 0) {
       // HTML is not already present; load it asynchronously.
-      promise = $.get(Platform.getFilePath(
-        `html/${options.html || id}.html`))
+      const path = Platform.getFilePath(
+        `html/${this.options.html || id}.html`);
+      promise = $.get(path)
       .then(html_code => {
-        $("body").append(
-          $(document.createElement("div"))
-          .attr("id", id)
-          .addClass("dialog")
-          .html(html_code));
+        if (this.options.debug)
+          this.options.debug("\tloaded html from", path);
+        const $dlg = $(document.createElement("div"))
+              .attr("id", id)
+              .addClass("dialog");
+        $dlg.html(html_code);
+        $("body").append($dlg);
         this.$dlg = $(`#${id}`);
       });
     } else
       promise = Promise.resolve();
 
-    promise
-    .then(() => this.$dlg.dialog({
-      title: options.title,
-      width: 'auto',
-      minWidth: 400,
-      modal: true,
-      open: () => {
-        let prom;
-        if (this.$dlg.data("dialog_created"))
-          prom = this.openDialog();
-        else {
+    this.options.open = () => {
+      let prom;
+      if (this.$dlg.data("dialog_created"))
+        prom = this.openDialog();
+      else {
+        prom = this.createDialog()
+        .then(() => {
           this.$dlg.data("dialog_created", true);
-          prom = this.createDialog()
-          .then(() => this.openDialog());
-        }
-        prom
-        .catch(e => console.error(e));
+          return this.openDialog();
+        });
       }
-    }));
+      prom
+      .then(() => {
+        this.enableSubmit();
+
+        // Mainly for debug, triggered when the dialog has been opened
+        if (this.options.onReady)
+          this.options.onReady(this);
+      })
+      .catch(e => console.error(e));
+    };
+
+    promise
+    .then(() => this.$dlg.dialog(this.options));
   }
 
   /**
@@ -104,7 +128,7 @@ class Dialog {
    * sure all initialisation steps are complete before the dialog
    * opens.
    * Override in subclasses to attach handlers etc. Subclasses should
-   * return super.createDialog()
+   * call super.createDialog() first.
    * @protected
    */
   createDialog() {
@@ -115,9 +139,14 @@ class Dialog {
     this.$dlg
     .find("input[data-i18n-placeholder]")
     .each(function() {
-      $(this).attr("placeholder", $.i18n(
-        $(this).data("i18n-placeholder")));
+      $(this).attr("placeholder", $.i18n($(this).data("i18n-placeholder")));
     });
+
+    // WARNING: if a checkbox has no label, this will spin!
+    this.$dlg.find('input[type=checkbox]')
+    .checkboxradio();
+
+    this.$dlg.find("button").button();
 
     this.$dlg
     .find("label[data-image]")
@@ -137,40 +166,42 @@ class Dialog {
     // have (hopefully!) been created before creating the
     // tooltips.
     const self = this;
-    this.$dlg
-    .find('select')
-    .selectmenu()
-    .on("selectmenuchange",
-        function() {
-          $(this).blur();
-          self.$dlg.data("this").enableSubmit();
-        });
 
-    setTimeout(
-      () => this.$dlg
-      .find('select[data-i18n-tooltip] ~ .ui-selectmenu-button')
-      .tooltip({
-        items: ".ui-selectmenu-button",
-        position: {
-          my: "left+15 center",
-          at: "right center",
-          within: "body"
-        },
-        content: function() {
-          return $.i18n(
-            $(this)
-            .prev()
-            .data('i18n-tooltip'));
-        }
-      }),
-      100);
+    const $selects = this.$dlg.find("select");
+    if ($selects.length > 0) {
+      $selects
+      .selectmenu()
+      .on("selectmenuchange",
+          function() {
+            $(this).blur();
+            self.$dlg.data("this").enableSubmit();
+          });
+
+      setTimeout(
+        () => this.$dlg
+        .find('select[data-i18n-tooltip] ~ .ui-selectmenu-button')
+        .tooltip({
+          items: ".ui-selectmenu-button",
+          position: {
+            my: "left+15 center",
+            at: "right center",
+            within: "body"
+          },
+          content: function() {
+            return $.i18n(
+              $(this)
+              .prev()
+              .data('i18n-tooltip'));
+          }
+        }),
+        100);
+    }
 
     this.$dlg.find(".submit")
     .on("click", () => this.submit());
 
-    this.enableSubmit();
-
-    console.debug("Created", this.id);
+    if (this.options.debug)
+      this.options.debug("\tcreated", this.id);
     return Promise.resolve();
   }
 
@@ -180,7 +211,8 @@ class Dialog {
    * @return {Promise} promise that resolves to undefined
    */
   openDialog() {
-    console.debug("Opening", this.id);
+    if (this.options.debug)
+      this.options.debug("\topening", this.id);
     this.$dlg.data("this", this);
     return Promise.resolve(this);
   }
@@ -272,6 +304,7 @@ class Dialog {
       if (typeof this.options.postResult === "function")
         this.options.postResult(data);
     })
+    /* c8 ignore start */
     .catch(jqXHR => {
       // Note that the console sees an XML parsing error on a 401
       // response to /signin, due to the response body containing a
@@ -283,6 +316,7 @@ class Dialog {
       else
         console.error(jqXHR.responseText);
     });
+    /* c8 ignore stop */
   }
 }
 

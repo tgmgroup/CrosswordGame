@@ -3,7 +3,7 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupBrowser } from "../TestPlatform.js";
+import { setupPlatform, setup$ } from "../TestPlatform.js";
 
 import { BrowserSquare } from "../../src/browser/BrowserSquare.js";
 import { BrowserTile } from "../../src/browser/BrowserTile.js";
@@ -13,7 +13,9 @@ import { BrowserTile } from "../../src/browser/BrowserTile.js";
  */
 describe("browser/BrowserSquare", () => {
 
-  before(setupBrowser);
+  before(
+    () => setupPlatform()
+    .then(() => setup$()));
 
   it('$populate', () => {
     let sq = new BrowserSquare({type: 'q', surface: { id: "base" }, col: 56, row: 42});

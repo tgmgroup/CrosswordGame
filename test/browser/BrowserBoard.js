@@ -3,7 +3,7 @@
 /* eslint-env mocha,node */
 
 import { assert } from "chai";
-import { setupBrowser, setupI18n } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n } from "../TestPlatform.js";
 import sparseEqual from "../sparseEqual.js";
 
 import { Edition } from "../../src/game/Edition.js";
@@ -13,7 +13,10 @@ const Board = BrowserGame.CLASSES.Board;
 
 describe("browser/BrowserBoard", () => {
 
-  before(() => setupBrowser().then(() => setupI18n()));
+  before(
+    () => setupPlatform()
+    .then(() => setup$())
+    .then(() => setupI18n()));
 
   it("analysePlay", () => {
     return Edition.load("Test")

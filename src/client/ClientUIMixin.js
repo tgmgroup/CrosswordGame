@@ -10,7 +10,7 @@
 // The following clumsy hack is the only way I could get it to work in both
 // the unpacked and packed versions. If someone can do better, please do!
 /* global io */
-import * as SI from "socket.io/client-dist/socket.io.js";
+import * as SI from "../../node_modules/socket.io/client-dist/socket.io.js";
 if (typeof io === "undefined")
   window.io = SI.io;
 

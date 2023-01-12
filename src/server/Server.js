@@ -1,4 +1,4 @@
-/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2019-2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env node */
@@ -13,7 +13,6 @@ import Path from "path";
 const __dirname = Path.dirname(URL.fileURLToPath(import.meta.url));
 const staticRoot = Path.normalize(Path.join(__dirname, "..", ".."));
 
-import Events from "events";
 import Cors from "cors";
 import Express from "express";
 
@@ -61,7 +60,7 @@ function reply(res, data) {
  *
  * Routes supported:
  * * `GET /` - Get the HTML for the game management interface
- * * {@linkcode Server#GET_defaults|`GET /defaults`}
+ * * {@linkcode Server#GET_defaults|`GET /defaults/:type`}
  * * {@linkcode Server#GET_dictionaries|GET /dictionaries}
  * * {@linkcode Server#GET_editions|GET /editions}
  * * {@linkcode Server#GET_edition|GET /edition/:edition}
@@ -103,9 +102,9 @@ class Server {
       this.debug = console.debug;
 
     // Add a couple of dynamically computed defaults that need to
-    // be sent with /defaults
-    config.defaults.canEmail = (typeof config.mail !== "undefined");
-    config.defaults.notification = config.defaults.notification &&
+    // be sent with /defaults/:user
+    config.user_defaults.canEmail = (typeof config.mail !== "undefined");
+    config.user_defaults.notification = config.user_defaults.notification &&
     (typeof config.https !== "undefined");
 
     /**
@@ -230,7 +229,7 @@ class Server {
       (req, res) => this.GET_css(req, res));
 
     cmdRouter.get(
-      "/defaults",
+      "/defaults/:type",
       (req, res) => this.GET_defaults(req, res));
 
     cmdRouter.get(
@@ -332,10 +331,8 @@ class Server {
     return this.db.get(key)
     .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
     .then(game => game.onLoad(this.db))
-    .then(game => game.checkAge())
+    .then(game => game.checkAge(this.config.maxAge))
     .then(game => {
-      Events.EventEmitter.call(game);
-
       this.games[key] = game;
       /* c8 ignore next 2 */
       if (/^(game|all)$/i.test(this.config.debug))
@@ -528,7 +525,7 @@ class Server {
     assert(this.config.mail && this.config.mail.transport,
            "Mail is not configured");
     return this.userManager.getUser(
-      {key: req.session.passport.user.key})
+      { key: req.session.passport.user.key })
     .then(sender => `${sender.name}<${sender.email}>`)
     /* c8 ignore start */
     .catch(
@@ -589,8 +586,12 @@ class Server {
             : Promise.resolve([send]))
     // Load those games
     .then(keys => Promise.all(
-      keys.map(key => this.loadGameFromDB(key)
-               .catch(() => undefined))))
+      keys.map(
+        key => this.loadGameFromDB(key)
+        .catch(e => {
+          console.error("Failed to load", key, e);
+          return undefined;
+        }))))
     // Filter the list and generate simple data
     .then(games => games.filter(game => game
                                 && !(send === "active" && game.hasEnded())))
@@ -598,10 +599,10 @@ class Server {
       games.map(game => game.serialisable(this.userManager))))
     // Sort the resulting list by last activity, so the most
     // recently active game bubbles to the top
-    .then(gs => gs.sort((a, b) => a.lastActivity < b.lastActivity ? 1
-                        : a.lastActivity > b.lastActivity ? -1 : 0))
+    .then(games => games.sort((a, b) => a.lastActivity < b.lastActivity ? 1
+                              : a.lastActivity > b.lastActivity ? -1 : 0))
     // Finally send the result
-    .then(data => reply(res, data));
+    .then(games => reply(res, games));
   }
 
   /**
@@ -818,7 +819,7 @@ class Server {
               : this.db.get(key)
               .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES)))
       .then(game => {
-        game.checkAge();
+        game.checkAge(this.config.maxAge);
         if (game.hasEnded())
           return undefined;
 
@@ -1023,11 +1024,13 @@ class Server {
   /**
    * Send the `defaults` section of the server configuration.
    * @param {Request} req the request object
+   * @param {string} req.params.type the defaults type, `user` or `game`.
    * @param {Response} res the response object. The body will be
    * the defaults object from the server configuration file.
    */
   GET_defaults(req, res) {
-    reply(res, this.config.defaults);
+    const type = req.params.type;
+    reply(res, this.config[`${type}_defaults`]);
   }
 
   /**
@@ -1121,7 +1124,6 @@ class Server {
     .then(game => {
       if (game.hasEnded() && command !== BackendGame.Command.UNDO)
         replyAndThrow(res, 400, `Game ${gameKey} has ended`);
-
       const player = game.getPlayerWithKey(playerKey);
       if (!player)
         replyAndThrow(res,
@@ -1133,7 +1135,6 @@ class Server {
       // Add a timestamp, unless the sender provided one
       if (typeof req.body.timestamp === "undefined")
         req.body.timestamp = Date.now();
-
       return game.dispatchCommand(command, player, args);
     })
     .then(() => {

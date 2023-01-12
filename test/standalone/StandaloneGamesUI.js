@@ -3,29 +3,84 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupBrowser } from "../TestPlatform.js";
+import { setupPlatform, setup$ } from "../TestPlatform.js";
+import { Game } from "../../src/game/Game.js";
+import { Player } from "../../src/game/Player.js";
 
 describe("standalone/StandaloneGamesUI", () => {
 
-  let StandaloneGamesUI;
+  let StandaloneGamesUI, keep = {};;
 
-  before(() => setupBrowser()
-         // UI imports jquery.i18n which requires jquery, so have
-         // to delay the import
-         .then(() => import("../../src/standalone/StandaloneGamesUI.js"))
-         .then(mod => StandaloneGamesUI = mod.StandaloneGamesUI));
-
-  beforeEach(() => {
-    $("head").empty();
-    $("body").empty();
+  before(
+    () => setupPlatform()
+    .then(() => setup$(
+      `${import.meta.url}/../../html/standalone_games.html`,
+      Platform.getFilePath("/html/standalone_games.html")))
+    // UI imports jquery.i18n which requires jquery, so have
+    // to delay the import
+    .then(() => import("../../src/standalone/StandaloneGamesUI.js"))
+    .then(mod => StandaloneGamesUI = mod.StandaloneGamesUI)
+    .then(() => {
+      keep.open = window.open;
+      window.open = () => {};
+      keep.location = global.location;
+      global.location = {
+        href: "here",
+        hash: "",
+        replace: hr => location.href = hr
+      };
+    }));
+  
+  after(() => {
+    window.open = keep.open;
+    global.location = keep.location;
   });
-
-  it("handlers", () => {
-    $("body").append(`<div id="create-game" class="dialog"></div>`);
+  
+  it("works", () => {
     const ui = new StandaloneGamesUI();
 
-    // Force an import of SettingsDialog
+    ui.create();
     ui.attachUIEventHandlers();
-    //$("#create-game").trigger("click");
+
+    const game = new Game({ edition: "Test" });
+		const robot1 = new Player(
+			{name:"Robot 1", key:"robot1", isRobot: true, score: 1}, Game.CLASSES);
+		const human1 = new Player(
+			{name:"Human 1", key:"human1", isRobot: false, score: 2}, Game.CLASSES);
+
+    return game.onLoad(ui.db)
+    .then(() => game.create())
+    .then(() => {
+			game.addPlayer(human1, true);
+			game.addPlayer(robot1, true);
+			game.whosTurnKey = human1.key;
+      game.state = Game.State.GAME_OVER;
+    })
+    .then(() => game.state = Game.State.GAME_OVER)
+    .then(() => game.save())
+    .then(() => {
+
+      $("#create-game").trigger("click");
+
+      ui.gameOptions(); // launches a Dialog
+
+      ui.getGames("all")
+      .then(games => {
+        assert.equal(games.length, 1);
+        assert.equal(games[0].key, game.key);
+      });
+      assert(ui.joinGame(game).indexOf(game.key) > 0);
+    })
+    .then(() => ui.getGame(game.key))
+    .then(g2 => assert.equal(g2.key, game.key))
+    .then(() => ui.getHistory())
+    .then(hist => {
+      assert.equal(hist.length, 2);
+      assert.equal(hist[0].key, "human1");
+      assert.equal(hist[0].wins, 1);
+      assert.equal(hist[0].games, 1);
+    })
+    .then(() => ui.deleteGame(game));
+    // TODO: a lot more testing!
   });
 });

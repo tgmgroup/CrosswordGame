@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2019-2023 The Xanado Project https://github.com/cdot/Xanado
 License MIT. See README.md at the root of this distribution for full copyright
 and license information. Author Crawford Currie http://c-dot.co.uk*/
 
@@ -28,35 +28,52 @@ import { ServerPlatform } from "../src/server/ServerPlatform.js";
 global.Platform = ServerPlatform;
                     
 import { Server } from "../src/server/Server.js";
+import { Game } from "../src/game/Game.js";
 
 // Default configuration.
 const DEFAULT_CONFIG = {
   port: 9093,
   games: path.join(__dirname, "..", "games"),
-  defaults: {
-	  edition: "English_Scrabble",
-	  dictionary: "CSW2019_English",
-	  notification: false,
-	  theme: "default",
-	  warnings: true,
-	  cheers: true,
-	  tile_click: true,
+  maxAge: 14 * 24 * 60 * 60 * 1000,
+  game_defaults: Game.DEFAULTS,
+  // Defaults passed to the UI without processing by the server
+  user_defaults: {
+    notification: false,
+    theme: "default",
+    jqTheme: "pepper-grinder",
+    warnings: true,
+    cheers: true,
+    tile_click: true,
     one_window: false,
     turn_alert: true
   }
 };
 
 // Populate sparse config structure with defaults from DEFAULT_CONFIG
-function addDefaults(config, from) {
-  for (const field in from) {
-    if (typeof config[field] === "undefined")
-      config[field] = from[field];
-    else if (typeof from[field] === "object") {
-      if (typeof config[field] !== "object")
-        throw Error(typeof config[field]);
-      addDefaults(config[field], from[field]);
+function addDefaults(config) {
+  // Compatibility with < 3.2.0, which only had "defaults"
+  if (config.defaults && !config.game_defaults) {
+    config.game_defaults = {};
+    xfer(DEFAULT_CONFIG.game_defaults, config.defaults, config.game_defaults);
+  }
+  if (config.defaults && !config.user_defaults) {
+    config.user_defaults = {};
+    xfer(DEFAULT_CONFIG.user_defaults, config.defaults, config.user_defaults);
+  }
+
+  function xfer(fields, from, to) {
+    for (const field in fields) {
+      if (typeof to[field] === "undefined")
+        to[field] = from[field];
+      else if (typeof from[field] === "object") {
+        if (typeof to[field] !== "object")
+          throw Error(typeof to[field]);
+        xfer(fields[field], from[field], to[field]);
+      }
     }
   }
+
+  xfer(DEFAULT_CONFIG, DEFAULT_CONFIG, config);
   return config;
 }
 
@@ -104,7 +121,7 @@ if (options.config) {
   });
 }
 
-p.then(json => addDefaults(JSON.parse(json), DEFAULT_CONFIG))
+p.then(json => addDefaults(JSON.parse(json)))
 
 .then(config => {
 

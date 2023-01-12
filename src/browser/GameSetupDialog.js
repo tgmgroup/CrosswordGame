@@ -29,10 +29,10 @@ class GameSetupDialog extends Dialog {
    * @override
    */
   canSubmit() {
-    console.debug("Validate edition",
-                  this.$dlg.find("[name=edition]").val(),
-                  "play dictionary",
-                  this.$dlg.find("[name=dictionary]").val());
+    //console.debug("Validate edition",
+    //              this.$dlg.find("[name=edition]").val(),
+    //              "play dictionary",
+    //              this.$dlg.find("[name=dictionary]").val());
     return (this.$dlg.find("[name=edition]").val() !== 'none');
   }
 
@@ -91,40 +91,47 @@ class GameSetupDialog extends Dialog {
         $sel.append(
           `<option value="${p ? p : 'none'}">${p ? $.i18n(p) : $.i18n("None")}</option>`);
     }
-    const $pen = this.$dlg.find("[name=challengePenalty]");
-    makeOptions(GameSetupDialog.Penalty_types, $pen);
-    $pen.on("selectmenuchange", () => this.showPenaltyFields());
-    this.showPenaltyFields();
 
-    const $tim = this.$dlg.find("[name=timerType]");
-    makeOptions(GameSetupDialog.Timer_types, $tim);
-    $tim.on("selectmenuchange", () => this.showTimerFields());
-    this.showTimerFields();
+    return super.createDialog()
+    .then(() => {
+      const $pen = this.$dlg.find("[name=challengePenalty]");
+      makeOptions(GameSetupDialog.Penalty_types, $pen);
+      $pen.on("selectmenuchange", () => this.showPenaltyFields());
+      this.showPenaltyFields();
 
-    const $wc = this.$dlg.find("[name=wordCheck]");
-    makeOptions(GameSetupDialog.WordCheck_types, $wc);
+      const $tim = this.$dlg.find("[name=timerType]");
+      makeOptions(GameSetupDialog.Timer_types, $tim);
+      $tim.on("selectmenuchange", () => this.showTimerFields());
+      this.showTimerFields();
 
-    const ui = this.options.ui;
-    return Promise.all([
-      ui.getEditions()
-      .then(editions => {
-        const $eds = this.$dlg.find('[name=edition]');
-        editions.forEach(e => $eds.append(`<option>${e}</option>`));
-        if (ui.getSetting('edition'))
-          $eds.val(ui.getSetting('edition'));
-      }),
-      ui.getDictionaries()
-      .then(dictionaries => {
-        const $dics = this.$dlg.find('[name=dictionary]');
-        dictionaries
-        .forEach(d => $dics.append(`<option>${d}</option>`));
-        if (ui.getSetting('dictionary'))
-          $dics.val((ui.getSetting('dictionary')));
-        $dics.on("selectmenuchange", () => this.showFeedbackFields());
-        this.showFeedbackFields();
-      })
-    ])
-    .then(() => super.createDialog());
+      const $wc = this.$dlg.find("[name=wordCheck]");
+      makeOptions(GameSetupDialog.WordCheck_types, $wc);
+
+      const ui = this.options.ui;
+      return Promise.all([
+        ui.getEditions()
+        .then(editions => {
+          const $eds = this.$dlg.find("[name=edition]");
+          editions.forEach(e => $eds.append(`<option>${e}</option>`));
+          if (ui.getSetting("edition")) {
+            $eds.val(ui.getSetting("edition"));
+            $eds.selectmenu("refresh");
+          }
+        }),
+        ui.getDictionaries()
+        .then(dictionaries => {
+          const $dics = this.$dlg.find("[name=dictionary]");
+          dictionaries
+          .forEach(d => $dics.append(`<option>${d}</option>`));
+          if (ui.getSetting("dictionary")) {
+            $dics.val((ui.getSetting("dictionary")));
+            $dics.selectmenu("refresh");
+          }
+          $dics.on("selectmenuchange", () => this.showFeedbackFields());
+          this.showFeedbackFields();
+        })
+      ]);
+    });
   }
 
   openDialog() {
@@ -132,32 +139,40 @@ class GameSetupDialog extends Dialog {
     .then(() => {
       this.$dlg.find(".dialog-row").show();
       const game = this.options.game;
-      if (game) {
-        // Some game options are only tweakable if there are no turns
-        // signed in the game. This is controlled by a "noturns" class on
-        // the dialog-row
-        if (game.turns.length > 0)
-          this.$dlg.find(".noturns").hide();
+      const $fields = this.$dlg.find("[name]");
 
-        const $fields = this.$dlg.find('[name]');
-        $fields.each((i, el) => {
-          const field = $(el).attr("name");
-          const val = game[field];
-          //console.debug("SET",field,"=",game[field]);
-          if (el.tagName === "INPUT" && el.type === "checkbox") {
-            if (val)
-              $(el).attr("checked", "checked");
-            else
-              $(el).removeAttr("checked");
-          } else {
-            $(el).val(game[field]);
-            if (el.tagName === "SELECT")
-              $(el).selectmenu("refresh");
-          }
-          return true;
-        });
-      }
-    }).then(() => super.openDialog());
+      // Some game options are only tweakable if there are no turns
+      // signed in the game. This is controlled by a "noturns" class on
+      // the dialog-row
+      if (game && game.turns.length > 0)
+        this.$dlg.find(".noturns").hide();
+
+      $fields.each((i, el) => {
+        const $el = $(el);
+        const field = $el.attr("name");
+        let val = game ? game[field] : undefined;
+        if (el.tagName === "INPUT" && el.type === "checkbox") {
+          console.debug("SET", field, "=", val);
+          if (val)
+            $el.attr("checked", "checked");
+          else
+            $el.removeAttr("checked");
+        } else if (el.tagName === "SELECT") {
+          if (typeof val === "undefined")
+            val = this.options.ui.getSetting(field);
+          console.debug("SELECT", field, "=", val);
+          $el.val(val || "none");
+          $el.selectmenu("refresh");
+        } else if (val) {
+          console.debug("SET", field, "=", val);
+          $el.val(val);
+        }
+        return true;
+      });
+      this.showTimerFields();
+      this.showPenaltyFields();
+      this.showFeedbackFields();
+    });
   }
 }
 

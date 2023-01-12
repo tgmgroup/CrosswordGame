@@ -16,33 +16,33 @@ const PasswordMixin = superclass => class extends superclass {
    */
   createDialog() {
 
-    // hide or show a password.
-    this.$dlg.find('.hide-password')
-    .button({
-      icon: "icon-eye-open"
-    })
-    .on("click", function() {
-      const $icon = $(this);
-      const $field = $icon.prev("input");
-      if ($field.attr("type") === "password") {
-        $field.attr("type", "text");
-        $icon.button("option", "icon", "icon-eye-closed");
-      } else {
-        $field.attr("type", "password");
-        $icon.button("option", "icon", "icon-eye-open");
-      }
-      // focus and move cursor to the end of input field
-      var len = $field.val().length * 2;
-      $field[0].setSelectionRange(len, len);
-    });
+    return super.createDialog()
+    .then(() => {
 
-    this.$dlg.find(".is-password")
-    .on("keyup", evt => {
-      if (evt.keyCode === 13)
-        this.submit();
-    });
+      // hide or show a password.
+      this.$dlg.find('.hide-password')
+      .button("option", "icon", "icon-eye-open")
+      .on("click", function() {
+        const $icon = $(this);
+        const $field = $icon.prev("input");
+        if ($field.attr("type") === "password") {
+          $field.attr("type", "text");
+          $icon.button("option", "icon", "icon-eye-closed");
+        } else {
+          $field.attr("type", "password");
+          $icon.button("option", "icon", "icon-eye-open");
+        }
+        // focus and move cursor to the end of input field
+        var len = $field.val().length * 2;
+        $field[0].setSelectionRange(len, len);
+      });
 
-    return super.createDialog();
+      this.$dlg.find(".is-password")
+      .on("keyup", evt => {
+        if (evt.keyCode === 13)
+          this.submit();
+      });
+    });
   }
 };
 

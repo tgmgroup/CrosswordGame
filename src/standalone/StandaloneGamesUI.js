@@ -1,4 +1,4 @@
-/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2019-2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
@@ -65,7 +65,7 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
       /* webpackMode: "lazy" */
       /* webpackChunkName: "GameSetupDialog" */
       "../browser/GameSetupDialog.js")
-    .then(mod => new mod[Object.keys(mod)[0]]({
+    .then(mod => new mod.GameSetupDialog({
       html: "standalone_GameSetupDialog",
       title: $.i18n("Game setup"),
       game: game,
@@ -86,13 +86,6 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
    */
   joinGame(game) {
     return this.redirectToGame(game.key);
-  }
-
-  /**
-   * @implements browser/GamesUIMixin#anotherGame
-   */
-  anotherGame(game) {
-    assert.fail(`TODO: StandaloneGamesUI.anotherGame ${game}`);
   }
 
   /**
@@ -166,6 +159,7 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
     .then(games => {
       const results = {};
       games
+      .filter(game => game.hasEnded())
       .map(game => {
         const winScore = game.winningScore();
         game.getPlayers().forEach(
@@ -182,9 +176,10 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
               };
             }
             result.games++;
-            if (player.score === winScore)
+            if (player.score === winScore) {
               result.wins++;
-            result.score += player.score;
+              result.score += player.score;
+            }
           });
       });
       const list = [];

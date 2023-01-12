@@ -36,26 +36,23 @@ class BackendGame extends Undo(Replay(Commands(Game))) {
   /**
    * Check if the game has timed out due to inactivity.
    * Stops game timers and sets the state of the game if it has.
-   * @function
-   * @instance
-   * @memberof server/GameMixin
+   * @param {integer} limit the maximum time since the game was last
+   * interacted with (played) in milliseconds. If the limit is <= 0
+   * then games never time out.
    * @return {Promise} resolves to the game when timeout has
    * been checked
    */
-  checkAge() {
-    const ageInDays =
-          (Date.now() - this.lastActivity())
-          / 60000 / 60 / 24;
+  checkAge(limit) {
+    if (limit > 0 && Date.now() - this.lastActivity() > limit) {
 
-    if (ageInDays <= 14)
-      return Promise.resolve(this); // still active
+      /* c8 ignore next 2 */
+      if (this._debug)
+        this._debug("Game", this.key, "timed out");
 
-    /* c8 ignore next 2 */
-    if (this._debug)
-      this._debug("Game", this.key, "timed out");
-
-    this.state = Game.TIMED_OUT;
-    return this.save();
+      this.state = Game.State.TIMED_OUT;
+      return this.save();
+    }
+    return Promise.resolve(this);
   }
 }
 

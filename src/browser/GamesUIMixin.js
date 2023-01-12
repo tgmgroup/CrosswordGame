@@ -166,15 +166,17 @@ const GamesUIMixin = superclass => class extends superclass {
     const $tr = player.$tableRow();
 
     if (isActive) {
+      const info = [];
       if (player.dictionary && player.dictionary !== game.dictionary) {
         const dic = $.i18n("using-dic", player.dictionary);
-        $tr.append(`<td>${dic}</td>`);
+        info.push(dic);
       }
-
       if (game.timerType && player.clock) {
         const left = $.i18n("left-to-play", player.clock);
-        $tr.append(`<td>${left}</td>`);
+        info.push(left);
       }
+      if (info.length > 0)
+        $tr.append(`<td class="smaller">${info.join("<br />")}</td>`);
 
     } else {
       const winningScore = game.getPlayers().reduce(
@@ -224,7 +226,7 @@ const GamesUIMixin = superclass => class extends superclass {
         /* webpackMode: "lazy" */
         /* webpackChunkName: "GameDialog" */
         "../browser/GameDialog.js")
-      .then(mod => new mod[Object.keys(mod)[0]]({
+      .then(mod => new mod.GameDialog({
         game: game,
         ui: this
       }))
@@ -245,9 +247,9 @@ const GamesUIMixin = superclass => class extends superclass {
     $(`#${game.key}`).replaceWith(
       game.tableRow(this.constructor.GAME_TABLE_ROW));
     // Update the open game dialog if appropriate
-    $(`#GameDialog[name=${game.key}]`)
-    .data("this")
-    .populate(game);
+    const dlg = $(`#GameDialog[name=${game.key}]`).data("this");
+    if (dlg)
+      dlg.populate(game);
   }
 
   /**

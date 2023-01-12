@@ -21,13 +21,24 @@ import sparseEqual from "../sparseEqual.js";
  */
 describe("server/Server.js", () => {
 
-  const config = {
+  const CONFIG = {
     auth: {
       db_file: "delayed"
     },
-    defaults: {
+    game_defaults: {
       edition: "Test",
       dictionary: "Oxford_5000",
+      allowTakeBack: true,
+      allowUndo: false,
+      challengePenalty: "Miss next turn",
+      maxPlayers: 0,
+      minPlayers: 2,
+      penaltyPoints: 5,
+      predictScore: true,
+      timeAllowed: 0,
+      timePenalty: 0
+    },
+    user_defaults: {
       theme: "default"
     },
     games: "delayed"
@@ -38,10 +49,10 @@ describe("server/Server.js", () => {
       return tmp.dir()
       .then(d => UserManager.SESSIONS_DIR = d.path)
       .then(() => tmp.file())
-      .then(o => config.auth.db_file = o.path)
+      .then(o => CONFIG.auth.db_file = o.path)
       .then(() => tmp.dir())
       .then(o => {
-        config.games = o.path;
+        CONFIG.games = o.path;
       })
       .then(() => Platform.i18n().load("en-GB"));
     });
@@ -87,24 +98,29 @@ describe("server/Server.js", () => {
     });
   });
 
-  it("/defaults", () => {
-    const s = new Server(config);
+  it("/defaults/game", () => {
+    const s = new Server(CONFIG);
     return chai.request(s.express)
-    .get("/defaults")
+    .get("/defaults/game")
     .then(res => {
       assert.equal(res.status, 200);
-      assert.deepEqual(res.body, {
-        edition: "Test",
-        dictionary: "Oxford_5000",
-        theme: "default",
-        canEmail: false
-      });
-      delete(s.express);
+      assert.deepEqual(res.body, CONFIG.game_defaults);
+    });
+  });
+
+  it("/defaults/user", () => {
+    const s = new Server(CONFIG);
+    return chai.request(s.express)
+    .get("/defaults/user")
+    .then(res => {
+      assert.equal(res.status, 200);
+      delete CONFIG.user_defaults.notification;
+      assert.deepEqual(res.body, CONFIG.user_defaults);
     });
   });
 
   it("/games/all", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     return chai.request(s.express)
     .get("/games/all")
     .then(res => {
@@ -114,7 +130,7 @@ describe("server/Server.js", () => {
   });
 
   it("/games/active", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     return chai.request(s.express)
     .get("/games/active")
     .then(res => {
@@ -124,7 +140,8 @@ describe("server/Server.js", () => {
   });
 
   it("/games/:gameKey", () => {
-    let server = new Server(config), cookie, gamekey;
+    let server = new Server(CONFIG), cookie, gamekey;
+    //server.debug = console.debug;
     return register(server, {
       register_username: "test_user",
       register_password: "test_pass",
@@ -155,6 +172,8 @@ describe("server/Server.js", () => {
     })
     .then(res => {
       assert.equal(res.status, 200, res.body);
+      // res.body should be the simple, NOT the game, which would be sent as
+      // CBOR
       const simple = res.body[0];
       assert.equal(simple.key, gamekey);
       assert.equal(simple.edition, "English_Scrabble");
@@ -163,7 +182,7 @@ describe("server/Server.js", () => {
   });
 
   it("/locales", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     return chai.request(s.express)
     .get("/locales")
     .then(res => {
@@ -177,7 +196,7 @@ describe("server/Server.js", () => {
   });
 
   it("/editions", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     return chai.request(s.express)
     .get("/editions")
     .then(res => {
@@ -188,7 +207,7 @@ describe("server/Server.js", () => {
   });
 
   it("/dictionaries", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     return chai.request(s.express)
     .get("/dictionaries")
     .then(res => {
@@ -199,7 +218,7 @@ describe("server/Server.js", () => {
   });
 
   it("/css", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     return chai.request(s.express)
     .get("/css")
     .then(res => {
@@ -209,7 +228,7 @@ describe("server/Server.js", () => {
   });
 
   it("/join observer", () => {
-    const server = new Server(config);
+    const server = new Server(CONFIG);
     let gamekey, cookie;
     return register(server, {
       register_username: "test_user",
@@ -253,7 +272,7 @@ describe("server/Server.js", () => {
   });
 
   it("/createGame - /join - /addRobot - /game - /leave - /removeRobot - /games / - /history - /deleteGame", () => {
-    let server = new Server(config), cookie, gamekey, playerkey;
+    let server = new Server(CONFIG), cookie, gamekey, playerkey;
     //server.debug = console.debug;
     const serverSock = new TestSocket("server");
     const clientSock = new TestSocket("client");
@@ -294,7 +313,7 @@ describe("server/Server.js", () => {
     })
     .on(Game.Notify.CONNECTIONS, () => {})
     .on("*", (params, event) => {
-      console.log("CLIENT GOT", event, params);
+      console.error("CLIENT GOT UNEXPECTED", event, params);
     });
 
     serverSock.connect(clientSock);
@@ -394,7 +413,7 @@ describe("server/Server.js", () => {
   });
 
   it("monitors", () => {
-    const s = new Server(config);
+    const s = new Server(CONFIG);
     const serverSock = new TestSocket("monitor");
     s.attachSocketHandlers(serverSock);
     serverSock.emit("connect");
@@ -404,7 +423,7 @@ describe("server/Server.js", () => {
   });
 
   it("/anotherGame", () => {
-    let server = new Server(config), cookie, gamekey;
+    let server = new Server(CONFIG), cookie, gamekey;
     return register(server, {
       register_username: "test_user",
       register_password: "test_pass",
@@ -458,7 +477,7 @@ describe("server/Server.js", () => {
   });
 
   it("/command/:command/:gameKey", () => {
-    let server = new Server(config), cookie, gamekey;
+    let server = new Server(CONFIG), cookie, gamekey;
     return register(server, {
       register_username: "test_user",
       register_password: "test_pass",
@@ -508,7 +527,7 @@ describe("server/Server.js", () => {
   });
 
   it("401", () => {
-    let server = new Server(config);
+    let server = new Server(CONFIG);
     const proms = [
       chai.request(server.express)
       .post("/createGame")
@@ -539,7 +558,7 @@ describe("server/Server.js", () => {
   });
 
   it("/invitePlayers", () => {
-    let server = new Server(config), cookie, gamekey, playerkey;
+    let server = new Server(CONFIG), cookie, gamekey, playerkey;
     return register(server, {
       register_username: "no_email_user"
     })
@@ -612,7 +631,7 @@ describe("server/Server.js", () => {
 
   it("/sendReminder", () => {
     let cookie, gamekey;
-    let server = new Server(config);
+    let server = new Server(CONFIG);
     return register(server, {
       register_username: "test_user",
       register_password: "test_pass",

@@ -105,30 +105,6 @@ const GameUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * Get the current value for a setting. If a user is signed in, the
-   * value will be taken from their session (and will default if it
-   * is not defined).
-   * Must be implemented by a sub-mixin or final class.
-   * @memberof browser/GameUIMixin
-   * @instance
-   * @param {string} key setting to retrieve
-   * @return {string|number|boolean} setting value
-   */
-  getSetting(key) {
-    assert.fail(`GameUIMixin.getSetting ${key}`);
-  }
-
-  /**
-   * Get a structure describing the game configuration defaults.
-   * Must be implemented by a sub-mixin or final class.
-   * @memberof browser/GameUIMixin
-   * @instance
-   */
-  getGameDefaults() {
-    assert.fail("GameUIMixin.getGameDefaults");
-  }
-
-  /**
    * Get the named dictionary.
    * @memberof browser/GameUIMixin
    * @instance
@@ -199,12 +175,12 @@ const GameUIMixin = superclass => class extends superclass {
    * @private
    */
   handle_CONNECTIONS(observers) {
-    console.debug("f<b connections", stringify(observers));
+    this.debug("f<b connections", stringify(observers));
     if (!(this.game.allowUndo || this.game.syncRacks)) {
       // Make racks of other players wild to mask their contents
       for (const p of this.game.getPlayers()) {
         if (p !== this.player) {
-          console.debug(p.name, "is rack wild");
+          this.debug(p.name, "is rack wild");
           p.rack.isWild = true;
         }
       }
@@ -233,9 +209,10 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {string} message.classes additional css classes to apply to
    * message
    * @param {object[]} args i18n arguments
+   * @private
    */
   handle_MESSAGE(message) {
-    console.debug("f<b message");
+    this.debug("f<b message");
     let args = [ message.text ];
     if (typeof message.args === "string")
       args.push(message.args);
@@ -260,7 +237,9 @@ const GameUIMixin = superclass => class extends superclass {
 
     // Special handling for _hint_, highlight square
     if (message.sender === "Advisor"
-        && args[0] === /*i18n*/"_hint_") {
+        && message.text === "_hint_") {
+      // args[0] is "_hint_, args[1] is "words" string, args[2] is row,
+      // args[3] is col, args[4] is score
       let row = args[2] - 1, col = args[3] - 1;
       $(`#Board_${col}x${row}`).addClass("hint-placement");
     }
@@ -275,6 +254,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {string} gameKey game key
    * @param {string} playerKey player key
    * @param {string} clock seconds left for this player to play
+   * @private
    */
   handle_TICK(params) {
     // if (this.debug) this.debug("f<b tick");
@@ -329,9 +309,10 @@ const GameUIMixin = superclass => class extends superclass {
    * @memberof browser/GameUIMixin
    * @instance
    * @param {Turn} turn a Turn object
+   * @private
    */
   handle_TURN(turn) {
-    console.debug("f<b turn ", turn);
+    this.debug("f<b turn ", turn);
 
     this.game.pushTurn(turn);
 
@@ -515,9 +496,10 @@ const GameUIMixin = superclass => class extends superclass {
    * @instance
    * @param {object} info event info
    * @param {string} info.gameKey key for next game
+   * @private
    */
   handle_NEXT_GAME(info) {
-    console.debug("f<b nextGame", info.gameKey);
+    this.debug("f<b nextGame", info.gameKey);
     this.game.nextGameKey = info.gameKey;
     this.setAction("action_nextGame", $.i18n("Next game"));
   }
@@ -532,9 +514,10 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {object} rejection the rejection object
    * @param {string} rejection.playerKey the rejected player
    * @param {string[]} rejection.words the rejected words
+   * @private
    */
   handle_REJECT(rejection) {
-    console.debug("f<b reject", rejection);
+    this.debug("f<b reject", rejection);
     // The tiles are only locked down when a corresponding
     // turn is received, so all we need to do is restore the
     // pre-sendCommand state and issues a message.
@@ -560,18 +543,18 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {object} params Parameters
    * @param {string} params.key game key
    * @param {string} params.name name of player who paused/released
+   * @private
    */
   handle_PAUSE(params) {
-    console.debug(`f<b pause ${params.name}`);
-    if (params.key !== this.game.key)
-      console.error(`key mismatch ${this.game.key}`);
-    $(".Surface .letter").addClass("hidden");
-    $(".Surface .score").addClass("hidden");
+    this.debug(`f<b pause ${params.name}`);
+    $(".Surface .letter").hide();
+    $(".Surface .score").hide();
     $("#pauseDialog > .banner")
     .text($.i18n("game-paused", params.name));
     $("#pauseDialog")
     .dialog({
       dialogClass: "no-close",
+      title: $.i18n("title-paused"),
       modal: true,
       buttons: [
         {
@@ -592,11 +575,12 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {object} params Parameters
    * @param {string} params.key game key
    * @param {string} params.name name of player who paused/released
+   * @private
    */
   handle_UNPAUSE(params) {
-    console.debug(`f<b unpause ${params.name}`);
-    $(".Surface .letter").removeClass("hidden");
-    $(".Surface .score").removeClass("hidden");
+    this.debug(`f<b unpause ${params.name}`);
+    $(".Surface .letter").show();
+    $(".Surface .score").show();
     $("#pauseDialog")
     .dialog("close");
   }
@@ -606,6 +590,8 @@ const GameUIMixin = superclass => class extends superclass {
    * when a command has been undone in the backend.
    * @memberof browser/GameUIMixin
    * @instance
+   * @param {Turn} turn a Turn object
+   * @private
    */
   handle_UNDONE(turn) {
     assert(this.game.allowUndo, "Undo disabled");
@@ -640,6 +626,7 @@ const GameUIMixin = superclass => class extends superclass {
    * These are captured in the root of the UI and dispatched here.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   keyDown(event) {
     // Only handle events targeted when the board is not
@@ -681,7 +668,7 @@ const GameUIMixin = superclass => class extends superclass {
       return;
 
     case "#": case "@": // Shuffle rack
-      this.shuffleRack();
+      this.player.rack.shuffle();
       return;
 
     case "?": // Pass
@@ -694,7 +681,7 @@ const GameUIMixin = superclass => class extends superclass {
         if (lastTurn && lastTurn.type == Game.Turns.PLAYED) {
           if (this.isThisPlayer(this.game.whosTurnKey))
             // Challenge last move
-            this.challenge(lastTurn.playerKey);
+            this.issueChallenge(lastTurn.playerKey);
           else
             // Still us
             this.takeBackMove();
@@ -741,6 +728,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @memberof browser/GameUIMixin
    * @instance
    * @param {object[]} non-playing observers
+   * @private
    */
   updateObservers(obs) {
     if (obs.length > 0) {
@@ -756,6 +744,7 @@ const GameUIMixin = superclass => class extends superclass {
    * Refresh the player table
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   updatePlayerTable() {
     const $playerTable = this.game.$playerTable(this.player);
@@ -768,6 +757,7 @@ const GameUIMixin = superclass => class extends superclass {
    * Show who's turn it is
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   updateWhosTurn() {
     $(".whosTurn").removeClass("whosTurn");
@@ -780,6 +770,7 @@ const GameUIMixin = superclass => class extends superclass {
    * swap rack, if enough tiles remain in the bag.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   updateTileCounts() {
     const remains = this.game.letterBag.remainingTileCount();
@@ -808,9 +799,9 @@ const GameUIMixin = superclass => class extends superclass {
    * @return {Promise} Promise that resolves to a game
    */
   createUI(game) {
-    console.debug("Loading UI for game", game.key);
+    this.debug("Loading UI for game", game.key);
 
-    game._debug = console.debug;
+    game._debug = this.debug;
     this.game = game;
 
     // Can swap up to swapCount tiles
@@ -845,7 +836,7 @@ const GameUIMixin = superclass => class extends superclass {
     this.$log(true, ""); // Force scroll to end of log
 
     if (game.turns.length > 0)
-      $("#undoButton").toggle(this.game.allowUndo === true);
+      $("#undoButton").toggle(this.game.allowUndo ? true : false);
 
     if (game.hasEnded()) {
       if (game.nextGameKey)
@@ -854,8 +845,7 @@ const GameUIMixin = superclass => class extends superclass {
         this.setAction("action_anotherGame", $.i18n("Another game?"));
     }
 
-    $("#pauseButton")
-    .toggle(typeof game.timerType !== "undefined");
+    $("#pauseButton").toggle(game.timerType ? true : false);
 
     $("#distributionButton")
     .on("click", () => this.showLetterDistributions());
@@ -909,7 +899,7 @@ const GameUIMixin = superclass => class extends superclass {
           "ui-button-icon": "fat-icon"
         }
       })
-      .on("click", () => this.shuffleRack());
+      .on("click", () => this.player.rack.shuffle());
 
       $(".unplace-button").button({
         showLabel: false,
@@ -920,12 +910,15 @@ const GameUIMixin = superclass => class extends superclass {
       })
       .on("click", () => this.takeBackTiles());
 
-      $(".turn-button")
-      .on("click", () => this.click_turnButton());
+      $(".action-button")
+      .on("click", () => this.click_actionButton());
     } else {
       $(".shuffle-button").hide();
-      $(".turn-button").hide();
+      $(".action-button").hide();
     }
+
+    if (game.pausedBy)
+      this.handle_PAUSE({ name : game.pausedBy });
 
     return Promise.resolve();
   }
@@ -940,7 +933,6 @@ const GameUIMixin = superclass => class extends superclass {
   readyToListen() {
     const playerKey = this.player ? this.player.key : undefined;
     // Confirm to the server that we're ready to listen
-    console.debug("f<b join");
     // This will throw if there is no server on the other end
     this.notifyBackend(Game.Notify.JOIN, {
       gameKey: this.game.key,
@@ -998,7 +990,7 @@ const GameUIMixin = superclass => class extends superclass {
     .on(Game.Notify.UNDONE,
         message => this.handle_UNDONE(message))
 
-    .on(Game.Notify.JOIN, () => console.debug("f<b join"));
+    .on(Game.Notify.JOIN, () => {});
 
     return Promise.resolve();
   }
@@ -1007,6 +999,7 @@ const GameUIMixin = superclass => class extends superclass {
    * Handle a screen resize, switching into porttrait mode as required
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   handle_resize() {
     if (!this.game)
@@ -1020,7 +1013,10 @@ const GameUIMixin = superclass => class extends superclass {
     // full screen width in portrait capped at 90% of the screen height
     const available = landscape ? (wh * 0.9) : Math.min(ww, wh * 0.9);
     // A .Surface td has a 2px border-width
-    const tdSize = available / sz - 4;
+    const $aTD = $(".Surface td").first();
+    const bl = parseInt($aTD.css("border-left"));
+    const br = parseInt($aTD.css("border-right"));
+    const tdSize = available / sz - (bl + br);
     this.editCSSRule(".Surface td", {
       width: tdSize,
       height: tdSize,
@@ -1064,7 +1060,7 @@ const GameUIMixin = superclass => class extends superclass {
 
     .on("change", function() {
       // Send chat
-      console.debug("f>b message");
+      //ui.debug("f>b message");
       ui.notifyBackend(Game.Notify.MESSAGE, {
         sender: ui.player ? ui.player.name : "Observer",
         text: $(this).val()
@@ -1074,7 +1070,6 @@ const GameUIMixin = superclass => class extends superclass {
     });
 
     $("#pauseButton")
-    .hide()
     .on("click", () => this.sendCommand(Game.Command.PAUSE));
 
     // Events raised by game components to request UI updates
@@ -1084,7 +1079,7 @@ const GameUIMixin = superclass => class extends superclass {
         (e, square) => this.selectSquare(square))
 
     .on(UIEvents.CLEAR_SELECT,
-        () => this.clearSelect())
+        () => this.selectSquare())
 
     .on(UIEvents.DROP_TILE,
         (e, source, square) => this.dropTile(source, square))
@@ -1100,6 +1095,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @memberof browser/GameUIMixin
    * @instance
    * @param {string} letter character being placed
+   * @private
    */
   manuallyPlaceLetter(letter) {
     if (!this.selectedSquare
@@ -1135,6 +1131,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @instance
    * @param {number} col column deltae
    * @param {number} row row delta
+   * @private
    */
   moveTypingCursor(col, row) {
     if (!this.selectedSquare)
@@ -1168,11 +1165,18 @@ const GameUIMixin = superclass => class extends superclass {
    * isn't available, and for the typing cursor.
    * @memberof browser/GameUIMixin
    * @instance
-   * @param {Square} square square to select
+   * @param {Square} square square to select, or undefined to clear the
+   * existing selection
+   * @private
    */
   selectSquare(square) {
-    assert(square, "No square selected");
-    console.debug(`select ${square.squid}`);
+    if (!square) {
+      if (this.selectedSquare) {
+        this.selectedSquare.select(false);
+        this.selectedSquare = undefined;
+      }
+      return;
+    }
 
     // Is the target square on the board and occupied by a locked tile?
     const isLocked = square.isBoard && square.hasLockedTile();
@@ -1197,7 +1201,7 @@ const GameUIMixin = superclass => class extends superclass {
         if (square && square.isEmpty()) {
           // It's empty, so this is a move
           this.moveTile(this.selectedSquare, square);
-          this.clearSelect();
+          this.selectSquare();
           return;
         }
 
@@ -1209,7 +1213,7 @@ const GameUIMixin = superclass => class extends superclass {
         // Selecting a different square
       }
       // Switch off the selection on the old square
-      this.clearSelect();
+      this.selectSquare();
     }
 
     // No pre-selection, or prior selection cancelled.
@@ -1220,19 +1224,6 @@ const GameUIMixin = superclass => class extends superclass {
 
     this.selectedSquare = square;
     square.select(true);
-  }
-
-  /**
-   * Clear the current square selection
-   * @memberof browser/GameUIMixin
-   * @instance
-   * @private
-   */
-  clearSelect() {
-    if (this.selectedSquare) {
-      this.selectedSquare.select(false);
-      this.selectedSquare = undefined;
-    }
   }
 
   /**
@@ -1292,7 +1283,7 @@ const GameUIMixin = superclass => class extends superclass {
    */
   dropTile(fromSquare, toSquare) {
     if (fromSquare.tile) {
-      this.clearSelect();
+      this.selectSquare();
       this.moveTile(fromSquare, toSquare);
       if (this.getSetting("tile_click"))
         this.playAudio("tiledown");
@@ -1382,7 +1373,6 @@ const GameUIMixin = superclass => class extends superclass {
   moveTile(fromSquare, toSquare, ifBlank) {
 
     const tile = fromSquare.tile;
-
     if (this.boardLocked && (fromSquare.isBoard || toSquare.isBoard))
       return; // can't move to/from locked board
 
@@ -1428,7 +1418,7 @@ const GameUIMixin = superclass => class extends superclass {
     // allowable is a challenge, which is handled using a button
     // in the log, so we can hide the turn button
     if (!this.isThisPlayer(this.game.whosTurnKey)) {
-      $(".turn-button").hide();
+      $(".action-button").hide();
       return;
     }
 
@@ -1441,7 +1431,7 @@ const GameUIMixin = superclass => class extends superclass {
         this.setAction("action_confirmGameOver",
                        $.i18n("Accept last move"));
       else
-        $(".turn-button").hide();
+        $(".action-button").hide();
       return;
     }
 
@@ -1505,7 +1495,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {boolean} enable true to enable, disable otherwise
    */
   enableTurnButton(enable) {
-    $(".turn-button").button(enable ? "enable" : "disable");
+    $(".action-button").button(enable ? "enable" : "disable");
   }
 
   /**
@@ -1528,7 +1518,7 @@ const GameUIMixin = superclass => class extends superclass {
           $(`<button>${text}</button>`)
           .addClass("moveAction")
           .button()
-          .on("click", () => this.challenge(player.key));
+          .on("click", () => this.issueChallenge(player.key));
     this.$log(true, $button, "turn-control");
   }
 
@@ -1538,6 +1528,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @memberof browser/GameUIMixin
    * @instance
    * @param {Turn} turn the current turn
+   * @private
    */
   addTakeBackPreviousButton() {
     const $button =
@@ -1552,6 +1543,7 @@ const GameUIMixin = superclass => class extends superclass {
    * Remove any action buttons from the log pane.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   removeMoveActionButtons() {
     $("button.moveAction").remove();
@@ -1562,8 +1554,9 @@ const GameUIMixin = superclass => class extends superclass {
    * @memberof browser/GameUIMixin
    * @instance
    * @param {string} challengedKey key of the player being challenged
+   * @private
    */
-  challenge(challengedKey) {
+  issueChallenge(challengedKey) {
     this.takeBackTiles();
     this.sendCommand(Game.Command.CHALLENGE, {
       challengedKey: challengedKey
@@ -1571,11 +1564,12 @@ const GameUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * Handler for the 'Make Move' button. Invoked via 'click_turnButton'.
+   * Handler for the 'Make Move' button. Invoked via 'click_actionButton'.
    * Response will be turn type Game.Turns.PLAYED (or Game.Turns.TOOK_BACK if the play
    * is rejected).
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   action_commitMove() {
     $(".hint-placement").removeClass("hint-placement");
@@ -1593,9 +1587,10 @@ const GameUIMixin = superclass => class extends superclass {
 
   /**
    * Handler for the 'Take back' button clicked. Invoked via
-   * 'click_turnButton'. Response will be a turn type Game.Turns.TOOK_BACK.
+   * 'click_actionButton'. Response will be a turn type Game.Turns.TOOK_BACK.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   takeBackMove() {
     this.takeBackTiles();
@@ -1603,9 +1598,10 @@ const GameUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * Handler for the 'Pass' button clicked. Invoked via 'click_turnButton'.
+   * Handler for the 'Pass' button clicked. Invoked via 'click_actionButton'.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   action_pass() {
     this.takeBackTiles();
@@ -1614,9 +1610,10 @@ const GameUIMixin = superclass => class extends superclass {
 
   /**
    * Handler for the 'Confirm move' button clicked. Invoked
-   *  via 'click_turnButton'. The response may contain a score adjustment.
+   *  via 'click_actionButton'. The response may contain a score adjustment.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   action_confirmGameOver() {
     this.takeBackTiles();
@@ -1627,7 +1624,7 @@ const GameUIMixin = superclass => class extends superclass {
 
   /**
    * Handler for the 'Another game?" button.
-   * Invoked via click_turnButton.
+   * Invoked via click_actionButton.
    * @memberof browser/GameUIMixin
    * @instance
    * @abstract
@@ -1637,7 +1634,7 @@ const GameUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * Handler for the 'Next game" button. Invoked via click_turnButton.
+   * Handler for the 'Next game" button. Invoked via click_actionButton.
    * Implement in subclass/mixin.
    * @memberof browser/GameUIMixin
    * @instance
@@ -1650,9 +1647,10 @@ const GameUIMixin = superclass => class extends superclass {
   /* c8 ignore stop */
 
   /**
-   * Handler for the 'Swap' button clicked. Invoked via 'click_turnButton'.
+   * Handler for the 'Swap' button clicked. Invoked via 'click_actionButton'.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
   action_swap() {
     const tiles = this.swapRack.empty();
@@ -1668,11 +1666,10 @@ const GameUIMixin = superclass => class extends superclass {
    * @instance
    * @param {string} action function name e.g. action_commitMove
    * @param {string} title button title e.g. "Commit Move"
-   * @private
    */
   setAction(action, title) {
     if (this.player) {
-      $(".turn-button")
+      $(".action-button")
       .data("action", action)
       .empty()
       .append(title)
@@ -1692,20 +1689,21 @@ const GameUIMixin = superclass => class extends superclass {
    * This action will map to the matching function in 'this'.
    * @memberof browser/GameUIMixin
    * @instance
+   * @private
    */
-  click_turnButton() {
-    const action = $(".turn-button").data("action");
-    console.debug("click_turnButton =>", action);
+  click_actionButton() {
+    const action = $(".action-button").data("action");
+    this.debug("click_actionButton =>", action);
     this[action]();
   }
 
   /**
-   * Handler for a click on the 'Take Back' button, to pull
-   * back tiles from the board and swap rack
+   * Pull back tiles from the board and swap rack
    * @memberof browser/GameUIMixin
    * @instance
    * @param {boolean} noswap true to not take tiles back from
    * the swap rack.
+   * @private
    */
   takeBackTiles(noswap) {
     this.game.board.forEachSquare(
@@ -1729,6 +1727,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @instance
    * @param {Square} square the square with the tile being taken back
    * @return {boolean} true if a tile was returned
+   * @private
    */
   takeBackTile(square) {
     if (square.hasLockedTile())
@@ -1742,33 +1741,7 @@ const GameUIMixin = superclass => class extends superclass {
     return false;
   }
 
-  /**
-   * Handler for click on the 'Shuffle' button
-   * @memberof browser/GameUIMixin
-   * @instance
-   */
-  shuffleRack() {
-    this.player.rack.shuffle();
-  }
-
-  /**
-   * Handler for click on the 'Undo' button
-   * @memberof browser/GameUIMixin
-   * @instance
-   */
-  undo() {
-    this.sendComand(Game.Command.UNDO);
-  }
-
   /* c8 ignore start */
-
-  /**
-   * Handler for click on the 'redo' button
-   * @memberof browser/GameUIMixin
-   * @instance
-   */
-  redo() {
-  }
 
   /**
    * Promise to check if we have been granted permission to

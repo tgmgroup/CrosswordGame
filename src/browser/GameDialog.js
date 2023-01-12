@@ -20,67 +20,60 @@ class GameDialog extends Dialog {
   }
 
   createDialog() {
+    return super.createDialog()
+    .then(() => {
+      this.$dlg.find("button[name=options]")
+      .on(
+        "click", () => {
+          const dlg = this.$dlg.data("this");
+          dlg.options.ui.gameOptions(dlg.options.game);
+        });
 
-    this.$dlg.find("button[name=options]")
-    .button()
-    .on(
-      "click", () => {
+      this.$dlg.find("button[name=observe]")
+      .hide()
+      .on("click", () => {
+        this.$dlg.dialog("close");
         const dlg = this.$dlg.data("this");
-        dlg.options.ui.gameOptions(dlg.options.game);
+        dlg.options.ui.observe(dlg.options.game);
       });
 
-    this.$dlg.find("button[name=observe]")
-    .hide()
-    .button()
-    .on("click", () => {
-      this.$dlg.dialog("close");
-      const dlg = this.$dlg.data("this");
-      dlg.options.ui.observe(dlg.options.game);
-    });
+      this.$dlg.find("button[name=join]")
+      .hide()
+      .on("click", () => {
+        this.$dlg.dialog("close");
+        const dlg = this.$dlg.data("this");
+        dlg.options.ui.joinGame(dlg.options.game);
+      });
 
-    this.$dlg.find("button[name=join]")
-    .hide()
-    .button()
-    .on("click", () => {
-      this.$dlg.dialog("close");
-      const dlg = this.$dlg.data("this");
-      dlg.options.ui.joinGame(dlg.options.game);
-    });
+      this.$dlg.find("button[name=robot]")
+      .hide()
+      .on("click", () => {
+        const dlg = this.$dlg.data("this");
+        dlg.options.ui.addRobot(dlg.options.game);
+      });
 
-    this.$dlg.find("button[name=robot]")
-    .hide()
-    .button()
-    .on("click", () => {
-      const dlg = this.$dlg.data("this");
-      dlg.options.ui.addRobot(dlg.options.game);
-    });
+      this.$dlg.find("button[name=invite]")
+      .hide()
+      .on("click", () => {
+        const dlg = this.$dlg.data("this");
+        dlg.options.ui.invitePlayers(dlg.options.game);
+      });
 
-    this.$dlg.find("button[name=invite]")
-    .hide()
-    .button()
-    .on("click", () => {
-      const dlg = this.$dlg.data("this");
-      dlg.options.ui.invitePlayers(dlg.options.game);
-    });
+      this.$dlg.find("button[name=another]")
+      .hide()
+      .on("click", () => {
+        const dlg = this.$dlg.data("this");
+        dlg.options.ui.anotherGame(dlg.options.game);
+      });
 
-    this.$dlg.find("button[name=another]")
-    .hide()
-    .button()
-    .on("click", () => {
-      const dlg = this.$dlg.data("this");
-      dlg.options.ui.anotherGame(dlg.options.game);
+      this.$dlg.find("button[name=delete]")
+      .hide()
+      .on("click", () => {
+        this.$dlg.dialog("close");
+        const dlg = this.$dlg.data("this");
+        dlg.options.ui.deleteGame(dlg.options.game);
+      });
     });
-
-    this.$dlg.find("button[name=delete]")
-    .hide()
-    .button()
-    .on("click", () => {
-      this.$dlg.dialog("close");
-      const dlg = this.$dlg.data("this");
-      dlg.options.ui.deleteGame(dlg.options.game);
-    });
-
-    return super.createDialog();
   }
 
   /**
@@ -100,7 +93,10 @@ class GameDialog extends Dialog {
 
     this.$dlg.find("div[name=headline]")
     .empty()
-    .append(`${game.edition} ${game.dictionary || ""}`);
+    .append($.i18n("text-edition", game.edition))
+    .append(game.dictionary
+            ? ("<br>" + $.i18n("text-dictionary", game.dictionary))
+            : "");
 
     const $table = this.$dlg.find(".player-table")
           .empty()

@@ -3,15 +3,17 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupBrowser, getTestGame } from "../TestPlatform.js";
+import { setupPlatform, setup$, getTestGame } from "../TestPlatform.js";
 import { TestSocket } from "../TestSocket.js";
 import { BrowserGame } from "../../src/browser/BrowserGame.js";
+import { Edition } from "../../src/game/Edition.js";
 
 describe("browser/GameUIMixin", () => {
   let Test, ui, gamesList = [], gamesHistory = [];
 
   before(
-    () => setupBrowser()
+    () => setupPlatform()
+    .then(() => setup$())
     // UI imports jquery.i18n which requires jquery, so have
     // to delay the import
     .then(() => Promise.all([
@@ -19,7 +21,9 @@ describe("browser/GameUIMixin", () => {
       import("../../src/browser/GameUIMixin.js"),
     ]))
     .then(mods => {
-      Test = class extends mods[1].GameUIMixin(mods[0].UI) {
+      const UI = mods[0].UI;
+      const GameUIMixin = mods[1].GameUIMixin;
+      Test = class extends GameUIMixin(UI) {
         getSetting(t) {
           switch (t) {
           case "language": return "en";
@@ -40,28 +44,81 @@ describe("browser/GameUIMixin", () => {
           const p = gamesList.filter(g => g.key === key)[0];
           return Promise.resolve(p);
         }
+        getEdition(ed) {
+          return Edition.load(ed);
+        }
       };
     }));
 
   beforeEach(() => {
     $("head").empty();
-    $("body").empty();
-    return (ui = new Test()).initLocale();
-  });
+    $("body").html(`
+<div id="blankDialog" class="dialog">
+ <span data-i18n="label-blank-dlg"></span>
+ <table class="letterTable"></table>
+</div>
 
-  it("works", () => {
-    return getTestGame("unfinished_game", BrowserGame)
+<div id="distributionDialog" class="dialog">
+ <div class="distribution"></div>
+</div>
+
+<button id="distributionButton">
+
+<div id="logBlock">
+ <div class="messages">
+ </div>
+</div>`);
+    return (ui = new Test()).initLocale()
+    .then(() => getTestGame("unfinished_game", BrowserGame))
     .then(game => {
       ui.channel = new TestSocket("socks");
       ui.player = game.players[0];
       return ui.createUI(game);
-    })
-    .then(() => {
-      ui.attachUIEventHandlers();
-      ui.attachChannelHandlers();
-      ui.readyToListen();
-      ui.selectSquare(ui.game.at(0, 0));
-      ui.manuallyPlaceLetter(ui.player.rack.at(0).tile.letter);
     });
   });
+
+  it("basics", () => {
+    ui.attachUIEventHandlers();
+    ui.attachChannelHandlers();
+    ui.readyToListen();
+    ui.selectSquare(ui.game.at(0, 0));
+    ui.manuallyPlaceLetter(ui.player.rack.at(0).tile.letter);
+  });
+
+  it("distribution", () => {
+    $("#distributionButton").trigger("click");
+  });
+
+  it("letters", () => {
+    return new Promise(resolve => {
+      ui.promptForLetter()
+      .then(l => {
+        assert.equal(l, "A");
+        resolve();
+      });
+      $("td").first().trigger("click");
+    });
+  });
+
+  it("place", () => {
+    ui.boardLocked = false;
+    ui.moveTile(
+      ui.game.players[0].rack.at(0),
+      ui.game.board.at(0, 0));
+  });
+
+  it("handles connections", () => {
+    ui.attachChannelHandlers();
+    ui.channel.emit(BrowserGame.Notify.CONNECTIONS, []);
+  });
+
+  it("handles messages", () => {
+    ui.attachChannelHandlers();
+    ui.channel.emit(BrowserGame.Notify.MESSAGE, { text: "MESS", args: "Y" });
+    ui.channel.emit(BrowserGame.Notify.MESSAGE, { text: "MESS", args: ["Y", "PUP"]});
+    ui.channel.emit(BrowserGame.Notify.MESSAGE, {
+      text: "_hint_", args: ["ARGH", 5, 5], sender: "Advisor" });
+  });
+
+  // Coverage is poor at the moment. Needs work.
 });

@@ -7,9 +7,9 @@ import { setupPlatform, setup$, setupI18n } from "../TestPlatform.js";
 import { BrowserDatabase } from "../../src/browser/BrowserDatabase.js";
 import { BrowserGame } from "../../src/browser/BrowserGame.js";
 import { BrowserPlayer } from "../../src/browser/BrowserPlayer.js";
-import { GameSetupDialog } from "../../src/browser/GameSetupDialog.js";
+import { GameDialog } from "../../src/browser/GameDialog.js";
 
-describe("browser/GameSetupDialog", () => {
+describe("browser/GameDialog", () => {
 
   before(
     () => setupPlatform()
@@ -34,31 +34,49 @@ describe("browser/GameSetupDialog", () => {
     const ui = {
       session: { key : "session key" },
       getSetting: s => {
-        if (s === "canEmail") return false;
-        return BrowserGame.DEFAULTS[s];
-      },
-      getEditions: () => Promise.resolve([ "Test", "Divide" ]),
-      getDictionaries: () => Promise.resolve([ "Jurassic", "Devonian" ]),
-      getDefaults: type => Promise.resolve(
-        (type === "game")
-        ? {
-	        edition: "Test",
-	        dictionary: "Devonian"
+        switch (s) {
+        case "canEmail": return false;
         }
-        : assert.fail(type))
+        assert.fail(s);
+        return false;
+      }
+    };
+    const meths = {
+      observe: "observe",
+      join: "joinGame",
+      robot: "addRobot",
+      invite: "invitePlayers",
+      another: "anotherGame",
+      delete: "deleteGame",
+      options: "gameOptions"
     };
 
     let dlg;
+    const called = [];
+    for (const name in meths) {
+      ui[meths[name]] = g => {
+        called[name] = true;
+        assert.equal(g, game);
+        if (Object.keys(meths).filter(k => !called[k]).length === 0)
+          dlg.$dlg.dialog("close");
+      };
+    }
 
     return game.onLoad(db)
     .then(() => game.create())
     .then(() => new Promise(resolve => {
-      dlg = new GameSetupDialog({
+      dlg = new GameDialog({
         game: game,
         ui: ui,
         //debug: console.debug,
         onReady: dlg => {
-          dlg.$dlg.dialog("close");
+          $("button[name=options]").trigger("click");
+          $("button[name=observe]").trigger("click");
+          $("button[name=robot]").trigger("click");
+          $("button[name=invite]").trigger("click");
+          $("button[name=another]").trigger("click");
+          $("button[name=delete]").trigger("click");
+          $("button[name=join]").trigger("click");
         },
         close: resolve
       });

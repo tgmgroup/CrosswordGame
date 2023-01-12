@@ -27,6 +27,7 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
         "imports": {
           "jquery/": "../node_modules/jquery/",
           "jquery-ui/": "../node_modules/jquery-ui/",
+          "socket.io/": "../node_modules/socket.io/",
           "@rwap/jquery-ui-touch-punch/": "../node_modules/@rwap/jquery-ui-touch-punch/",
           "@cdot/cbor": "../node_modules/@cdot/cbor/dist/mjs/index.js",
           "@cdot/dictionary": "../node_modules/@cdot/dictionary/dist/mjs/index.js",
@@ -80,8 +81,8 @@ and license information. Author Crawford Currie http://c-dot.co.uk-->
       </div>
 
       <div class="dialog-row">
-        <button id="create-game" class="hidden" data-i18n="label-create-game"></button>
-        <button id="reminders-button" class="hidden" data-i18n="Send turn reminders" data-i18n-tooltip="tt-send-rems"></button>
+        <button id="create-game" data-i18n="label-create-game"></button>
+        <button id="reminders-button" data-i18n="Send turn reminders" data-i18n-tooltip="tt-send-rems"></button>
       </div>
 
       <div id="alertDialog" class="dialog">

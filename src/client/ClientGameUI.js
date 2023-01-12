@@ -38,9 +38,12 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
     .then(session => {
       // Find if they are a player
       this.player = game.getPlayerWithKey(session.key);
-      if (this.player)
+      if (this.player) {
+        $(".not-playing").hide();
         return this.player.key;
+      }
 
+      $(".not-playing").show();
       $(".bad-user")
       .show()
       .find("button")
@@ -52,7 +55,7 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
     })
     .catch(() => {
       // May arise if there is no session, or the session is for a non-player
-      $(".notPlaying").show();
+      $(".not-playing").show();
       return undefined;
     });
   }
@@ -67,7 +70,7 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
         this.observer = args.observer;
         this.debug(`\tObserver "${this.observer}"`);
       }
-      assert(args.game, `No game found in ${args}`);
+      assert(args.game, `No game found in arguments ${args}`);
       const gameKey = args.game;
       this.debug(`GET /game/${gameKey}`);
       return $.ajax({
@@ -99,9 +102,9 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
       $("#redoButton").hide();
     }
     console.debug(`POST /command/${command}`);
+    this.cancelNotification();
     this.lockBoard(true);
     this.enableTurnButton(false);
-    this.cancelNotification();
     $.ajax({
       url: `/command/${command}/${this.game.key}`,
       type: "POST",
@@ -109,21 +112,7 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
       data: JSON.stringify(
         args, (key, value) => /^_/.test(key) ? undefined : value)
     })
-    .then(r => console.debug(`command '${command}'`, r))
-    .catch(console.error);
-  }
-
-  /**
-   * @implements browser/GameUIMixin#attachUIEventHandlers
-   * @override
-   */
-  attachUIEventHandlers() {
-
-    super.attachUIEventHandlers();
-
-    $("#pauseButton")
-    .show()
-    .on("click", () => this.sendCommand(BrowserGame.Command.PAUSE));
+    .catch(e => this.alert(e));
   }
 }
 

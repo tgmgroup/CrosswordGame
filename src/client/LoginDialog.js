@@ -41,46 +41,48 @@ class LoginDialog extends PasswordMixin(Dialog) {
   }
 
   createDialog() {
-    const $tabs = this.$dlg.find("#tabs");
-    $tabs.tabs();
+    return super.createDialog()
+    .then(() => {
+      const $tabs = this.$dlg.find("#tabs");
+      $tabs.tabs();
 
-    const $las = this.$dlg.find(".signed-in-as");
-    if ($las.length > 0) {
-      $.get("/session")
-      .then(user => $las.text(
-        $.i18n("signed-in-as", user.name)));
-    }
-
-    this.$dlg.find(".forgotten-password")
-    .on("click", () => $tabs.tabs("option", "active", 2));
-
-    return $.get("/oauth2-providers")
-    .then(list => {
-      if (!list || list.length === 0)
-        return;
-      const $table = $(document.createElement("table"))
-            .attr("width", "100%");
-      for (let provider of list) {
-        const $td = $(document.createElement("td"))
-              .addClass("provider-logo")
-              .attr("title", $.i18n("sign-in-using", provider.name));
-        const $logo = $(`<img src="${provider.logo}" />`);
-        // Note: this MUST be done using from an href and
-        // not an AJAX request, or CORS will foul up.
-        const $a = $(document.createElement("a"));
-        $a.attr("href",
-                `/oauth2/signin/${provider.name}?origin=${encodeURI(window.location)}`);
-        $a.append($logo);
-        $td.append($a);
-        $td.tooltip();
-        $table.append($td);
+      const $las = this.$dlg.find(".signed-in-as");
+      if ($las.length > 0) {
+        $.get("/session")
+        .then(user => $las.text(
+          $.i18n("signed-in-as", user.name)));
       }
-      $("#signin-tab")
-      .prepend($(`<div class="sign-in-using">${$.i18n("Sign in using:")}</div>`)
-               .append($table)
-               .append(`<br /><div class="sign-in-using">${$.i18n("text-or-xanado")}</div>`));
-    })
-    .then(() => super.createDialog());
+
+      this.$dlg.find(".forgotten-password")
+      .on("click", () => $tabs.tabs("option", "active", 2));
+
+      return $.get("/oauth2-providers")
+      .then(list => {
+        if (!list || list.length === 0)
+          return;
+        const $table = $(document.createElement("table"))
+              .attr("width", "100%");
+        for (let provider of list) {
+          const $td = $(document.createElement("td"))
+                .addClass("provider-logo")
+                .attr("title", $.i18n("sign-in-using", provider.name));
+          const $logo = $(`<img src="${provider.logo}" />`);
+          // Note: this MUST be done using from an href and
+          // not an AJAX request, or CORS will foul up.
+          const $a = $(document.createElement("a"));
+          $a.attr("href",
+                  `/oauth2/signin/${provider.name}?origin=${encodeURI(window.location)}`);
+          $a.append($logo);
+          $td.append($a);
+          $td.tooltip();
+          $table.append($td);
+        }
+        $("#signin-tab")
+        .prepend($(`<div class="sign-in-using">${$.i18n("Sign in using:")}</div>`)
+                 .append($table)
+                 .append(`<br /><div class="sign-in-using">${$.i18n("text-or-xanado")}</div>`));
+      });
+    });
   }
 }
 

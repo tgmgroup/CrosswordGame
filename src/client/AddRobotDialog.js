@@ -16,19 +16,21 @@ class AddRobotDialog extends Dialog {
   }
 
   createDialog() {
-    const ui = this.options.ui;
-    return Promise.all([
-      ui.getDictionaries()
-      .then(dictionaries => {
-        const $dic = this.$dlg.find('[name=dictionary]');
-        dictionaries
-        .forEach(d => $dic.append(`<option>${d}</option>`));
-        if (ui.getSetting('dictionary'))
-          $dic.val(ui.getSetting('dictionary'));
-        this.enableSubmit();
-      })
-    ])
-    .then(() => super.createDialog());
+    return super.createDialog()
+    .then(() => {
+      const ui = this.options.ui;
+      return Promise.all([
+        ui.getDictionaries()
+        .then(dictionaries => {
+          const $dic = this.$dlg.find('[name=dictionary]');
+          dictionaries
+          .forEach(d => $dic.append(`<option>${d}</option>`));
+          if (ui.getSetting('dictionary'))
+            $dic.val(ui.getSetting('dictionary'));
+          this.enableSubmit();
+        })
+      ]);
+    });
   }
 }
 

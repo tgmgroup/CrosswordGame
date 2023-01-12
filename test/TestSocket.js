@@ -3,16 +3,16 @@ License MIT. See README.md at the root of this distribution for full copyright
 and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env mocha */
 
+import { assert } from "chai";
 import { Channel } from "../src/common/Channel.js";
 import { stringify } from "../src/common/Utils.js";
-import { assert } from "chai";
 
 /**
  * Simulator for socket.io, replaces the socket functionality with a
  * simple callback that can be used in tests to monitor expected
  * events. Pattern:
  * ```
- * tr.addTest("example", () => {
+ * it("works", () => {
  *   const socket = new TestSocket("a socket");
  *   socket.on("event", (data, event) => {
  *     // Handle expected events.
@@ -24,9 +24,8 @@ import { assert } from "chai";
  *   .then(() => socket.wait());
  * });
  * ```
- * Once `done` has been called the socket will accept no more emits.
+ * Once TestSocket.done has been called the socket will accept no more emits.
  */
-
 class TestSocket extends Channel {
   resolve;
   reject;
@@ -67,7 +66,11 @@ class TestSocket extends Channel {
     }
   }
 
-  // Couple to another TestSocket
+  /**
+   * Couple to another TestSocket. emits on this socket will translate
+   * to events on the other socket, and vice-versa.
+   * @param {TestSocket} endPoint
+   */
   connect(endPoint) {
     assert(!this.connection);
     assert(!endPoint.connection);
@@ -111,7 +114,6 @@ class TestSocket extends Channel {
     } else if (this.resolve)
       this.resolve();
   }
-
 }
 
 export { TestSocket }

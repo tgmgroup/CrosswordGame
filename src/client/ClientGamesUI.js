@@ -47,8 +47,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
     $("#reminders-button")
     .on("click", () => {
       $.post("/sendReminder/*")
-      .then(info => this.alert(
-        $.i18n.apply(null, info), $.i18n("label-send-rems")))
+      .then(info => this.alert(info.join(", "), $.i18n("label-send-rems")))
       .catch(e => this.alert(e, $.i18n("failed", $.i18n("tt-send-rems"))));
     });
 
@@ -58,7 +57,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
           /* webpackMode: "lazy" */
           /* webpackChunkName: "ChangePasswordDialog" */
           "../client/ChangePasswordDialog.js")
-        .then(mod => new mod[Object.keys(mod)[0]]({
+        .then(mod => new mod.ChangePasswordDialog({
           postAction: "/change-password",
           postResult: () => this.refresh(),
           error: e => this.alert(e, $.i18n("failed", $.i18n("Change password")))
@@ -73,7 +72,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
     this.channel
 
     .on(Game.Notify.UPDATE, () => {
-      console.debug("b>f update");
+      //this.debug("b>f update");
       // Can be smarter than this!
       this.refresh();
     });
@@ -118,7 +117,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
       /* webpackMode: "lazy" */
       /* webpackChunkName: "GameSetupDialog" */
       "../browser/GameSetupDialog.js")
-    .then(mod => new mod[Object.keys(mod)[0]]({
+    .then(mod => new mod.GameSetupDialog({
       // use the generic html
       title: $.i18n("Game setup"),
       game: game,
@@ -159,7 +158,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
       /* webpackMode: "lazy" */
       /* webpackChunkName: "AddRobotDialog" */
       "../client/AddRobotDialog.js")
-    .then(mod => new mod[Object.keys(mod)[0]]({
+    .then(mod => new mod.AddRobotDialog({
       ui: this,
       postAction: `/addRobot/${game.key}`,
       postResult: () => this.refreshGame(game.key),
@@ -175,7 +174,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
       /* webpackMode: "lazy" */
       /* webpackChunkName: "InvitePlayersDialog" */
       "../client/InvitePlayersDialog.js")
-    .then(mod => new mod[Object.keys(mod)[0]]({
+    .then(mod => new mod.InvitePlayersDialog({
       postAction: `/invitePlayers/${game.key}`,
       postResult: names => this.alert(
         $.i18n("sent-invite", names.join(", ")),
@@ -237,10 +236,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
   }
 
   /**
-   * Construct a table row that shows the state of the given player
-   * @param {Game|object} game a Game or Game.simple
-   * @param {Player} player the player
-   * @param {boolean} isActive true if the game isn't over
+   * @implements browser/GamesUIMixin#$player
    */
   $player(game, player, isActive) {
 
@@ -349,7 +345,8 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
    * @implements browser/GamesUIMixin#getGame
    */
   getGame(key) {
-    return $.get(`/games/${key}`);
+    return $.get(`/games/${key}`)
+    .then(g => g ? g[0] : undefined);
   }
 
   /**

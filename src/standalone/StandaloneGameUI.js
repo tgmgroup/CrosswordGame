@@ -1,4 +1,4 @@
-/*Copyright (C) 2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2022-2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
@@ -73,6 +73,7 @@ class StandaloneGameUI extends StandaloneUIMixin(GameUIMixin(UI)) {
 
   /**
    * Create and run the game.
+   * @return {Promise} a Promise that resolves when the game is created
    */
   create() {
 
@@ -114,27 +115,27 @@ class StandaloneGameUI extends StandaloneUIMixin(GameUIMixin(UI)) {
 
     this.channel = fe;
 
-    this.getGameDefaults()
+    return this.getDefaults("user")
     .then(() => this.initTheme())
     .then(() => this.initLocale())
     .then(() => {
+      this.debug = this.args.debug ? console.debug : () => {};
 
       // Load the server game from localStorage, or create a new
       // game from defaults if there isn't one there.
       if (this.args.game) {
-        console.debug(`Loading game ${this.args.game} from local storage`);
+        this.debug(`Loading game ${this.args.game} from local storage`);
         return this.db.get(this.args.game)
         .then(d => Game.fromCBOR(d, BackendGame.CLASSES))
         .then(game => {
           this.backendGame = game;
-          this.backendGame._debug = this.args.debug
-          ? console.debug : () => {};
+          this.backendGame._debug = this.debug;
           return game.onLoad(this.db);
         });
 
       } else {
-        console.debug("Constructing new game");
-        const setup = $.extend({}, StandaloneGameUI.DEFAULTS);
+        this.debug("Constructing new game");
+        const setup = $.extend({}, this.defaults);
         setup.debug = this.args.debug ? console.debug : undefined;
         return this.createGame(setup)
         .then(game => this.backendGame = game);
@@ -161,7 +162,7 @@ class StandaloneGameUI extends StandaloneUIMixin(GameUIMixin(UI)) {
           /* webpackChunkName: "GameSetupDialog" */
           /* webpackMode: "lazy" */
           "../browser/GameSetupDialog.js")
-        .then(mod => new mod[Object.keys(mod)[0]]({
+        .then(mod => new mod.GameSetupDialog({
           html: "standalone_GameSetupDialog",
           title: $.i18n("Game setup"),
           ui: this,

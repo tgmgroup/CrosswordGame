@@ -3,7 +3,7 @@
 /* eslint-env mocha,node */
 
 import { assert } from "chai";
-import { setupBrowser } from "../TestPlatform.js";
+import { setupPlatform, setup$ } from "../TestPlatform.js";
 
 import { BrowserGame } from "../../src/browser/BrowserGame.js";
 
@@ -15,7 +15,7 @@ const Tile = BrowserGame.CLASSES.Tile;
  */
 describe("browser/BrowserRack", () => {
 
-  before(() => setupBrowser());
+  before(() => setupPlatform().then(() => setup$()));
 
   it("$ui empty", () => {
     let $dact = $("<div></div>");

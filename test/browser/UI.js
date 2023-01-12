@@ -3,17 +3,29 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupBrowser } from "../TestPlatform.js";
+import { setupPlatform, setup$ } from "../TestPlatform.js";
 
 describe("browser/UI", () => {
 
   let UI;
 
-  before(() => setupBrowser()
-         // UI imports jquery.i18n which requires jquery, so have
-         // to delay the import
-         .then(() => import("../../src/browser/UI.js"))
-         .then(mod => UI = mod.UI));
+  before(
+    () => setupPlatform()
+    .then(() => setup$())
+    // UI imports jquery.i18n which requires jquery, so have
+    // to delay the import
+    .then(() => import("../../src/browser/UI.js"))
+    .then(mod => {
+      UI = class UI extends mod.UI {
+        settings = {};
+        setSetting(t, v) { this.settings[t] = v; }
+        getSetting(t) {
+          return this.settings[t];
+        }
+        getCSS() { return Promise.resolve([ "A", "B" ]); }
+        getLocales() { return Promise.resolve([ "en", "fr" ]); }
+      };
+    }));
 
   beforeEach(() => {
     $("head").empty();
@@ -59,6 +71,7 @@ describe("browser/UI", () => {
         default: assert.fail(t); return false;
         }
       }
+      getCSS() { return Promise.resolve([]); }
     }
     (new NUI()).initTheme();
     let url = $("#xanadoCSS").attr("href");
@@ -100,7 +113,6 @@ describe("browser/UI", () => {
         }
         assert.fail(t); return false;
       }
-      getLocales() { return Promise.resolve([ "en", "fr" ]); }
     }
     return (new NUI()).initLocale()
     .then(() => {
@@ -119,6 +131,7 @@ describe("browser/UI", () => {
         assert.fail(t); return false;
       }
       getLocales() { return Promise.resolve([ "en", "fr" ]); }
+      getCSS() { return Promise.resolve([]); }
     }
     return (new NUI()).initLocale()
     .then(() => {
@@ -135,14 +148,7 @@ describe("browser/UI", () => {
   });
 
   it("setSettings", () => {
-    class NUI extends UI {
-      settings = {};
-      setSetting(t, v) { this.settings[t] = v; }
-      getSetting(t) {
-        return this.settings[t];
-      }
-    }
-    const ui = new NUI();
+    const ui = new UI();
     ui.setSettings({ a: "1", b: 2 });
     assert.equal(ui.getSetting("a"), 1);
     assert.equal(ui.getSetting("b"), 2);
@@ -152,7 +158,7 @@ describe("browser/UI", () => {
     $("body").append(`<div id="personaliseButton" class="dialog"></div>`);
     const ui = new UI();
 
-    // Force an import of SettingsDialog
+    // Force an import of UserSettingsDialog
     ui.attachUIEventHandlers();
     $("#personaliseButton").trigger("click");
   });

@@ -107,13 +107,17 @@ class UI {
    * Play an audio clip, identified by id. Clips must be
    * pre-loaded in the HTML. Note that most (all?) browsers require
    * some sort of user interaction before they will play audio
-   * embedded in the page.
+   * embedded in the page. Playing is asynchronous.
    * @instance
    * @memberof client/UIMixin
    * @param {string} id name of the clip to play (no extension). Clip
    * must exist as an mp3 file in the /audio directory.
    */
   playAudio(id) {
+
+    if (typeof Audio === "undefined")
+      return;
+
     let audio = this.soundClips[id];
 
     if (!audio) {
@@ -170,20 +174,23 @@ class UI {
   /* c8 ignore start */
 
   /**
-   * Find the first CSS rule for the given selector.
+   * Apply a function to all instances of the given selector in all CSS
+   * style sheets.
    * @param {string} selector selector for the rule to search for
+   * @param { function} editor function to apply to each matching rule
    * @private
    */
-  findCSSRule(selector) {
+  eachCSSRule(selector, editor) {
     for (const sheet of document.styleSheets) {
       try {
         for (const rule of sheet.cssRules) {
-          if (rule instanceof CSSStyleRule
-              && rule.selectorText == selector)
-            return rule;
+          if (rule instanceof CSSStyleRule && rule.selectorText == selector) {
+            editor(rule);
+          }
         }
       } catch(e) {
         // Not allowed to access cross-origin stylesheets
+        //console.error("Not allowed", sheet.href);
       }
     }
     return undefined;
@@ -191,22 +198,26 @@ class UI {
 
   /**
    * Modify a CSS rule. This is used for scaling elements such as tiles
-   * when the display is resized.
+   * when the display is resized. Note that the edit is applied to
+   * all exactly matching selectors in all stylesheets, so a theme can
+   * override a style and it will still work.
    * @param {string} selector selector of rule to modify
    * @param {Object.<string,number>} changes map of css attribute
    * name to new pixel value.
    * @private
    */
   editCSSRule(selector, changes) {
-    const rule = this.findCSSRule(selector);
-    if (rule) {
-      let text = rule.style.cssText;
-      $.each(changes, (prop, val) => {
-        const re = new RegExp(`(^|[{; ])${prop}:[^;]*`);
-        text = text.replace(re, `$1${prop}:${val}px`);
+    this.eachCSSRule(
+      selector,
+      rule => {
+        const before = rule.style.cssText;
+        let after = before;
+        $.each(changes, (prop, val) => {
+          const re = new RegExp(`(^|[{; ])${prop}:[^;]*`);
+          after = after.replace(re, `$1${prop}:${val}px`);
+        });
+        rule.style.cssText = after;
       });
-      rule.style.cssText = text;
-    }
   }
 
   /* c8 ignore stop */
@@ -219,7 +230,7 @@ class UI {
     return this.getLocales()
     .then(locales => {
       const ulang = this.getSetting("language") || "en";
-      console.debug("User language", ulang);
+      this.debug("User language", ulang);
       // Set up to load the language file
       const params = {};
       if (typeof global !== "undefined")
@@ -232,11 +243,11 @@ class UI {
       .then(() => locales);
     })
     .then(locales => {
-      console.debug("Locales available", locales.join(", "));
+      this.debug("Locales available", locales.join(", "));
       // Expand/translate strings in the HTML
       return new Promise(resolve => {
         $(document).ready(() => {
-          console.debug("Translating HTML to", $.i18n().locale);
+          this.debug("Translating HTML to", $.i18n().locale);
           $("body").i18n();
           resolve(locales);
         });
@@ -276,15 +287,29 @@ class UI {
   /* c8 ignore start */
 
   /**
-   * Get a user setting
-   * @param {string} key setting to get
+   * Get a structure describing the current defaults.
+   * Must be implemented by a sub-mixin or final class. It's defined as
+   * part of the UI because standalone/client have different sources
+   * for game defaults.
+   * @param {string} type defaults type, either "user" or "game"
+   * @return {Promise} promise that resolves to the settings
    */
-  getSetting(key) {
-    return key;
+  getDefaults(type) {
+    assert.fail("GameUIMixin.getDefaults");
   }
 
   /**
-   * Set a user setting
+   * Get a session setting. If the current session doesn't define the
+   * setting (or there is no current session), then gets the default.
+   * @param {string} key setting to get
+   */
+  getSetting(key) {
+    assert.fail(`UI.getSetting ${key}`);
+  }
+
+  /**
+   * Set a session setting. If there is no current session, then set
+   * one up if possible, otherwise ignore the instruction.
    * @param {string} key setting to set
    * @param {string} value value to set
    * @return {Promise} resolves when setting is complete
@@ -356,9 +381,9 @@ class UI {
     .on("click", () => {
       import(
         /* webpackMode: "lazy" */
-        /* webpackChunkName: "SettingsDialog" */
-        "../browser/SettingsDialog.js")
-      .then(mod => new mod[Object.keys(mod)[0]]({
+        /* webpackChunkName: "UserSettingsDialog" */
+        "../browser/UserSettingsDialog.js")
+      .then(mod => new mod.UserSettingsDialog({
         ui: this,
         onSubmit: (dlg, vals) => {
           this.setSettings(vals)

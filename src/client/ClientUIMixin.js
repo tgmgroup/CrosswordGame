@@ -8,9 +8,9 @@
 // This works fine in the unpacked version, but fails when webpacked.
 //
 // The following clumsy hack is the only way I could get it to work in both
-// the unpacked and th packed versions. If someone can do better, please do!
+// the unpacked and packed versions. If someone can do better, please do!
 /* global io */
-import * as SI from "../../node_modules/socket.io/client-dist/socket.io.js";
+import * as SI from "socket.io/client-dist/socket.io.js";
 if (typeof io === "undefined")
   window.io = SI.io;
 
@@ -38,20 +38,20 @@ const ClientUIMixin = superclass => class extends superclass {
   session = undefined;
 
   /**
-   * Cache of defaults object, lateinit in build()
+   * Cache of defaults objects (.user and .game)
    */
-  defaults = undefined;
+  defaults = {};
 
   /**
    * @implements browser/GameUIMixin
    * @memberof client/ClientUIMixin
    * @instance
    */
-  getGameDefaults() {
-    if (this.defaults)
-      return Promise.resolve(this.defaults);
-    return $.get("/defaults")
-    .then(defaults => this.defaults = defaults);
+  getDefaults(type) {
+    if (this.defaults[type])
+      return this.defaults[type];
+    return $.get(`/defaults/${type}`)
+    .then(d => this.defaults[type] = d);
   }
 
   /**
@@ -151,21 +151,27 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof client/ClientUIMixin
    */
   create() {
-    console.debug("Creating ClientUIMixin");
+    this.debug("Creating ClientUIMixin");
     // Set up translations and connect to channels
-    let args;
-    return this.getGameDefaults()
+    return Promise.all([
+      this.getDefaults("user"),
+      this.getDefaults("game")
+    ])
     .then(() => {
-      args = UI.parseURLArguments(document.URL);
-      if (args.debug)
+      this.args = UI.parseURLArguments(document.URL);
+      if (this.args.debug)
         this.debug = console.debug;
     })
     .then(() => this.getSession())
-    .catch(() => this.observer = (args.observer || "Anonymous"))
+    .catch(e => {
+      console.error(e);
+      this.observer = (this.args && this.args.observer ? this.args.observer : "Anonymous");
+    })
     .then(() => this.initTheme())
     .then(() => this.initLocale())
-    .then(() => this.processArguments(args))
-    .then(() => this.channel = io().connect())
+    .then(() => this.processArguments(this.args))
+    // Unit tests predefine this.channel so that io can be bypassed
+    .then(() => this.channel = (this.channel || io().connect()))
     .then(() => this.attachChannelHandlers())
     .then(() => this.attachUIEventHandlers())
     .then(() => {
@@ -176,7 +182,7 @@ const ClientUIMixin = superclass => class extends superclass {
             /* webpackMode: "lazy" */
             /* webpackChunkName: "LoginDialog" */
             "../client/LoginDialog.js")
-          .then(mod => new mod[Object.keys(mod)[0]]({
+          .then(mod => new mod.LoginDialog({
             // postAction is set in code
             postResult: () => window.location.reload(),
             error: e => this.alert(e, $.i18n("failed", $.i18n("Sign in")))
@@ -185,7 +191,9 @@ const ClientUIMixin = superclass => class extends superclass {
       $("#signout-button")
       .on("click", () => {
         $.post("/signout")
-        .then(() => console.debug("Logged out"))
+        .then(() => {
+          if (this.debug) this.debug("Logged out");
+        })
         .catch(e => this.alert(e, $.i18n("failed", $.i18n("Sign out"))))
         .then(() => {
           this.session = undefined;
@@ -199,7 +207,7 @@ const ClientUIMixin = superclass => class extends superclass {
       // `autoplay` is a debug device. If it appears in the URL args
       // then once the first play has been made by the human, remaining
       // plays will be automated. See `mechanicalTurk` for details.
-      if (args.autoplay)
+      if (this.args.autoplay)
         $(document).on("MY_TURN", () => this.mechanicalTurk());
     });
   }
@@ -266,7 +274,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @override
    */
   getEdition(ed) {
-    return $.get(`/edition/${ed}.js`);
+    return $.get(`/edition/${ed}`);
   }
 
   /**
@@ -292,8 +300,9 @@ const ClientUIMixin = superclass => class extends superclass {
   getSession() {
     $(".signed-in,.not-signed-in").hide();
     return $.get("/session")
-    .then(session => {
-      console.debug(`Signed in as '${session.name}'`);
+    .then(session => {// getting here with a 401 :-(
+      if (this.debug)
+        this.debug(`Signed in as '${session.name}'`);
       $(".not-signed-in").hide();
       $(".signed-in")
       .show()
@@ -303,7 +312,7 @@ const ClientUIMixin = superclass => class extends superclass {
       this.session = session;
       return session;
     })
-    .catch(() => {
+    .catch(e => {
       $(".signed-in").hide();
       $(".not-signed-in").show();
       if (typeof this.observer === "string")
@@ -314,10 +323,7 @@ const ClientUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * @implements browser/GameUIMixin
-   * Invoked via click_turnButton.
-   * @memberof client/ClientUIMixin
-   * @instance
+   * @implements browser/GameUIMixin#action_anotherGame
    */
   action_anotherGame() {
     $.post(`/anotherGame/${this.game.key}`)
@@ -330,15 +336,13 @@ const ClientUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * @implements browser/GameUIMixin
-   * @memberof client/ClientUIMixin
-   * @instance
+   * @implements browser/GameUIMixin#action_nextGame
    */
   action_nextGame() {
     const key = this.game.nextGameKey;
     $.post(`/join/${key}`)
     .then(() => {
-      const s = location;
+      const s = location.href;
       location.replace(s.replace(/game=[^;&]*/, `game=${key}`));
     })
     .catch(console.error);
@@ -357,7 +361,7 @@ const ClientUIMixin = superclass => class extends superclass {
     return (this.session && this.session.settings
             && typeof this.session.settings[key] !== "undefined")
     ? this.session.settings[key]
-    : this.defaults[key];
+    : (this.defaults.user[key] || this.defaults.game[key]);
   }
 
   /**

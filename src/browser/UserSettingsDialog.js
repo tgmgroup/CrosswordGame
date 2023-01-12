@@ -7,10 +7,10 @@
  */
 import { Dialog } from "./Dialog.js";
 
-class SettingsDialog extends Dialog {
+class UserSettingsDialog extends Dialog {
 
   constructor(options) {
-    super("SettingsDialog", $.extend({
+    super("UserSettingsDialog", $.extend({
       title: $.i18n("Options")
     }, options));
 
@@ -21,28 +21,25 @@ class SettingsDialog extends Dialog {
 
   // @override
   createDialog() {
-    const curlan = $.i18n().locale;
-    //console.log("Curlan",curlan);
+    return super.createDialog()
+    .then(() => {
+      const curlan = $.i18n().locale;
+      //console.log("Curlan",curlan);
 
-    this.$dlg.find('input[type=checkbox]').checkboxradio();
-    const ui = this.options.ui;
-    const $css = this.$dlg.find('[name=xanadoCSS]');
-    const $jqt = this.$dlg.find("[name=jqTheme]");
-    const $locale = this.$dlg.find('[name=language]');
+      const ui = this.options.ui;
+      const $css = this.$dlg.find('[name=xanadoCSS]');
+      const $jqt = this.$dlg.find("[name=jqTheme]");
+      const $locale = this.$dlg.find('[name=language]');
 
-    return Promise.all([ ui.getCSS(), ui.getLocales() ])
-    .then(all => {
-      all[0].forEach(css => $css.append(`<option>${css}</option>`));
-      all[1]
-      .filter(d => d !== "qqq")
-      .sort((a, b) => new RegExp(`^${a}`,"i").test(curlan) ? -1 :
-            new RegExp(`^${b}`,"i").test(curlan) ? 1 : 0)
-      .forEach(d => $locale.append(`<option>${d}</option>`));
-      $css.selectmenu();
-      $jqt.selectmenu();
-      $locale.selectmenu();
-      this.enableSubmit();
-      super.createDialog();
+      return Promise.all([ ui.getCSS(), ui.getLocales() ])
+      .then(all => {
+        all[0].forEach(css => $css.append(`<option>${css}</option>`));
+        all[1]
+        .filter(d => d !== "qqq")
+        .sort((a, b) => new RegExp(`^${a}`,"i").test(curlan) ? -1 :
+              new RegExp(`^${b}`,"i").test(curlan) ? 1 : 0)
+        .forEach(d => $locale.append(`<option>${d}</option>`));
+      });
     });
   }
 
@@ -52,11 +49,15 @@ class SettingsDialog extends Dialog {
     .then(() => {
       const ui = this.options.ui;
 
-      this.$dlg.find('[name=theme]')
+      this.$dlg.find("select[name=language]")
+      .val(ui.getSetting("language"))
+      .selectmenu("refresh");
+
+      this.$dlg.find("select[name=xanadoCSS]")
       .val(ui.getSetting('theme'))
       .selectmenu("refresh");
 
-      this.$dlg.find("[name=jqTheme]")
+      this.$dlg.find("select[name=jqTheme]")
       .val(ui.getSetting('jqTheme'))
       .selectmenu("refresh");
 
@@ -71,4 +72,4 @@ class SettingsDialog extends Dialog {
   }
 }
 
-export { SettingsDialog }
+export { UserSettingsDialog }

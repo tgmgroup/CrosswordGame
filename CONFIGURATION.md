@@ -59,9 +59,11 @@ Example configuration file, overriding selected fields and giving oauth2, https,
 ```
 {
  "port": 8192,
- "defaults": {
+ "game_defaults": {
   "edition": "French_Scrabble",
-  "dictionary": "ODS8_French",
+  "dictionary": "ODS8_French"
+ },
+ "user_defaults": {
   "jqTheme": "Le Frog",
   "notification": true,
   "theme": "exander77",

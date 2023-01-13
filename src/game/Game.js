@@ -1166,7 +1166,8 @@ class Game {
   startTheClock() {
     if (typeof this._intervalTimer === "undefined"
         && this.timerType
-        && this.state === Game.State.PLAYING) {
+        && this.state === Game.State.PLAYING
+        && !this.pausedBy) {
 
       // Broadcast a ping every second
       /**

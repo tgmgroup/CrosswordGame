@@ -26,10 +26,17 @@ describe("standalone/StandaloneUIMixin", () => {
       };
       keep.open = window.open;
       window.open = () => {};
+      keep.location = global.location;
+      global.location = {
+        href: "here",
+        hash: "",
+        replace: hr => location.href = hr
+      };
     }));
 
   after(() => {
     window.open = keep.open;
+    global.location = keep.location;
   });
 
   beforeEach(() => {

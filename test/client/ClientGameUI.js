@@ -77,6 +77,7 @@ describe("client/ClientGameUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json")),
       "/game/unfinished_game": getTestGame("unfinished_game", Game)
       .then(game => Game.toCBOR(game))

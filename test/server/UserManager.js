@@ -39,7 +39,8 @@ describe("server/UserManager", () => {
     },
     user_defaults: {
       theme: "default"
-    }
+    },
+    debug: "server"
   };
 
   beforeEach(

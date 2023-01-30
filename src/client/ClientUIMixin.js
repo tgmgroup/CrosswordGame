@@ -358,10 +358,12 @@ const ClientUIMixin = superclass => class extends superclass {
    * @return {string|number|boolean} setting value
    */
   getSetting(key) {
-    return (this.session && this.session.settings
+    if (this.session && this.session.settings
             && typeof this.session.settings[key] !== "undefined")
-    ? this.session.settings[key]
-    : (this.defaults.user[key] || this.defaults.game[key]);
+      return this.session.settings[key];
+    else {
+      return (this.defaults.user[key] || this.defaults.game[key]);
+    }
   }
 
   /**

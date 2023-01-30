@@ -70,6 +70,7 @@ describe("client/ClientGamesUI", () => {
   it("handlers", () => {
     const server = new StubServer({
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/session": Promise.resolve(session),
       "/sendReminder/*": Promise.resolve([ "anon", "anon@anon.gov.us" ]),
       "/signout": Promise.resolve(),
@@ -103,6 +104,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json"))
     });
@@ -119,6 +121,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/games/unfinished_game": getTestGame("unfinished_game", Game)
       .then(game => Promise.resolve([game])),
@@ -138,6 +141,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json")),
       "/dictionaries":
@@ -156,6 +160,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/users": Promise.resolve(["id", "iot"]),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json"))
@@ -173,6 +178,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/anotherGame/unfinished_game": Promise.resolve(),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json"))
@@ -190,6 +196,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/deleteGame/unfinished_game": Promise.resolve(),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json"))
@@ -207,6 +214,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json"))
     });
@@ -223,6 +231,7 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
+      "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json")),
       "/history": Promise.resolve([]),
 

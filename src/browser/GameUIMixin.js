@@ -484,7 +484,7 @@ const GameUIMixin = superclass => class extends superclass {
     }
     this.updateGameStatus();
 
-    // Trigger an event to wake the mechanical turk (if there is one)
+    // Trigger an event to wake the automaton (if there is one)
     if (this.isThisPlayer(this.game.whosTurnKey))
       Platform.trigger("MY_TURN");
   }
@@ -530,7 +530,7 @@ const GameUIMixin = superclass => class extends superclass {
       rejection.words.length,
       rejection.words.join(", ")), "turn-narrative");
 
-    // Trigger the mechanical turk (if there is one). DO NOT
+    // Trigger the automaton (if there is one). DO NOT
     // reject autoplays, as that will result in an infinite loop.
     Platform.trigger("MY_TURN");
   }
@@ -616,7 +616,7 @@ const GameUIMixin = superclass => class extends superclass {
     .toggle(this.game.allowUndo
             && this.game.turns.length > 0);
 
-    // Trigger an event to wake the mechanical turk (if there is one)
+    // Trigger an event to wake the automaton (if there is one)
     if (isMyGo)
       Platform.trigger("MY_TURN");
   }
@@ -787,6 +787,7 @@ const GameUIMixin = superclass => class extends superclass {
         (player, i) =>
         $(countElements[i]).text(`(${player.rack.squaresUsed()})`));
     }
+
     $("#swapRack")
     .toggle(remains >= this.game.rackSize);
   }
@@ -1269,6 +1270,7 @@ const GameUIMixin = superclass => class extends superclass {
       // Unplace the tile, returning it to the rack
       this.takeBackTile(sq);
       this.selectSquare(sq);
+      this.updateGameStatus();
     }
   }
 
@@ -1457,9 +1459,12 @@ const GameUIMixin = superclass => class extends superclass {
 
       // Use 'visibility' and not 'display' to keep the layout stable
       $(".unplace-button").css("visibility", "inherit");
+
       $("#swapRack").hide();
       return;
     }
+
+    $("#swapRack").show();
 
     if (this.swapRack.squaresUsed() > 0) {
       // Swaprack has tiles on it, change the move action to swap

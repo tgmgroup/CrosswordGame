@@ -74,12 +74,12 @@ const ClientUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * Make a mechanical play.
+   * Make an automatic play.
    * @instance
    * @memberof CientUIMixin
    */
-  mechanicalTurk() {
-    console.debug("Mechanical Turk is playing");
+  automaticPlay() {
+    console.debug("Automaton playing");
 
     // call swap 1 turn in 10
     // call challenge 1 turn in 10
@@ -206,9 +206,9 @@ const ClientUIMixin = superclass => class extends superclass {
 
       // `autoplay` is a debug device. If it appears in the URL args
       // then once the first play has been made by the human, remaining
-      // plays will be automated. See `mechanicalTurk` for details.
+      // plays will be automated. See `automaticPlay` for details.
       if (this.args.autoplay)
-        $(document).on("MY_TURN", () => this.mechanicalTurk());
+        $(document).on("MY_TURN", () => this.automaticPlay());
     });
   }
 

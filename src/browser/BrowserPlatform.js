@@ -39,7 +39,7 @@ $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
           password = options.password || null;
 
       xhr.addEventListener('load', function () {
-        var data = {};
+        const data = {};
         data[options.dataType] = xhr.response;
         // make callback and send data
         callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
@@ -48,9 +48,8 @@ $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
       xhr.open(type, url, async, username, password);
 
       // setup custom headers
-      for (var i in headers) {
+      for (const i in headers)
         xhr.setRequestHeader(i, headers[i]);
-      }
 
       xhr.responseType = dataType;
       xhr.send(data);

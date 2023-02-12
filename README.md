@@ -173,6 +173,8 @@ There are also a number of other keyboard shortcuts:
 * `?` will pass the current turn.
 * `!` will take back your last move, or challenge the last player's move, depending on what the log says.
 * `;` will let you type into the chat window
+* So long as you haven't placed anything on the board, holding down the `Alt` key and typing a letter from the rack will move it to the swap rack.
+* Typing a number instead of a letter will place/move the tile at the corresponding position on the rack (where the leftmost letter is '1').
 
 ## Learning (and Cheating)
 

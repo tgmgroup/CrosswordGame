@@ -628,52 +628,62 @@ const GameUIMixin = superclass => class extends superclass {
    * @instance
    * @private
    */
-  keyDown(event) {
+  onKeyDown(event) {
+    if (event.target.id !== "body")
+      return true;
+
     // Only handle events targeted when the board is not
     // locked, and ignore events targeting the chat input.
     // Checks for selection status are performed in
     // individual handler functions.
-    if (event.target.id !== "body" || this.boardLocked)
-      return;
-
     switch (event.key) {
 
     case "ArrowUp": case "Up":
+      if (this.boardLocked)
+        return true;
       this.moveTypingCursor(0, -1);
-      return;
+      return false;
 
     case "ArrowDown": case "Down":
+      if (this.boardLocked)
+        return true;
       this.moveTypingCursor(0, 1);
-      return;
+      return false;
 
     case "ArrowLeft": case "Left":
+      if (this.boardLocked)
+        return true;
       this.moveTypingCursor(-1, 0);
-      return;
+      return false;
 
     case "ArrowRight": case "Right":
+      if (this.boardLocked)
+        return true;
       this.moveTypingCursor(1, 0);
-      return;
+      return false;
 
     case "Backspace":
     case "Delete": // Remove placement behind typing cursor
+      if (this.boardLocked)
+        return true;
       this.unplaceLastTyped();
-      return;
+      return false;
 
     case "Home": // Take back letters onto the rack
       this.takeBackTiles();
-      return;
+      return false;
 
     case "Enter": case "End": // Commit to move
       this.action_commitMove();
-      return;
+      return false;
 
     case "#": case "@": // Shuffle rack
       this.player.rack.shuffle();
-      return;
+      return false;
 
     case "?": // Pass
       this.action_pass();
-      return;
+      return false;
 
     case "!": // Challenge / take back
       {
@@ -687,11 +697,14 @@ const GameUIMixin = superclass => class extends superclass {
             this.takeBackMove();
         }
       }
-      return;
+      return false;
 
     case "*": // to place typing cursor in centre
       // (or first empty square, scanning rows from
       // the top left, if the centre is occupied)
+      if (this.boardLocked)
+        return true;
+
       {
         let sq = this.game.board.at(
           this.game.board.midcol, this.game.board.midrow);
@@ -707,19 +720,61 @@ const GameUIMixin = superclass => class extends superclass {
         }
         this.selectSquare(sq);
       }
-      return;
+      return false;
 
     case " ":
+      if (this.boardLocked)
+        return true;
       this.rotateTypingCursor();
-      return;
+      return false;
 
     case ";": // Chat
       $('#chatInput').focus();
-      event.preventDefault();
-      return;
+      return false;
+
+    case "Shift": case "Control": case "Alt":
+      return true; // allow propagation and default
 
     default:
-      this.manuallyPlaceLetter(event.key.toUpperCase());
+      {
+        let letter = event.key.toUpperCase();
+        let rackSquare;
+
+        // Typing a number will select the corresponding letter on
+        // the rack
+        switch (letter) {
+        case "1": case "2": case '3': case "4": case "5":
+        case "6": case "7": case "8": case "9":
+          rackSquare = this.player.rack.at(parseInt(letter) - 1);
+          if (!rackSquare || !rackSquare.tile || rackSquare.tile.isBlank)
+            return true;
+          letter = rackSquare.tile.letter;
+        }
+
+        if (!rackSquare)
+          rackSquare = this.player.rack.findSquare(letter);
+
+        // If the control key is down, and no letters have been placed
+        // on the board yet, and the tile is found on the rack, then
+        // move it to the swap rack.
+        if (event.originalEvent.altKey
+            && rackSquare && !rackSquare.tile.isBlank
+            && !this.game.board.hasUnlockedTiles()) {
+          // Move the tile to the swap rack
+          if (this.swapRack.forEachEmptySquare(sq => {
+            this.moveTile(rackSquare, sq, );
+            this.updateGameStatus();
+            return true; // move worked
+          }))
+            return false; // stop propagation
+        }
+
+        if (this.boardLocked)
+          return true;
+
+        // Otherwise, move to the board.
+        return this.typeOnBoard(letter, rackSquare);
+      }
     }
   }
 
@@ -1073,7 +1128,7 @@ const GameUIMixin = superclass => class extends superclass {
     $("#pauseButton")
     .on("click", () => this.sendCommand(Game.Command.PAUSE));
 
-    // Events raised by game components to request UI updates
+    // Events raised by game components
     $(document)
 
     .on(UIEvents.SELECT_SQUARE,
@@ -1083,36 +1138,38 @@ const GameUIMixin = superclass => class extends superclass {
         () => this.selectSquare())
 
     .on(UIEvents.DROP_TILE,
-        (e, source, square) => this.dropTile(source, square))
+        (e, source, square) => this.dropTile(source, square));
 
-    // Keydown anywhere in the document
-    .on("keydown", event => this.keyDown(event));
+    $(window)
 
-    $(window).on("resize", () => this.handle_resize());
+    .on("keydown", event => this.onKeyDown(event))
+
+    .on("resize", () => this.handle_resize());
   }
 
   /**
    * Handle a letter being typed when the typing cursor is active
    * @memberof browser/GameUIMixin
    * @instance
-   * @param {string} letter character being placed
+   * @param {string} letter character being placed (upper case)
+   * @param {Square} rackSquare square where the character was found
+   * (or blank if it wasn't explicitly matched)
+   * @return boolean false to stop event propagation
    * @private
    */
-  manuallyPlaceLetter(letter) {
+  typeOnBoard(letter, rackSquare) {
+     // check it's supported
+     if (this.game.letterBag.legalLetters.indexOf(letter) < 0)
+      return true;
+
     if (!this.selectedSquare
         || !this.selectedSquare.isEmpty()
         // Make sure the selected square is on the board!
         || !this.selectedSquare.isBoard)
-      return;
+      return true;
 
-    // check it's supported
-    if (this.game.letterBag.legalLetters.indexOf(letter) < 0)
-      return;
-
-    // Find the letter in the rack
-    const rackSquare = this.player.rack.findSquare(letter);
     if (rackSquare) {
-      // moveTile will use a blank if the letter isn't found
+      // "letter" will commit a blank if the non-blank letter wasn't found
       this.moveTile(rackSquare, this.selectedSquare, letter);
       if (this.getSetting("tile_click"))
         this.playAudio("tiledown");
@@ -1122,6 +1179,8 @@ const GameUIMixin = superclass => class extends superclass {
         this.moveTypingCursor(1, 0);
     } else
       this.$log($.i18n("nfy-on-rack", letter));
+
+    return false; // stop propagation
   }
 
   /**
@@ -1469,7 +1528,7 @@ const GameUIMixin = superclass => class extends superclass {
     if (this.swapRack.squaresUsed() > 0) {
       // Swaprack has tiles on it, change the move action to swap
       this.setAction("action_swap", $.i18n("Swap"));
-      $("#board .ui-droppable").droppable("disable");
+      this.lockBoard(true);
       this.enableTurnButton(true);
       $(".unplace-button").css("visibility", "inherit");
       return;
@@ -1477,7 +1536,7 @@ const GameUIMixin = superclass => class extends superclass {
 
     // Otherwise nothing has been placed, turn action is a pass
     this.setAction("action_pass", $.i18n("Pass"));
-    $("#board .ui-droppable").droppable("enable");
+    this.lockBoard(false);
     this.enableTurnButton(true);
     $(".unplace-button").css("visibility", "hidden");
   }
@@ -1491,6 +1550,7 @@ const GameUIMixin = superclass => class extends superclass {
    */
   lockBoard(newVal) {
     this.boardLocked = newVal;
+    $("#board .ui-droppable").droppable(newVal ? "disable" : "enable");
   }
 
   /**

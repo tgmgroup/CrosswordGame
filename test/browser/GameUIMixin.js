@@ -77,12 +77,30 @@ describe("browser/GameUIMixin", () => {
     });
   });
 
-  it("basics", () => {
+  it("place on board", () => {
     ui.attachUIEventHandlers();
     ui.attachChannelHandlers();
     ui.readyToListen();
     ui.selectSquare(ui.game.at(0, 0));
-    ui.manuallyPlaceLetter(ui.player.rack.at(0).tile.letter);
+    ui.onKeyDown({
+      target: $("body")[0],
+      key: ui.player.rack.at(0).tile.letter,
+      originalEvent: {
+      }
+    });
+  });
+
+  it("place on swap", () => {
+    ui.attachUIEventHandlers();
+    ui.attachChannelHandlers();
+    ui.readyToListen();
+    ui.onKeyDown({
+      target: $("body")[0],
+      key: ui.player.rack.at(0).tile.letter,
+      originalEvent: {
+        altKey: true
+      }
+    });
   });
 
   it("distribution", () => {

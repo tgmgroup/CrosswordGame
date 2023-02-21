@@ -103,7 +103,9 @@ describe("client/ClientGamesUI", () => {
       () => {
         assert($("#signin-button").length === 1);
         $("#signin-button").trigger("click");
-      }, { debug: true }))
+      }, {
+        //debug: console.debug
+      }))
     .then(() => {
       console.debug("Logged in");
       $("#signout-button").trigger("click");

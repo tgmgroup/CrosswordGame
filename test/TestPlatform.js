@@ -225,9 +225,9 @@ class StubServer {
           console.error(args);
           assert.fail(`Unexpected ${args.url}`);
         }
-        console.debug("Expected", args.url);
-        if (this.expected[args.url].count > 0)
-          console.debug("\t", this.expected[args.url].count, "remain");
+        //console.debug("Expected", args.url);
+        //if (this.expected[args.url].count > 0)
+        //  console.debug("\t", this.expected[args.url].count, "remain");
         this.received[args.url] = true;
         return this.expected[args.url].promise;
       }
@@ -236,7 +236,7 @@ class StubServer {
       if (args.url === "")
         return undefined;
 
-      //console.log("Fallback", args.url);
+      //console.debug("Fallback", args.url);
       assert(args.url && args.url.length > 0, args.url);
       return $.when(
         Platform.readFile(args.url)
@@ -267,7 +267,7 @@ class StubServer {
         for (const f in self.expected) {
           if (!self.received[f]) {
             unsaw = true;
-            console.debug(`Awaiting "${f}"`);
+            //console.debug(`Awaiting "${f}"`);
           }
         }
         if (unsaw) {
@@ -296,7 +296,7 @@ function setupI18n(lang, debug) {
   return import("../src/common/i18n.js")
   .then(mods => {
     assert($.i18n);
-    return $.i18n.init(lang, console.debug);
+    return $.i18n.init(lang, debug ? console.debug : undefined);
   })
   .catch(e => {
     console.error(e);
@@ -316,9 +316,9 @@ function expectDialog(id, invoker, options) {
   if (!options) options = { autoclose: true };
   function wfd(resolve) {
     if ($(`#${id}`).length > 0 && $(`#${id}`).data("DIALOG_OPEN")) {
-      if (options.debug) console.debug("expectDialog SAW", id);
+      if (options.debug) options.debug("expectDialog SAW", id);
       if (options.autoclose) {
-        if (options.debug) console.debug("expectDialog CLOSING", id);
+        if (options.debug) options.debug("expectDialog CLOSING", id);
         $(`#${id}`).dialog("close")
         .removeData("DIALOG_CREATED", true)
         .dialog("destroy");
@@ -327,7 +327,7 @@ function expectDialog(id, invoker, options) {
     } else
       setTimeout(() => wfd(resolve), 250);     
   }
-  if (options.debug) console.debug("WAITING FOR", id);
+  if (options.debug) options.debug("WAITING FOR", id);
   assert(!$(`#${id}`).data("DIALOG_OPEN"));
   invoker();
   return new Promise(resolve => wfd(resolve));

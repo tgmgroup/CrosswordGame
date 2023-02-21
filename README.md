@@ -269,3 +269,4 @@ In alphabetical order
 - Crawford Currie @cdot
 - Paul Kolano @pkolano
 - Warren Bank @warren-bank
+- This project is tested with [BrowserStack](https://www.browserstack.com/)

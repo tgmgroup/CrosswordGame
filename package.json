@@ -78,8 +78,9 @@
 		"webpack": "^5.75.0",
 		"webpack-cli": "^5.0.1"
 	},
-	"scripts": {
-		"build": "rm -rf dist/*; node bin/update-indexes.js; export NODE_ENV=production; webpack -c build/wp_sa_games.js; webpack -c build/wp_sa_game.js; webpack -c build/wp_cl_games.js; webpack -c build/wp_cl_game.js",
+    "scripts": {
+        "indexing": "node bin/update-indexes.js",
+		"build": "webpack --node-env production -c build/wp_sa_games.js; webpack --node-env production -c build/wp_sa_game.js; webpack --node-env production -c build/wp_cl_games.js; webpack --node-env production -c build/wp_cl_game.js",
 		"debug_build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
 		"server": "node bin/server.js",
 		"start": "node bin/server.js",

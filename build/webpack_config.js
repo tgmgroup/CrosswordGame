@@ -52,7 +52,8 @@ function relink(from, to, content) {
  */
 function makeConfig(html, js) {
 
-  fs.readFile(`${__dirname}/../html/${html}`)
+  fs.mkdir(`${__dirname}/../dist`, { recursive: true })
+  .then(() => fs.readFile(`${__dirname}/../html/${html}`))
   .then(content => {
     content = content.toString();
 

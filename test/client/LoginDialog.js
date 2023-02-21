@@ -5,7 +5,8 @@
 /* global Platform */
 
 import { assert } from "chai";
-import { setupPlatform, setup$, setupI18n, StubServer } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n,
+         expectDialog, StubServer } from "../TestPlatform.js";
 import { LoginDialog } from "../../src/client/LoginDialog.js";
 
 describe("client/LoginDialog", () => {
@@ -17,8 +18,8 @@ describe("client/LoginDialog", () => {
     .then(() => setupI18n()));
 
   beforeEach(() => {
-    $("head").empty();
-    $("body").empty();
+    $("head").html("");
+    $("body").html("");
    });
 
   it ("dialog", () => {
@@ -28,14 +29,14 @@ describe("client/LoginDialog", () => {
       "/oauth2-providers": Promise.resolve([ { name: "google" }])
     });
     return new Promise(resolve => {
-      new LoginDialog({
+      const dlg = new LoginDialog({
         onSubmit: (dlg, vals) => {},
         error: e => assert.fail(e),
-        //debug: console.debug,
-        onReady: dlg => {
+        onReady: () => {
           dlg.$dlg.dialog("close");
-        },
-        close: resolve
+          resolve();
+          dlg.$dlg.dialog("destroy");
+        }
       });
     })
     .then(() => server.wait());

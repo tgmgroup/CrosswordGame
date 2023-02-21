@@ -37,14 +37,14 @@ describe("browser/GameUIMixin", () => {
         getHistory(){
           return Promise.resolve(gamesHistory);
         }
-        getLocales() {
+        promiseLocales() {
           return Promise.resolve([ "en" ]);
         }
         getGame(key) {
           const p = gamesList.filter(g => g.key === key)[0];
           return Promise.resolve(p);
         }
-        getEdition(ed) {
+        promiseEdition(ed) {
           return Edition.load(ed);
         }
       };

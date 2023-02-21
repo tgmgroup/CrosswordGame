@@ -6,6 +6,13 @@ import TerserPlugin from "terser-webpack-plugin";
 import webpack from "webpack";
 import { promises as fs } from "fs";
 
+/**
+ * Copy a file (or directory recursively) into the dist. Used for css etc.
+ * that we want to copy but not bundle. I'm sure a webpack expert could do
+ * this a lot better!
+ * @param {string} from pathname to copy
+ * @param {string} to where to copy to
+ */
 function copyFile(from, to) {
   const a_from = path.normalize(path.join(__dirname, from));
   const a_to = path.normalize(path.join(__dirname, to));
@@ -22,6 +29,13 @@ function copyFile(from, to) {
   });
 }
 
+/**
+ * Rewrite a <link> in html
+ * @param {string} from link to rewrite (can be a common preamble)
+ * @param {string} to what to replace `from` with
+ * @param {string} content the HTML to perform the replacement in
+ * @return {string} the edited HTML
+ */
 function relink(from, to, content) {
   const re = new RegExp(`(<link[^>]*href=")${from}`, "g");
   return content.replace(
@@ -29,6 +43,13 @@ function relink(from, to, content) {
     (m, preamble) => `${preamble}${to}`);
 }
 
+/**
+ * Copy files not handled by webpack (assets) and construct a
+ * webpack configuration.
+ * @param {string} html name of html source, assumed to be in the `html` dir
+ * @param {string} js name of JS module, path relative to `src`
+ * @return {object} webpack configuration
+ */
 function makeConfig(html, js) {
 
   fs.readFile(`${__dirname}/../html/${html}`)
@@ -61,19 +82,51 @@ function makeConfig(html, js) {
     return fs.writeFile(`${__dirname}/../dist/${html}`, content);
   });
 
+  // Webpacked code always has DISTRIBUTION
+  const defines = {
+    DISTRIBUTION: true
+  };
+  let mode;
+
+  // -p will create an optimised production build.
+	if (process.env.NODE_ENV === "production") {
+    console.log(`Production build ${__dirname}/../src/${js}`);
+    mode = "production";
+		defines.PRODUCTION = true;
+	}
+
+  // otherwise this is a development build.
+	else
+    mode = "development";
+
   return {
+    mode: mode,
     entry: {
       app: `${__dirname}/../src/${js}`
     },
-    //mode: "production",
-    mode: "development",
     output: {
       filename: js,
-      path: `${__dirname}/../dist`,
+      path: path.resolve(__dirname, "../dist"),
       globalObject: "window"
     },
     resolve: {
-      extensions: [ '.js' ]
+      extensions: [ '.js' ],
+      alias: {
+        // socket.io is normally the node.js version; we need the browser
+        // version here.
+        "socket.io": path.resolve(
+          __dirname, "../node_modules/socket.io/client-dist/socket.io.js"),
+        // Need to override the default node module with the dist
+        jquery: path.resolve(
+          __dirname, "../node_modules/jquery/dist/jquery.js"),
+        "jquery-ui": path.resolve(
+          __dirname, "../node_modules/jquery-ui/dist/jquery-ui.js")
+      }
+    },
+    externals: {
+      // Imported from findBestPlayWorker, but never actually imported
+      // in the browser version
+      "../server/ServerPlatform.js": "undefined"
     },
     optimization: {
       minimizer: [
@@ -90,7 +143,8 @@ function makeConfig(html, js) {
       new webpack.ProvidePlugin({
         $: 'jquery',
         jQuery: 'jquery'
-      })
+      }),
+      new webpack.DefinePlugin(defines)
     ]
   };
 }

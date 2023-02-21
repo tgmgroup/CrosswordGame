@@ -3,7 +3,7 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupPlatform, setup$, getTestGame, StubServer, UNit } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n, getTestGame, StubServer, UNit } from "../TestPlatform.js";
 import { TestSocket } from "../TestSocket.js";
 import { Game } from "../../src/game/Game.js";
 
@@ -33,6 +33,7 @@ describe("client/ClientUIMixin", () => {
     .then(() => setup$(
       `${import.meta.url}/../../html/client_games.html?arg=1`,
       Platform.getFilePath("/html/client_games.html")))
+    .then(() => setupI18n())
     .then(() => Promise.all([
       import("../../src/browser/UI.js"),
       import("../../src/browser/GameUIMixin.js"),
@@ -80,7 +81,10 @@ describe("client/ClientUIMixin", () => {
       "/dictionaries":
       Platform.readFile(Platform.getFilePath("/dictionaries/index.json")),
 
-      "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json")),
+      "/locales": {
+        promise: Platform.readFile(Platform.getFilePath("/i18n/index.json")),
+        count: 2
+      },
 
       "/edition/English_Scrabble":
       Platform.readFile(Platform.getFilePath("/editions/English_Scrabble.json")),
@@ -97,35 +101,32 @@ describe("client/ClientUIMixin", () => {
     assert.equal(ui.getSetting("jqTheme"), session.settings.jqTheme);
 
     return Promise.all([
-      ui.getSession()
+      ui.promiseSession()
       .then(e => assert.fail(`Flawed ${e}`))
       .catch(e => {
-        assert.equal(e.message, "Not signed in");
+        assert.equal(e.message, $.i18n("Not signed in"));
         return undefined;
       }),
 
-      ui.getDefaults("game")
+      ui.promiseDefaults("game")
       .then(s => assert.deepEqual(s, GAME_DEFAULTS)),
 
-      ui.getDefaults("user")
+      ui.promiseDefaults("user")
       .then(s => assert.deepEqual(s, USER_DEFAULTS)),
 
-      ui.getCSS()
+      ui.promiseCSS()
       .then(e => assert(Array.isArray(e))),
 
-      ui.getLocales()
+      ui.promiseLocales()
       .then(e => assert(Array.isArray(e))),
 
-      ui.getEditions()
+      ui.promiseEditions()
       .then(e => assert(Array.isArray(e))),
 
-      ui.getLocales()
-      .then(e => assert(Array.isArray(e))),
-
-      ui.getDictionaries()
+      ui.promiseDictionaries()
       .then(e => assert(Array.isArray(e))),
       
-      ui.getEdition("English_Scrabble")
+      ui.promiseEdition("English_Scrabble")
       .then(e => assert.equal(e.swapCount, 7))
     ])
     .then(() => server.wait());

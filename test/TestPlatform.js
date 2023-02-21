@@ -13,6 +13,8 @@
 /* global DOM */
 
 import chai from "chai";
+import { CBOR } from "../src/game/CBOR.js";
+
 const assert = chai.assert;
 
 // Non-persistent database in memory (not even LocalStorage)
@@ -93,18 +95,20 @@ function setup$(url, html) {
     // import() won't re-run side-effecting dependencies such as
     // jquery so have to re-use the existing document. WARNING:
     // subtle bugs may lie ahead! :-(
+    //console.debug("$RECONFIGURE", url);
     DOM.reconfigure({ url: url });
     if (html) {
-      $("head").empty();
+      $("head").html("");
       return Fs.readFile(html)
       .then(buf => {
         // Only the body, ignore the head
-        const html = buf.toString();
-        $("body").html(html.replace(/.*<body[^>]*>(.*)<\/body>.*/, "$1"));
+        const html = buf.toString().replace(/.*<body[^>]*>(.*)<\/body>.*/, "$1");
+        //console.debug("$HTML", html.length);
+        $("body").html(html);
       });
     } else {
-      $("head").empty();
-      $("body").empty();
+      $("head").html("");
+      $("body").html("");
       return Promise.resolve();
     }
   }
@@ -176,7 +180,7 @@ function getTestGame(name, Class) {
       dir: `${__dirname}/data`, ext: "game"
     });
     return db.get(name)
-    .then(data => Class.fromCBOR(data, Class.CLASSES))
+    .then(data => CBOR.decode(data, Class.CLASSES))
     .then(game => game.onLoad(new MemoryDatabase()));
   });
 }
@@ -197,6 +201,15 @@ class StubServer {
    */
   constructor(expects) {
     if (!expects) expects = {};
+    // Convert simple promises to { promise: count: }
+    for (const q in expects) {
+      if (expects[q] instanceof Promise) {
+        expects[q] = {
+          promise: expects[q],
+          count: 1
+        };
+      }
+    }
     this.$ajax = $.ajax;
     this.jQueryAjax = jQuery.ajax;
     this.expected = expects || {};
@@ -205,13 +218,26 @@ class StubServer {
     assert($.ajax);
     assert.equal(jQuery.ajax, $.ajax);
     $.ajax = (args) => {
-      //console.debug("AJAX", args);
       if (/^file:/.test(args.url)) {
         args.url = args.url.replace("file://", "");
       } else if (this.expected[args.url]) {
+        if (this.expected[args.url].count-- <= 0) {
+          console.error(args);
+          assert.fail(`Unexpected ${args.url}`);
+        }
+        console.debug("Expected", args.url);
+        if (this.expected[args.url].count > 0)
+          console.debug("\t", this.expected[args.url].count, "remain");
         this.received[args.url] = true;
-        return this.expected[args.url];
+        return this.expected[args.url].promise;
       }
+
+      // jquery ui tabs has a bug, this is the workaround
+      if (args.url === "")
+        return undefined;
+
+      //console.log("Fallback", args.url);
+      assert(args.url && args.url.length > 0, args.url);
       return $.when(
         Platform.readFile(args.url)
         .then(d => d.toString()));
@@ -244,15 +270,16 @@ class StubServer {
             console.debug(`Awaiting "${f}"`);
           }
         }
-        if (unsaw)
+        if (unsaw) {
           setTimeout(wait, 100);
-        else {
+        } else {
+          //console.debug("waits resolved");
           $.ajax = self.$ajax;
           assert($.ajax);
           assert.equal(jQuery.ajax, $.ajax);
           resolve();
         }
-      }, 1);
+      }, 50);
     });
   }
 }
@@ -264,24 +291,51 @@ class StubServer {
  * @param {boolean} debug to enable debug in jQuery.i18n
  */
 function setupI18n(lang, debug) {
+    
   if (!lang) lang = "en";
-  return Promise.all([
-    import("@wikimedia/jquery.i18n/src/jquery.i18n.js"),
-    import("@wikimedia/jquery.i18n/src/jquery.i18n.language.js"),
-    import("@wikimedia/jquery.i18n/src/jquery.i18n.messagestore.js"),
-    import("@wikimedia/jquery.i18n/src/jquery.i18n.parser.js"),
-    import("@wikimedia/jquery.i18n/src/jquery.i18n.fallbacks.js"),
-    import("@wikimedia/jquery.i18n/src/jquery.i18n.emitter.js")
-  ])
+  return import("../src/common/i18n.js")
   .then(mods => {
     assert($.i18n);
-    $.i18n.debug = debug;
-    let url = `${import.meta.url}/../../i18n/${lang}.json`
-        .replace(/\/[^/]+\/\.\./g, "");
-    const params = {};
-    params[lang] = url;
-    return $.i18n({ locale: lang }).load(params);
+    return $.i18n.init(lang, console.debug);
+  })
+  .catch(e => {
+    console.error(e);
+    assert.fail(e);
   });
 };
 
-export { setupPlatform, setup$, StubServer, setupI18n, getTestGame, UNit }
+/**
+ * Wait for the given dialog id to appear in the DOM and be opened.
+ * @param {string} id id of the dialog e.g. "LoginDialog"
+ * @param {boolean?} debug debug messages
+ * @return {Promise} a promise that will resolve when the dialog
+ * has been seen and destroyed.
+ */
+function expectDialog(id, invoker, options) {
+  //assert.equal($(`#${id}`).length, 0);
+  if (!options) options = { autoclose: true };
+  function wfd(resolve) {
+    if ($(`#${id}`).length > 0 && $(`#${id}`).data("DIALOG_OPEN")) {
+      if (options.debug) console.debug("expectDialog SAW", id);
+      if (options.autoclose) {
+        if (options.debug) console.debug("expectDialog CLOSING", id);
+        $(`#${id}`).dialog("close")
+        .removeData("DIALOG_CREATED", true)
+        .dialog("destroy");
+      }
+      resolve();
+    } else
+      setTimeout(() => wfd(resolve), 250);     
+  }
+  if (options.debug) console.debug("WAITING FOR", id);
+  assert(!$(`#${id}`).data("DIALOG_OPEN"));
+  invoker();
+  return new Promise(resolve => wfd(resolve));
+}
+
+
+export {
+  setupPlatform, setup$, setupI18n,
+  expectDialog,
+  StubServer, getTestGame, UNit
+}

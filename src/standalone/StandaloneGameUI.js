@@ -15,6 +15,7 @@ import { BrowserGame } from "../browser/BrowserGame.js";
 import { UI } from "../browser/UI.js";
 import { GameUIMixin } from "../browser/GameUIMixin.js";
 import { StandaloneUIMixin } from "./StandaloneUIMixin.js";
+import { CBOR } from "../game/CBOR.js";
 
 /**
  * Game that runs solely in the browser (no server).
@@ -115,7 +116,7 @@ class StandaloneGameUI extends StandaloneUIMixin(GameUIMixin(UI)) {
 
     this.channel = fe;
 
-    return this.getDefaults("user")
+    return this.promiseDefaults("user")
     .then(() => this.initTheme())
     .then(() => this.initLocale())
     .then(() => {
@@ -126,7 +127,7 @@ class StandaloneGameUI extends StandaloneUIMixin(GameUIMixin(UI)) {
       if (this.args.game) {
         this.debug(`Loading game ${this.args.game} from local storage`);
         return this.db.get(this.args.game)
-        .then(d => Game.fromCBOR(d, BackendGame.CLASSES))
+        .then(d => CBOR.decode(d, BackendGame.CLASSES))
         .then(game => {
           this.backendGame = game;
           this.backendGame._debug = this.debug;
@@ -146,8 +147,9 @@ class StandaloneGameUI extends StandaloneUIMixin(GameUIMixin(UI)) {
 
       // Make a browser copy of the game
       this.frontendGame =
-      BrowserGame.fromCBOR(
-        Game.toCBOR(this.backendGame), BrowserGame.CLASSES);
+      CBOR.decode(
+        CBOR.encode(this.backendGame, Game.CLASSES),
+        BrowserGame.CLASSES);
 
       // Fix the player
       this.player

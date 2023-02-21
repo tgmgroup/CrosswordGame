@@ -9,6 +9,7 @@ import { MemoryDatabase } from "../MemoryDatabase.js";
 import { TestSocket } from "../TestSocket.js";
 import { Commands } from "../../src/game/Commands.js";
 import { Undo } from "../../src/game/Undo.js";
+import { CBOR } from "../../src/game/CBOR.js";
 import { Game as _Game } from "../../src/game/Game.js";
 const Game = Undo(Commands(_Game));
 Game.CLASSES.Game = Game;
@@ -98,18 +99,18 @@ describe("game/Undo", () => {
     .then(() => game.connect(frontend, human1.key))
     .then(() => {
       assert(game instanceof Game);
-      preswap = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES);
+      preswap = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES);
       assert(preswap instanceof Game);
     })
     .then(() => game.swap(human1, [ A, C, E ]))
     .then(() => frontend.wait())
     .then(() => {
-      const postswap = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES);
+      const postswap = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES);
       assert.deepEqual(postswap.board, preswap.board);
     })
     .then(() => game.undo(game.popTurn(), true))
     .then(() => {
-      const postundo = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES);
+      const postundo = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES);
       assert.deepEqual(postundo.board, preswap.board);
       assertGameEqual(postundo, preswap);
     });
@@ -159,12 +160,12 @@ describe("game/Undo", () => {
       game.whosTurnKey = human1.key;
     })
     .then(() => game.connect(socket, human1.key))
-    .then(() => prepass = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES))
+    .then(() => prepass = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES))
     .then(() => game.pass(human1, Game.Turns.PASSED))
     .then(() => game.undo(game.popTurn()))
     .then(() => socket.wait())
     .then(() => {
-      const postundo = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES);
+      const postundo = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES);
       assertGameEqual(postundo, prepass);
     });
   });
@@ -221,12 +222,12 @@ describe("game/Undo", () => {
       game.whosTurnKey = human1.key;
     })
     .then(() => game.connect(socket, human1.key))
-    .then(() => preplay = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES))
+    .then(() => preplay = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES))
     .then(() => game.play(human1, move))
     .then(() => game.undo(game.popTurn()))
     .then(() => socket.wait())
     .then(() => {
-      const postundo = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES);
+      const postundo = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES);
       assertGameEqual(postundo, preplay);
     });
   });
@@ -285,16 +286,16 @@ describe("game/Undo", () => {
       game.addPlayer(human2, true);
     })
     .then(() => game.connect(socket, human1.key))
-    .then(() => preplay = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES))
+    .then(() => preplay = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES))
     .then(() => game.play(human1, move))
-    .then(() => pretakeback = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES))
+    .then(() => pretakeback = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES))
     .then(() => game.takeBack(human1, Game.Turns.TOOK_BACK))
-    .then(() => posttakeback = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES))
+    .then(() => posttakeback = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES))
     .then(() => assertGameEqual(posttakeback, preplay, true))
     .then(() => game.undo(game.popTurn()))
     .then(() => socket.wait())
     .then(() => {
-      const postundo = Game.fromCBOR(Game.toCBOR(game), Game.CLASSES);
+      const postundo = CBOR.decode(CBOR.encode(game, Game.CLASSES), Game.CLASSES);
       assertGameEqual(postundo, pretakeback);
     });
   });

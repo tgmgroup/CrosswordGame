@@ -5,9 +5,10 @@
 /* global Platform */
 
 import { assert } from "chai";
-import { setupPlatform, setup$, StubServer, getTestGame } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n, StubServer, getTestGame } from "../TestPlatform.js";
 import { TestSocket } from "../TestSocket.js";
 import { Game } from "../../src/game/Game.js";
+import { CBOR } from "../../src/game/CBOR.js";
 
 describe("client/ClientGameUI", () => {
 
@@ -55,6 +56,7 @@ describe("client/ClientGameUI", () => {
     .then(() => setup$(
       `${import.meta.url}/../../html/client_game.html?game=unfinished_game`,
       Platform.getFilePath("/html/client_game.html")))
+    .then(() => setupI18n())
     // UI imports jquery.i18n which requires jquery, so have
     // to delay the import
     .then(() => import("../../src/client/ClientGameUI.js"))
@@ -69,18 +71,24 @@ describe("client/ClientGameUI", () => {
   });
 
   beforeEach(() => {
-    $("head").empty();
-    $("body").empty();
+    $("head").html("");
+    $("body").html("");
   });
 
   it("handlers", () => {
     const server = new StubServer({
-      "/session": Promise.resolve(session),
+      "/session": {
+        promise: Promise.resolve(session),
+        count: 2
+      },
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
       "/defaults/game": Promise.resolve(GAME_DEFAULTS),
-      "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json")),
+      "/locales": {
+        promise: Platform.readFile(Platform.getFilePath("/i18n/index.json")),
+        count: 1
+      },
       "/game/unfinished_game": getTestGame("unfinished_game", Game)
-      .then(game => Game.toCBOR(game))
+      .then(game => CBOR.encode(game, Game.CLASSES))
     });
     const ui = new ClientGameUI();
     ui.session = session;

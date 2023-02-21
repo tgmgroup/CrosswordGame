@@ -9,9 +9,10 @@
 import { BrowserPlatform } from "../browser/BrowserPlatform.js";
 window.Platform = BrowserPlatform;
 
-import "jquery/dist/jquery.js";
-import "jquery-ui/dist/jquery-ui.js";
+import "jquery";
+import "jquery-ui";
 
+import { CBOR } from "../game/CBOR.js";
 import { Game } from "../game/Game.js";
 import { UI } from "../browser/UI.js";
 import { GamesUIMixin } from "../browser/GamesUIMixin.js";
@@ -105,7 +106,7 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
     // Load those games
     .then(keys => Promise.all(
       keys.map(key => this.db.get(key)
-               .then(d => Game.fromCBOR(d, Game.CLASSES))
+               .then(d => CBOR.decode(d, Game.CLASSES))
                .catch(e => {
                  console.error(e.message);
                  return undefined;
@@ -128,7 +129,7 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
    */
   getGame(key) {
     return this.db.get(key)
-    .then(d => Game.fromCBOR(d, Game.CLASSES))
+    .then(d => CBOR.decode(d, Game.CLASSES))
     .then(game => game.onLoad(this.db));
   }
 
@@ -150,7 +151,7 @@ class StandaloneGamesUI extends StandaloneUIMixin(GamesUIMixin(UI)) {
     return this.db.keys()
     .then(keys => Promise.all(
       keys.map(key => this.db.get(key)
-               .then(d => Game.fromCBOR(d, Game.CLASSES))
+               .then(d => CBOR.decode(d, Game.CLASSES))
                .catch(() => undefined))))
     .then(games => games.filter(g => g && g.hasEnded()))
     .then(games => Promise.all(games.map(game => game.onLoad(this.db))))

@@ -39,8 +39,8 @@
 		"@cdot/cbor": "^1.0.5",
 		"@cdot/dictionary": "^1.0.2",
 		"@rwap/jquery-ui-touch-punch": "^1.0.11",
-		"@wikimedia/jquery.i18n": "^1.0.7",
 		"async-lock": "^1.4.0",
+		"banana-i18n": "^2.3.3",
 		"bcrypt": "^5.1.0",
 		"express": "^4.18.2",
 		"express-session": "^1.17.3",
@@ -59,6 +59,7 @@
 		"web-worker": "^1.2.0"
 	},
 	"devDependencies": {
+		"@fast-csv/format": "^4.3.5",
 		"c8": "^7.12.0",
 		"chai": "^4.3.7",
 		"chai-http": "^4.3.0",
@@ -66,7 +67,6 @@
 		"docdash": "^2.0.1",
 		"eslint": "^8.33.0",
 		"eslint-plugin-import": "^2.27.5",
-		"@fast-csv/format": "^4.3.5",
 		"html-loader": "^4.2.0",
 		"jsdoc": "^4.0.0",
 		"jsdom": "^21.1.0",
@@ -79,7 +79,8 @@
 		"webpack-cli": "^5.0.1"
 	},
 	"scripts": {
-		"build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
+		"build": "rm -rf dist/*; node bin/update-indexes.js; export NODE_ENV=production; webpack -c build/wp_sa_games.js; webpack -c build/wp_sa_game.js; webpack -c build/wp_cl_games.js; webpack -c build/wp_cl_game.js",
+		"debug_build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
 		"server": "node bin/server.js",
 		"start": "node bin/server.js",
 		"debug": "node bin/server.js --config config.json --debug all",

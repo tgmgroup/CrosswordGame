@@ -12,6 +12,7 @@ import Worker from "web-worker";
 /* eslint-enable */
 
 import { BackendGame } from "./BackendGame.js";
+import { CBOR } from "../game/CBOR.js";
 
 /** @module */
 
@@ -39,7 +40,7 @@ function findBestPlay(
 
     // Pass worker messages on to listener
     worker.addEventListener("message", data => {
-      const mess = BackendGame.fromCBOR(data.data, BackendGame.CLASSES);
+      const mess = CBOR.decode(data.data, BackendGame.CLASSES);
       switch (mess.type) {
       case "play":
         listener(mess.data);
@@ -61,12 +62,12 @@ function findBestPlay(
     });
     /* c8 ignore stop */
 
-    worker.postMessage(BackendGame.toCBOR({
+    worker.postMessage(CBOR.encode({
       Platform: Platform.name,
       game: game,
       rack: letters,
       dictionary: dictionary
-    }));
+    }, BackendGame.CLASSES));
   });
 }
 

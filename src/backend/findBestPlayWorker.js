@@ -9,6 +9,7 @@
 /* global global */
 
 import { BackendGame } from "./BackendGame.js";
+import { CBOR } from "../game/CBOR.js";
 import { findBestPlay } from "../game/findBestPlay.js";
 
 /**
@@ -20,20 +21,19 @@ import { findBestPlay } from "../game/findBestPlay.js";
 
 function send(type, data) {
   postMessage(
-    BackendGame.toCBOR({ type: type, data: data }));
+    CBOR.encode({ type: type, data: data }, BackendGame.CLASSES));
 }
 
 addEventListener("message", event => {
-  const info = BackendGame.fromCBOR(event.data, BackendGame.CLASSES);
-  const platf = info.Platform == "ServerPlatform"
-        ? "../server/ServerPlatform.js"
-        : "../browser/BrowserPlatform.js";
-  import(platf)
-  .then(mod => {
-    if (typeof global === "undefined")
-      window.Platform = mod[info.Platform];
-    else
-      global.Platform = mod[info.Platform];
+  const info = CBOR.decode(event.data, BackendGame.CLASSES);
+  /* Note: ServerPlatform.js is excluded from webpacking in webpack_config.js */
+  const plaf = info.Platform == "ServerPlatform"
+        ? import("../server/ServerPlatform.js")
+        .then(mod => global.Platform = mod.ServerPlatform)
+        : import("../browser/BrowserPlatform.js")
+        .then(mod => window.Platform = mod.BrowserPlatform);
+  plaf
+  .then(() => {
     findBestPlay(
       info.game, info.rack,
       bestPlay => send("play", bestPlay),

@@ -3,7 +3,7 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupPlatform, setup$ } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n } from "../TestPlatform.js";
 import { Game } from "../../src/game/Game.js";
 import { Player } from "../../src/game/Player.js";
 
@@ -16,6 +16,7 @@ describe("standalone/StandaloneGamesUI", () => {
     .then(() => setup$(
       `${import.meta.url}/../../html/standalone_games.html`,
       Platform.getFilePath("/html/standalone_games.html")))
+    .then(() => setupI18n())
     // UI imports jquery.i18n which requires jquery, so have
     // to delay the import
     .then(() => import("../../src/standalone/StandaloneGamesUI.js"))

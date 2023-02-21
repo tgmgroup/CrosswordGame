@@ -37,9 +37,9 @@ describe("browser/GameSetupDialog", () => {
         if (s === "canEmail") return false;
         return BrowserGame.DEFAULTS[s];
       },
-      getEditions: () => Promise.resolve([ "Test", "Divide" ]),
-      getDictionaries: () => Promise.resolve([ "Jurassic", "Devonian" ]),
-      getDefaults: type => Promise.resolve(
+      promiseEditions: () => Promise.resolve([ "Test", "Divide" ]),
+      promiseDictionaries: () => Promise.resolve([ "Jurassic", "Devonian" ]),
+      promiseDefaults: type => Promise.resolve(
         (type === "game")
         ? {
 	        edition: "Test",

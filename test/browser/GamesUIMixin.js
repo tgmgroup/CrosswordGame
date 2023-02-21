@@ -30,7 +30,7 @@ describe("browser/GamesUIMixin", () => {
         getHistory(){
           return Promise.resolve(gamesHistory);
         }
-        getLocales() {
+        promiseLocales() {
           return Promise.resolve([ "en" ]);
         }
         getGame(key) {

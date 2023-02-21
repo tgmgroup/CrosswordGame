@@ -3,6 +3,7 @@ client_secret*
 config.json
 coverage
 doc
+dist
 games/*.game
 https.*
 node_modules

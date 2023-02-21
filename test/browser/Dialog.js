@@ -3,7 +3,8 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupPlatform, setup$, setupI18n, StubServer } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n,
+         expectDialog, StubServer } from "../TestPlatform.js";
 import { Dialog } from "../../src/browser/Dialog.js";
 
 describe("browser/Dialog", () => {
@@ -30,18 +31,27 @@ describe("browser/Dialog", () => {
   });
 
   it("onSubmit", () => {
+    let dlg;
     return new Promise(resolve => {
-      const dlg = new Dialog("test_dialog", {
+      dlg = new Dialog("test_dialog", {
         title: "Test dialog",
         onSubmit: (dlg, vals) => {
+          assert(dlg.$dlg.data("DIALOG_CREATED"));
+          assert(dlg.$dlg.data("DIALOG_OPEN"));
           assert.deepEqual(vals, { '1': '1', '2': false, '3': 'only' });
           resolve();
         },
         onReady: dlg => {
-          $("#submit").trigger("click");
+          assert(dlg.$dlg.data("DIALOG_OPEN"));
+          $(".submit", dlg.$dlg).trigger("click");
         },
         error: e => assert.fail(e)
       });
+    })
+    .then(() => {
+      assert(!dlg.$dlg.data("DIALOG_OPEN"));
+      dlg.$dlg.removeData("DIALOG_CREATED");
+      dlg.$dlg.dialog("destroy");
     });
   });
 

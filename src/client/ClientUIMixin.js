@@ -5,17 +5,19 @@
 
 // The documented method for importing socket.io in ESM is:
 // import { io } from "../../node_modules/socket.io/client-dist/socket.io.esm.min.js";
-// This works fine in the unpacked version, but fails when webpacked.
+// This works fine in the unpacked version, but fails when webpacked. The
+// only way I could get it to work was to import from 
+// ../node_modules/socket.io/client-dist/socket.io.js
+// and detect whether "io" has been defined.
 //
-// The following clumsy hack is the only way I could get it to work in both
-// the unpacked and packed versions. If someone can do better, please do!
+// If someone else can do better, please do!
 /* global io */
-import * as SI from "../../node_modules/socket.io/client-dist/socket.io.js";
+import * as SI from "socket.io";
 if (typeof io === "undefined")
   window.io = SI.io;
 
-import "jquery/dist/jquery.js";
-import "jquery-ui/dist/jquery-ui.js";
+import "jquery";
+import "jquery-ui";
 
 import { Game } from "../game/Game.js";
 import { Tile } from "../game/Tile.js";
@@ -47,7 +49,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof client/ClientUIMixin
    * @instance
    */
-  getDefaults(type) {
+  promiseDefaults(type) {
     if (this.defaults[type])
       return this.defaults[type];
     return $.get(`/defaults/${type}`)
@@ -59,7 +61,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof client/ClientUIMixin
    * @instance
    */
-  getLocales() {
+  promiseLocales() {
     return $.get("/locales");
   }
 
@@ -69,7 +71,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof CientUIMixin
    * @override
    */
-  getCSS() {
+  promiseCSS() {
     return $.get("/css");
   }
 
@@ -154,15 +156,15 @@ const ClientUIMixin = superclass => class extends superclass {
     this.debug("Creating ClientUIMixin");
     // Set up translations and connect to channels
     return Promise.all([
-      this.getDefaults("user"),
-      this.getDefaults("game")
+      this.promiseDefaults("user"),
+      this.promiseDefaults("game")
     ])
     .then(() => {
       this.args = UI.parseURLArguments(document.URL);
       if (this.args.debug)
         this.debug = console.debug;
     })
-    .then(() => this.getSession())
+    .then(() => this.promiseSession())
     .catch(e => {
       console.error(e);
       this.observer = (this.args && this.args.observer ? this.args.observer : "Anonymous");
@@ -263,7 +265,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof client/ClientUIMixin
    * @override
    */
-  getEditions() {
+  promiseEditions() {
     return $.get(`/editions`);
   }
 
@@ -273,7 +275,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof client/ClientUIMixin
    * @override
    */
-  getEdition(ed) {
+  promiseEdition(ed) {
     return $.get(`/edition/${ed}`);
   }
 
@@ -283,7 +285,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * @memberof client/ClientUIMixin
    * @override
    */
-  getDictionaries() {
+  promiseDictionaries() {
     return $.get(`/dictionaries`);
   }
 
@@ -297,7 +299,7 @@ const ClientUIMixin = superclass => class extends superclass {
    * session object if someone is signed in, or undefined otherwise.
    * @throws Error if there is no active session
    */
-  getSession() {
+  promiseSession() {
     $(".signed-in,.not-signed-in").hide();
     return $.get("/session")
     .then(session => {// getting here with a 401 :-(

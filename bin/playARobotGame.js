@@ -8,6 +8,7 @@
  */
 import { MemoryDatabase } from "../test/MemoryDatabase.js";
 import { Edition } from "../src/game/Edition.js";
+import { CBOR } from "../src/game/CBOR.js";
 import { Game } from "../src/game/Game.js";
 
 const Tile = Game.CLASSES.Tile;
@@ -43,7 +44,7 @@ game.create()
   let finished = false;
   while (!finished) {
     await db.get(gameKey)
-    .then(d => Game.fromCBOR(d, Game.CLASSES))
+    .then(d => CBOR.decode(d, Game.CLASSES))
     .then(game => game.onLoad(db))
     .then(game => {
       return game.autoplay()

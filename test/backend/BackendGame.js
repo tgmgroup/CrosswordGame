@@ -8,6 +8,7 @@ import { MemoryDatabase } from "../MemoryDatabase.js";
 import sparseEqual from "../sparseEqual.js";
 import { setupPlatform, getTestGame } from "../TestPlatform.js";
 
+import { CBOR } from "../../src/game/CBOR.js";
 import { Game } from "../../src/game/Game.js";
 Game.USE_WORKERS = true;
 
@@ -214,7 +215,7 @@ describe("backend/BackendGame", () => {
       dir: "test/data", ext: "game"
     })
     .get("unfinished_game")
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, BackendGame.CLASSES))
 		.then(g => game = g)
 		.then(() => game.onLoad(db))
     .then(() => {
@@ -263,7 +264,7 @@ describe("backend/BackendGame", () => {
 
     // newgame should have been saved. Reload.
     .then(() => db.get(game.nextGameKey))
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, BackendGame.CLASSES))
     .then(g => reload = g)
 		.then(() => reload.onLoad(db))
     .then(() => {
@@ -316,7 +317,7 @@ describe("backend/BackendGame", () => {
       dir: "test/data", ext: "game"
     });
 		return db.get("unfinished_game")
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, BackendGame.CLASSES))
 		.then(g => game = g)
     //.then(() => game._debug = console.debug)
 		.then(() => game.onLoad(db))
@@ -341,7 +342,7 @@ describe("backend/BackendGame", () => {
       dir: "test/data", ext: "game"
     });
 		return db.get("unfinished_game")
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, BackendGame.CLASSES))
 		.then(g => game = g)
     .then(() => game.onLoad(new MemoryDatabase()))
 		.then(() => game.anotherGame("human"))
@@ -356,7 +357,7 @@ describe("backend/BackendGame", () => {
       players.push(new Player( {key: i}, BackendGame.CLASSES));
 		const db = new FileDatabase({dir: "test/data", ext: "game" });
 		return db.get("unfinished_game")
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, BackendGame.CLASSES))
 		.then(g => game = g)
     .then(() => game.onLoad(new MemoryDatabase()))
     .then(() => {

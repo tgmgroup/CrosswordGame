@@ -46,7 +46,7 @@ const Commands = superclass => class extends superclass {
       // synchronously before we start modifying the board
       // state.
       let badWords = [];
-      await this.getDictionary()
+      await this.promiseDictionary()
       .then(dict => {
         for (let w of move.words) {
           if (!dict.hasWord(w.word))
@@ -91,7 +91,7 @@ const Commands = superclass => class extends superclass {
         && !player.isRobot) {
       // Asynchronously check word and notify player if it
       // isn't found.
-      this.getDictionary()
+      this.promiseDictionary()
       .then(dict => {
         if (move.words) {
           for (let w of move.words) {
@@ -384,7 +384,7 @@ const Commands = superclass => class extends superclass {
     assert(challenged.key === previousMove.playerKey,
            "Last player challenge mismatch");
 
-    return this.getDictionary()
+    return this.promiseDictionary()
     /* c8 ignore start */
     .catch(
       () => {
@@ -757,7 +757,7 @@ const Commands = superclass => class extends superclass {
    */
   allow(player, word) {
     word = word.toUpperCase();
-    this.getDictionary()
+    this.promiseDictionary()
     .then(dict => {
       if (dict.addWord(word)) {
         this.notifyAll(

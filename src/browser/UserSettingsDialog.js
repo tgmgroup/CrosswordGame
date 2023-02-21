@@ -23,7 +23,7 @@ class UserSettingsDialog extends Dialog {
   createDialog() {
     return super.createDialog()
     .then(() => {
-      const curlan = $.i18n().locale;
+      const curlan = $.i18n.locale();
       //console.log("Curlan",curlan);
 
       const ui = this.options.ui;
@@ -31,7 +31,7 @@ class UserSettingsDialog extends Dialog {
       const $jqt = this.$dlg.find("[name=jqTheme]");
       const $locale = this.$dlg.find('[name=language]');
 
-      return Promise.all([ ui.getCSS(), ui.getLocales() ])
+      return Promise.all([ ui.promiseCSS(), ui.promiseLocales() ])
       .then(all => {
         all[0].forEach(css => $css.append(`<option>${css}</option>`));
         all[1]

@@ -537,6 +537,15 @@ function find(rack) {
 
 /**
  * Given a user's letter rack, compute the best possible move.
+ *
+ * Inspired by the work of
+ * [Elijah Sawyers](https://raw.githubusercontent.com/elijahsawyers/WordsWithFriendsHelper)
+ * (which is in turn based on the
+ * [work of Andrew W. Appel and Guy J. Jacobson](https://www.cs.cmu.edu/afs/cs/academic/class/15451-s06/www/lectures/scrabble.pdf)).
+ * The player is stupid, simply selecting the highest scoring play it can
+ * in the time allowed for its move. However this is more than enough to
+ * beat most human players.
+ *
  * @param {BackendGame} game the Game
  * @param {Tile[]} rack rack in the form of a simple list of Tile
  * @param {function} listener Function that is called with a Move each time

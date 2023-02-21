@@ -5,9 +5,9 @@
 
 /* global assert */
 
-import "jquery/dist/jquery.js";
-import "jquery-ui/dist/jquery-ui.js";
-import "@rwap/jquery-ui-touch-punch/jquery.ui.touch-punch.js";
+import "jquery";
+import "jquery-ui";
+
 //import { Platform } from "../common/Platform.js";
 
 /* c8 ignore start */

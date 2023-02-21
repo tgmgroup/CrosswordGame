@@ -86,8 +86,8 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
   /**
    * @override
    */
-  getSession() {
-    return super.getSession()
+  promiseSession() {
+    return super.promiseSession()
     .then(session => {
       $("#create-game").show();
       $("#chpw_button").toggle(session.provider === "xanado");
@@ -105,7 +105,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
   refresh() {
     return Promise.all([
       super.refresh(),
-      this.getSession()
+      this.promiseSession()
     ]);
   }
 
@@ -358,7 +358,7 @@ class ClientGamesUI extends ClientUIMixin(GamesUIMixin(UI)) {
 
   create() {
     return super.create()
-    .then(() => this.getSession())
+    .then(() => this.promiseSession())
     .then(() => this.refreshGames());
   }
 }

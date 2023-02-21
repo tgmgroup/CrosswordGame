@@ -181,6 +181,8 @@ can be any big list of words, or it can simply be a lexicon). Run the program
 `node bin/valett.js` for help.
 
 ### Dictionary
+Dictionary support is based on [Daniel Weck's](https://github.com/danielweck/scrabble-html-ui) work. XANADO dictionaries work both on the server and also in the browser.
+
 Dictionaries are stored in the `dictionaries` directory and are generated
 from a lexicon (list of words in a big text file). To build a new dictionary,
 follow the instructions given when you run:

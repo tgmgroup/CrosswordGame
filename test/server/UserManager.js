@@ -21,6 +21,7 @@ import { UserManager } from "../../src/server/UserManager.js";
 describe("server/UserManager", () => {
 
   const config = {
+    //debug: "server",
     auth: {
       "db_file" : "delayed"
     },
@@ -39,8 +40,7 @@ describe("server/UserManager", () => {
     },
     user_defaults: {
       theme: "default"
-    },
-    debug: "server"
+    }
   };
 
   beforeEach(

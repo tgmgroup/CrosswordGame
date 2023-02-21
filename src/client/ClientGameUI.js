@@ -10,6 +10,7 @@ window.Platform = BrowserPlatform;
 
 import "../browser/icon_button.js";
 
+import { CBOR } from "../game/CBOR.js";
 import { BrowserGame } from "../browser/BrowserGame.js";
 import { UI } from "../browser/UI.js";
 import { GameUIMixin } from "../browser/GameUIMixin.js";
@@ -34,7 +35,7 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
    */
   identifyPlayer(game) {
     $(".bad-user").hide();
-    return this.getSession()
+    return this.promiseSession()
     .then(session => {
       // Find if they are a player
       this.player = game.getPlayerWithKey(session.key);
@@ -83,7 +84,7 @@ class ClientGameUI extends ClientUIMixin(GameUIMixin(UI)) {
       .then(data => {
         this.debug(`--> Game ${gameKey}`);
         data = new Uint8Array(data);
-        return BrowserGame.fromCBOR(data, BrowserGame.CLASSES);
+        return CBOR.decode(data, BrowserGame.CLASSES);
       })
       .then(game => {
         return this.identifyPlayer(game)

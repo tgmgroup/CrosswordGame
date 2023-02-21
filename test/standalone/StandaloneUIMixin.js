@@ -3,7 +3,7 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupPlatform, setup$, StubServer } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n, StubServer } from "../TestPlatform.js";
 import { BackendGame} from "../../src/backend/BackendGame.js";
 
 /* global Platform */
@@ -19,6 +19,7 @@ describe("standalone/StandaloneUIMixin", () => {
     () => setupPlatform()
     .then(() => setup$(
       `${import.meta.url}/../../html/standalone_games.html?arg=1`))
+    .then(() => setupI18n())
     .then(() => import("../../src/standalone/StandaloneUIMixin.js"))
     .then(mod => {
       StandaloneUIMixin = mod.StandaloneUIMixin;
@@ -48,13 +49,13 @@ describe("standalone/StandaloneUIMixin", () => {
     const ui = new Test();
 
     ui.session = "session";
-    return ui.getSession()
+    return ui.promiseSession()
     .then(sess => assert.equal(sess, "session"));
   });
 
   it("get/set setting", () => {
     const ui = new Test();
-    return ui.getDefaults("game")
+    return ui.promiseDefaults("game")
     .then(settings => {
       assert.deepEqual(settings, BackendGame.DEFAULTS);
 
@@ -68,29 +69,29 @@ describe("standalone/StandaloneUIMixin", () => {
   it("get...", () => {
     const ui = new Test();
     return Promise.all([
-      ui.getCSS(),
+      ui.promiseCSS(),
       Platform.readFile(Platform.getFilePath(`css/index.json`))])
     .then(data => assert.deepEqual(data[0], data[1]))
 
     .then(() => Promise.all([
-      ui.getLocales(),
+      ui.promiseLocales(),
       Platform.readFile(Platform.getFilePath(`i18n/index.json`))
     ]))
     .then(data => assert.deepEqual(data[0], data[1]))
 
     .then(() => Promise.all([
-      ui.getEditions(),
+      ui.promiseEditions(),
       Platform.readFile(Platform.getFilePath(`editions/index.json`))
     ]))
     .then(data => assert.deepEqual(data[0], data[1]))
 
     .then(() => Promise.all([
-      ui.getDictionaries(),
+      ui.promiseDictionaries(),
       Platform.readFile(Platform.getFilePath(`dictionaries/index.json`))
     ]))
     .then(data => assert.deepEqual(data[0], data[1]))
 
-    .then(() => ui.getEdition("English_Scrabble"))
+    .then(() => ui.promiseEdition("English_Scrabble"))
     .then(ed => assert.equal(ed.name, "English_Scrabble"));
   });
 

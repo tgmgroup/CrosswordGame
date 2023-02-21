@@ -8,7 +8,9 @@
 import { promises as Fs } from "fs";
 
 import { assert } from "chai";
-import { setupPlatform, setup$, getTestGame, StubServer, UNit } from "../TestPlatform.js";
+import { setupPlatform, setup$, setupI18n,
+         expectDialog,
+         getTestGame, StubServer, UNit } from "../TestPlatform.js";
 import { TestSocket } from "../TestSocket.js";
 import { Game } from "../../src/game/Game.js";
 
@@ -51,6 +53,7 @@ describe("client/ClientGamesUI", () => {
     .then(() => setup$(
       `${import.meta.url}/../../html/client_games.html`,
       Platform.getFilePath("/html/client_games.html")))
+    .then(() => setupI18n())
     // UI imports jquery.i18n which requires jquery, so have
     // to delay the import
     .then(() => import("../../src/client/ClientGamesUI.js"))
@@ -71,10 +74,16 @@ describe("client/ClientGamesUI", () => {
     const server = new StubServer({
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
       "/defaults/game": Promise.resolve(GAME_DEFAULTS),
-      "/session": Promise.resolve(session),
+      "/session":  {
+        promise: Promise.resolve(session),
+        count: 2
+      },
       "/sendReminder/*": Promise.resolve([ "anon", "anon@anon.gov.us" ]),
       "/signout": Promise.resolve(),
-      "/locales": Platform.readFile(Platform.getFilePath("/i18n/index.json")),
+      "/locales": {
+        promise: Platform.readFile(Platform.getFilePath("/i18n/index.json")),
+        count: 2
+      },
       "/games/active": Promise.resolve([]),
       "/history": Promise.resolve([]),
       "/css": Platform.readFile(Platform.getFilePath("/css/index.json")),
@@ -89,18 +98,33 @@ describe("client/ClientGamesUI", () => {
     ui.channel = new TestSocket("client");
 
     return ui.create()
+    .then(() => expectDialog(
+      "LoginDialog",
+      () => {
+        assert($("#signin-button").length === 1);
+        $("#signin-button").trigger("click");
+      }, { debug: true }))
     .then(() => {
-      $("#signin-button").trigger("click");
+      console.debug("Logged in");
       $("#signout-button").trigger("click");
-      $("#personaliseButton").trigger("click");
+    })
+    .then(() => expectDialog(
+      "UserSettingsDialog",
+      () => $("#personaliseButton").trigger("click")))
+    .then(() => {
+      console.debug("USD done");
+      return expectDialog(
+        "GameSetupDialog",
+        () => $("#create-game").trigger("click"));
+    })
+    .then(() => {
       $("#reminders-button").trigger("click");
       $("#chpw-button").trigger("click");
-      $("#create-game").trigger("click");
     })
     .then(() => server.wait());
   });
 
-  it("gameOptions", () => {
+  UNit("gameOptions", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
@@ -114,10 +138,10 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.gameOptions(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("joinGame", () => {
+  UNit("joinGame", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
@@ -134,10 +158,10 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.joinGame(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("addRobot", () => {
+  UNit("addRobot", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
@@ -153,10 +177,10 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.addRobot(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("invitePlayers", () => {
+  UNit("invitePlayers", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
@@ -171,10 +195,10 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.invitePlayers(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("anotherGame", () => {
+  UNit("anotherGame", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
@@ -189,10 +213,10 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.anotherGame(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("deleteGame", () => {
+  UNit("deleteGame", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
@@ -207,12 +231,12 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.deleteGame(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("observe", () => {
+  UNit("observe", () => {
     const server = new StubServer({
-      "/session": Promise.resolve(session),
+      "/session": { promise: Promise.resolve(session), count: 1 },
       "/defaults/user": Promise.resolve(USER_DEFAULTS),
       "/defaults/game": Promise.resolve(GAME_DEFAULTS),
       "/games/active": Promise.resolve([]),
@@ -224,10 +248,10 @@ describe("client/ClientGamesUI", () => {
     return ui.create()
     .then(() => getTestGame("unfinished_game", Game))
     .then(game => ui.observe(game))
-    .then(() => server.wait());
+    .then(() => server.waUNit());
   });
 
-  it("readyToListen", () => {
+  UNit("readyToListen", () => {
     const server = new StubServer({
       "/session": Promise.resolve(session),
       "/defaults/user": Promise.resolve(USER_DEFAULTS),

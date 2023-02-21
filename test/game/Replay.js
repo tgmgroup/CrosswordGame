@@ -80,8 +80,8 @@ describe("game/Replay", () => {
     assert.equal(letters.flat().sort().join(""), preBag);
   }
 
-  function getEditionBag(game) {
-    return game.getEdition()
+  function promiseEditionBag(game) {
+    return game.promiseEdition()
     .then(edo => {
       const preBag = [];
       for (const l of edo.bag) {
@@ -220,7 +220,7 @@ describe("game/Replay", () => {
     return getTestGame("good_game", Game)
     .then(g => {
       preGame = g;
-      return getEditionBag(preGame);
+      return promiseEditionBag(preGame);
     })
     .then(pb => {
       preBag = pb;
@@ -250,7 +250,7 @@ describe("game/Replay", () => {
     return getTestGame("kolano", Game)
     .then(g => {
       preGame = g;
-      return getEditionBag(preGame);
+      return promiseEditionBag(preGame);
     })
     .then(pb => {
       preBag = pb;
@@ -284,7 +284,7 @@ describe("game/Replay", () => {
     return getTestGame("8-letter-rack", Game)
     .then(g => {
       preGame = g;
-      return getEditionBag(preGame);
+      return promiseEditionBag(preGame);
     })
     .then(pb => {
       preBag = pb;

@@ -5,6 +5,7 @@
 
 /* global assert */
 /* global Platform */
+/* global DISTRIBUTION */
 
 import URL from 'url';
 
@@ -16,6 +17,8 @@ const staticRoot = Path.normalize(Path.join(__dirname, "..", ".."));
 import Cors from "cors";
 import Express from "express";
 
+import { CBOR } from "../game/CBOR.js";
+import { Game } from "../game/Game.js";
 import { Edition } from "../game/Edition.js";
 import { BackendGame } from "../backend/BackendGame.js";
 import { FileDatabase } from "./FileDatabase.js";
@@ -197,7 +200,8 @@ class Server {
       "/",
       (req, res) => res.sendFile(
         Path.join(staticRoot,
-                  this.debug ? "html" : "dist",
+                  (typeof DISTRIBUTION !== "undefined" && DISTRIBUTION)
+                  ? "dist" : "html",
                   "client_games.html")));
 
     cmdRouter.get(
@@ -329,7 +333,7 @@ class Server {
       return Promise.resolve(this.games[key]);
 
     return this.db.get(key)
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, BackendGame.CLASSES))
     .then(game => game.onLoad(this.db))
     .then(game => game.checkAge(this.config.maxAge))
     .then(game => {
@@ -817,7 +821,7 @@ class Server {
       key => (this.games[key]
               ? Promise.resolve(this.games[key])
               : this.db.get(key)
-              .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES)))
+              .then(d => CBOR.decode(d, BackendGame.CLASSES)))
       .then(game => {
         game.checkAge(this.config.maxAge);
         if (game.hasEnded())
@@ -894,7 +898,9 @@ class Server {
       }
 
       // Work out the URL for the game interface
-      const dir = this.debug ? 'html' : 'dist';
+      const dir = (typeof DISTRIBUTION !== "undefined" && DISTRIBUTION)
+            ? "dist"
+            : "html";
       const url = URL.format({
         protocol: req.protocol,
         host: req.get('Host'),
@@ -1050,11 +1056,11 @@ class Server {
   GET_game(req, res) {
     const gameKey = req.params.gameKey;
     return this.db.get(gameKey)
-    .then(d => BackendGame.fromCBOR(d, BackendGame.CLASSES))
+    .then(d => CBOR.decode(d, Game.CLASSES))
     .catch(e => replyAndThrow(res, 400, `Game ${gameKey} load failed`, e))
     .then(game => {
       res.status(200);
-      res.write(BackendGame.toCBOR(game), "binary");
+      res.write(CBOR.encode(game, BackendGame.CLASSES), "binary");
       res.end(null, "binary");
     });
   }

@@ -109,7 +109,7 @@ class GameSetupDialog extends Dialog {
 
       const ui = this.options.ui;
       return Promise.all([
-        ui.getEditions()
+        ui.promiseEditions()
         .then(editions => {
           const $eds = this.$dlg.find("[name=edition]");
           editions.forEach(e => $eds.append(`<option>${e}</option>`));
@@ -118,7 +118,7 @@ class GameSetupDialog extends Dialog {
             $eds.selectmenu("refresh");
           }
         }),
-        ui.getDictionaries()
+        ui.promiseDictionaries()
         .then(dictionaries => {
           const $dics = this.$dlg.find("[name=dictionary]");
           dictionaries

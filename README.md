@@ -1,3 +1,5 @@
+# XANADO
+
 ## Multiplayer word grid game Server and Web Interface
 
 Play a variety of SCRABBLE®-like games against the computer, or host
@@ -6,10 +8,19 @@ your own web server to play games against friends and family.
 Includes tile sets for many languages, and dictionaries in English,
 French, German, and Catalan, and it's easy to add more.
 <p style="text-align:center;">
-	<img src="/images/splash.png" width="265" height="300" alt="Board" />
+<img src="/images/splash.png" width="265" height="300" alt="Board" />
 </p>
 
-## History
+* Has a single-player version which runs entirely in the browser, and a multi-player version which uses a host server.
+* You can play against a computer player, and/or other people.
+* Play against the clock if you want to.
+* Supports different board layouts and tile sets, and makes it easy to define your own.
+* Has several different dictionaries in a number of languages, and it's easy to add your own.
+* Supports logins, which helps you to set up tournaments and record long-term player performance (server version only).
+* Players can use the dictionary to explore alternative moves (i.e. cheat).
+* It includes Scrabble tile sets for many different languages.
+
+## Background
 
 While there are a number of freely accessible servers out there
 offering clones of the classic SCRABBLE® game, I wanted a game I
@@ -28,34 +39,25 @@ I started out working on their code but rapidly realised the scope and
 number of changes I intended required a fork, rather than bothering
 them with hundreds of pull requests.
 
-This fork has some major differences:
-* It has been entirely rewritten to use modern Javascript.
-* The UI has been massaged to make it more mobile device friendly, and translated to several languages.
-* It supports different board layouts and tile sets, and makes it easy to define your own.
-* It reinstates some of [Daniel Weck's dictionary support](https://github.com/danielweck/scrabble-html-ui). Dictionaries have been moved server-side and made optional, and integrated into game play. New dictionaries are easy to generate from word lists.
-* It supports logins, which helps you to set up tournaments and record long-term player performance.
-* It adds a computer player, inspired by the work of [Elijah Sawyers](https://raw.githubusercontent.com/elijahsawyers/WordsWithFriendsHelper) (which is in turn based on the [work of Andrew W. Appel and Guy J. Jacobson](https://www.cs.cmu.edu/afs/cs/academic/class/15451-s06/www/lectures/scrabble.pdf)). The player is stupid, simply selecting the highest scoring play it can in the time allowed for its move. However this is more than enough to beat most human players.
-* You can optionally play against the clock.
-* Players can use the dictionary to explore alternative moves (i.e. cheat).
-* Adds a single-player version which runs entirely in the browser.
-* It includes Scrabble tile sets for many different languages.
-
 # Installation
 
-The server code is written in Javascript ES6 and tested using `node.js` version 19.2.0. It may work in earlier versions of `node.js`, but is untested. The server has only been tested running on Ubuntu 22.04. The client is also written in Javascript and works in all the browsers tested so far (Chrome, Firefox, Android, Opera.)
+The server code is written in modern Javascript ES6 and the server is tested using `node.js` version 19.2.0. It may work in earlier versions of `node.js`, but is untested. The server has only been tested running on Ubuntu 22.04.
+
+The client is also written in Javascript ES6 and works in all the browsers tested so far (Chrome, Firefox, Android WebView, Opera).
 
 ## Single-player (runs in the browser)
+
 If you want to play the single-player version against the computer, then all
 you have to do is to visit a server where it has been installed.
-Nothing is saved back to the server. Games are saved the the `localStorage`
+Nothing is saved back to the server. Games are saved in the `localStorage`
 area in your browser which has a limited size, so don't get too carried away.
 
 You can try it [here](https://cdot.github.io/Xanado/dist/standalone_games.html).
 
 ## Multi-player (client-server)
 
-### Using Docker
-The simplest way to install the game on a server is to use the latest Docker
+### Docker
+The simplest way to install the server is to use the latest Docker
 image, which you can find on [github](https://github.com/cdot/Xanado/pkgs/container/xanado).
 The Docker image takes care of all dependencies for you. Download the image and:
 ```
@@ -76,7 +78,7 @@ $ xanado
 
 ### Developers
 First use `git clone` to clone the repository to your local machine. Then in
-the root directory
+the root directory:
 ```
 $ npm install
 ```
@@ -108,7 +110,7 @@ If you want the server to send out email invitations, you should refer to the `n
 
 The instructions are pretty much the same for both the single-player and
 the multi-player versions, except that you are always "signed in" on the
-single-player version.
+single-player version and there are some minor differences in the interface.
 
 Players start on the games page. This shows a leader board and a list
 of games. You can select "Show finished games" to view games that have
@@ -147,7 +149,7 @@ Single-player games always have a robot.
 
 The installation comes with a number of 'editions' that emulate some
 commercially available games - SCRABBLE®, Super SCRABBLE®, Lexulous,
-and Words With Friends - all of which have very similar
+and Words With Friends® - all of which have very similar
 gameplay. And it's not too hard to create your own custom game, too.
 
 ## Game play
@@ -160,11 +162,13 @@ to move, then touch where you want to place it.
 You can also use the keyboard for rapid word entry.
 * Click on any empty square on the board (or type `*`) and a "typing cursor" will appear, pointing right ⇒
 * Click again (or hit the spacebar) and it will turn to point down ⇓
-* Each letter from the rack that you type on the keyboard will be picked and placed, and the typing cursor moved right or down depending on the direction of the typing cursor.
+* Each letter from the rack that you type on the keyboard will be picked and placed, and the typing cursor moved in the direction it is pointing.
 * If you type a letter that isn't on the rack, but you have a blank tile, then the blank will be used for that letter.
 * Use Backspace or Delete to put the letter behind the typing cursor back on the rack.
 * When the typing cursor is displayed, you can also use the arrow keys to move it around the board.
 * You can still use the mouse while the typing cursor is visible.
+* If you haven't placed any tiles on the board yet, you can hold down the `Alt` key and type letters from your rack to move them to the swap rack. You can't swap blanks.
+* Typing a number instead of a letter will place/move the tile at the corresponding position on the rack (where the leftmost letter is '1').
 
 There are also a number of other keyboard shortcuts:
 * The `End` or `Enter` keys will make the current move.
@@ -172,9 +176,7 @@ There are also a number of other keyboard shortcuts:
 * `#` will shuffle the rack.
 * `?` will pass the current turn.
 * `!` will take back your last move, or challenge the last player's move, depending on what the log says.
-* `;` will let you type into the chat window
-* So long as you haven't placed anything on the board, holding down the `Alt` key and typing a letter from the rack will move it to the swap rack.
-* Typing a number instead of a letter will place/move the tile at the corresponding position on the rack (where the leftmost letter is '1').
+* `;` will let you type into the chat window.
 
 ## Learning (and Cheating)
 
@@ -183,7 +185,7 @@ To abet the aspiring logodaedalus, there are some special 'chat' messages that c
 - `advise` will turn on/off post-play analysis. This will suggest an alternative, higher-scoring play, if one exists, that you could have played.
 - `allow <word>` adds `<word>` to the dictionary. The new word will not be written back to the dictionary database, so will be lost when the server is restarted. If you want to keep the word forever, see [Whitelists](#Whitelists).
 
-Note that these only work in games for which a dictionary has been selected. To discourage cheating, everyone in the game is told when you use one of these special messages.
+Note that these only work in games for which a dictionary has been selected. To discourage cheating, everyone in the game is told when you use one of these special features.
 
 # Editions
 
@@ -217,13 +219,12 @@ extended "on the fly" using a simple list of words in a file alongside the dicti
 
 # Server Security
 The assumption is that you will be running the multi-player game server
-on a private server with a limited, trustworthy audience.
+on a private host with a limited, trustworthy audience.
 
 The server can be configured to use HTTPS, see [configuration](CONFIGURATION.md)
 for how. HTTPS is required for social media logins and notifications
 to work, and is highly recommended when using default logins. To use
-HTTPS you require an SSL
-certificate. See
+HTTPS you require an SSL certificate. See
 https://linuxize.com/post/creating-a-self-signed-ssl-certificate/
 for instructions.
 
@@ -238,19 +239,10 @@ See [DEVELOPING](DEVELOPING.md) for more.
 
 # IMPORTANT NOTICES
 
-- [SCRABBLE®](http://www.scrabble.com/) is a registered trademark. All
-intellectual property rights in and to the game are owned in the U.S.A
-and Canada by Hasbro Inc., and throughout the rest of the world by
-J.W. Spear & Sons Limited of Maidenhead, Berkshire, U.K., a
-subsidiary of Mattel Inc. If you don't already own a SCRABBLE board,
-buy one today!
-- There is an official computer version of [SCRABBLE® published by Ubisoft](https://www.ubisoft.com/en-gb/game/scrabble).
-- ["Words With Friends"](https://www.zynga.com/games/words-with-friends-2/)
-is the name of an online game produced by Zynga Inc. To
-the best of our knowledge this is not a registered trademark.
-- "Lexulous" is the name of an online game hosted at
-http://lexulous.com. To the best of our knowledge this is not a
-registered trademark.
+- [SCRABBLE and SuperSCRABBLE](http://www.scrabble.com/) are registered trademarks owned in the USA and Canada by Hasbro Inc, and throughout the rest of the world by J.W. Spear & Sons Limited of Maidenhead, Berkshire, UK
+ - There is an official computer version of [SCRABBLE® published by Ubisoft](https://www.ubisoft.com/en-gb/game/scrabble).
+- [Words With Friends](https://www.zynga.com/games/words-with-friends-2/) is a registered trademark of Zynga Inc, 699 Eighth Street, San Francisco, California 94103, USA
+- [Lexulous](http://lexulous.com) is a registered trademark of RJ Softwares, 8th Floor, Lansdowne Court, 5B Sarat Bose Road, Kolkata, India 700020
 
 This not-for-profit project is not associated with any of the owners
 of the aforementioned brands.

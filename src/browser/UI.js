@@ -1,18 +1,14 @@
-/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+/*Copyright (C) 2019-2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
 
 /* global assert */
 
-import "jquery/dist/jquery.js";
-import "@wikimedia/jquery.i18n/src/jquery.i18n.js";
-import "@wikimedia/jquery.i18n/src/jquery.i18n.language.js";
-import "@wikimedia/jquery.i18n/src/jquery.i18n.messagestore.js";
-import "@wikimedia/jquery.i18n/src/jquery.i18n.parser.js";
-import "@wikimedia/jquery.i18n/src/jquery.i18n.fallbacks.js";
-import "@wikimedia/jquery.i18n/src/jquery.i18n.emitter.js";
+import "jquery";
+import "jquery-ui";
 
+import "../common/i18n.js";
 import { stringify } from "../common/Utils.js";
 
 /**
@@ -165,7 +161,8 @@ class UI {
     const css = this.getSetting("xanadoCSS");
     if (css)
       $("#xanadoCSS").each(function() {
-        this.href = this.href.replace(/\/css\/[^/.]+/, `/css/${css}`);
+        if (this.href)
+          this.href = this.href.replace(/\/css\/[^/.]+/, `/css/${css}`);
       });
 
     return Promise.resolve();
@@ -227,19 +224,11 @@ class UI {
    * @return {Promise}
    */
   initLocale() {
-    return this.getLocales()
+    return this.promiseLocales()
     .then(locales => {
       const ulang = this.getSetting("language") || "en";
       this.debug("User language", ulang);
-      // Set up to load the language file
-      const params = {};
-      if (typeof global !== "undefined")
-        params[ulang] = `${import.meta.url}/../../../i18n/${ulang}.json`;
-      else
-        params[ulang] = `../i18n/${ulang}.json`;
-      // Select the language and load
-      return $.i18n({ locale: ulang })
-      .load(params)
+      return $.i18n.init(ulang, this.debug)
       .then(() => locales);
     })
     .then(locales => {
@@ -247,8 +236,8 @@ class UI {
       // Expand/translate strings in the HTML
       return new Promise(resolve => {
         $(document).ready(() => {
-          this.debug("Translating HTML to", $.i18n().locale);
-          $("body").i18n();
+          this.debug("Translating HTML to", $.i18n.locale());
+          $("[data-i18n]").i18n();
           resolve(locales);
         });
       });
@@ -294,8 +283,8 @@ class UI {
    * @param {string} type defaults type, either "user" or "game"
    * @return {Promise} promise that resolves to the settings
    */
-  getDefaults(type) {
-    assert.fail(`GameUIMixin.getDefaults(${type})`);
+  promiseDefaults(type) {
+    assert.fail(`GameUIMixin.promiseDefaults(${type})`);
   }
 
   /**
@@ -326,16 +315,16 @@ class UI {
    * may set `provider`.
    * @throws Error if there is no session active
    */
-  getSession() {
-    assert.fail("UI.getSession");
+  promiseSession() {
+    assert.fail("UI.promiseSession");
   }
 
   /**
    * Get the available locales.
    * @return {Promise} promise resolves to list of available locale names
    */
-  getLocales() {
-    assert.fail("UI.getLocales");
+  promiseLocales() {
+    assert.fail("UI.promiseLocales");
   }
 
   /**
@@ -343,8 +332,8 @@ class UI {
    * @return {Promise} promise that resolves to
    * a list of css name strings.
    */
-  getCSS() {
-    assert.fail("UI.getCSS");
+  promiseCSS() {
+    assert.fail("UI.promiseCSS");
   }
 
   /**
@@ -354,8 +343,8 @@ class UI {
    * @return {Promise} resolving to a list of available dictionary
    * name strings.
    */
-  getDictionaries() {
-    assert.fail("UI.getDictionaries");
+  promiseDictionaries() {
+    assert.fail("UI.promiseDictionaries");
   }
 
   /**
@@ -366,8 +355,8 @@ class UI {
    * @return {Promise} resolving to a list of available edition
    * name strings.
    */
-  getEditions() {
-    assert.fail("UI.getEditions");
+  promiseEditions() {
+    assert.fail("UI.promiseEditions");
   }
 
   /* c8 ignore stop */

@@ -33,8 +33,8 @@ describe("browser/UserSettingsDialog", () => {
   it ("dialog", () => {
     const ui = {
       session: { key : "session key" },
-      getCSS: () => Promise.resolve(["A", "B"]),
-      getLocales: () => Promise.resolve(["C", "D"]),
+      promiseCSS: () => Promise.resolve(["A", "B"]),
+      promiseLocales: () => Promise.resolve(["C", "D"]),
       getSetting: s => user_settings[s]
     };
 

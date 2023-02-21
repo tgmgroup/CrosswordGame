@@ -17,8 +17,8 @@ describe("browser/GameDialog", () => {
     .then(() => setupI18n()));
 
   beforeEach(() => {
-    $("head").empty();
-    $("body").empty();
+    $("head").html("");
+    $("body").html("");
   });
 
   it ("dialog", () => {
@@ -57,8 +57,9 @@ describe("browser/GameDialog", () => {
       ui[meths[name]] = g => {
         called[name] = true;
         assert.equal(g, game);
-        if (Object.keys(meths).filter(k => !called[k]).length === 0)
+        if (Object.keys(meths).filter(k => !called[k]).length === 0) {
           dlg.$dlg.dialog("close");
+        }
       };
     }
 
@@ -80,6 +81,10 @@ describe("browser/GameDialog", () => {
         },
         close: resolve
       });
-    }));
+    }))
+    .then(() => {
+      dlg.$dlg.removeData("DIALOG_CREATED");
+      dlg.$dlg.dialog("destroy");
+    });
   });
 });

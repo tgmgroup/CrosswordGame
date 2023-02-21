@@ -6,8 +6,8 @@
 /* global assert */
 /* global Platform */
 
-import "jquery/dist/jquery.js";
-import "jquery-ui/dist/jquery-ui.js";
+import "jquery";
+import "jquery-ui";
 
 import { Game } from "../game/Game.js";
 const Player = Game.CLASSES.Player;
@@ -17,7 +17,7 @@ import { BrowserDatabase } from "../browser/BrowserDatabase.js";
 import { UI } from "../browser/UI.js";
 
 /**
- * For getDefaults.
+ * For promiseDefaults.
  * @member {object}
  */
 const DEFAULT_USER_SETTINGS = {
@@ -83,24 +83,24 @@ const StandaloneUIMixin = superclass => class extends superclass {
   args = undefined;
 
   /**
-   * @implements UI#getSession
+   * @implements UI#promiseSession
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getSession() {
+  promiseSession() {
     if (this.session)
       return Promise.resolve(this.session);
     return Promise.reject();
   }
 
   /**
-   * @implements UI#getDefaults
+   * @implements UI#promiseDefaults
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getDefaults(type) {
+  promiseDefaults(type) {
     switch (type) {
     case "game": return Promise.resolve(Game.DEFAULTS);
     case "user": return Promise.resolve(DEFAULT_USER_SETTINGS);
@@ -142,52 +142,52 @@ const StandaloneUIMixin = superclass => class extends superclass {
   }
 
   /**
-   * @implements UI#getCSS
+   * @implements UI#promiseCSS
    * @memberof standalone/StandaloneUIMixin
    * @instance
    * @override
    */
-  getCSS() {
+  promiseCSS() {
     return Platform.readFile(Platform.getFilePath("css/index.json"));
   }
 
   /**
-   * @implements UI#getLocales
+   * @implements UI#promiseLocales
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getLocales() {
+  promiseLocales() {
     return Platform.readFile(Platform.getFilePath("i18n/index.json"));
   }
 
   /**
-   * @implements UI#getEditions
+   * @implements UI#promiseEditions
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getEditions() {
+  promiseEditions() {
     return Platform.readFile(Platform.getFilePath("editions/index.json"));
   }
 
   /**
-   * @implements UI#getDictionaries
+   * @implements UI#promiseDictionaries
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getDictionaries() {
+  promiseDictionaries() {
     return Platform.readFile(Platform.getFilePath("dictionaries/index.json"));
   }
 
   /**
-   * @implements browser/GameUIMixin#getEdition
+   * @implements browser/GameUIMixin#promiseEdition
    * @instance
    * @memberof standalone/StandaloneUIMixin
    * @override
    */
-  getEdition(ed) {
+  promiseEdition(ed) {
     return Edition.load(ed);
   }
 

@@ -3,7 +3,7 @@
 /* eslint-env mocha, node */
 
 import { assert } from "chai";
-import { setupPlatform, setup$ } from "../TestPlatform.js";
+import { setupPlatform, setup$, UNit } from "../TestPlatform.js";
 
 describe("browser/UI", () => {
 
@@ -22,8 +22,8 @@ describe("browser/UI", () => {
         getSetting(t) {
           return this.settings[t];
         }
-        getCSS() { return Promise.resolve([ "A", "B" ]); }
-        getLocales() { return Promise.resolve([ "en", "fr" ]); }
+        promiseCSS() { return Promise.resolve([ "A", "B" ]); }
+        promiseLocales() { return Promise.resolve([ "en", "fr" ]); }
       };
     }));
 
@@ -71,7 +71,7 @@ describe("browser/UI", () => {
         default: assert.fail(t); return false;
         }
       }
-      getCSS() { return Promise.resolve([]); }
+      promiseCSS() { return Promise.resolve([]); }
     }
     (new NUI()).initTheme();
     let url = $("#xanadoCSS").attr("href");
@@ -106,6 +106,7 @@ describe("browser/UI", () => {
   */
 
   it("initLocale(fr)", () => {
+    $("body").append(`<div id="test" data-i18n="label-pick-player" data-i18n-tooltip="label-placed"></div>`);
     class NUI extends UI {
       getSetting(t) {
         switch (t) {
@@ -114,10 +115,12 @@ describe("browser/UI", () => {
         assert.fail(t); return false;
       }
     }
-    return (new NUI()).initLocale()
+    const ui = new NUI();
+    return ui.initLocale()
     .then(() => {
       assert.equal($.i18n("not a valid string"), "not a valid string");
       assert.equal($.i18n("h-won", "Nobody"), "Nobody gagne");
+      assert.equal($("#test").text(), $.i18n("label-pick-player"));
     });
   });
 
@@ -130,15 +133,15 @@ describe("browser/UI", () => {
         }
         assert.fail(t); return false;
       }
-      getLocales() { return Promise.resolve([ "en", "fr" ]); }
-      getCSS() { return Promise.resolve([]); }
+      promiseLocales() { return Promise.resolve([ "en", "fr" ]); }
+      promiseCSS() { return Promise.resolve([]); }
     }
-    return (new NUI()).initLocale()
+    const ui = new NUI();
+    return ui.initLocale()
     .then(() => {
       assert.equal($.i18n("not a valid string"), "not a valid string");
       assert.equal($.i18n("h-won", "Nobody"), "Nobody won");
-
-      assert.equal($("#test").html(), $.i18n("label-pick-player"));
+      assert.equal($("#test").text(), $.i18n("label-pick-player"));
 
       const it = $("#test");
       it.tooltip("open");

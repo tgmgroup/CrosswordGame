@@ -3,7 +3,8 @@
   and license information. Author Crawford Currie http://c-dot.co.uk*/
 /* eslint-env browser */
 
-import "jquery/dist/jquery.js";
+import "jquery";
+
 import { Player } from "../game/Player.js";
 
 // Unicode characters

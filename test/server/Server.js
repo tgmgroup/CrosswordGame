@@ -266,7 +266,7 @@ describe("server/Server.js", () => {
       assert(/[?&]observer=Dirty%20Old%20Man(&|;|$)/.test(url));
       assert(/[?&]game=[0-9a-f]+(&|;|$)/.test(url));
       assert(url.indexOf(`game=${gamekey}`) > 0);
-      assert(/\/dist\/client_game.html\?/.test(url));
+      assert(/\/html\/client_game.html\?/.test(url), url);
       assert.equal(res.status, 200, res.text);
     });
   });

@@ -49,6 +49,7 @@ class Dialog {
    * @param {function} options.error error function, passed jqXHR
    */
   constructor(id, options) {
+
     /**
      * Identifier for this dialog
      */
@@ -97,28 +98,38 @@ class Dialog {
 
     this.options.open = () => {
       let prom;
-      if (this.$dlg.data("dialog_created"))
+      if (this.$dlg.data("DIALOG_CREATED"))
         prom = this.openDialog();
       else {
         prom = this.createDialog()
         .then(() => {
-          this.$dlg.data("dialog_created", true);
+          this.$dlg.data("DIALOG_CREATED", true);
+          // Note that if a dialog is destroyed, then DIALOG_CREATED
+          // has to be removed manually.
           return this.openDialog();
         });
       }
       prom
       .then(() => {
+        this.$dlg.data("DIALOG_OPEN", true);
         this.enableSubmit();
-
-        // Mainly for debug, triggered when the dialog has been opened
         if (this.options.onReady)
           this.options.onReady(this);
       })
       .catch(e => console.error(e));
     };
 
+    const foreclose = this.options.close;
+    this.options.close = () => {
+      this.$dlg.removeData("DIALOG_OPEN");
+      if (typeof foreclose === "function")
+        foreclose();
+    };
+  
     promise
-    .then(() => this.$dlg.dialog(this.options));
+    .then(() => {
+        this.$dlg.dialog(this.options);
+    });
   }
 
   /**
@@ -132,8 +143,7 @@ class Dialog {
    * @protected
    */
   createDialog() {
-    this.$dlg
-    .find("[data-i18n]")
+    $("[data-i18n]", this.$dlg)
     .i18n();
 
     this.$dlg
@@ -197,7 +207,7 @@ class Dialog {
         100);
     }
 
-    this.$dlg.find(".submit")
+    $(".submit", this.$dlg)
     .on("click", () => this.submit());
 
     if (this.options.debug)
@@ -281,11 +291,12 @@ class Dialog {
    * @private
    */
   submit(vals) {
-    this.$dlg.dialog("close");
     vals = this.getFieldValues(vals);
 
     if (this.options.onSubmit)
       this.options.onSubmit(this, vals);
+
+    this.$dlg.dialog("close");
 
     if (!this.options.postAction)
       return;

@@ -17,8 +17,8 @@
  * Search</button>
  * ```
  */
-import "jquery/dist/jquery.js";
-import "jquery-ui/dist/jquery-ui.js";
+import "jquery";
+import "jquery-ui";
 
 $.widget("jquery.icon_button", $.ui.button, {
   _create: function () {

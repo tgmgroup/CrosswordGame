@@ -20,7 +20,7 @@ class AddRobotDialog extends Dialog {
     .then(() => {
       const ui = this.options.ui;
       return Promise.all([
-        ui.getDictionaries()
+        ui.promiseDictionaries()
         .then(dictionaries => {
           const $dic = this.$dlg.find('[name=dictionary]');
           dictionaries

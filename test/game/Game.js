@@ -4,6 +4,7 @@
 
 import { assert } from "chai";
 import { setupPlatform } from "../TestPlatform.js";
+import { CBOR } from "../../src/game/CBOR.js";
 import { Game } from "../../src/game/Game.js";
 const Square = Game.CLASSES.Square;
 const Turn = Game.CLASSES.Turn;
@@ -289,7 +290,7 @@ describe("game/Game", () => {
     return new Game(p)
     .create()
     .then(game => {
-      Game.toCBOR(game);
+      CBOR.encode(game, Game.CLASSES);
     });
   });
 });

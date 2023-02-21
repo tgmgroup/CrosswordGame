@@ -6,8 +6,8 @@
 /* global assert */
 /* global Platform */
 
-import "jquery/dist/jquery.js";
-import "jquery-ui/dist/jquery-ui.js";
+import "jquery";
+import "jquery-ui";
 
 import "./icon_button.js";
 
@@ -111,7 +111,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @param {string?} name dictionary name
    * @return {Promise} resolving to a {@linkcode Dictionary}
    */
-  getDictionary(name) {
+  promiseDictionary(name) {
     return loadDictionary(name);
   }
 
@@ -124,8 +124,8 @@ const GameUIMixin = superclass => class extends superclass {
    * @return {Promise} promise that resolves to the {@linkcode Edition} or
    * a list of edition names if ed is null.
    */
-  getEdition(ed) {
-    assert.fail(`GameUIMixin.getEdition ${ed}`);
+  promiseEdition(ed) {
+    assert.fail(`GameUIMixin.promiseEdition ${ed}`);
   }
 
   /* c8 ignore stop */
@@ -1358,7 +1358,7 @@ const GameUIMixin = superclass => class extends superclass {
    * @private
    */
   showLetterDistributions() {
-    this.getEdition(this.game.edition)
+    this.promiseEdition(this.game.edition)
     .then(dist => {
       const $dlg = $("#distributionDialog");
       const $tab = $dlg.find(".distribution");

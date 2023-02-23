@@ -84,6 +84,7 @@ const DESCRIPTION = [
   "\tRun a XANADO server\n",
   "\nOPTIONS",
   "\t-c, --config <file> - Path to config file",
+  "\t-p, --production - use high performance client code",
   "\t-d, --debug <options> - set debug options",
   "\t\tgame - game logic",
   "\t\tserver - server activity",
@@ -102,6 +103,7 @@ while ((option = go_parser.getopt())) {
   default: console.debug(DESCRIPTION); process.exit();
   case 'd': options.debug = option.optarg; break;
   case 'c': options.config = option.optarg ; break;
+  case 'p': options.production = true; break;
   }
 }
 
@@ -125,7 +127,12 @@ p.then(json => addDefaults(JSON.parse(json)))
 
 .then(config => {
 
+  // config.debug is a CSV
   config.debug = options.debug || "";
+
+  if (options.production)
+    config.production = true;
+
   if (/^(server|all)$/i.test(options.debug))
     console.debug(config);
   if (config.mail) {

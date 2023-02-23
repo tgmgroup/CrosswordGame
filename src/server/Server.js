@@ -5,7 +5,6 @@
 
 /* global assert */
 /* global Platform */
-/* global DISTRIBUTION */
 
 import URL from 'url';
 
@@ -89,7 +88,7 @@ function reply(res, data) {
 class Server {
 
   /**
-   * @param {Object} config See example-config.json
+   * @param {Object} config See CONFIGURATION.md
    */
   constructor(config) {
 
@@ -200,8 +199,7 @@ class Server {
       "/",
       (req, res) => res.sendFile(
         Path.join(staticRoot,
-                  (typeof DISTRIBUTION !== "undefined"
-                   && DISTRIBUTION)
+                  this.config.production
                   ? "dist"
                   : "html",
                   "client_games.html")));
@@ -900,7 +898,7 @@ class Server {
       }
 
       // Work out the URL for the game interface
-      const dir = (typeof DISTRIBUTION !== "undefined" && DISTRIBUTION)
+      const dir = this.config.production
             ? "dist"
             : "html";
       const url = URL.format({

@@ -83,7 +83,7 @@
 		"indexing": "node bin/update-indexes.js",
 		"build": "webpack --node-env production -c build/wp_sa_games.js; webpack --node-env production -c build/wp_sa_game.js; webpack --node-env production -c build/wp_cl_games.js; webpack --node-env production -c build/wp_cl_game.js",
 		"debug_build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
-		"server": "node bin/server.js",
+		"server": "node bin/server.js --production",
 		"start": "node bin/server.js",
 		"debug": "node bin/server.js --config config.json --debug all",
 		"doc": "jsdoc -c build/jsdoc_config.json src",

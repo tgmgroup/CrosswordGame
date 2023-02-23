@@ -11,6 +11,7 @@ import "jquery-ui";
 import "./i18n.js";
 
 import { stringify } from "../common/Utils.js";
+import { BrowserPlatform } from "./BrowserPlatform.js";
 
 /**
  * Base class of functionality shared between all browser UIs.
@@ -229,7 +230,7 @@ class UI {
     .then(locales => {
       const ulang = this.getSetting("language") || "en";
       this.debug("User language", ulang);
-      return $.i18n.init(ulang, this.debug)
+      return $.i18n.init(ulang, BrowserPlatform.getFilePath("i18n"), this.debug)
       .then(() => locales);
     })
     .then(locales => {

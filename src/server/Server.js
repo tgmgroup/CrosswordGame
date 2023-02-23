@@ -172,8 +172,11 @@ class Server {
     // based on the file mime type (extension) but Express doesn't
     // always get it right.....
     /* c8 ignore next 2 */
-    if (this.debug)
+    if (this.debug) {
       this.debug("static files from", staticRoot);
+      if (this.config.production)
+        this.debug("\t- client code will be served from dist");
+    }
 
     this.express.use(Express.static(staticRoot));
 

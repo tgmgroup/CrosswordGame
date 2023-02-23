@@ -93,7 +93,7 @@ const DESCRIPTION = [
 ].join("\n");
 
 const go_parser = new getopt.BasicParser(
-  "h(help)d:(debug)c:(config)",
+  "h(help)p(production)d:(debug)c:(config)",
   process.argv);
 
 const options = {};

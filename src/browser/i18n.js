@@ -18,8 +18,6 @@ import "banana-i18n";
 
 let debug = () => {};
 const message_store = {};
-const url = import.meta.url.replace(/\/[^/]*$/, "");
-const data_url = `${url}/../../i18n`; // URL
 
 /**
  * Generate a string id in the current language given arguments
@@ -33,7 +31,7 @@ $.i18n = (...args) => {
  * Load the messages for the given locale
  * @param {string} locale locale string e.g. en-GB
  */
-function loadMessages(locale) {
+function loadMessages(locale, data_url) {
   debug("i18n loading", `${data_url}/${locale}.json`);
   return $.getJSON(`${data_url}/${locale}.json`)
   .then(data => $.banana.load(data, locale))
@@ -44,7 +42,7 @@ function loadMessages(locale) {
       if ($.banana.messagestore.hasLocale(locale))
         return undefined;
       debug("i18n trying", locale);
-      return loadMessages(locale);
+      return loadMessages(locale, data_url);
     }
     throw e;
   });
@@ -53,10 +51,12 @@ function loadMessages(locale) {
 /**
  * Initialise translation module
  * @param { string} locale locale identified e.g. "en-GB"
+ * @param { string} data_url URL that points to the directory containing
+ * translation .json files.
  * @param {function?} dbg debug function e.g. console.debug
  * @return {Promise} promise that results when initialisation is done
  */
-$.i18n.init = (locale, dbg) => {
+$.i18n.init = (locale, data_url, dbg) => {
 
   if (typeof dbg === "function")
     debug = dbg;
@@ -92,7 +92,7 @@ $.i18n.init = (locale, dbg) => {
   return promises = promises
   .then(() => $.banana.messageStore.hasLocale("en")
         ? undefined
-        : loadMessages("en")
+        : loadMessages("en", data_url)
         .catch(e => {
           console.error(`i18n fallback load failed`);
           throw e;
@@ -106,7 +106,7 @@ $.i18n.init = (locale, dbg) => {
     }
 
     debug("i18n loading", locale);
-    return loadMessages(locale)
+    return loadMessages(locale, data_url)
     .then(() => $.banana.setLocale(locale));
   });
 }

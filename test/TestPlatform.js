@@ -296,7 +296,7 @@ function setupI18n(lang, debug) {
   return import("../src/browser/i18n.js")
   .then(mods => {
     assert($.i18n);
-    return $.i18n.init(lang, debug ? console.debug : undefined);
+    return $.i18n.init(lang, "..", debug ? console.debug : undefined);
   })
   .catch(e => {
     console.error(e);

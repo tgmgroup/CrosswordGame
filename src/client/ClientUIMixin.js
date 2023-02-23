@@ -161,8 +161,10 @@ const ClientUIMixin = superclass => class extends superclass {
     ])
     .then(() => {
       this.args = UI.parseURLArguments(document.URL);
-      if (this.args.debug)
+      if (this.args.debug) {
+        console.debug("Enable debug");
         this.debug = console.debug;
+      }
     })
     .then(() => this.promiseSession())
     .catch(e => {

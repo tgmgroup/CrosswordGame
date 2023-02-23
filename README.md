@@ -43,7 +43,7 @@ them with hundreds of pull requests.
 
 The server code is written in modern Javascript ES6 and the server is tested using `node.js` version 19.2.0. It may work in earlier versions of `node.js`, but is untested. The server has only been tested running on Ubuntu 22.04.
 
-The client is also written in Javascript ES6 and works in all the browsers tested so far (Chrome, Firefox, Android WebView, Opera).
+The client is also written in Javascript ES6 and works in all the browsers tested so far (latest versions of Chrome, Firefox, Android WebView, Opera, Safari).
 
 ## Single-player (runs in the browser)
 
@@ -255,18 +255,27 @@ Xanado is hosted on your own server and doesn't store any information about you 
 
 The current code was written by Crawford Currie and is
 Copyright &copy; 2021-2023 Xanado Project. However it is
-built on the work of many people, most notably Hans Hübner, Daniel
-Weck, Elijah Sawyers, Andrew Appel, Guy Jacobsen, and Joshua Lewis, and
-the many people who they in turn based their work on. All these individuals
+built on the work of many people. All these individuals
 are acknowledged as sharing the copyright to parts of the work.
 
-The code is licensed under the terms of the [MIT license](https://en.wikipedia.org/wiki/MIT_License),
+The code is licensed under the terms of the
+[MIT license](https://en.wikipedia.org/wiki/MIT_License)
 as the most restrictive of the licenses of the contributory works.
 
 ## Contributors
-In alphabetical order
-- Alexander Weps @exander77
-- Crawford Currie @cdot
-- Paul Kolano @pkolano
-- Warren Bank @warren-bank
-- This project is tested with [BrowserStack](https://www.browserstack.com/)
+Xanado builds on previous work by many people, most notably Hans
+Hübner, Daniel Weck, Elijah Sawyers, Andrew Appel, Guy Jacobsen, and
+Joshua Lewis, and the many people who they in turn based their work
+on.
+
+A number of npm modules are used, for which their authors are
+acknowledged and thanked.
+
+This project is tested with [BrowserStack](https://www.browserstack.com/)
+
+Direct contributors to Xanado are (in alphabetical order)
+- Alexander Weps
+- Crawford Currie
+- Joan Montané
+- Paul Kolano
+- Warren Bank

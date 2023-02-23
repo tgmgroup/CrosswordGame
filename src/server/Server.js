@@ -200,8 +200,10 @@ class Server {
       "/",
       (req, res) => res.sendFile(
         Path.join(staticRoot,
-                  (typeof DISTRIBUTION !== "undefined" && DISTRIBUTION)
-                  ? "dist" : "html",
+                  (typeof DISTRIBUTION !== "undefined"
+                   && DISTRIBUTION)
+                  ? "dist"
+                  : "html",
                   "client_games.html")));
 
     cmdRouter.get(

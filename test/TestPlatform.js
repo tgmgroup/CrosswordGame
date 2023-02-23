@@ -293,7 +293,7 @@ class StubServer {
 function setupI18n(lang, debug) {
     
   if (!lang) lang = "en";
-  return import("../src/common/i18n.js")
+  return import("../src/browser/i18n.js")
   .then(mods => {
     assert($.i18n);
     return $.i18n.init(lang, debug ? console.debug : undefined);

@@ -123,10 +123,12 @@ $.i18n.locale = () => $.banana.locale;
  * with the translation.
  */
 $.fn.i18n = function() {
-  const $el = $(this);
-  const from = $el.data("i18n");
-  if (typeof from !== "undefined") {
-    const to = $.banana.i18n(from);
-    $el.html(to);
-  }
+  this.each(function () {
+    const $el = $(this);
+    const from = $el.data("i18n");
+    if (typeof from !== "undefined") {
+      const to = $.banana.i18n(from);
+      $el.html(to);
+    }
+  });
 };

@@ -8,7 +8,8 @@
 import "jquery";
 import "jquery-ui";
 
-import "../common/i18n.js";
+import "./i18n.js";
+
 import { stringify } from "../common/Utils.js";
 
 /**

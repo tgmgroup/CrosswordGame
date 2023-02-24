@@ -71,26 +71,26 @@ Xanado directly:
 ```
 $ npm install --global @cdot/xanado
 ```
-Once installed, run the server on the default port (9093):
-```
-$ xanado
-```
 
 ### Developers
-First use `git clone` to clone the repository to your local machine. Then in
-the root directory:
 ```
-$ npm install
+git clone https://github.com/cdot/Xanado.git
+cd Xanado
+npm install
+npm run build
 ```
-to install the dependencies. There is developer documentation [here](DEVELOPING.md).
+This clones the repository locally, then installs the dependencies.
+Finally it builds the client code.
+
+There is developer documentation [here](DEVELOPING.md).
 
 ### Configuring the server
 The default configuration is described [here](CONFIGURATION.md).
 You can override any of the configuration defaults using `--config`.
 
-Once you are happy with the configuration, run the server using:
+Once you are happy with the configuration, run the server with:
 ```
-$ npm run server
+npm run server
 ```
 You can then visit the games page at `http://localhost:9093`.
 

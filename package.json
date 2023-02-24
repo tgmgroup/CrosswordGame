@@ -80,18 +80,18 @@
 		"webpack-cli": "^5.0.1"
 	},
 	"scripts": {
-		"indexing": "node bin/update-indexes.js",
 		"build": "webpack --node-env production -c build/wp_sa_games.js; webpack --node-env production -c build/wp_sa_game.js; webpack --node-env production -c build/wp_cl_games.js; webpack --node-env production -c build/wp_cl_game.js",
+		"coverage": "NODE_ENV=test c8 --reporter=html --reporter text npm run test",
 		"debug_build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
+		"debug_server": "node bin/server.js --config config.json --html html --debug all",
+		"doc": "jsdoc -c build/jsdoc_config.json src",
+		"docker": "npm run build; docker build . --tag xanado --file build/Dockerfile",
+		"indexing": "node bin/update-indexes.js",
+		"lint": "eslint src -f unix",
 		"server": "node bin/server.js --production",
 		"start": "node bin/server.js",
-		"debug": "node bin/server.js --config config.json --debug all",
-		"doc": "jsdoc -c build/jsdoc_config.json src",
-		"lint": "eslint src -f unix",
 		"test": "mocha --recursive --extension js --timeout=5000 test",
-		"coverage": "NODE_ENV=test c8 --reporter=html --reporter text npm run test",
-		"tx": "node bin/checkStrings.js",
-		"docker": "npm run build; docker build . --tag xanado --file build/Dockerfile"
+		"tx": "node bin/checkStrings.js"
 	},
 	"bin": {
 		"xanado": "./bin/server.js"

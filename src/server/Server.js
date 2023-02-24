@@ -174,8 +174,7 @@ class Server {
     /* c8 ignore next 2 */
     if (this.debug) {
       this.debug("static files from", staticRoot);
-      if (this.config.production)
-        this.debug("\t- client code will be served from dist");
+      this.debug("\t- html will be served from", this.config.html_dir);
     }
 
     this.express.use(Express.static(staticRoot));
@@ -200,12 +199,13 @@ class Server {
 
     cmdRouter.get(
       "/",
-      (req, res) => res.sendFile(
-        Path.join(staticRoot,
-                  this.config.production
-                  ? "dist"
-                  : "html",
-                  "client_games.html")));
+      (req, res, next) => res.sendFile(
+        Path.join(staticRoot, this.config.html_dir, "client_games.html"),
+        err => {
+          if (err)
+            console.error(err, "\n*** Did you forget to npm run build? ***");
+        }
+      ));
 
     cmdRouter.get(
       "/games/:send",
@@ -901,14 +901,11 @@ class Server {
       }
 
       // Work out the URL for the game interface
-      const dir = this.config.production
-            ? "dist"
-            : "html";
       const url = URL.format({
         protocol: req.protocol,
         host: req.get('Host'),
         pathname: req.originalUrl
-        .replace(/\/.*?$/, `/${dir}/client_game.html`),
+        .replace(/\/.*?$/, `/${this.config.html_dir}/client_game.html`),
         search: `?game=${game.key}&${pram}`
       });
 

@@ -88,11 +88,33 @@ Coverage statistics are outout in the `coverage` directory.
 
 You can also run [eslint](https://eslint.org/) on the code using `npm run lint`.
 
-There's a `npm run debug` script to run the server with debug options enabled (very verbose).
+The client UI supports an automaton for UI testing. This can be enabled by passing `autoplay` in the URL parameters to an open game. Once a first manual play has been played, all subsequent plays in that UI will be completed automatically.
 
-The client UI supports a mechanical turk for UI testing. This can be enabled by passing `autoplay` in the URL parameters to an open game. Once a first manual play has been played, all subsequent plays in that UI will be decided automatically.
+## Debugging
+### Server
+`npm run debug_server` will run the server with debug options enabled
+(very verbose). The `--debug` option to `bin/server.js` gives fine
+control over the messages. Use `node --inspect bin/server.js` to run
+the server with the Chrome debugger.
+
+## Client
+Client code is webpacked into the `dist` directory using
+`npm run build`. This minifies the Javascript, making it hard to debug.
+However `npm run debug_build` will webpack the code without minification,
+making debugging easier.
+
+If the server is run without any parameters (i.e. `node bin/server.js`)
+then it will serve the top level HTML from the `dist` directory. This
+requires that the `dist` code has been built.
+
+Alternatively you can use the HTML direct from the `html` directory
+by passing `--html html` to `node bin/server.js`. This HTML loads the
+code direct from the `src` tree and is the approach used during development.
 
 ## Publishing
+First ensure indexes are up to date by running `npm run indexing`, and that
+translations are consistent using `npm run tx`.
+
 ### Docker
 `build/Dockerfile` is used for building local docker images (assuming you have
 a docker server running).
@@ -103,8 +125,9 @@ will build a local docker image
 ```
 $ docker run -p9093:9093 xanado
 ```
-will run the image, mapping `localhost` port 9093 to port 9093 on the docker image. The docker image is automatically built when a new version is checked in
-to github.
+will run the image, mapping `localhost` port 9093 to port 9093 on the
+docker image. The docker image is automatically built when a new version
+is checked in to github.
 
 ## npm
 Use `npm publish --dry-run` to test the configuration and make sure all
@@ -123,7 +146,7 @@ can use `npm run tx` to check the completeness of your translations.
 
 If you create a new translation, you will have to add it to
 `i18n/index.json` for the standalone game to pick it up (or run
-`npm run build`, which will do that for you).
+`npm run indexing`, which will do that for you).
 
 ## Theming the UI
 Support for theming the UI exists at two levels.
@@ -132,8 +155,11 @@ Support for theming the UI exists at two levels.
 - To theme the Xanado specific classes, you can add your own CSS file
   to the `css/` directory. An example is given in `css/exander77`.
 
+If you add a new theme, use `npm run indexing` to add it to the index files.
+
 ## Build system
-The build system uses [webpack](https://webpack.js.org/) to generate indexes and minimal browser scripts in the `dist` subdirectory. Run it using `npm run build`. The `dist` code is checked in to git so that it can be served using github pages.
+The build system uses [webpack](https://webpack.js.org/) to generate indexes and minimal browser scripts in the `dist` subdirectory. Run it using `npm run build` (or `npm run debug_build`). The `dist` code is built automatically
+when the code is pushed to github.
 
 ## Documentation
 The code is documented using `jsdoc`. The documentation is automatically

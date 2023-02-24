@@ -55,16 +55,13 @@ function makeConfig(html, js) {
   fs.mkdir(`${__dirname}/../dist`, { recursive: true })
   .then(() => fs.readFile(`${__dirname}/../html/${html}`))
   .then(content => {
-    content = content.toString();
-
+    content = content.toString()
     // Strip out the importmap, not needed any more
-    content = content.replace(/<script type="importmap".*<\/script>/, "");
-
+    .replace(/<script [^>]*?es-module-shims.*?<\/script>/s, "")
+    .replace(/<script type="importmap".*?<\/script>/s, "")
     // Reroute the code import to dist
-    // There can be only one!
-    content = content.replace(
-      /(<script .*? src=").*?([^/]+\/_[^/]+.js")/,
-      "$1../dist/$2");
+    .replace(/(<script type="module"[^>]* src=").*?([^/]+\/_[^/]+.js")/,
+             "$1../dist/$2");
 
     // Pull necessary CSS files out of node_modules; they may not be
     // installed on the target platform
@@ -89,7 +86,8 @@ function makeConfig(html, js) {
   };
   let mode;
 
-  // -p will create an optimised production build.
+  // --production or NODE_ENV=production  will create a minimised
+  // production build.
 	if (process.env.NODE_ENV === "production") {
     console.log(`Production build ${__dirname}/../src/${js}`);
     mode = "production";

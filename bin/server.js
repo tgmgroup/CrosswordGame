@@ -80,11 +80,11 @@ function addDefaults(config) {
 const DESCRIPTION = [
   "USAGE",
   `\tnode ${path.relative(".", process.argv[1])} [options]`,
-  "\nDESCRIPTION",
-  "\tRun a XANADO server\n",
-  "\nOPTIONS",
+  "DESCRIPTION",
+  "\tRun a XANADO server",
+  "OPTIONS",
   "\t-c, --config <file> - Path to config file",
-  "\t-p, --production - use high performance client code",
+  "\t-h, --html <dir> - load html from the given directory (default is 'dist')",
   "\t-d, --debug <options> - set debug options",
   "\t\tgame - game logic",
   "\t\tserver - server activity",
@@ -93,18 +93,23 @@ const DESCRIPTION = [
 ].join("\n");
 
 const go_parser = new getopt.BasicParser(
-  "h(help)p(production)d:(debug)c:(config)",
+  "h:(html)d:(debug)c:(config)",
   process.argv);
 
 const options = {};
 let option;
 while ((option = go_parser.getopt())) {
   switch (option.option) {
-  default: console.debug(DESCRIPTION); process.exit();
+  default: console.error(DESCRIPTION); process.exit();
   case 'd': options.debug = option.optarg; break;
   case 'c': options.config = option.optarg ; break;
-  case 'p': options.production = true; break;
+  case 'h': options.html_dir = option.optarg; break;
   }
+}
+if (process.argv.length > go_parser.optind()) {
+  console.error(`*** Unexpected "${process.argv[go_parser.optind()]}"`);
+  console.error(DESCRIPTION);
+  process.exit();
 }
 
 let p;
@@ -128,13 +133,14 @@ p.then(json => addDefaults(JSON.parse(json)))
 .then(config => {
 
   // config.debug is a CSV
-  config.debug = options.debug || "";
+  config.debug = (options.debug || config.debug) || "";
 
-  if (options.production)
-    config.production = true;
+  // html_dir is a directory name
+  config.html_dir = (options.html_dir || config.html_dir) || "dist";
 
   if (/^(server|all)$/i.test(options.debug))
     console.debug(config);
+
   if (config.mail) {
     let transport;
     if (config.mail.transport === "mailgun") {

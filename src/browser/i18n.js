@@ -1,12 +1,12 @@
 /*Copyright (C) 2023 The Xanado Project https://github.com/cdot/Xanado
   License MIT. See README.md at the root of this distribution for full copyright
   and license information. Author Crawford Currie http://c-dot.co.uk*/
+/* eslint-env browser */
+
 import "jquery";
 import "jquery-ui";
 // See resolution of Banana, below
 import "banana-i18n";
-
-/* global DISTRIBUTION */
 
 /**
  * Support for $.i18n internationalisation using banana-i18n.
@@ -17,7 +17,6 @@ import "banana-i18n";
 /* global Banana */
 
 let debug = () => {};
-const message_store = {};
 
 /**
  * Generate a string id in the current language given arguments

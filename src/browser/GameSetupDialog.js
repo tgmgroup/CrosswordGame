@@ -125,7 +125,6 @@ class GameSetupDialog extends Dialog {
           .forEach(d => $dics.append(`<option>${d}</option>`));
           if (ui.getSetting("dictionary")) {
             $dics.val((ui.getSetting("dictionary")));
-            $dics.selectmenu("refresh");
           }
           $dics.on("selectmenuchange", () => this.showFeedbackFields());
           this.showFeedbackFields();

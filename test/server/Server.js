@@ -41,7 +41,8 @@ describe("server/Server.js", () => {
     user_defaults: {
       theme: "default"
     },
-    games: "delayed"
+    games: "delayed",
+    html_dir: "html"
   };
 
   beforeEach(

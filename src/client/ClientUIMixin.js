@@ -6,7 +6,7 @@
 // The documented method for importing socket.io in ESM is:
 // import { io } from "../../node_modules/socket.io/client-dist/socket.io.esm.min.js";
 // This works fine in the unpacked version, but fails when webpacked. The
-// only way I could get it to work was to import from 
+// only way I could get it to work was to import from
 // ../node_modules/socket.io/client-dist/socket.io.js
 // and detect whether "io" has been defined.
 //

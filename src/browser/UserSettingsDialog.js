@@ -28,7 +28,7 @@ class UserSettingsDialog extends Dialog {
 
       const ui = this.options.ui;
       const $css = this.$dlg.find('[name=xanadoCSS]');
-      const $jqt = this.$dlg.find("[name=jqTheme]");
+      //const $jqt = this.$dlg.find("[name=jqTheme]");
       const $locale = this.$dlg.find('[name=language]');
 
       return Promise.all([ ui.promiseCSS(), ui.promiseLocales() ])

@@ -40,7 +40,8 @@ describe("server/UserManager", () => {
     },
     user_defaults: {
       theme: "default"
-    }
+    },
+    html_dir: "html"
   };
 
   beforeEach(

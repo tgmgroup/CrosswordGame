@@ -199,7 +199,7 @@ class Server {
 
     cmdRouter.get(
       "/",
-      (req, res, next) => res.sendFile(
+      (req, res) => res.sendFile(
         Path.join(staticRoot, this.config.html_dir, "client_games.html"),
         err => {
           if (err)

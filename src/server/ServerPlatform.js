@@ -24,7 +24,7 @@ class ServerPlatform /* extends Platform */ {
   /**
    * @implements Platform
    */
-  static trigger(e, args) {
+  static trigger(/*e, args*/) {
     //assert.fail(`ServerPlatform.trigger ${e} ${args}`);
   }
 

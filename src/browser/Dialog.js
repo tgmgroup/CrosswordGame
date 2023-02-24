@@ -125,7 +125,7 @@ class Dialog {
       if (typeof foreclose === "function")
         foreclose();
     };
-  
+
     promise
     .then(() => {
         this.$dlg.dialog(this.options);

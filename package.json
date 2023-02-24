@@ -88,7 +88,7 @@
 		"docker": "npm run build; docker build . --tag xanado --file build/Dockerfile",
 		"indexing": "node bin/update-indexes.js",
 		"lint": "eslint src -f unix",
-		"server": "node bin/server.js --production",
+		"server": "node bin/server.js",
 		"start": "node bin/server.js",
 		"test": "mocha --recursive --extension js --timeout=5000 test",
 		"tx": "node bin/checkStrings.js"

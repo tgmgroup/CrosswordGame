@@ -43,7 +43,14 @@ them with hundreds of pull requests.
 
 The server code is written in modern Javascript ES6 and the server is tested using `node.js` version 19.2.0. It may work in earlier versions of `node.js`, but is untested. The server has only been tested running on Ubuntu 22.04.
 
-The client is also written in Javascript ES6 and works in all the browsers tested so far (latest versions of Chrome, Firefox, Android WebView, Opera, Safari).
+The browser code is also written in Javascript ES6 and works in all the
+browsers tested so far. Oldest tested versions are:
+
+* Chrome 72
+* Edge 80
+* Firefox 80
+* Opera 60
+* Safari 14.1 (Big Sur)
 
 ## Single-player (runs in the browser)
 

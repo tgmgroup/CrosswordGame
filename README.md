@@ -198,7 +198,7 @@ Note that these only work in games for which a dictionary has been selected. To 
 
 The `/editions` directory contains the files that are used to specify the
 games that can be played. Each specification is made up from:
-* A board layout, giving the size of the board and the locations of double, triple and quadruple word scores
+* A board layout, giving the size of the board and the locations of score multiplier squares
 * A tile set, which lists the legal letters and the number of tiles of each letter
 * A rack size, and the number of tiles you can swap
 * Bonuses to be given for long words
@@ -210,7 +210,7 @@ The following editions are included:
 * English Lexulous
 
 # Dictionaries
-The `/dictionaries` directory contains all the
+The `/dictionaries` directory contains the
 dictionaries. Included with the installation are a number of pre-built dictionaries:
 - `CSW2019_English` - 280K words from the Collins Scrabble Words 2019 dictionary
 - `SOWPODS_English` - 409K words from an [unofficial version](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt) of the standard European English SCRABBLE® competition dictionary.
@@ -220,9 +220,16 @@ dictionaries. Included with the installation are a number of pre-built dictionar
 - `Oxford_5000` - 29K English words derived from the [Oxford Learner's Dictionary](https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000)
 - `DISC_Catalan` - 580k word Catalan.
 
+See [DEVELOPING](DEVELOPING.md) for help on creating your own dictionary.
+
 ## Whitelists
-Regenerating a dictionary can be time consuming, so dictionaries can be
-extended "on the fly" using a simple list of words in a file alongside the dictionary file, with the same name but the extension `.white`. For example, `Oxford_5000.white`. The file will be read each time the server is restarted. `allow` builds a whitelist, but it doesn't write it to a file - that's up to you.
+Regenerating a dictionary can be time consuming, so dictionaries can
+be extended "on the fly" using a file containing a simple list of
+words, one per line. The file must be alongside the dictionary file,
+with the same name but the extension `.white`. For example,
+`Oxford_5000.white`. The file will be read each time the server is
+restarted. `allow` builds a whitelist in server memory, but it doesn't
+write it back to the file - that's up to you.
 
 # Server Security
 The assumption is that you will be running the multi-player game server
@@ -247,7 +254,6 @@ See [DEVELOPING](DEVELOPING.md) for more.
 # IMPORTANT NOTICES
 
 - [SCRABBLE and SuperSCRABBLE](http://www.scrabble.com/) are registered trademarks owned in the USA and Canada by Hasbro Inc, and throughout the rest of the world by J.W. Spear & Sons Limited of Maidenhead, Berkshire, UK
- - There is an official computer version of [SCRABBLE® published by Ubisoft](https://www.ubisoft.com/en-gb/game/scrabble).
 - [Words With Friends](https://www.zynga.com/games/words-with-friends-2/) is a registered trademark of Zynga Inc, 699 Eighth Street, San Francisco, California 94103, USA
 - [Lexulous](http://lexulous.com) is a registered trademark of RJ Softwares, 8th Floor, Lansdowne Court, 5B Sarat Bose Road, Kolkata, India 700020
 
@@ -275,8 +281,8 @@ Hübner, Daniel Weck, Elijah Sawyers, Andrew Appel, Guy Jacobsen, and
 Joshua Lewis, and the many people who they in turn based their work
 on.
 
-A number of npm modules are used, for which their authors are
-acknowledged and thanked.
+A large number of [npm](https://www.npmjs.com/) modules are used, for
+which their authors are acknowledged and thanked.
 
 This project is tested with [BrowserStack](https://www.browserstack.com/)
 

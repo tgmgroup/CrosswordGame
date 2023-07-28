@@ -112,7 +112,7 @@ class GameSetupDialog extends Dialog {
         ui.promiseEditions()
         .then(editions => {
           const $eds = this.$dlg.find("[name=edition]");
-          editions.forEach(e => $eds.append(`<option>${e}</option>`));
+          editions.forEach(e => $eds.append(`<option value="${e}">${e}</option>`));
           if (ui.getSetting("edition")) {
             $eds.val(ui.getSetting("edition"));
             $eds.selectmenu("refresh");
@@ -122,11 +122,11 @@ class GameSetupDialog extends Dialog {
         .then(dictionaries => {
           const $dics = this.$dlg.find("[name=dictionary]");
           dictionaries
-          .forEach(d => $dics.append(`<option>${d}</option>`));
-          if (ui.getSetting("dictionary")) {
-            $dics.val((ui.getSetting("dictionary")));
-          }
+          .forEach(d => $dics.append($(`<option value="${d}">${d}</option>`)));
           $dics.on("selectmenuchange", () => this.showFeedbackFields());
+          const seldic = ui.getSetting("dictionary");
+          if (seldic)
+            $dics.val(seldic).selectmenu("refresh");
           this.showFeedbackFields();
         })
       ]);
@@ -134,6 +134,7 @@ class GameSetupDialog extends Dialog {
   }
 
   openDialog() {
+    const ui = this.options.ui;
     return super.openDialog()
     .then(() => {
       this.$dlg.find(".dialog-row").show();
@@ -149,7 +150,8 @@ class GameSetupDialog extends Dialog {
       $fields.each((i, el) => {
         const $el = $(el);
         const field = $el.attr("name");
-        let val = game ? game[field] : Game.DEFAULTS[field];
+        let val = game ? game[field] : (
+          ui.getSetting(field) || Game.DEFAULTS[field]);
         if (el.tagName === "INPUT" && el.type === "checkbox") {
           //console.debug("SET", field, "=", val);
           $el.prop("checked", val).checkboxradio("refresh");

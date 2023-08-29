@@ -33,6 +33,7 @@ import { Game } from "../src/game/Game.js";
 // Default configuration.
 const DEFAULT_CONFIG = {
   port: 9093,
+  host: "localhost",
   games: path.join(__dirname, "..", "games"),
   maxAge: 14 * 24 * 60 * 60 * 1000,
   game_defaults: Game.DEFAULTS,
@@ -183,8 +184,8 @@ p.then(json => addDefaults(JSON.parse(json)))
           ? HTTPS.Server(config.https, server.express)
           : HTTP.Server(server.express);
 
-    console.log(`Server starting on port ${config.port}`);
-    protocol.listen(config.port);
+    console.log(`Server starting on ${config.host}:${config.port}`);
+    protocol.listen(config.port, config.host);
 
     const io = new SocketServer(protocol);
     // Each time a player connects, the server will receive

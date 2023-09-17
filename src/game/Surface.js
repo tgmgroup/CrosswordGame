@@ -149,6 +149,7 @@ class Surface {
     this.forEachTiledSquare(square => {
       removed.push(square.tile);
       square.unplaceTile();
+      return false;
     });
     return removed;
   }

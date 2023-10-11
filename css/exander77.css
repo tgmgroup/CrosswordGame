@@ -1,0 +1,63 @@
+/*Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
+  License MIT. See README.md at the root of this distribution for full copyright
+  and license information. Authors Alexander Weps & Crawford Currie*/
+
+/* Override CSS definitions in default.css */
+
+/* The text is taken from an attribute on the underlay */
+.Surface .underlay:before {
+  content: attr(data-short);
+}
+
+.Surface td {
+  border-color: :#ada48f;
+}
+
+/* double-word squares */
+.Surface td.square-D,
+.Surface td.square-M {
+  background-color: #05cd85;
+  border-color: #00ee00;
+  color: #ffffff;
+}
+
+/* triple-word squares */
+.Surface td.square-T {
+  background-color: #f75e59;
+  border-color: #ee0000;
+}
+
+/* quad-word squares */
+.Surface td.square-Q {
+  background-color: #a21585;
+  border-color: #801000;
+}
+
+/* double-letter squares */
+.Surface td.square-d {
+  background-color: #6da3ed;
+  border-color: #0000ee;
+  color: #ffffff;
+}
+
+/* triple-letter squares */
+.Surface td.square-t {
+  background-color: #e99e65;
+  border-color: #ffcc33;
+}
+
+/* quad-letter squares */
+.Surface td.square-q {
+  background-color: #0e6993;
+  border-color: #0e6900;
+}
+
+.Surface td.square-_ {
+  background-color: #beb9a6;
+}
+
+.Tile {
+  background-color: #ffcf5a !important;
+}
+
+

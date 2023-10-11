@@ -1,8 +1,12 @@
-name: Crossword Game
+name: Docker build of master
 
 # Configure the "docker" workflow to run every time a change
-# is pushed
-on: [push]
+# is pushed to "main"
+
+on:
+  push:
+    branches:
+      - "main"
 
 env:
   # Container registry domain (Github packages)
@@ -20,6 +24,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Build
+        run: npm install
+        run: npm run build
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -41,14 +49,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Build jsdoc code documentation
-        uses: andstor/jsdoc-action@v1
-        with:
-          source_dir: ./js
-          recurse: true
-          config_file: ./doc/config.json
-          output_dir: ./doc
 
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3

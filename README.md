@@ -1,6 +1,6 @@
 # Dockerized Simplified Multiplayer Scrabble (Scrabble for New Horizon)
 
-This project is a fork of Enter [CDOT's Xanado]([https://github.com/hanshuebner/html-scrabble](https://github.com/cdot/Xanado)], and [Hans Hübner's html-scrabble](https://github.com/hanshuebner/html-scrabble). Thanks to these great developers.
+This project is a fork of [CDOT's Xanado]([https://github.com/hanshuebner/html-scrabble](https://github.com/cdot/Xanado)], and [Hans Hübner's html-scrabble](https://github.com/hanshuebner/html-scrabble). Thanks to these great developers.
 
 This project serves 2 purposes:
 1. It adds a simplified English dictionary for English Language Learners, based on the Oxford 5000 Word List (https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000), Oxford Phrase List, and the Japanese New Horizon English textbook word list (https://ten.tokyo-shoseki.co.jp/text/chu/eigo/).

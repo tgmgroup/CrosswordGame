@@ -1,28 +1,25 @@
-<!--Copyright (C) 2019-2022 The Xanado Project https://github.com/cdot/Xanado
-License MIT. See README.md at the root of this distribution for full copyright
-and license information. Author Crawford Currie http://c-dot.co.uk-->
-<div class="dialog-row" data-i18n="label-pick-player"></div>
+<div class="dialog-row" data-i18n="Select the player to invite"></div>
 <div class="dialog-row">
   <label for="invitePlayer" data-i18n="Player:"></label>
   <select id="knownUserSelect"></select>
 </div>
-<div class="dialog-row" data-i18n="label-or-email"></div>
+<div class="dialog-row" data-i18n="Or type the email address of someone who is not listed, and click 'Add'"></div>
 <div class="dialog-row">
   <input type="email" id="playerEmail" multiple/>
   <button id="addButton" data-i18n="Add"></button>
 </div>
   
 <div class="dialog_row">
-  <div id="removeText" data-i18n="text-click-name"></div>
+  <div id="removeText" data-i18n="Click on a player's name below to remove them from the list"></div>
   <span id="invitedPlayers"></span>
 </div>
 
 <div class="dialog_row">
   <div data-i18n="Personal message"></div>
-  <textarea style="width:100%" name="message" data-i18n-tooltip="tt-invite-mess"></textarea>
+  <textarea style="width:100%" name="message" data-i18n-tooltip="Add a message that will be included in the invitation email"></textarea>
 </div>
 
 <div class="dialog_row">
-  <button class="submit" data-i18n="label-invite"></button>
+  <button class="submit" data-i18n="Send invitation emails"></button>
 </div>
-<input type="text" name="gameKey" style="display:none"></input>
+<input type="text" name="gameKey" class="hidden"></input>

@@ -1,148 +1,87 @@
 {
-	"name": "@cdot/xanado",
-	"description": "Multi user crossword game",
-	"version": "3.1.4",
-	"license": "MIT",
-	"type": "module",
+	"name": "html-scrabble",
+	"description": "Multi user Scrabble game",
+	"version": "1.0.0",
 	"author": {
 		"name": "Crawford Currie",
 		"url": "https://github.com/cdot"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/cdot/Xanado"
+		"url": "git://github.com/cdot/CrosswordGame"
 	},
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/",
-		"access": "public"
+	"main": "server",
+	"engines": {
+		"node": ">=12.0.0"
 	},
-	"files": [
-		"README.md",
-		"audio/*.mp3",
-		"bin/*.js",
-		"css/*.css",
-		"css/index.json",
-		"dictionaries/*.dict",
-		"dictionaries/index.json",
-		"dist/*.html",
-		"dist/**/*",
-		"editions/*.json",
-		"games/README",
-		"html/*.html",
-		"i18n/*.json",
-		"images/*",
-		"src/*/*.js",
-		"package.json",
-		"package-lock.json"
-	],
+	"license": "MIT",
 	"dependencies": {
-		"@cdot/cbor": "^1.0.5",
-		"@cdot/dictionary": "^1.0.2",
-		"@rwap/jquery-ui-touch-punch": "^1.0.11",
-		"async-lock": "^1.4.0",
-		"banana-i18n": "^2.3.3",
-		"bcrypt": "^5.1.0",
-		"es-module-shims": "^1.6.3",
-		"express": "^4.18.2",
-		"express-session": "^1.17.3",
-		"jquery": "^3.6.3",
-		"jquery-ui": "^1.13.2",
-		"jquery.cookie": "^1.4.1",
-		"nodemailer": "^6.9.1",
-		"normalize.css": "^8.0.1",
-		"passport": "^0.6.0",
+		"bcrypt": "^5.0.1",
+		"cookie-parser": ">=1.4.6",
+		"errorhandler": ">=1.5.1",
+		"express": ">=4.17.3",
+		"express-basic-auth": ">=1.2.1",
+		"express-negotiate": ">=0.0.6",
+		"express-session": "^1.17.2",
+		"get-user-locale": ">=1.4.0",
+		"https": ">=1.0.0",
+		"node-getopt": ">=0.3.2",
+		"node-gzip": ">=1.1.2",
+		"nodemailer": ">=6.7.3",
+		"passport": "^0.5.2",
 		"passport-facebook": "^3.0.0",
 		"passport-google-oauth20": "^2.0.0",
-		"posix-getopt": "^1.2.1",
 		"proper-lockfile": "^4.1.2",
-		"session-file-store": "^1.5.0",
-		"socket.io": "^4.5.4",
-		"web-worker": "^1.2.0"
+		"requirejs": ">=2.3.6",
+		"socket.io": ">=4.4.1"
 	},
 	"devDependencies": {
-		"@fast-csv/format": "^4.3.5",
-		"c8": "^7.12.0",
-		"chai": "^4.3.7",
-		"chai-http": "^4.3.0",
-		"css": "^3.0.0",
-		"docdash": "^2.0.1",
-		"eslint": "^8.33.0",
-		"eslint-plugin-import": "^2.27.5",
-		"html-loader": "^4.2.0",
-		"jsdoc": "^4.0.0",
-		"jsdom": "^21.1.0",
-		"marked": "^4.2.12",
-		"mocha": "^10.2.0",
-		"node-localstorage": "^2.2.1",
-		"tmp-promise": "^3.0.3",
-		"uglify-js": "^3.17.4",
-		"webpack": "^5.75.0",
-		"webpack-cli": "^5.0.1"
+		"marked": "^4.0.12",
+		"chai": ">=4.3.6",
+		"eslint": ">=8.12.0",
+		"jsdoc": "^3.6.10",
+		"mocha": ">=9.2.2"
 	},
 	"scripts": {
-		"build": "webpack --node-env production -c build/wp_sa_games.js; webpack --node-env production -c build/wp_sa_game.js; webpack --node-env production -c build/wp_cl_games.js; webpack --node-env production -c build/wp_cl_game.js",
-		"coverage": "NODE_ENV=test c8 --reporter=html --reporter text npm run test",
-		"debug_build": "node bin/update-indexes.js & webpack -c build/wp_sa_games.js & webpack -c build/wp_sa_game.js & webpack -c build/wp_cl_games.js & webpack -c build/wp_cl_game.js",
-		"debug_server": "node bin/server.js --config config.json --html html --debug all",
-		"doc": "jsdoc -c build/jsdoc_config.json src",
-		"docker": "npm run build; docker build . --tag xanado --file build/Dockerfile",
-		"indexing": "node bin/update-indexes.js",
-		"lint": "eslint src -f unix",
-		"server": "node bin/server.js",
-		"start": "node bin/server.js",
-		"test": "mocha --recursive --extension js --timeout=5000 test",
-		"tx": "node bin/checkStrings.js"
-	},
-	"bin": {
-		"xanado": "./bin/server.js"
+		"web": "node server.js"
 	},
 	"eslintConfig": {
 		"extends": "eslint:recommended",
 		"parserOptions": {
-			"sourceType": "module",
-			"ecmaVersion": 2022
+			"ecmaVersion": 8
 		},
 		"env": {
 			"shared-node-browser": true,
 			"jquery": true,
-			"es2021": true
+			"es6": true,
+			"amd": true
 		},
-		"plugins": [
-			"import"
-		],
+		"globals": {
+			"requirejs": "writable",
+			"Mocha": "writable"
+		},
 		"rules": {
 			"camelcase": 0,
 			"curly": 0,
 			"dot-notation": 1,
-			"import/no-unresolved": "error",
-			"import/named": "error",
-			"import/namespace": "error",
-			"import/default": "error",
-			"import/export": "error",
-			"import/no-named-as-default": "warn",
-			"import/no-named-as-default-member": "warn",
-			"import/no-duplicates": "warn",
-			"import/first": 0,
 			"new-cap": 0,
 			"no-alert": 0,
 			"no-console": 0,
 			"no-debugger": 0,
 			"no-eval": 0,
 			"no-fallthrough": 0,
-			"no-global-assign": 0,
 			"no-loop-func": 1,
 			"no-mixed-spaces-and-tabs": 0,
 			"no-new": 0,
-			"no-prototype-builtins": 0,
 			"no-redeclare": [
 				"error",
 				{
-					"builtinGlobals": false
+					"builtinGlobals": true
 				}
 			],
-			"no-trailing-spaces": 1,
+			"no-trailing-spaces": 0,
 			"no-underscore-dangle": 0,
-			"no-unused-vars": 1,
+			"no-unused-vars": 0,
 			"no-useless-escape": 1,
 			"no-use-before-define": 0,
 			"quotes": 0,

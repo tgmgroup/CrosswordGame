@@ -1,22 +1,18 @@
 /**
  * CSS shared between the "games" and "game" interfaces
  */
+
 body {
     font-family: helvetica, arial, sans-serif;
-    font-size: 100.01%; /* 100.01% good practice, but with 62.5% => 1em == 10px (factor of 10) GENERALLY: 1em = 12pt = 16px = 100% */
-
+    font-size: 100.01%;
+    /* 100.01% good practice, but with 62.5% => 1em == 10px (factor of 10) GENERALLY: 1em = 12pt = 16px = 100% */
     margin: 0;
-
     padding: 0;
-
     border: none;
-
     /* background: url('../images/wood.jpg'); */
-    background: url('../images/baize.jpg');
+    background: url('../images/wood.jpg');
     /* background: url('../images/leather.jpg'); */
-
     -webkit-touch-callout: none;
-
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -25,104 +21,125 @@ body {
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
+
 
 /* Strip all padding off element */
+
 .no-padding {
-	padding: 0;
+    padding: 0;
 }
 
+
 /* This took a lot of faffing around to get right! */
+
 button.hide-password {
-	position: absolute; /* within containing block */
-	height: 100%; /* of containing block */
-	width: 25px;
-	right: -8px; /* right edge of containing block */
-	top: 0;
-	bottom: auto;
-	font-size: 0.5em;
-	margin-right: 0;
-	padding: 0;
+    position: absolute;
+    /* within containing block */
+    height: 100%;
+    /* of containing block */
+    width: 25px;
+    right: -8px;
+    /* right edge of containing block */
+    top: 0;
+    bottom: auto;
+    font-size: 0.5em;
+    margin-right: 0;
+    padding: 0;
 }
 
 .icon-eye-open {
     background-image: url('/images/eye-open.svg') !important;
-	background-size: 16px 16px;
+    background-size: 16px 16px;
 }
 
 .icon-eye-closed {
     background-image: url('/images/eye-closed.svg') !important;
-	background-size: 16px 16px;
+    background-size: 16px 16px;
 }
 
 .forgotten-password {
-	margin-top: 1em;
-	width: 100%;
-	text-align: center;
-	font-size: 0.875rem;
+    margin-top: 1em;
+    width: 100%;
+    text-align: center;
+    font-size: 0.875rem;
 }
 
+
 /* Third party login logos */
+
 .provider-logo {
-	text-align: center;
+    text-align: center;
 }
 
 .provider-logo img {
-	width: 1.5em;
-	height: 1.5em;
+    width: 1.5em;
+    height: 1.5em;
 }
+
 
 /* Dialogs */
 
+
 /* Initially hidden */
+
 .dialog {
-	display: none;
+    display: none;
 }
 
+
 /* A row in a tab pane in a dialog box */
+
 .dialog-row {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-	position: relative;
-	box-sizing: border-box;
-	width: 100%;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .dialog-row input[type=text],
 .dialog-row input[type=password] {
-	width: 100%;
+    width: 100%;
 }
+
 
 /* Disable an entire dialog titlebar */
+
 .no-title .ui-dialog-titlebar {
-  display: none;
+    display: none;
 }
+
 
 /* Disable a dialog close button */
+
 .no-close .ui-dialog-titlebar-close {
-  display: none;
+    display: none;
 }
 
+
 /* Make sure a selectmenu is in front of the containing dialog */
+
 .ui-selectmenu-menu {
-	z-index: 3000;
+    z-index: 3000;
 }
 
 .ui-button {
-	padding: 0.15em 0.25em 0.15em 0.25em;*/
-	display: inline-block;
-	max-width: 100%;
-	margin-left: 0.2em;
-	margin-right: 0.2em;
-	overflow: hidden;
-	position: relative;
-	/*transform: translatez(0);*/
-	text-decoration: none;
-	box-sizing: border-box;
-	font-weight: normal;
-	box-shadow: 0.1em 0.1em 0.3em rgba(0,0,0,0.9);
+    padding: 0.15em 0.25em 0.15em 0.25em;
+    */ display: inline-block;
+    max-width: 100%;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    overflow: hidden;
+    position: relative;
+    /*transform: translatez(0);*/
+    text-decoration: none;
+    box-sizing: border-box;
+    font-weight: normal;
+    box-shadow: 0.1em 0.1em 0.3em rgba(0, 0, 0, 0.9);
 }
+
 
 /*button {
   background-image: linear-gradient(#A49E63, #47755B);
@@ -142,7 +159,8 @@ button.hide-password {
   touch-action: manipulation;
 }
 */
+
 button.risky {
-	/*background-color: transparent;*/
-	color: #c33;
+    /*background-color: transparent;*/
+    color: #c33;
 }

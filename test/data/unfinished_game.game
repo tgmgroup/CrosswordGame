@@ -1,0 +1,4769 @@
+{
+ "_Í": 0,
+ "_Ć": "Game",
+ "_Ð": {
+  "key": "unfinished_game",
+  "creationTimestamp": 1652281839795,
+  "edition": "English_Scrabble",
+  "dictionary": "British_English",
+  "state": "Playing",
+  "players": [
+   {
+    "_Í": 1,
+    "_Ć": "Player",
+    "_Ð": {
+     "key": "robot",
+     "isRobot": true,
+     "canChallenge": true,
+     "name": "Robot",
+     "rack": {
+      "_Í": 2,
+      "_Ć": "Rack",
+      "_Ð": {
+       "id": "Rack_robot",
+       "cols": 8,
+       "rows": 1,
+       "squares": [
+        [
+         {
+          "_Í": 3,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 0,
+           "id": "Rack_robot_0",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 4,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "N",
+             "score": 1,
+             "isBlank": false,
+             "col": 0
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 5,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 1,
+           "id": "Rack_robot_1",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 6,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "A",
+             "score": 1,
+             "isBlank": false,
+             "col": 1
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 7,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 2,
+           "id": "Rack_robot_2",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 8,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "O",
+             "score": 1,
+             "isBlank": false,
+             "col": 2
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 9,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 3,
+           "id": "Rack_robot_3",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 10,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "B",
+             "score": 3,
+             "isBlank": false,
+             "col": 3
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 11,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 4,
+           "id": "Rack_robot_4",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 12,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "T",
+             "score": 1,
+             "isBlank": false,
+             "col": 4
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 13,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 5,
+           "id": "Rack_robot_5",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 14,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "A",
+             "score": 1,
+             "isBlank": false,
+             "col": 5
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 15,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 6,
+           "id": "Rack_robot_6",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 16,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "Z",
+             "score": 10,
+             "isBlank": false,
+             "col": 6
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 17,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 7,
+           "id": "Rack_robot_7",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": null
+          }
+         }
+        ]
+       ]
+      }
+     },
+     "passes": 0,
+     "score": 90,
+     "dictionary": "British_English"
+    }
+   },
+   {
+    "_Í": 18,
+    "_Ć": "Player",
+    "_Ð": {
+     "key": "human",
+     "name": "human",
+     "rack": {
+      "_Í": 19,
+      "_Ć": "Rack",
+      "_Ð": {
+       "id": "Rack_one",
+       "cols": 8,
+       "rows": 1,
+       "squares": [
+        [
+         {
+          "_Í": 20,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 0,
+           "id": "Rack_one_0",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 21,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "R",
+             "score": 1,
+             "isBlank": false,
+             "col": 0
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 22,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 1,
+           "id": "Rack_one_1",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 23,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "T",
+             "score": 1,
+             "isBlank": false,
+             "col": 1
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 24,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 2,
+           "id": "Rack_one_2",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 25,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "L",
+             "score": 1,
+             "isBlank": false,
+             "col": 2
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 26,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 3,
+           "id": "Rack_one_3",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 27,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "A",
+             "score": 1,
+             "isBlank": false,
+             "col": 3
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 28,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 4,
+           "id": "Rack_one_4",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 29,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "N",
+             "score": 1,
+             "isBlank": false,
+             "col": -1,
+             "row": -1
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 30,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 5,
+           "id": "Rack_one_5",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 31,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "T",
+             "score": 1,
+             "isBlank": false,
+             "col": 5
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 32,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 6,
+           "id": "Rack_one_6",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 33,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "I",
+             "score": 1,
+             "isBlank": false,
+             "col": 6
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 34,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 7,
+           "id": "Rack_one_7",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": null
+          }
+         }
+        ]
+       ]
+      }
+     },
+     "passes": 1,
+     "score": 0
+    }
+   }
+  ],
+  "turns": [
+   {
+    "_Í": 35,
+    "_Ć": "Turn",
+    "_Ð": {
+     "words": [
+      {
+       "_Í": 36,
+       "_Ð": {
+        "word": "DELUGES",
+        "score": 72
+       }
+      }
+     ],
+     "score": 72,
+     "placements": [
+      {
+       "_Í": 37,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "isBlank": false,
+        "col": 7,
+        "row": 3
+       }
+      },
+      {
+       "_Í": 38,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "isBlank": false,
+        "col": 7,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 39,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "isBlank": false,
+        "col": 7,
+        "row": 5
+       }
+      },
+      {
+       "_Í": 40,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "isBlank": false,
+        "col": 7,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 41,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "isBlank": false,
+        "col": 7,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 42,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "isBlank": false,
+        "col": 7,
+        "row": 8
+       }
+      },
+      {
+       "_Í": 43,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "isBlank": false,
+        "col": 7,
+        "row": 9
+       }
+      }
+     ],
+     "replacements": [
+      {
+       "_Í": 44,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "isBlank": false,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 45,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "isBlank": false,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 46,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "isBlank": false,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 47,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "W",
+        "score": 4,
+        "isBlank": false,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 48,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "isBlank": false,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 49,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "isBlank": false,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 50,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "isBlank": false,
+        "col": 6
+       }
+      }
+     ],
+     "gameKey": "unfinished_game",
+     "type": "play",
+     "playerKey": "robot",
+     "nextToGoKey": "human",
+     "timestamp": 1652281839997
+    }
+   },
+   {
+    "_Í": 51,
+    "_Ć": "Turn",
+    "_Ð": {
+     "words": [
+      {
+       "_Í": 52,
+       "_Ð": {
+        "word": "HENRY",
+        "score": 22
+       }
+      }
+     ],
+     "score": 22,
+     "placements": [
+      {
+       "_Í": 53,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "isBlank": false,
+        "col": 6,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 54,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "isBlank": false,
+        "col": 8,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 55,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "isBlank": false,
+        "col": 9,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 56,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Y",
+        "score": 4,
+        "isBlank": false,
+        "col": 10,
+        "row": 4
+       }
+      }
+     ],
+     "replacements": [
+      {
+       "_Í": 57,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "isBlank": false,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 58,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "C",
+        "score": 3,
+        "isBlank": false,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 59,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "isBlank": false,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 60,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "isBlank": false,
+        "col": 6
+       }
+      }
+     ],
+     "gameKey": "unfinished_game",
+     "type": "play",
+     "playerKey": "human",
+     "nextToGoKey": "robot",
+     "timestamp": 1652285673658
+    }
+   },
+   {
+    "_Í": 61,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": -22,
+     "placements": [
+      {
+       "_Í": 62,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "isBlank": false,
+        "col": 6,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 63,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "isBlank": false,
+        "col": 8,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 64,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "isBlank": false,
+        "col": 9,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 65,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Y",
+        "score": 4,
+        "isBlank": false,
+        "col": 10,
+        "row": 4
+       }
+      }
+     ],
+     "replacements": [
+      {
+       "_Í": 66,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "isBlank": false,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 67,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "C",
+        "score": 3,
+        "isBlank": false,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 68,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "isBlank": false,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 69,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "isBlank": false,
+        "col": 6
+       }
+      }
+     ],
+     "gameKey": "unfinished_game",
+     "type": "challenge-won",
+     "playerKey": "human",
+     "nextToGoKey": "robot",
+     "challengerKey": "robot",
+     "timestamp": 1652285673662
+    }
+   },
+   {
+    "_Í": 70,
+    "_Ć": "Turn",
+    "_Ð": {
+     "words": [
+      {
+       "_Í": 71,
+       "_Ð": {
+        "word": "OWNED",
+        "score": 18
+       }
+      }
+     ],
+     "score": 18,
+     "placements": [
+      {
+       "_Í": 72,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "isBlank": false,
+        "col": 4,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 73,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "W",
+        "score": 4,
+        "isBlank": false,
+        "col": 5,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 74,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "isBlank": false,
+        "col": 6,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 75,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "isBlank": false,
+        "col": 8,
+        "row": 4
+       }
+      }
+     ],
+     "replacements": [
+      {
+       "_Í": 76,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "isBlank": false,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 77,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "B",
+        "score": 3,
+        "isBlank": false,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 78,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "isBlank": false,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 79,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Z",
+        "score": 10,
+        "isBlank": false,
+        "col": 6
+       }
+      }
+     ],
+     "gameKey": "unfinished_game",
+     "type": "play",
+     "playerKey": "robot",
+     "nextToGoKey": "human",
+     "timestamp": 1652285674041
+    }
+   },
+   {
+    "_Í": 80,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 0,
+     "replacements": [
+      {
+       "_Í": 81,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "isBlank": false,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 82,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "isBlank": false,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 83,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "isBlank": false,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 84,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "isBlank": false,
+        "col": 6
+       }
+      }
+     ],
+     "gameKey": "unfinished_game",
+     "type": "swap",
+     "playerKey": "human",
+     "nextToGoKey": "robot",
+     "timestamp": 1652285718013
+    }
+   }
+  ],
+  "whosTurnKey": "human",
+  "timePenalty": 5,
+  "board": {
+   "_Í": 85,
+   "_Ć": "Board",
+   "_Ð": {
+    "id": "Board",
+    "cols": 15,
+    "rows": 15,
+    "squares": [
+     [
+      {
+       "_Í": 86,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 0,
+        "row": 0,
+        "id": "Board_0x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 87,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 1,
+        "id": "Board_0x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 88,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 2,
+        "id": "Board_0x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 89,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 0,
+        "row": 3,
+        "id": "Board_0x3",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 90,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 4,
+        "id": "Board_0x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 91,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 5,
+        "id": "Board_0x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 92,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 6,
+        "id": "Board_0x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 93,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 0,
+        "row": 7,
+        "id": "Board_0x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 94,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 8,
+        "id": "Board_0x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 95,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 9,
+        "id": "Board_0x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 96,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 10,
+        "id": "Board_0x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 97,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 0,
+        "row": 11,
+        "id": "Board_0x11",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 98,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 12,
+        "id": "Board_0x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 99,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "row": 13,
+        "id": "Board_0x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 100,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 0,
+        "row": 14,
+        "id": "Board_0x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 101,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 0,
+        "id": "Board_1x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 102,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 1,
+        "row": 1,
+        "id": "Board_1x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 103,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 2,
+        "id": "Board_1x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 104,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 3,
+        "id": "Board_1x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 105,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 4,
+        "id": "Board_1x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 106,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 1,
+        "row": 5,
+        "id": "Board_1x5",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 107,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 6,
+        "id": "Board_1x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 108,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 7,
+        "id": "Board_1x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 109,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 8,
+        "id": "Board_1x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 110,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 1,
+        "row": 9,
+        "id": "Board_1x9",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 111,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 10,
+        "id": "Board_1x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 112,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 11,
+        "id": "Board_1x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 113,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 12,
+        "id": "Board_1x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 114,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 1,
+        "row": 13,
+        "id": "Board_1x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 115,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "row": 14,
+        "id": "Board_1x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 116,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 0,
+        "id": "Board_2x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 117,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 1,
+        "id": "Board_2x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 118,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 2,
+        "row": 2,
+        "id": "Board_2x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 119,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 3,
+        "id": "Board_2x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 120,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 4,
+        "id": "Board_2x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 121,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 5,
+        "id": "Board_2x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 122,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 2,
+        "row": 6,
+        "id": "Board_2x6",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 123,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 7,
+        "id": "Board_2x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 124,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 2,
+        "row": 8,
+        "id": "Board_2x8",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 125,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 9,
+        "id": "Board_2x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 126,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 10,
+        "id": "Board_2x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 127,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 11,
+        "id": "Board_2x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 128,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 2,
+        "row": 12,
+        "id": "Board_2x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 129,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 13,
+        "id": "Board_2x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 130,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "row": 14,
+        "id": "Board_2x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 131,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 3,
+        "row": 0,
+        "id": "Board_3x0",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 132,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 1,
+        "id": "Board_3x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 133,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 2,
+        "id": "Board_3x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 134,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 3,
+        "row": 3,
+        "id": "Board_3x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 135,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 4,
+        "id": "Board_3x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 136,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 5,
+        "id": "Board_3x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 137,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 6,
+        "id": "Board_3x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 138,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 3,
+        "row": 7,
+        "id": "Board_3x7",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 139,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 8,
+        "id": "Board_3x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 140,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 9,
+        "id": "Board_3x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 141,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 10,
+        "id": "Board_3x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 142,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 3,
+        "row": 11,
+        "id": "Board_3x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 143,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 12,
+        "id": "Board_3x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 144,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "row": 13,
+        "id": "Board_3x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 145,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 3,
+        "row": 14,
+        "id": "Board_3x14",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 146,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 0,
+        "id": "Board_4x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 147,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 1,
+        "id": "Board_4x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 148,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 2,
+        "id": "Board_4x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 149,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 3,
+        "id": "Board_4x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 150,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 4,
+        "row": 4,
+        "id": "Board_4x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 151,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "isBlank": false,
+          "col": 4,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 152,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 5,
+        "id": "Board_4x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 153,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 6,
+        "id": "Board_4x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 154,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 7,
+        "id": "Board_4x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 155,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 8,
+        "id": "Board_4x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 156,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 9,
+        "id": "Board_4x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 157,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 4,
+        "row": 10,
+        "id": "Board_4x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 158,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 11,
+        "id": "Board_4x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 159,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 12,
+        "id": "Board_4x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 160,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 13,
+        "id": "Board_4x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 161,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "row": 14,
+        "id": "Board_4x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 162,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 0,
+        "id": "Board_5x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 163,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "row": 1,
+        "id": "Board_5x1",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 164,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 2,
+        "id": "Board_5x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 165,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 3,
+        "id": "Board_5x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 166,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 4,
+        "id": "Board_5x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 167,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "W",
+          "score": 4,
+          "isBlank": false,
+          "col": 5,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 168,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "row": 5,
+        "id": "Board_5x5",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 169,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 6,
+        "id": "Board_5x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 170,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 7,
+        "id": "Board_5x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 171,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 8,
+        "id": "Board_5x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 172,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "row": 9,
+        "id": "Board_5x9",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 173,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 10,
+        "id": "Board_5x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 174,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 11,
+        "id": "Board_5x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 175,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 12,
+        "id": "Board_5x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 176,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "row": 13,
+        "id": "Board_5x13",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 177,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "row": 14,
+        "id": "Board_5x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 178,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 0,
+        "id": "Board_6x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 179,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 1,
+        "id": "Board_6x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 180,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "row": 2,
+        "id": "Board_6x2",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 181,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 3,
+        "id": "Board_6x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 182,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 4,
+        "id": "Board_6x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 183,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "isBlank": false,
+          "col": 6,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 184,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 5,
+        "id": "Board_6x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 185,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "row": 6,
+        "id": "Board_6x6",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 186,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 7,
+        "id": "Board_6x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 187,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "row": 8,
+        "id": "Board_6x8",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 188,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 9,
+        "id": "Board_6x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 189,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 10,
+        "id": "Board_6x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 190,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 11,
+        "id": "Board_6x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 191,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "row": 12,
+        "id": "Board_6x12",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 192,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 13,
+        "id": "Board_6x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 193,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "row": 14,
+        "id": "Board_6x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 194,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 7,
+        "row": 0,
+        "id": "Board_7x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 195,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 1,
+        "id": "Board_7x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 196,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 2,
+        "id": "Board_7x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 197,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 7,
+        "row": 3,
+        "id": "Board_7x3",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 198,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "D",
+          "score": 2,
+          "isBlank": false,
+          "col": 7,
+          "row": 3,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 199,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 4,
+        "id": "Board_7x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 200,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "isBlank": false,
+          "col": 7,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 201,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 5,
+        "id": "Board_7x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 202,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "L",
+          "score": 1,
+          "isBlank": false,
+          "col": 7,
+          "row": 5,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 203,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 6,
+        "id": "Board_7x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 204,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "U",
+          "score": 1,
+          "isBlank": false,
+          "col": 7,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 205,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "M",
+        "col": 7,
+        "row": 7,
+        "id": "Board_7x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 206,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "G",
+          "score": 2,
+          "isBlank": false,
+          "col": 7,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 207,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 8,
+        "id": "Board_7x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 208,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "isBlank": false,
+          "col": 7,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 209,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 9,
+        "id": "Board_7x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 210,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "S",
+          "score": 1,
+          "isBlank": false,
+          "col": 7,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 211,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 10,
+        "id": "Board_7x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 212,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 7,
+        "row": 11,
+        "id": "Board_7x11",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 213,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 12,
+        "id": "Board_7x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 214,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "row": 13,
+        "id": "Board_7x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 215,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 7,
+        "row": 14,
+        "id": "Board_7x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 216,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 0,
+        "id": "Board_8x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 217,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 1,
+        "id": "Board_8x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 218,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "row": 2,
+        "id": "Board_8x2",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 219,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 3,
+        "id": "Board_8x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 220,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 4,
+        "id": "Board_8x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 221,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "D",
+          "score": 2,
+          "isBlank": false,
+          "col": 8,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 222,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 5,
+        "id": "Board_8x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 223,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "row": 6,
+        "id": "Board_8x6",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 224,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 7,
+        "id": "Board_8x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 225,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "row": 8,
+        "id": "Board_8x8",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 226,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 9,
+        "id": "Board_8x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 227,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 10,
+        "id": "Board_8x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 228,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 11,
+        "id": "Board_8x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 229,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "row": 12,
+        "id": "Board_8x12",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 230,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 13,
+        "id": "Board_8x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 231,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "row": 14,
+        "id": "Board_8x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 232,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 0,
+        "id": "Board_9x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 233,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "row": 1,
+        "id": "Board_9x1",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 234,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 2,
+        "id": "Board_9x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 235,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 3,
+        "id": "Board_9x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 236,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 4,
+        "id": "Board_9x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 237,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "row": 5,
+        "id": "Board_9x5",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 238,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 6,
+        "id": "Board_9x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 239,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 7,
+        "id": "Board_9x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 240,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 8,
+        "id": "Board_9x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 241,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "row": 9,
+        "id": "Board_9x9",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 242,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 10,
+        "id": "Board_9x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 243,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 11,
+        "id": "Board_9x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 244,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 12,
+        "id": "Board_9x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 245,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "row": 13,
+        "id": "Board_9x13",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 246,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "row": 14,
+        "id": "Board_9x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 247,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 0,
+        "id": "Board_10x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 248,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 1,
+        "id": "Board_10x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 249,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 2,
+        "id": "Board_10x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 250,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 3,
+        "id": "Board_10x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 251,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 10,
+        "row": 4,
+        "id": "Board_10x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 252,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 5,
+        "id": "Board_10x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 253,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 6,
+        "id": "Board_10x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 254,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 7,
+        "id": "Board_10x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 255,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 8,
+        "id": "Board_10x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 256,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 9,
+        "id": "Board_10x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 257,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 10,
+        "row": 10,
+        "id": "Board_10x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 258,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 11,
+        "id": "Board_10x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 259,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 12,
+        "id": "Board_10x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 260,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 13,
+        "id": "Board_10x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 261,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "row": 14,
+        "id": "Board_10x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 262,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 11,
+        "row": 0,
+        "id": "Board_11x0",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 263,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 1,
+        "id": "Board_11x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 264,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 2,
+        "id": "Board_11x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 265,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 11,
+        "row": 3,
+        "id": "Board_11x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 266,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 4,
+        "id": "Board_11x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 267,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 5,
+        "id": "Board_11x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 268,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 6,
+        "id": "Board_11x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 269,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 11,
+        "row": 7,
+        "id": "Board_11x7",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 270,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 8,
+        "id": "Board_11x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 271,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 9,
+        "id": "Board_11x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 272,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 10,
+        "id": "Board_11x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 273,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 11,
+        "row": 11,
+        "id": "Board_11x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 274,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 12,
+        "id": "Board_11x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 275,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "row": 13,
+        "id": "Board_11x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 276,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 11,
+        "row": 14,
+        "id": "Board_11x14",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 277,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 0,
+        "id": "Board_12x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 278,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 1,
+        "id": "Board_12x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 279,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 12,
+        "row": 2,
+        "id": "Board_12x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 280,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 3,
+        "id": "Board_12x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 281,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 4,
+        "id": "Board_12x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 282,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 5,
+        "id": "Board_12x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 283,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 12,
+        "row": 6,
+        "id": "Board_12x6",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 284,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 7,
+        "id": "Board_12x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 285,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 12,
+        "row": 8,
+        "id": "Board_12x8",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 286,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 9,
+        "id": "Board_12x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 287,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 10,
+        "id": "Board_12x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 288,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 11,
+        "id": "Board_12x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 289,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 12,
+        "row": 12,
+        "id": "Board_12x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 290,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 13,
+        "id": "Board_12x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 291,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "row": 14,
+        "id": "Board_12x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 292,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 0,
+        "id": "Board_13x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 293,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 13,
+        "row": 1,
+        "id": "Board_13x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 294,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 2,
+        "id": "Board_13x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 295,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 3,
+        "id": "Board_13x3",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 296,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 4,
+        "id": "Board_13x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 297,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 13,
+        "row": 5,
+        "id": "Board_13x5",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 298,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 6,
+        "id": "Board_13x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 299,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 7,
+        "id": "Board_13x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 300,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 8,
+        "id": "Board_13x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 301,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 13,
+        "row": 9,
+        "id": "Board_13x9",
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 302,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 10,
+        "id": "Board_13x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 303,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 11,
+        "id": "Board_13x11",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 304,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 12,
+        "id": "Board_13x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 305,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 13,
+        "row": 13,
+        "id": "Board_13x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 306,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "row": 14,
+        "id": "Board_13x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 307,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 14,
+        "row": 0,
+        "id": "Board_14x0",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 308,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 1,
+        "id": "Board_14x1",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 309,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 2,
+        "id": "Board_14x2",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 310,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 14,
+        "row": 3,
+        "id": "Board_14x3",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 311,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 4,
+        "id": "Board_14x4",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 312,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 5,
+        "id": "Board_14x5",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 313,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 6,
+        "id": "Board_14x6",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 314,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 14,
+        "row": 7,
+        "id": "Board_14x7",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 315,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 8,
+        "id": "Board_14x8",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 316,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 9,
+        "id": "Board_14x9",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 317,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 10,
+        "id": "Board_14x10",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 318,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 14,
+        "row": 11,
+        "id": "Board_14x11",
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 319,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 12,
+        "id": "Board_14x12",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 320,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "row": 13,
+        "id": "Board_14x13",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": null
+       }
+      },
+      {
+       "_Í": 321,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 14,
+        "row": 14,
+        "id": "Board_14x14",
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": null
+       }
+      }
+     ]
+    ],
+    "bonuses": {
+     "_Í": 322,
+     "_Ð": {
+      "7": 50
+     }
+    },
+    "rackSize": 7,
+    "swapSize": 7,
+    "midrow": 7,
+    "midcol": 7
+   }
+  },
+  "rackSize": 7,
+  "letterBag": {
+   "_Í": 323,
+   "_Ć": "LetterBag",
+   "_Ð": {
+    "tiles": [
+     {
+      "_Í": 324,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "W",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 325,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "A",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 326,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "U",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 327,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "R",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 328,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "Y",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 329,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "Y",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 330,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "X",
+       "score": 8,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 331,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 332,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "D",
+       "score": 2,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 333,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "H",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 334,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "O",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 335,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "R",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 336,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 337,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "O",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 338,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "T",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 339,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "S",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 340,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "D",
+       "score": 2,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 341,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": " ",
+       "score": 0,
+       "isBlank": true
+      }
+     },
+     {
+      "_Í": 342,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "N",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 343,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "A",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 344,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 345,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "O",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 346,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "N",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 347,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 348,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 349,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 350,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "N",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 351,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "H",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 352,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 353,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 354,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 355,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "O",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 356,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "V",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 357,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 358,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "S",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 359,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 360,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": " ",
+       "score": 0,
+       "isBlank": true
+      }
+     },
+     {
+      "_Í": 361,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 362,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "T",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 363,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "L",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 364,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "O",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 365,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "A",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 366,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "R",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 367,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "A",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 368,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "P",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 369,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "F",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 370,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "G",
+       "score": 2,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 371,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "R",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 372,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "T",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 373,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "G",
+       "score": 2,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 374,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 375,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "I",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 376,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "U",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 377,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 378,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "K",
+       "score": 5,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 379,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "U",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 380,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "F",
+       "score": 4,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 381,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "Q",
+       "score": 10,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 382,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "J",
+       "score": 8,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 383,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "C",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 384,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "S",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 385,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "B",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 386,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "P",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 387,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "A",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 388,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 389,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 390,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "O",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 391,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "M",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 392,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "R",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 393,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "L",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 394,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "E",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 395,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "C",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 396,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "A",
+       "score": 1,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 397,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "M",
+       "score": 3,
+       "isBlank": false
+      }
+     },
+     {
+      "_Í": 398,
+      "_Ć": "Tile",
+      "_Ð": {
+       "letter": "V",
+       "score": 4,
+       "isBlank": false
+      }
+     }
+    ],
+    "legalLetters": [
+     "A",
+     "B",
+     "C",
+     "D",
+     "E",
+     "F",
+     "G",
+     "H",
+     "I",
+     "J",
+     "K",
+     "L",
+     "M",
+     "N",
+     "O",
+     "P",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "U",
+     "V",
+     "W",
+     "X",
+     "Y",
+     "Z"
+    ]
+   }
+  },
+  "predictScore": true,
+  "wordCheck": "Don't check words",
+  "challengePenalty": "Lose points per word",
+  "penaltyPoints": 5
+ }
+}

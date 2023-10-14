@@ -1,0 +1,7584 @@
+{
+ "_Í": 0,
+ "_Ć": "Game",
+ "_Ð": {
+  "state": "Game over",
+  "key": "a21800dfb206973a",
+  "creationTimestamp": 1656646356756,
+  "players": [
+   {
+    "_Í": 1,
+    "_Ć": "Player",
+    "_Ð": {
+     "key": "36ztocgyjd",
+     "name": "John",
+     "rack": {
+      "_Í": 2,
+      "_Ć": "Rack",
+      "_Ð": {
+       "id": "Rack_36ztocgyjd",
+       "cols": 8,
+       "rows": 1,
+       "squares": [
+        [
+         {
+          "_Í": 3,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 0,
+           "id": "Rack_36ztocgyjd_0",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 4,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "D",
+             "score": 2,
+             "col": 0
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 5,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 1,
+           "id": "Rack_36ztocgyjd_1",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 6,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 2,
+           "id": "Rack_36ztocgyjd_2",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 7,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 3,
+           "id": "Rack_36ztocgyjd_3",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 8,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "I",
+             "score": 1,
+             "col": 3
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 9,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 4,
+           "id": "Rack_36ztocgyjd_4",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 10,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "I",
+             "score": 1,
+             "col": 4
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 11,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 5,
+           "id": "Rack_36ztocgyjd_5",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 12,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "I",
+             "score": 1,
+             "col": 5
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 13,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 6,
+           "id": "Rack_36ztocgyjd_6",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 14,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 7,
+           "id": "Rack_36ztocgyjd_7",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ]
+       ]
+      }
+     },
+     "passes": 0,
+     "score": 168,
+     "clock": 705
+    }
+   },
+   {
+    "_Í": 15,
+    "_Ć": "Player",
+    "_Ð": {
+     "key": "4k2ckkcfs9",
+     "name": "Paul",
+     "rack": {
+      "_Í": 16,
+      "_Ć": "Rack",
+      "_Ð": {
+       "id": "Rack_4k2ckkcfs9",
+       "cols": 8,
+       "rows": 1,
+       "squares": [
+        [
+         {
+          "_Í": 17,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 0,
+           "id": "Rack_4k2ckkcfs9_0",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 18,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 1,
+           "id": "Rack_4k2ckkcfs9_1",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 19,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "T",
+             "score": 1,
+             "col": 1
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 20,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 2,
+           "id": "Rack_4k2ckkcfs9_2",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 21,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 3,
+           "id": "Rack_4k2ckkcfs9_3",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 22,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "A",
+             "score": 1,
+             "col": 3
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 23,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 4,
+           "id": "Rack_4k2ckkcfs9_4",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 24,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 5,
+           "id": "Rack_4k2ckkcfs9_5",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 25,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "Q",
+             "score": 10,
+             "col": 5
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 26,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 6,
+           "id": "Rack_4k2ckkcfs9_6",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 27,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 7,
+           "id": "Rack_4k2ckkcfs9_7",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ]
+       ]
+      }
+     },
+     "passes": 0,
+     "score": 113,
+     "clock": 609,
+     "missNextTurn": true
+    }
+   },
+   {
+    "_Í": 28,
+    "_Ć": "Player",
+    "_Ð": {
+     "key": "32dv07ptvr",
+     "name": "Joe",
+     "rack": {
+      "_Í": 29,
+      "_Ć": "Rack",
+      "_Ð": {
+       "id": "Rack_32dv07ptvr",
+       "cols": 8,
+       "rows": 1,
+       "squares": [
+        [
+         {
+          "_Í": 30,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 0,
+           "id": "Rack_32dv07ptvr_0",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 31,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 1,
+           "id": "Rack_32dv07ptvr_1",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 32,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 2,
+           "id": "Rack_32dv07ptvr_2",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 33,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 3,
+           "id": "Rack_32dv07ptvr_3",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 34,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 4,
+           "id": "Rack_32dv07ptvr_4",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 35,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 5,
+           "id": "Rack_32dv07ptvr_5",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 36,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 6,
+           "id": "Rack_32dv07ptvr_6",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 37,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 7,
+           "id": "Rack_32dv07ptvr_7",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ]
+       ]
+      }
+     },
+     "passes": 0,
+     "score": 177,
+     "clock": 761
+    }
+   },
+   {
+    "_Í": 38,
+    "_Ć": "Player",
+    "_Ð": {
+     "key": "3e1bw3w58k",
+     "name": "Mum",
+     "rack": {
+      "_Í": 39,
+      "_Ć": "Rack",
+      "_Ð": {
+       "id": "Rack_3e1bw3w58k",
+       "cols": 8,
+       "rows": 1,
+       "squares": [
+        [
+         {
+          "_Í": 40,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 0,
+           "id": "Rack_3e1bw3w58k_0",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 41,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "R",
+             "score": 1,
+             "col": 0
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 42,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 1,
+           "id": "Rack_3e1bw3w58k_1",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 43,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": " ",
+             "score": 0,
+             "isBlank": true,
+             "col": 1
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 44,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 2,
+           "id": "Rack_3e1bw3w58k_2",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 45,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "E",
+             "score": 1,
+             "col": 2
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 46,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 3,
+           "id": "Rack_3e1bw3w58k_3",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 47,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "T",
+             "score": 1,
+             "col": 3
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 48,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 4,
+           "id": "Rack_3e1bw3w58k_4",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 49,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 5,
+           "id": "Rack_3e1bw3w58k_5",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1,
+           "tile": {
+            "_Í": 50,
+            "_Ć": "Tile",
+            "_Ð": {
+             "letter": "A",
+             "score": 1,
+             "col": 5
+            }
+           }
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 51,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 6,
+           "id": "Rack_3e1bw3w58k_6",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ],
+        [
+         {
+          "_Í": 52,
+          "_Ć": "Square",
+          "_Ð": {
+           "type": "_",
+           "col": 7,
+           "id": "Rack_3e1bw3w58k_7",
+           "letterScoreMultiplier": 1,
+           "wordScoreMultiplier": 1
+          }
+         }
+        ]
+       ]
+      }
+     },
+     "passes": 0,
+     "score": 162,
+     "clock": 745
+    }
+   }
+  ],
+  "turns": [
+   {
+    "_Í": 53,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 32,
+     "words": [
+      {
+       "_Í": 54,
+       "_Ð": {
+        "word": "SPICY",
+        "score": 32
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 55,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 7,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 56,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "col": 8,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 57,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 9,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 58,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "C",
+        "score": 3,
+        "col": 10,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 59,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Y",
+        "score": 4,
+        "col": 11,
+        "row": 7
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 60,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 61,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "F",
+        "score": 4,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 62,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 63,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 64,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656646713869
+    }
+   },
+   {
+    "_Í": 65,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 16,
+     "words": [
+      {
+       "_Í": 66,
+       "_Ð": {
+        "word": "BAA",
+        "score": 9
+       }
+      },
+      {
+       "_Í": 67,
+       "_Ð": {
+        "word": "AS",
+        "score": 2
+       }
+      },
+      {
+       "_Í": 68,
+       "_Ð": {
+        "word": "AP",
+        "score": 5
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 69,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "B",
+        "score": 3,
+        "col": 6,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 70,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 7,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 71,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 8,
+        "row": 6
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 72,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 73,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 74,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656646889845
+    }
+   },
+   {
+    "_Í": 75,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": -16,
+     "placements": [
+      {
+       "_Í": 76,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "B",
+        "score": 3,
+        "col": 6,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 77,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 7,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 78,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 8,
+        "row": 6
+       }
+      }
+     ],
+     "type": "challenge-won",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 79,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 80,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 81,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 5
+       }
+      }
+     ],
+     "challengerKey": "32dv07ptvr",
+     "timestamp": 1656646946870
+    }
+   },
+   {
+    "_Í": 82,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 0,
+     "type": "challenge-lost",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "3e1bw3w58k",
+     "challengerKey": "32dv07ptvr",
+     "timestamp": 1656646946952
+    }
+   },
+   {
+    "_Í": 83,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 20,
+     "words": [
+      {
+       "_Í": 84,
+       "_Ð": {
+        "word": "FRANC",
+        "score": 20
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 85,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "F",
+        "score": 4,
+        "col": 10,
+        "row": 3
+       }
+      },
+      {
+       "_Í": 86,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 10,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 87,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 10,
+        "row": 5
+       }
+      },
+      {
+       "_Í": 88,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 10,
+        "row": 6
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [
+      {
+       "_Í": 89,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "J",
+        "score": 8,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 90,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 91,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "W",
+        "score": 4,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 92,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656646987425
+    }
+   },
+   {
+    "_Í": 93,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 0,
+     "type": "passed",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "timestamp": 1656647422250
+    }
+   },
+   {
+    "_Í": 94,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 0,
+     "type": "passed",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "timestamp": 1656647424572
+    }
+   },
+   {
+    "_Í": 95,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 14,
+     "words": [
+      {
+       "_Í": 96,
+       "_Ð": {
+        "word": "FE",
+        "score": 10
+       }
+      },
+      {
+       "_Í": 97,
+       "_Ð": {
+        "word": "OE",
+        "score": 4
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 98,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 11,
+        "row": 2
+       }
+      },
+      {
+       "_Í": 99,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 11,
+        "row": 3
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 100,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "W",
+        "score": 4,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 101,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656647603562
+    }
+   },
+   {
+    "_Í": 102,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 0,
+     "type": "passed",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "timestamp": 1656647611250
+    }
+   },
+   {
+    "_Í": 103,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 30,
+     "words": [
+      {
+       "_Í": 104,
+       "_Ð": {
+        "word": "FA",
+        "score": 13
+       }
+      },
+      {
+       "_Í": 105,
+       "_Ð": {
+        "word": "ON",
+        "score": 2
+       }
+      },
+      {
+       "_Í": 106,
+       "_Ð": {
+        "word": "FOIL",
+        "score": 15
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 107,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "F",
+        "score": 4,
+        "col": 9,
+        "row": 5
+       }
+      },
+      {
+       "_Í": 108,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 9,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 109,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 9,
+        "row": 8
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 110,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "X",
+        "score": 8,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 111,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 112,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656647622318
+    }
+   },
+   {
+    "_Í": 113,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 12,
+     "words": [
+      {
+       "_Í": 114,
+       "_Ð": {
+        "word": "OVA",
+        "score": 12
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 115,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 12,
+        "row": 2
+       }
+      },
+      {
+       "_Í": 116,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 13,
+        "row": 2
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 117,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 118,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656647770941
+    }
+   },
+   {
+    "_Í": 119,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 19,
+     "words": [
+      {
+       "_Í": 120,
+       "_Ð": {
+        "word": "WOOL",
+        "score": 12
+       }
+      },
+      {
+       "_Í": 121,
+       "_Ð": {
+        "word": "SO",
+        "score": 2
+       }
+      },
+      {
+       "_Í": 122,
+       "_Ð": {
+        "word": "PO",
+        "score": 5
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 123,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "W",
+        "score": 4,
+        "col": 6,
+        "row": 8
+       }
+      },
+      {
+       "_Í": 124,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 7,
+        "row": 8
+       }
+      },
+      {
+       "_Í": 125,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 8,
+        "row": 8
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 126,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 127,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 128,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656647938418
+    }
+   },
+   {
+    "_Í": 129,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 40,
+     "words": [
+      {
+       "_Í": 130,
+       "_Ð": {
+        "word": "JOY",
+        "score": 29
+       }
+      },
+      {
+       "_Í": 131,
+       "_Ð": {
+        "word": "WO",
+        "score": 5
+       }
+      },
+      {
+       "_Í": 132,
+       "_Ð": {
+        "word": "SOY",
+        "score": 6
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 133,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "J",
+        "score": 8,
+        "col": 5,
+        "row": 9
+       }
+      },
+      {
+       "_Í": 134,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 6,
+        "row": 9
+       }
+      },
+      {
+       "_Í": 135,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Y",
+        "score": 4,
+        "col": 7,
+        "row": 9
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [
+      {
+       "_Í": 136,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 137,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 138,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 4
+       }
+      }
+     ],
+     "timestamp": 1656648023834
+    }
+   },
+   {
+    "_Í": 139,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 40,
+     "words": [
+      {
+       "_Í": 140,
+       "_Ð": {
+        "word": "OVAS",
+        "score": 7
+       }
+      },
+      {
+       "_Í": 141,
+       "_Ð": {
+        "word": "LUSH",
+        "score": 33
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 142,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 14,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 143,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 14,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 144,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 14,
+        "row": 2
+       }
+      },
+      {
+       "_Í": 145,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 14,
+        "row": 3
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 146,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 147,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 148,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 149,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656648164717
+    }
+   },
+   {
+    "_Í": 150,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": -40,
+     "placements": [
+      {
+       "_Í": 151,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 14,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 152,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 14,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 153,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 14,
+        "row": 2
+       }
+      },
+      {
+       "_Í": 154,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 14,
+        "row": 3
+       }
+      }
+     ],
+     "type": "challenge-won",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 155,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 156,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 157,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 158,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "col": 6
+       }
+      }
+     ],
+     "challengerKey": "3e1bw3w58k",
+     "timestamp": 1656648221932
+    }
+   },
+   {
+    "_Í": 159,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 16,
+     "words": [
+      {
+       "_Í": 160,
+       "_Ð": {
+        "word": "BA",
+        "score": 8
+       }
+      },
+      {
+       "_Í": 161,
+       "_Ð": {
+        "word": "BA",
+        "score": 8
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 162,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "B",
+        "score": 3,
+        "col": 13,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 163,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 14,
+        "row": 1
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 164,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 165,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656648384420
+    }
+   },
+   {
+    "_Í": 166,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 69,
+     "words": [
+      {
+       "_Í": 167,
+       "_Ð": {
+        "word": "EMERGES",
+        "score": 16
+       }
+      },
+      {
+       "_Í": 168,
+       "_Ð": {
+        "word": "SOE",
+        "score": 3
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 169,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 170,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 6,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 171,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 7,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 172,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 8,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 173,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 9,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 174,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 10,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 175,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 11,
+        "row": 1
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 176,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 177,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 178,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 179,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 180,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 181,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 182,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656648466456
+    }
+   },
+   {
+    "_Í": 183,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": -69,
+     "placements": [
+      {
+       "_Í": 184,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 185,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 6,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 186,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 7,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 187,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 8,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 188,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 9,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 189,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 10,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 190,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 11,
+        "row": 1
+       }
+      }
+     ],
+     "type": "challenge-won",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 191,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 192,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 193,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 194,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 195,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 196,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 197,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "challengerKey": "4k2ckkcfs9",
+     "timestamp": 1656648520605
+    }
+   },
+   {
+    "_Í": 198,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 33,
+     "words": [
+      {
+       "_Í": 199,
+       "_Ð": {
+        "word": "ZA",
+        "score": 33
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 200,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Z",
+        "score": 10,
+        "col": 14,
+        "row": 0
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [
+      {
+       "_Í": 201,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 3
+       }
+      }
+     ],
+     "timestamp": 1656648536112
+    }
+   },
+   {
+    "_Í": 202,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 19,
+     "words": [
+      {
+       "_Í": 203,
+       "_Ð": {
+        "word": "SHUN",
+        "score": 9
+       }
+      },
+      {
+       "_Í": 204,
+       "_Ð": {
+        "word": "FOILS",
+        "score": 10
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 205,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 9,
+        "row": 9
+       }
+      },
+      {
+       "_Í": 206,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 10,
+        "row": 9
+       }
+      },
+      {
+       "_Í": 207,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 11,
+        "row": 9
+       }
+      },
+      {
+       "_Í": 208,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 12,
+        "row": 9
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 209,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 210,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 211,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 212,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656648727498
+    }
+   },
+   {
+    "_Í": 213,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 16,
+     "words": [
+      {
+       "_Í": 214,
+       "_Ð": {
+        "word": "AT",
+        "score": 4
+       }
+      },
+      {
+       "_Í": 215,
+       "_Ð": {
+        "word": "HA",
+        "score": 10
+       }
+      },
+      {
+       "_Í": 216,
+       "_Ð": {
+        "word": "UT",
+        "score": 2
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 217,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 10,
+        "row": 10
+       }
+      },
+      {
+       "_Í": 218,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 11,
+        "row": 10
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 219,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 220,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 4
+       }
+      }
+     ],
+     "timestamp": 1656648909766
+    }
+   },
+   {
+    "_Í": 221,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 67,
+     "words": [
+      {
+       "_Í": 222,
+       "_Ð": {
+        "word": "EMERGES",
+        "score": 11
+       }
+      },
+      {
+       "_Í": 223,
+       "_Ð": {
+        "word": "HAS",
+        "score": 6
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 224,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 4,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 225,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 5,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 226,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 6,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 227,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 7,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 228,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 8,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 229,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 9,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 230,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 10,
+        "row": 11
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 231,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 232,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 233,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 234,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 235,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 236,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 237,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656648939939
+    }
+   },
+   {
+    "_Í": 238,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 15,
+     "words": [
+      {
+       "_Í": 239,
+       "_Ð": {
+        "word": "RIND",
+        "score": 15
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 240,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 7,
+        "row": 12
+       }
+      },
+      {
+       "_Í": 241,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 7,
+        "row": 13
+       }
+      },
+      {
+       "_Í": 242,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 7,
+        "row": 14
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [
+      {
+       "_Í": 243,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 244,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 245,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 4
+       }
+      }
+     ],
+     "timestamp": 1656649009494
+    }
+   },
+   {
+    "_Í": 246,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 34,
+     "words": [
+      {
+       "_Í": 247,
+       "_Ð": {
+        "word": "XI",
+        "score": 17
+       }
+      },
+      {
+       "_Í": 248,
+       "_Ð": {
+        "word": "EX",
+        "score": 17
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 249,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "X",
+        "score": 8,
+        "col": 6,
+        "row": 12
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 250,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 1
+       }
+      }
+     ],
+     "timestamp": 1656649027715
+    }
+   },
+   {
+    "_Í": 251,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 24,
+     "words": [
+      {
+       "_Í": 252,
+       "_Ð": {
+        "word": "GOA",
+        "score": 8
+       }
+      },
+      {
+       "_Í": 253,
+       "_Ð": {
+        "word": "OE",
+        "score": 4
+       }
+      },
+      {
+       "_Í": 254,
+       "_Ð": {
+        "word": "JAM",
+        "score": 12
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 255,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 3,
+        "row": 10
+       }
+      },
+      {
+       "_Í": 256,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 4,
+        "row": 10
+       }
+      },
+      {
+       "_Í": 257,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 5,
+        "row": 10
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 258,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "C",
+        "score": 3,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 259,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 260,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656649190056
+    }
+   },
+   {
+    "_Í": 261,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 12,
+     "words": [
+      {
+       "_Í": 262,
+       "_Ð": {
+        "word": "FEE",
+        "score": 6
+       }
+      },
+      {
+       "_Í": 263,
+       "_Ð": {
+        "word": "VET",
+        "score": 6
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 264,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 12,
+        "row": 3
+       }
+      },
+      {
+       "_Í": 265,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 12,
+        "row": 4
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 266,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 267,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656649372175
+    }
+   },
+   {
+    "_Í": 268,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 20,
+     "words": [
+      {
+       "_Í": 269,
+       "_Ð": {
+        "word": "MEW",
+        "score": 14
+       }
+      },
+      {
+       "_Í": 270,
+       "_Ð": {
+        "word": "WOE",
+        "score": 6
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 271,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "M",
+        "score": 3,
+        "col": 9,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 272,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 10,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 273,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "W",
+        "score": 4,
+        "col": 11,
+        "row": 1
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [
+      {
+       "_Í": 274,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 275,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 276,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656649405840
+    }
+   },
+   {
+    "_Í": 277,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 28,
+     "words": [
+      {
+       "_Í": 278,
+       "_Ð": {
+        "word": "TURNED",
+        "score": 21
+       }
+      },
+      {
+       "_Í": 279,
+       "_Ð": {
+        "word": "EM",
+        "score": 4
+       }
+      },
+      {
+       "_Í": 280,
+       "_Ð": {
+        "word": "DE",
+        "score": 3
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 281,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 5,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 282,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 6,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 283,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 7,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 284,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 8,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 285,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 9,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 286,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 10,
+        "row": 0
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 287,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 288,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 289,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 290,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 291,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 292,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656649442613
+    }
+   },
+   {
+    "_Í": 293,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 26,
+     "words": [
+      {
+       "_Í": 294,
+       "_Ð": {
+        "word": "SHUNT",
+        "score": 10
+       }
+      },
+      {
+       "_Í": 295,
+       "_Ð": {
+        "word": "TRACK",
+        "score": 16
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 296,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 13,
+        "row": 9
+       }
+      },
+      {
+       "_Í": 297,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 13,
+        "row": 10
+       }
+      },
+      {
+       "_Í": 298,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 13,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 299,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "C",
+        "score": 3,
+        "col": 13,
+        "row": 12
+       }
+      },
+      {
+       "_Í": 300,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "K",
+        "score": 0,
+        "col": 13,
+        "row": 13,
+        "isBlank": true
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [
+      {
+       "_Í": 301,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 302,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 303,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "B",
+        "score": 3,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 304,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "Q",
+        "score": 10,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 305,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656649520013
+    }
+   },
+   {
+    "_Í": 306,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 12,
+     "words": [
+      {
+       "_Í": 307,
+       "_Ð": {
+        "word": "NICE",
+        "score": 12
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 308,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 11,
+        "row": 12
+       }
+      },
+      {
+       "_Í": 309,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 12,
+        "row": 12
+       }
+      },
+      {
+       "_Í": 310,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 14,
+        "row": 12
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [
+      {
+       "_Í": 311,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 312,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "K",
+        "score": 5,
+        "col": 4
+       }
+      },
+      {
+       "_Í": 313,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 5
+       }
+      }
+     ],
+     "timestamp": 1656649699987
+    }
+   },
+   {
+    "_Í": 314,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 28,
+     "words": [
+      {
+       "_Í": 315,
+       "_Ð": {
+        "word": "GUISE",
+        "score": 21
+       }
+      },
+      {
+       "_Í": 316,
+       "_Ð": {
+        "word": "TRACKS",
+        "score": 7
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 317,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "G",
+        "score": 2,
+        "col": 10,
+        "row": 14
+       }
+      },
+      {
+       "_Í": 318,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 11,
+        "row": 14
+       }
+      },
+      {
+       "_Í": 319,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 12,
+        "row": 14
+       }
+      },
+      {
+       "_Í": 320,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "S",
+        "score": 1,
+        "col": 13,
+        "row": 14
+       }
+      },
+      {
+       "_Í": 321,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 14,
+        "row": 14
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [
+      {
+       "_Í": 322,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": " ",
+        "score": 0,
+        "col": 1,
+        "isBlank": true
+       }
+      },
+      {
+       "_Í": 323,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 2
+       }
+      },
+      {
+       "_Í": 324,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "T",
+        "score": 1,
+        "col": 3
+       }
+      },
+      {
+       "_Í": 325,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 5
+       }
+      },
+      {
+       "_Í": 326,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 6
+       }
+      }
+     ],
+     "timestamp": 1656649802229
+    }
+   },
+   {
+    "_Í": 327,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 17,
+     "words": [
+      {
+       "_Í": 328,
+       "_Ð": {
+        "word": "TO",
+        "score": 2
+       }
+      },
+      {
+       "_Í": 329,
+       "_Ð": {
+        "word": "OVAL",
+        "score": 15
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 330,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 13,
+        "row": 4
+       }
+      },
+      {
+       "_Í": 331,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "V",
+        "score": 4,
+        "col": 13,
+        "row": 5
+       }
+      },
+      {
+       "_Í": 332,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "A",
+        "score": 1,
+        "col": 13,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 333,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 13,
+        "row": 7
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [
+      {
+       "_Í": 334,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 0
+       }
+      },
+      {
+       "_Í": 335,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 1
+       }
+      },
+      {
+       "_Í": 336,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 4
+       }
+      }
+     ],
+     "timestamp": 1656650000135
+    }
+   },
+   {
+    "_Í": 337,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 25,
+     "words": [
+      {
+       "_Í": 338,
+       "_Ð": {
+        "word": "AB",
+        "score": 4
+       }
+      },
+      {
+       "_Í": 339,
+       "_Ð": {
+        "word": "LI",
+        "score": 6
+       }
+      },
+      {
+       "_Í": 340,
+       "_Ð": {
+        "word": "BIO",
+        "score": 15
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 341,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "B",
+        "score": 3,
+        "col": 14,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 342,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 14,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 343,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "O",
+        "score": 1,
+        "col": 14,
+        "row": 8
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [],
+     "timestamp": 1656650199224
+    }
+   },
+   {
+    "_Í": 344,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 14,
+     "words": [
+      {
+       "_Í": 345,
+       "_Ð": {
+        "word": "THE",
+        "score": 14
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 346,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "H",
+        "score": 4,
+        "col": 5,
+        "row": 1
+       }
+      },
+      {
+       "_Í": 347,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 5,
+        "row": 2
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [],
+     "timestamp": 1656650365294
+    }
+   },
+   {
+    "_Í": 348,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 10,
+     "words": [
+      {
+       "_Í": 349,
+       "_Ð": {
+        "word": "RETURNED",
+        "score": 10
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 350,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "R",
+        "score": 1,
+        "col": 3,
+        "row": 0
+       }
+      },
+      {
+       "_Í": 351,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "E",
+        "score": 1,
+        "col": 4,
+        "row": 0
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "nextToGoKey": "36ztocgyjd",
+     "replacements": [],
+     "timestamp": 1656650536580
+    }
+   },
+   {
+    "_Í": 352,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 13,
+     "words": [
+      {
+       "_Í": 353,
+       "_Ð": {
+        "word": "LAD",
+        "score": 6
+       }
+      },
+      {
+       "_Í": 354,
+       "_Ð": {
+        "word": "LI",
+        "score": 2
+       }
+      },
+      {
+       "_Í": 355,
+       "_Ð": {
+        "word": "DE",
+        "score": 5
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 356,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 12,
+        "row": 11
+       }
+      },
+      {
+       "_Í": 357,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "D",
+        "score": 2,
+        "col": 14,
+        "row": 11
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "36ztocgyjd",
+     "nextToGoKey": "4k2ckkcfs9",
+     "replacements": [],
+     "timestamp": 1656650611872
+    }
+   },
+   {
+    "_Í": 358,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 6,
+     "words": [
+      {
+       "_Í": 359,
+       "_Ð": {
+        "word": "LAB",
+        "score": 6
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 360,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "L",
+        "score": 1,
+        "col": 12,
+        "row": 6
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "4k2ckkcfs9",
+     "nextToGoKey": "32dv07ptvr",
+     "replacements": [],
+     "timestamp": 1656650782658
+    }
+   },
+   {
+    "_Í": 361,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 18,
+     "words": [
+      {
+       "_Í": 362,
+       "_Ð": {
+        "word": "PUKING",
+        "score": 18
+       }
+      }
+     ],
+     "placements": [
+      {
+       "_Í": 363,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "P",
+        "score": 3,
+        "col": 3,
+        "row": 5
+       }
+      },
+      {
+       "_Í": 364,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "U",
+        "score": 1,
+        "col": 3,
+        "row": 6
+       }
+      },
+      {
+       "_Í": 365,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "K",
+        "score": 5,
+        "col": 3,
+        "row": 7
+       }
+      },
+      {
+       "_Í": 366,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "I",
+        "score": 1,
+        "col": 3,
+        "row": 8
+       }
+      },
+      {
+       "_Í": 367,
+       "_Ć": "Tile",
+       "_Ð": {
+        "letter": "N",
+        "score": 1,
+        "col": 3,
+        "row": 9
+       }
+      }
+     ],
+     "type": "play",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "replacements": [],
+     "timestamp": 1656650801670
+    }
+   },
+   {
+    "_Í": 368,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": 0,
+     "type": "challenge-lost",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "32dv07ptvr",
+     "nextToGoKey": "3e1bw3w58k",
+     "challengerKey": "4k2ckkcfs9",
+     "timestamp": 1656650814669
+    }
+   },
+   {
+    "_Í": 369,
+    "_Ć": "Turn",
+    "_Ð": {
+     "score": [
+       {
+        "_Í": 371,
+        "_Ð": {
+"key":"36ztocgyjd",
+"tiles": -5
+        }
+       },
+       {
+        "_Í": 372,
+        "_Ð": {
+"key":"4k2ckkcfs9",
+"tiles": -12
+        }
+       },
+       {
+        "_Í": 373,
+        "_Ð": {
+"key":"32dv07ptvr",
+"tiles": 21
+        }
+       },
+       {
+        "_Í": 374,
+        "_Ð": {
+"key":"3e1bw3w58k",
+"tiles": -4
+        }
+       }
+     ],
+     "type": "game-over",
+     "gameKey": "a21800dfb206973a",
+     "playerKey": "3e1bw3w58k",
+     "timestamp": 1656650837081
+    }
+   }
+  ],
+  "edition": "English_Scrabble",
+  "board": {
+   "_Í": 375,
+   "_Ć": "Board",
+   "_Ð": {
+    "id": "Board",
+    "cols": 15,
+    "rows": 15,
+    "squares": [
+     [
+      {
+       "_Í": 376,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 0,
+        "id": "Board_0x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3
+       }
+      },
+      {
+       "_Í": 377,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 378,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 379,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 0,
+        "id": "Board_0x3",
+        "row": 3,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 380,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 381,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 382,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 383,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 0,
+        "id": "Board_0x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3
+       }
+      },
+      {
+       "_Í": 384,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 385,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 386,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 387,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 0,
+        "id": "Board_0x11",
+        "row": 11,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 388,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 389,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 0,
+        "id": "Board_0x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 390,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 0,
+        "id": "Board_0x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 391,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 392,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 1,
+        "id": "Board_1x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 393,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 394,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 395,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 396,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 1,
+        "id": "Board_1x5",
+        "row": 5,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 397,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 398,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 399,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 400,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 1,
+        "id": "Board_1x9",
+        "row": 9,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 401,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 402,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 403,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 404,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 1,
+        "id": "Board_1x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 405,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 1,
+        "id": "Board_1x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 406,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 407,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 408,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 2,
+        "id": "Board_2x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 409,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 410,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 411,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 412,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 2,
+        "id": "Board_2x6",
+        "row": 6,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 413,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 414,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 2,
+        "id": "Board_2x8",
+        "row": 8,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 415,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 416,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 417,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 418,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 2,
+        "id": "Board_2x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 419,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 420,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 2,
+        "id": "Board_2x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 421,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 3,
+        "id": "Board_3x0",
+        "row": 0,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 422,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "R",
+          "score": 1,
+          "col": 3,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 423,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 424,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 425,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 3,
+        "id": "Board_3x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 426,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 427,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 428,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "P",
+          "score": 3,
+          "col": 3,
+          "row": 5,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 429,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 430,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "U",
+          "score": 1,
+          "col": 3,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 431,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 3,
+        "id": "Board_3x7",
+        "row": 7,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 432,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "K",
+          "score": 5,
+          "col": 3,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 433,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 434,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "I",
+          "score": 1,
+          "col": 3,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 435,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 436,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "col": 3,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 437,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 438,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "G",
+          "score": 2,
+          "col": 3,
+          "row": 10,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 439,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 3,
+        "id": "Board_3x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 440,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 441,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 3,
+        "id": "Board_3x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 442,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 3,
+        "id": "Board_3x14",
+        "row": 14,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 443,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 444,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 4,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 445,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 446,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 447,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 448,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 4,
+        "id": "Board_4x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 449,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 450,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 451,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 452,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 453,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 454,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 4,
+        "id": "Board_4x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 455,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 4,
+          "row": 10,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 456,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 457,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 4,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 458,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 459,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 460,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 4,
+        "id": "Board_4x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 461,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 462,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "T",
+          "score": 1,
+          "col": 5,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 463,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "id": "Board_5x1",
+        "row": 1,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 464,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "H",
+          "score": 4,
+          "col": 5,
+          "row": 1,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 465,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 466,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 5,
+          "row": 2,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 467,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 468,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 469,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "id": "Board_5x5",
+        "row": 5,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 470,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 471,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 472,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 473,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "id": "Board_5x9",
+        "row": 9,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 474,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "J",
+          "score": 8,
+          "col": 5,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 475,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 476,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 5,
+          "row": 10,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 477,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 478,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "M",
+          "score": 3,
+          "col": 5,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 479,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 480,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 5,
+        "id": "Board_5x13",
+        "row": 13,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 481,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 5,
+        "id": "Board_5x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 482,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 483,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "U",
+          "score": 1,
+          "col": 6,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 484,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 485,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "id": "Board_6x2",
+        "row": 2,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 486,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 487,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 488,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 489,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "id": "Board_6x6",
+        "row": 6,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 490,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 491,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "id": "Board_6x8",
+        "row": 8,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 492,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "W",
+          "score": 4,
+          "col": 6,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 493,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 494,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 6,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 495,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 496,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 497,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 6,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 498,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 6,
+        "id": "Board_6x12",
+        "row": 12,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 499,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "X",
+          "score": 8,
+          "col": 6,
+          "row": 12,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 500,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 501,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 6,
+        "id": "Board_6x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 502,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 7,
+        "id": "Board_7x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": {
+         "_Í": 503,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "R",
+          "score": 1,
+          "col": 7,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 504,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 505,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 506,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 7,
+        "id": "Board_7x3",
+        "row": 3,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 507,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 508,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 509,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 510,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "M",
+        "col": 7,
+        "id": "Board_7x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 511,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "S",
+          "score": 1,
+          "col": 7,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 512,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 513,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 7,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 514,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 515,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "Y",
+          "score": 4,
+          "col": 7,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 516,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 517,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 7,
+        "id": "Board_7x11",
+        "row": 11,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 518,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "R",
+          "score": 1,
+          "col": 7,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 519,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 520,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "I",
+          "score": 1,
+          "col": 7,
+          "row": 12,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 521,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 7,
+        "id": "Board_7x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 522,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "col": 7,
+          "row": 13,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 523,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 7,
+        "id": "Board_7x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": {
+         "_Í": 524,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "D",
+          "score": 2,
+          "col": 7,
+          "row": 14,
+          "isLocked": true
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 525,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 526,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "col": 8,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 527,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 528,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "id": "Board_8x2",
+        "row": 2,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 529,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 530,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 531,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 532,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "id": "Board_8x6",
+        "row": 6,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 533,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 534,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "P",
+          "score": 3,
+          "col": 8,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 535,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "id": "Board_8x8",
+        "row": 8,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 536,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 8,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 537,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 538,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 539,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 540,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "G",
+          "score": 2,
+          "col": 8,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 541,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 8,
+        "id": "Board_8x12",
+        "row": 12,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 542,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 543,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 8,
+        "id": "Board_8x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 544,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 545,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 9,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 546,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "id": "Board_9x1",
+        "row": 1,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 547,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "M",
+          "score": 3,
+          "col": 9,
+          "row": 1,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 548,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 549,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 550,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 551,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "id": "Board_9x5",
+        "row": 5,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 552,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "F",
+          "score": 4,
+          "col": 9,
+          "row": 5,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 553,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 554,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 9,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 555,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 556,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "I",
+          "score": 1,
+          "col": 9,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 557,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 558,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "L",
+          "score": 1,
+          "col": 9,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 559,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "id": "Board_9x9",
+        "row": 9,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 560,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "S",
+          "score": 1,
+          "col": 9,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 561,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 562,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 563,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 9,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 564,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 565,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 9,
+        "id": "Board_9x13",
+        "row": 13,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 566,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 9,
+        "id": "Board_9x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 567,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 568,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "D",
+          "score": 2,
+          "col": 10,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 569,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 570,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 10,
+          "row": 1,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 571,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 572,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 573,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "F",
+          "score": 4,
+          "col": 10,
+          "row": 3,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 574,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 10,
+        "id": "Board_10x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 575,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "R",
+          "score": 1,
+          "col": 10,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 576,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 577,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 10,
+          "row": 5,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 578,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 579,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "col": 10,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 580,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 581,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "C",
+          "score": 3,
+          "col": 10,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 582,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 583,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 584,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "H",
+          "score": 4,
+          "col": 10,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 585,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 10,
+        "id": "Board_10x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 586,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 10,
+          "row": 10,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 587,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 588,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "S",
+          "score": 1,
+          "col": 10,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 589,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 590,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 591,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 10,
+        "id": "Board_10x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 592,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "G",
+          "score": 2,
+          "col": 10,
+          "row": 14,
+          "isLocked": true
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 593,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 11,
+        "id": "Board_11x0",
+        "row": 0,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 594,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 595,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "W",
+          "score": 4,
+          "col": 11,
+          "row": 1,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 596,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 597,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 11,
+          "row": 2,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 598,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 11,
+        "id": "Board_11x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 599,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 11,
+          "row": 3,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 600,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 601,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 602,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 603,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 11,
+        "id": "Board_11x7",
+        "row": 7,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 604,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "Y",
+          "score": 4,
+          "col": 11,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 605,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 606,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 607,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "U",
+          "score": 1,
+          "col": 11,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 608,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 609,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "T",
+          "score": 1,
+          "col": 11,
+          "row": 10,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 610,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 11,
+        "id": "Board_11x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2
+       }
+      },
+      {
+       "_Í": 611,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 612,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "col": 11,
+          "row": 12,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 613,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 11,
+        "id": "Board_11x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 614,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 11,
+        "id": "Board_11x14",
+        "row": 14,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 615,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "U",
+          "score": 1,
+          "col": 11,
+          "row": 14,
+          "isLocked": true
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 616,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 617,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 618,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 12,
+        "id": "Board_12x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 619,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "V",
+          "score": 4,
+          "col": 12,
+          "row": 2,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 620,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 621,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 12,
+          "row": 3,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 622,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 623,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "T",
+          "score": 1,
+          "col": 12,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 624,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 625,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 12,
+        "id": "Board_12x6",
+        "row": 6,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 626,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "L",
+          "score": 1,
+          "col": 12,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 627,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 628,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 12,
+        "id": "Board_12x8",
+        "row": 8,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 629,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 630,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "N",
+          "score": 1,
+          "col": 12,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 631,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 632,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 633,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "L",
+          "score": 1,
+          "col": 12,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 634,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 12,
+        "id": "Board_12x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 635,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "I",
+          "score": 1,
+          "col": 12,
+          "row": 12,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 636,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 637,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 12,
+        "id": "Board_12x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 638,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "I",
+          "score": 1,
+          "col": 12,
+          "row": 14,
+          "isLocked": true
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 639,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 640,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 13,
+        "id": "Board_13x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 641,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "B",
+          "score": 3,
+          "col": 13,
+          "row": 1,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 642,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 643,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 13,
+          "row": 2,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 644,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x3",
+        "row": 3,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 645,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 646,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 13,
+          "row": 4,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 647,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 13,
+        "id": "Board_13x5",
+        "row": 5,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 648,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "V",
+          "score": 4,
+          "col": 13,
+          "row": 5,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 649,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 650,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 13,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 651,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 652,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "L",
+          "score": 1,
+          "col": 13,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 653,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 654,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "t",
+        "col": 13,
+        "id": "Board_13x9",
+        "row": 9,
+        "letterScoreMultiplier": 3,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 655,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "T",
+          "score": 1,
+          "col": 13,
+          "row": 9,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 656,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 657,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "R",
+          "score": 1,
+          "col": 13,
+          "row": 10,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 658,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x11",
+        "row": 11,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 659,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 13,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 660,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 661,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "C",
+          "score": 3,
+          "col": 13,
+          "row": 12,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 662,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "D",
+        "col": 13,
+        "id": "Board_13x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 2,
+        "tile": {
+         "_Í": 663,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "K",
+          "score": 0,
+          "isBlank": true,
+          "col": 13,
+          "row": 13,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 664,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 13,
+        "id": "Board_13x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 665,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "S",
+          "score": 1,
+          "col": 13,
+          "row": 14,
+          "isLocked": true
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "_Í": 666,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 14,
+        "id": "Board_14x0",
+        "row": 0,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": {
+         "_Í": 667,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "Z",
+          "score": 10,
+          "col": 14,
+          "row": 0,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 668,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x1",
+        "row": 1,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 669,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "A",
+          "score": 1,
+          "col": 14,
+          "row": 1,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 670,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x2",
+        "row": 2,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 671,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 14,
+        "id": "Board_14x3",
+        "row": 3,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 672,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x4",
+        "row": 4,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 673,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x5",
+        "row": 5,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 674,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x6",
+        "row": 6,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 675,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "B",
+          "score": 3,
+          "col": 14,
+          "row": 6,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 676,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 14,
+        "id": "Board_14x7",
+        "row": 7,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": {
+         "_Í": 677,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "I",
+          "score": 1,
+          "col": 14,
+          "row": 7,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 678,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x8",
+        "row": 8,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 679,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "O",
+          "score": 1,
+          "col": 14,
+          "row": 8,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 680,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x9",
+        "row": 9,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 681,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x10",
+        "row": 10,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 682,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "d",
+        "col": 14,
+        "id": "Board_14x11",
+        "row": 11,
+        "letterScoreMultiplier": 2,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 683,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "D",
+          "score": 2,
+          "col": 14,
+          "row": 11,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 684,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x12",
+        "row": 12,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1,
+        "tile": {
+         "_Í": 685,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 14,
+          "row": 12,
+          "isLocked": true
+         }
+        }
+       }
+      },
+      {
+       "_Í": 686,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "_",
+        "col": 14,
+        "id": "Board_14x13",
+        "row": 13,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 1
+       }
+      },
+      {
+       "_Í": 687,
+       "_Ć": "Square",
+       "_Ð": {
+        "type": "T",
+        "col": 14,
+        "id": "Board_14x14",
+        "row": 14,
+        "letterScoreMultiplier": 1,
+        "wordScoreMultiplier": 3,
+        "tile": {
+         "_Í": 688,
+         "_Ć": "Tile",
+         "_Ð": {
+          "letter": "E",
+          "score": 1,
+          "col": 14,
+          "row": 14,
+          "isLocked": true
+         }
+        }
+       }
+      }
+     ]
+    ],
+    "midrow": 7,
+    "midcol": 7
+   }
+  },
+  "rackSize": 7,
+  "swapSize": 7,
+  "bonuses": {
+   "_Í": 689,
+   "_Ð": {
+    "7": 50
+   }
+  },
+  "letterBag": {
+   "_Í": 690,
+   "_Ć": "LetterBag",
+   "_Ð": {
+    "tiles": [],
+    "legalLetters": [
+     "A",
+     "B",
+     "C",
+     "D",
+     "E",
+     "F",
+     "G",
+     "H",
+     "I",
+     "J",
+     "K",
+     "L",
+     "M",
+     "N",
+     "O",
+     "P",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "U",
+     "V",
+     "W",
+     "X",
+     "Y",
+     "Z"
+    ]
+   }
+  },
+  "dictionary": "SOWPODS_English",
+  "timerType": "Turn timer",
+  "timeAllowed": 13,
+  "challengePenalty": "Miss next turn",
+  "minPlayers": 4,
+  "predictScore": true,
+  "whosTurnKey": "3e1bw3w58k"
+ }
+}
